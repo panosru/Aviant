@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Aviant.DDD.Application</RootNamespace>
+        <AssemblyName>Aviant.DDD.Application</AssemblyName>
+        <PackageVersion>1.0.0-alpha</PackageVersion>
+        <Authors>Panagiotis Kosmidis</Authors>
+        <Description>Aviant Domain Driven Design Library</Description>
+        <RepositoryUrl>https://github.com/panosru/Aviant.DDD</RepositoryUrl>
+        <PackageLicenseUrl>https://github.com/panosru/Aviant.DDD/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageTags>ddd</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="10.0.0" />
+        <PackageReference Include="FluentValidation.AspNetCore" Version="9.1.3" />
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.7" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Domain\Domain.csproj" />
+    </ItemGroup>    
+
+</Project>

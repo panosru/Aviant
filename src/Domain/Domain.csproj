@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Aviant.DDD.Domain</RootNamespace>
+        <AssemblyName>Aviant.DDD.Domain</AssemblyName>
+        <PackageVersion>1.0.0-alpha</PackageVersion>
+        <Authors>Panagiotis Kosmidis</Authors>
+        <Description>Aviant Domain Driven Design Library</Description>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/panosru/Aviant.DDD</RepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageTags>ddd</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR" Version="8.1.0" />
+    </ItemGroup>
+
+</Project>

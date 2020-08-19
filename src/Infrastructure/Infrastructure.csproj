@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Aviant.DDD.Infrastructure</RootNamespace>
+        <AssemblyName>Aviant.DDD.Infrastructure</AssemblyName>
+        <PackageVersion>1.0.0-alpha</PackageVersion>
+        <Authors>Panagiotis Kosmidis</Authors>
+        <Description>Aviant Domain Driven Design Library</Description>
+        <RepositoryUrl>https://github.com/panosru/Aviant.DDD</RepositoryUrl>
+        <PackageLicenseUrl>https://github.com/panosru/Aviant.DDD/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageTags>ddd</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CsvHelper" Version="15.0.5" />
+        <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.7" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Application\Application.csproj" />
+    </ItemGroup>
+
+</Project>
