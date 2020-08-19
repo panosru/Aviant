@@ -5,7 +5,7 @@
         <Nullable>enable</Nullable>
         <RootNamespace>Aviant.DDD.Domain</RootNamespace>
         <AssemblyName>Aviant.DDD.Domain</AssemblyName>
-        <PackageVersion>1.0.0-alpha</PackageVersion>
+        <PackageVersion>1.0.0-dev.1</PackageVersion>
         <Authors>Panagiotis Kosmidis</Authors>
         <Description>Aviant Domain Driven Design Library</Description>
         <RepositoryType>git</RepositoryType>
@@ -15,7 +15,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MediatR" Version="8.1.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     </ItemGroup>
 
 </Project>
