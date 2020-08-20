@@ -116,7 +116,7 @@ namespace Aviant.DDD.Infrastructure.Persistance.Contexts
         {
             if (!(entry.Entity is IHasCreationTime hasCreationTimeEntity)) return;
 
-            if (hasCreationTimeEntity.Created == default) hasCreationTimeEntity.Created = _dateTimeService.Now;
+            if (hasCreationTimeEntity.Created == default) hasCreationTimeEntity.Created = _dateTimeService.Now(utc:true);
 
             if (!(entry.Entity is ICreationAudited creationAuditedEntity)) return;
 
@@ -131,7 +131,7 @@ namespace Aviant.DDD.Infrastructure.Persistance.Contexts
         {
             if (!(entry.Entity is IHasModificationTime hasModificationTimeEntity)) return;
 
-            hasModificationTimeEntity.LastModified = _dateTimeService.Now;
+            hasModificationTimeEntity.LastModified = _dateTimeService.Now(utc:true);
 
             if (!(entry.Entity is IModificationAudited modificationAuditedEntity)) return;
 
@@ -146,12 +146,12 @@ namespace Aviant.DDD.Infrastructure.Persistance.Contexts
         {
             if (!(entry.Entity is IHasDeletionTime hasDeletionTimeEntity)) return;
 
-            hasDeletionTimeEntity.Deleted ??= _dateTimeService.Now;
+            hasDeletionTimeEntity.Deleted ??= _dateTimeService.Now(utc:true);
 
             if (!(entry.Entity is IDeletionAudited deletionAuditedEntity)) return;
 
             deletionAuditedEntity.DeletedBy = _currentUserService.UserId;
-            deletionAuditedEntity.Deleted = _dateTimeService.Now;
+            deletionAuditedEntity.Deleted = _dateTimeService.Now(utc:true);
         }
 
         protected virtual void CancelDeletionForSoftDelete(EntityEntry entry)

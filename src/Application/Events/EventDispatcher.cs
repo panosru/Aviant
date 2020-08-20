@@ -23,13 +23,13 @@ namespace Aviant.DDD.Application.Events
 
         public void AddPreCommitEvent(IEvent @event)
         {
-            @event.Occured = _dateTimeService.Now;
+            @event.Occured = _dateTimeService.Now(utc:true);
             PreCommitEvents.Add(@event);
         }
 
         public void AddPostCommitEvent(IEvent @event)
         {
-            @event.Occured = _dateTimeService.Now;
+            @event.Occured = _dateTimeService.Now(utc:true);
             PostCommitEvents.Add(@event);
         }
 

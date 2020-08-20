@@ -4,10 +4,13 @@ namespace Aviant.DDD.Infrastructure.Services
     using Application.Services;
 
     public class DateTimeService
-        : IDateTimeService //TODO: Should be enriched with a plugin maybe? Also the folder should be renamed to Services
+        : IDateTimeService
     {
-        public DateTime Now { get; } = DateTime.Now;
-
-        public DateTime UtcNow { get; } = DateTime.UtcNow;
+        public DateTime Now(bool utc = false)
+        {
+            return (utc)
+                ? DateTime.UtcNow
+                : DateTime.Now;
+        }
     }
 }
