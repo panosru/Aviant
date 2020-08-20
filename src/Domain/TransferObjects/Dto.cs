@@ -1,6 +1,6 @@
 namespace Aviant.DDD.Domain.TransferObjects
 {
-    public abstract class EtoBase : IEto //TODO: Revisit 
+    public abstract class Dto : IDto //TODO: Revisit 
     {
     }
 }

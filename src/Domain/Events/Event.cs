@@ -2,7 +2,7 @@ namespace Aviant.DDD.Domain.Events
 {
     using System;
 
-    public abstract class EventBase : IEvent
+    public abstract class Event : IEvent
     {
         public DateTime Occured { get; set; }
     }

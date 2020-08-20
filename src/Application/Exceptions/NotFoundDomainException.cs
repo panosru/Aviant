@@ -2,21 +2,21 @@ namespace Aviant.DDD.Application.Exceptions
 {
     using System;
 
-    public class NotFoundException : ApplicationException
+    public class NotFoundDomainException : ApplicationDomainException
     {
-        public NotFoundException(string message)
+        public NotFoundDomainException(string message)
             :
             base(message)
         {
         }
 
-        public NotFoundException(string message, Exception innerException)
+        public NotFoundDomainException(string message, Exception innerException)
             :
             base(message, innerException)
         {
         }
 
-        public NotFoundException(string name, object key)
+        public NotFoundDomainException(string name, object key)
             :
             base($"Entity \"{name}\" ({key}) was not found.")
         {

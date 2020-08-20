@@ -8,7 +8,7 @@ namespace Aviant.DDD.Domain.Persistence
     using Entities;
 
     public interface IRepositoryRead<TEntity, in TPrimaryKey> : IDisposable
-        where TEntity : EntityBase<TPrimaryKey>
+        where TEntity : Entity<TPrimaryKey>
     {
         IQueryable<TEntity> GetAll();
 

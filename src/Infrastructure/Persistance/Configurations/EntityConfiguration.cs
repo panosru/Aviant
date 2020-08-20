@@ -4,7 +4,7 @@ namespace Aviant.DDD.Infrastructure.Persistance.Configurations
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    public class EntityConfigurationBase<TEntity, T> : IEntityTypeConfiguration<TEntity>
+    public class EntityConfiguration<TEntity, T> : IEntityTypeConfiguration<TEntity>
         where TEntity : class, IEntity<T>
     {
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)

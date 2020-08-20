@@ -10,12 +10,12 @@ namespace Aviant.DDD.Infrastructure.Persistance.Contexts
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
 
-    public abstract class ApplicationDbContextReadOnlyBase<TApplicationUser, TApplicationRole>
-        : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>, IApplicationDbContextReadOnlyBase
-        where TApplicationUser : ApplicationUserBase
-        where TApplicationRole : ApplicationRoleBase
+    public abstract class ApplicationDbContextReadOnly<TApplicationUser, TApplicationRole>
+        : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>, IApplicationDbContextReadOnly
+        where TApplicationUser : ApplicationUser
+        where TApplicationRole : ApplicationRole
     {
-        protected ApplicationDbContextReadOnlyBase(
+        protected ApplicationDbContextReadOnly(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions)
             : base(options, operationalStoreOptions)

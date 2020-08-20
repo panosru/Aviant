@@ -4,16 +4,16 @@ namespace Aviant.DDD.Application.Exceptions
     using System.Linq;
     using FluentValidation.Results;
 
-    public class ValidationException : ApplicationException
+    public class ValidationDomainException : ApplicationDomainException
     {
-        public ValidationException()
+        public ValidationDomainException()
             :
             base("One or more validation failures have occurred.")
         {
             Failures = new Dictionary<string, string[]>();
         }
 
-        public ValidationException(IEnumerable<ValidationFailure> failures)
+        public ValidationDomainException(IEnumerable<ValidationFailure> failures)
             :
             this()
         {

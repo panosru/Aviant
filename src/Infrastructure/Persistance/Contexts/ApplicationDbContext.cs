@@ -15,11 +15,11 @@ namespace Aviant.DDD.Infrastructure.Persistance.Contexts
     using Microsoft.EntityFrameworkCore.Metadata;
     using Microsoft.Extensions.Options;
 
-    public abstract class ApplicationDbContextBase<TDbContext, TApplicationUser, TApplicationRole>
-        : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>, IApplicationDbContextBase
-        where TDbContext : IApplicationDbContextBase
-        where TApplicationUser : ApplicationUserBase
-        where TApplicationRole : ApplicationRoleBase
+    public abstract class ApplicationDbContext<TDbContext, TApplicationUser, TApplicationRole>
+        : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>, IApplicationDbContext
+        where TDbContext : IApplicationDbContext
+        where TApplicationUser : ApplicationUser
+        where TApplicationRole : ApplicationRole
     {
         private static readonly MethodInfo? ConfigureGlobalFiltersMethodInfo = typeof(TDbContext)
             .GetMethod(nameof(ConfigureGlobalFilters), BindingFlags.Instance | BindingFlags.NonPublic);
@@ -27,7 +27,7 @@ namespace Aviant.DDD.Infrastructure.Persistance.Contexts
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTimeService _dateTimeService;
 
-        protected ApplicationDbContextBase(
+        protected ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions,
             ICurrentUserService currentUserService,

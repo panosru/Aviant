@@ -6,12 +6,12 @@ namespace Aviant.DDD.Domain.ValueObjects
 
     // Learn more: https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
     // source: https://github.com/jhewlett/ValueObject
-    public abstract class ValueObjectBase : IValueObject
+    public abstract class ValueObject : IValueObject
     {
         private List<FieldInfo>? _fields;
         private List<PropertyInfo>? _properties;
 
-        public bool Equals(ValueObjectBase? obj)
+        public bool Equals(ValueObject? obj)
         {
             return Equals(obj as object);
         }
@@ -44,14 +44,14 @@ namespace Aviant.DDD.Domain.ValueObjects
             return seed * 23 + currentHash;
         }
 
-        public static bool operator ==(ValueObjectBase? left, ValueObjectBase? right)
+        public static bool operator ==(ValueObject? left, ValueObject? right)
         {
             if (left is null ^ right is null) return false;
 
             return left?.Equals(right) != false;
         }
 
-        public static bool operator !=(ValueObjectBase? left, ValueObjectBase? right)
+        public static bool operator !=(ValueObject? left, ValueObject? right)
         {
             return !(left == right);
         }

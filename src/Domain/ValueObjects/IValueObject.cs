@@ -2,7 +2,7 @@ namespace Aviant.DDD.Domain.ValueObjects
 {
     public interface IValueObject
     {
-        public bool Equals(ValueObjectBase obj);
+        public bool Equals(ValueObject obj);
 
         public int GetHashCode();
 
