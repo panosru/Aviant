@@ -97,7 +97,7 @@ namespace Aviant.DDD.Infrastructure.Persistance.Contexts
         protected virtual Expression<Func<TEntity, bool>>? CreateFilterExpression<TEntity>()
             where TEntity : class
         {
-            Expression<Func<TEntity, bool>> expression = null;
+            Expression<Func<TEntity, bool>>? expression = null;
 
             if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
             {

@@ -8,7 +8,7 @@ namespace Aviant.DDD.Domain.Notifications
     public static class NotificationsFacade
     {
         [ThreadStatic]
-        private static INotifications _mockContainer;
+        private static INotifications? _mockContainer;
 
         private static bool _fromTesting;
 
@@ -32,28 +32,33 @@ namespace Aviant.DDD.Domain.Notifications
             _mockContainer = mockContainer;
         }
 
-        private static INotifications GetContainer()
+        private static INotifications? GetContainer()
         {
             if (_fromTesting)
                 return _mockContainer;
 
+            if (ServiceLocator.ServiceContainer is null)
+                throw new Exception("ServiceContainer is null");
+            
             return ServiceLocator.ServiceContainer.GetService<INotifications>(typeof(INotifications));
         }
 
         public static void AddNotification(string notification)
         {
             var container = GetContainer();
-            container.AddNotification(notification);
+            container?.AddNotification(notification);
         }
 
-        public static List<string> GetAll()
+        public static List<string>? GetAll()
         {
-            return GetContainer().GetAll();
+            return GetContainer()?.GetAll();
         }
 
         public static bool HasNotifications()
         {
-            return GetContainer().HasNotifications();
+            var container = GetContainer();
+
+            return container is { } && container.HasNotifications();
         }
     }
 }
