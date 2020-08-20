@@ -8,6 +8,7 @@ namespace Aviant.DDD.Application.Orchestration
     using Domain.Notifications;
     using Domain.Persistence;
     using MediatR;
+    using Queries;
 
     public class Orchestrator : IOrchestrator
     {
@@ -67,9 +68,9 @@ namespace Aviant.DDD.Application.Orchestration
                 affectedRows);
         }
 
-        public async Task<RequestResult> SendQuery<T>(ICommand<T> command)
+        public async Task<RequestResult> SendQuery<T>(IQuery<T> query)
         {
-            var commandResponse = await _mediator.Send(command);
+            var commandResponse = await _mediator.Send(query);
 
             if (_notifications.HasNotifications()) return new RequestResult(_notifications.GetAll());
 
