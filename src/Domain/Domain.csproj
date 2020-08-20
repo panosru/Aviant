@@ -5,12 +5,8 @@
         <Nullable>enable</Nullable>
         <RootNamespace>Aviant.DDD.Domain</RootNamespace>
         <AssemblyName>Aviant.DDD.Domain</AssemblyName>
-        <PackageVersion>1.0.0-dev.1</PackageVersion>
-        <Authors>Panagiotis Kosmidis</Authors>
+        <Version>1.0.0-alpha.2</Version>
         <Description>Aviant Domain Driven Design Library</Description>
-        <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/panosru/Aviant.DDD</RepositoryUrl>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>ddd</PackageTags>
     </PropertyGroup>
 
