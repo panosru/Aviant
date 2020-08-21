@@ -1,6 +1,27 @@
 namespace Aviant.DDD.Domain.TransferObjects
 {
-    public abstract class Eto : IEto //TODO: Revisit 
+    using Newtonsoft.Json;
+
+    public abstract class Eto : IEto 
     {
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
+
+        public string ToJson(Formatting formatting)
+        {
+            return JsonConvert.SerializeObject(this, formatting);
+        }
+
+        public string ToJson(JsonSerializerSettings settings)
+        {
+            return JsonConvert.SerializeObject(this, settings);
+        }
+
+        public string ToJson(Formatting formatting, JsonSerializerSettings settings)
+        {
+            return JsonConvert.SerializeObject(this, formatting, settings);
+        }
     }
 }
