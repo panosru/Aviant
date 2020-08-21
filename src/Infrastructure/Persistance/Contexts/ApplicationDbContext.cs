@@ -37,7 +37,7 @@ namespace Aviant.DDD.Infrastructure.Persistance.Contexts
             _currentUserService = currentUserService;
             _dateTimeService = dateTimeService;
 
-            ChangeTracker.LazyLoadingEnabled = false;
+            TrackerSettings();
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
@@ -72,6 +72,11 @@ namespace Aviant.DDD.Infrastructure.Persistance.Contexts
                 ConfigureGlobalFiltersMethodInfo?
                     .MakeGenericMethod(entityType.ClrType)
                     .Invoke(this, new object[] {modelBuilder, entityType});
+        }
+        
+        protected void TrackerSettings()
+        {
+            ChangeTracker.LazyLoadingEnabled = false;
         }
 
         #region Configure Global Filters

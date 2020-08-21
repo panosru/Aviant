@@ -20,8 +20,7 @@ namespace Aviant.DDD.Infrastructure.Persistance.Contexts
             IOptions<OperationalStoreOptions> operationalStoreOptions)
             : base(options, operationalStoreOptions)
         {
-            ChangeTracker.LazyLoadingEnabled = false;
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            TrackerSettings();
         }
 
         public override int SaveChanges()
@@ -63,6 +62,12 @@ namespace Aviant.DDD.Infrastructure.Persistance.Contexts
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        protected void TrackerSettings()
+        {
+            ChangeTracker.LazyLoadingEnabled = false;
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         private void ThrowWriteException()

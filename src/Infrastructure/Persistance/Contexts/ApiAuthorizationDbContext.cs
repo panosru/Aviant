@@ -43,12 +43,12 @@ namespace Aviant.DDD.Infrastructure.Persistance.Contexts
         /// <summary>
         ///     Gets or sets the <see cref="DbSet{PersistedGrant}" />.
         /// </summary>
-        public DbSet<PersistedGrant> PersistedGrants { get; set; }
+        public DbSet<PersistedGrant>? PersistedGrants { get; set; }
 
         /// <summary>
         ///     Gets or sets the <see cref="DbSet{DeviceFlowCodes}" />.
         /// </summary>
-        public DbSet<DeviceFlowCodes> DeviceFlowCodes { get; set; }
+        public DbSet<DeviceFlowCodes>? DeviceFlowCodes { get; set; }
 
         Task<int> IPersistedGrantDbContext.SaveChangesAsync()
         {
