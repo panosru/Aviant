@@ -4,14 +4,12 @@ namespace Aviant.DDD.Application.Behaviours
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Commands;
-    using Exceptions;
     using FluentValidation;
     using MediatR;
     using ValidationException = Exceptions.ValidationException;
 
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : ICommand<TResponse>
+        where TRequest : IRequest<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
