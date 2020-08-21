@@ -4,7 +4,7 @@ namespace Aviant.DDD.Domain.Events
     using System.Threading.Tasks;
     using MediatR;
 
-    public interface IEventHandler<in TEvent> : INotificationHandler<TEvent> //TODO: Revisit
+    public interface IEventHandler<in TEvent> : INotificationHandler<TEvent>
         where TEvent : IEvent
     {
         /// <summary>

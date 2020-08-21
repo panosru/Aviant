@@ -8,6 +8,7 @@ namespace Aviant.DDD.Application.Behaviours
     using Exceptions;
     using FluentValidation;
     using MediatR;
+    using ValidationException = Exceptions.ValidationException;
 
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : ICommand<TResponse>
@@ -36,7 +37,7 @@ namespace Aviant.DDD.Application.Behaviours
                     .ToList();
 
                 if (0 != failures.Count)
-                    throw new ValidationDomainException(failures);
+                    throw new ValidationException(failures);
             }
 
             return await next();
