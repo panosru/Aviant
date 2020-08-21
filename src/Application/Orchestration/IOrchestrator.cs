@@ -8,6 +8,6 @@ namespace Aviant.DDD.Application.Orchestration
     {
         Task<RequestResult> SendCommand<T>(ICommand<T> command);
 
-        Task<RequestResult> SendQuery<T>(IQuery<T> command);
+        Task<RequestResult> SendQuery<T>(IQuery<T> query);
     }
 }
