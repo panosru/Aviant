@@ -5,14 +5,18 @@
         <Nullable>enable</Nullable>
         <RootNamespace>Aviant.DDD.Domain</RootNamespace>
         <AssemblyName>Aviant.DDD.Domain</AssemblyName>
-        <Version>1.0.0-alpha.2</Version>
+        <Version>1.0.0-dev.3</Version>
         <Description>Aviant Domain Driven Design Library</Description>
         <PackageTags>ddd</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
+        
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.7" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+        <PackageReference Include="Polly" Version="7.2.1" />
+        
     </ItemGroup>
 
 </Project>
