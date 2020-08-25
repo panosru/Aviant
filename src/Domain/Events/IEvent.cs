@@ -1,10 +1,11 @@
 namespace Aviant.DDD.Domain.Events
 {
-    using System;
-    using MediatR;
+    using Aggregates;
 
-    public interface IEvent : INotification
+    public interface IEvent<out TKey>
     {
-        public DateTime Occured { get; set; }
+        long AggregateVersion { get; }
+        
+        TKey AggregateId { get; }
     }
 }
