@@ -1,13 +1,13 @@
 namespace Aviant.DDD.Domain.Validators
 {
     using System;
-    using Notifications;
+    using Messages;
 
     public static class AssertionsConcernValidator
     {
         public static bool HasNotifications()
         {
-            return NotificationsFacade.HasNotifications();
+            return MessagesFacade.HasMessages();
         }
 
         public static bool IsSatisfiedBy(params Func<bool>[] asserts)
@@ -27,7 +27,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (left == right) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -38,7 +38,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (left == right) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -49,7 +49,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (left.Date != right.Date) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -60,7 +60,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (left > right) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -71,7 +71,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (left > right) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -82,7 +82,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (left > right) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -93,7 +93,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (left >= right) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -104,7 +104,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (left >= right) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -115,7 +115,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (left >= right) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -126,7 +126,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (left > right) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -137,7 +137,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (left > right) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -148,7 +148,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (left > right) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -159,7 +159,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (left <= right) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -170,7 +170,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (left <= right) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -181,7 +181,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (left <= right) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -192,7 +192,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (!string.IsNullOrWhiteSpace(value)) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -203,7 +203,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (value.Length > minLength) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -214,7 +214,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (value.Length == length) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -225,7 +225,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (Guid.Empty != guid) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -236,7 +236,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (guid != null) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -272,7 +272,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (null != obj) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }
@@ -283,7 +283,7 @@ namespace Aviant.DDD.Domain.Validators
             {
                 if (obj is null) return true;
 
-                NotificationsFacade.AddNotification(notification);
+                MessagesFacade.AddMessage(notification);
                 return false;
             };
         }

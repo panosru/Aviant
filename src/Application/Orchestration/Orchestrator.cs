@@ -5,27 +5,28 @@ namespace Aviant.DDD.Application.Orchestration
     using System.Threading.Tasks;
     using Commands;
     using Domain.Events;
-    using Domain.Notifications;
+    using Domain.Messages;
     using Domain.Persistence;
     using MediatR;
+    using Notifications;
     using Queries;
 
     public class Orchestrator : IOrchestrator
     {
-        private readonly IEventDispatcher _eventDispatcher;
+        private readonly INotificationDispatcher _notificationDispatcher;
         private readonly IMediator _mediator;
-        private readonly INotifications _notifications;
+        private readonly IMessages _messages;
         private readonly IUnitOfWork _unitOfWork;
 
         public Orchestrator(
             IUnitOfWork unitOfWork,
-            INotifications notifications,
-            IEventDispatcher eventDispatcher,
+            IMessages messages,
+            INotificationDispatcher notificationDispatcher,
             IMediator mediator)
         {
             _unitOfWork = unitOfWork;
-            _notifications = notifications;
-            _eventDispatcher = eventDispatcher;
+            _messages = messages;
+            _notificationDispatcher = notificationDispatcher;
             _mediator = mediator;
         }
 
@@ -34,9 +35,9 @@ namespace Aviant.DDD.Application.Orchestration
             var commandResponse = await _mediator.Send(command);
 
             // Fire pre/post events
-            await _eventDispatcher.FirePreCommitEvents();
+            await _notificationDispatcher.FirePreCommitNotifications();
 
-            if (_notifications.HasNotifications()) return new RequestResult(_notifications.GetAll());
+            if (_messages.HasMessages()) return new RequestResult(_messages.GetAll());
 
             var affectedRows = await _unitOfWork.Commit();
 
@@ -48,7 +49,7 @@ namespace Aviant.DDD.Application.Orchestration
                     });
 
             // Fire post commit events
-            await _eventDispatcher.FirePostCommitEvents();
+            await _notificationDispatcher.FirePostCommitNotifications();
 
             var isLazy = false;
 
@@ -72,7 +73,7 @@ namespace Aviant.DDD.Application.Orchestration
         {
             var commandResponse = await _mediator.Send(query);
 
-            if (_notifications.HasNotifications()) return new RequestResult(_notifications.GetAll());
+            if (_messages.HasMessages()) return new RequestResult(_messages.GetAll());
 
             return new RequestResult(commandResponse);
         }
