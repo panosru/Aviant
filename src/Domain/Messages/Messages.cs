@@ -1,17 +1,17 @@
-namespace Aviant.DDD.Domain.Notifications
+namespace Aviant.DDD.Domain.Messages
 {
     using System.Collections.Generic;
 
-    public class Notifications : INotifications
+    public class Messages : IMessages
     {
         private List<string> _notifications = new List<string>();
 
-        public void AddNotification(string notification)
+        public void AddMessage(string notification)
         {
             _notifications.Add(notification);
         }
 
-        public void CleanNotifications()
+        public void CleanMessages()
         {
             _notifications = new List<string>();
         }
@@ -21,7 +21,7 @@ namespace Aviant.DDD.Domain.Notifications
             return _notifications;
         }
 
-        public bool HasNotifications()
+        public bool HasMessages()
         {
             return 0 < _notifications.Count;
         }

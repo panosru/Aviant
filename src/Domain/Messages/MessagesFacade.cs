@@ -1,14 +1,14 @@
-namespace Aviant.DDD.Domain.Notifications
+namespace Aviant.DDD.Domain.Messages
 {
     using System;
     using System.Collections.Generic;
     using Exceptions;
     using Services;
 
-    public static class NotificationsFacade
+    public static class MessagesFacade
     {
         [ThreadStatic]
-        private static INotifications? _mockContainer;
+        private static IMessages? _mockContainer;
 
         private static bool _fromTesting;
 
@@ -23,16 +23,16 @@ namespace Aviant.DDD.Domain.Notifications
         /// </summary>
         /// <param name="mockContainer"></param>
         /// <exception cref="Exception"></exception>
-        public static void SetNotificationsContainer(INotifications mockContainer)
+        public static void SetMessagesContainer(IMessages mockContainer)
         {
             if (_fromTesting == false)
                 throw new DomainException(
-                    @"For SetNotificationsContainer to work properly SetTestingEnvironment() should be called first. 
+                    @"For SetMessagesContainer to work properly SetTestingEnvironment() should be called first. 
                                       This method should be used only for testing purpose");
             _mockContainer = mockContainer;
         }
 
-        private static INotifications? GetContainer()
+        private static IMessages? GetContainer()
         {
             if (_fromTesting)
                 return _mockContainer;
@@ -40,13 +40,13 @@ namespace Aviant.DDD.Domain.Notifications
             if (ServiceLocator.ServiceContainer is null)
                 throw new Exception("ServiceContainer is null");
             
-            return ServiceLocator.ServiceContainer.GetService<INotifications>(typeof(INotifications));
+            return ServiceLocator.ServiceContainer.GetService<IMessages>(typeof(IMessages));
         }
 
-        public static void AddNotification(string notification)
+        public static void AddMessage(string message)
         {
             var container = GetContainer();
-            container?.AddNotification(notification);
+            container?.AddMessage(message);
         }
 
         public static List<string>? GetAll()
@@ -54,11 +54,11 @@ namespace Aviant.DDD.Domain.Notifications
             return GetContainer()?.GetAll();
         }
 
-        public static bool HasNotifications()
+        public static bool HasMessages()
         {
             var container = GetContainer();
 
-            return container is { } && container.HasNotifications();
+            return container is { } && container.HasMessages();
         }
     }
 }
