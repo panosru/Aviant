@@ -4,11 +4,11 @@ namespace Aviant.DDD.Application.EventBus
 
     public class EventReceived<TEvent> : INotification
     {
-        public TEvent Event { get; }
-        
         public EventReceived(TEvent @event)
         {
             Event = @event;
         }
+
+        public TEvent Event { get; }
     }
 }

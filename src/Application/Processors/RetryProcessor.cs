@@ -23,8 +23,9 @@ namespace Aviant.DDD.Application.Processors
 
         public Task Handle(TNotification notification, CancellationToken cancellationToken)
         {
-            return _retryPolicy.ExecuteAsync(() => 
-                _inner.Handle(notification, cancellationToken));
+            return _retryPolicy.ExecuteAsync(
+                () =>
+                    _inner.Handle(notification, cancellationToken));
         }
     }
 }

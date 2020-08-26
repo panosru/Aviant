@@ -12,7 +12,7 @@ namespace Aviant.DDD.Infrastructure.Persistance.Kafka
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(topicBaseName));
             if (string.IsNullOrWhiteSpace(consumerGroup))
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(consumerGroup));
-          
+
             KafkaConnectionString = kafkaConnectionString;
             TopicBaseName = topicBaseName;
             ConsumerGroup = consumerGroup;

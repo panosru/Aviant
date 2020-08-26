@@ -31,7 +31,7 @@ namespace Aviant.DDD.Application.Behaviours
             var userId = _currentUserService.UserId;
             string username = string.Empty;
 
-            if (Guid.Empty != userId) 
+            if (Guid.Empty != userId)
                 username = await _identityIdentityService.GetUserNameAsync(userId);
 
             _logger.LogInformation(

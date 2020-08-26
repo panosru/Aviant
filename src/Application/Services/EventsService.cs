@@ -7,24 +7,22 @@ namespace Aviant.DDD.Application.Services
     using Domain.EventBus;
     using Domain.Persistence;
     using Domain.Services;
-    using EventBus;
 
     public class EventsService<TAggregateRoot, TKey> : IEventsService<TAggregateRoot, TKey>
         where TAggregateRoot : class, IAggregateRoot<TKey>
     {
+        private readonly IEventProducer<TAggregateRoot, TKey> _eventProducer;
         private readonly IEventsRepository<TAggregateRoot, TKey> _eventsRepository;
 
-        private readonly IEventProducer<TAggregateRoot, TKey> _eventProducer;
-
         public EventsService(
-            IEventsRepository<TAggregateRoot, TKey> eventsRepository, 
+            IEventsRepository<TAggregateRoot, TKey> eventsRepository,
             IEventProducer<TAggregateRoot, TKey> eventProducer)
         {
             _eventsRepository = eventsRepository ??
-                throw new ArgumentNullException(nameof(eventsRepository));
-            
+                                throw new ArgumentNullException(nameof(eventsRepository));
+
             _eventProducer = eventProducer ??
-                throw new ArgumentNullException(nameof(eventProducer));
+                             throw new ArgumentNullException(nameof(eventProducer));
         }
 
         public async Task PersistAsync(TAggregateRoot aggregateRoot)

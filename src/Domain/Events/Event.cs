@@ -6,12 +6,9 @@ namespace Aviant.DDD.Domain.Events
     public abstract class Event<TAggregateRoot, TKey> : IEvent<TKey>
         where TAggregateRoot : IAggregateRoot<TKey>
     {
-        public long AggregateVersion { get; }
-        
-        public TKey AggregateId { get; }
-
         protected Event()
-        {}
+        {
+        }
 
         protected Event(TAggregateRoot aggregateRoot)
         {
@@ -21,5 +18,9 @@ namespace Aviant.DDD.Domain.Events
             AggregateVersion = aggregateRoot.Version;
             AggregateId = aggregateRoot.Id;
         }
+
+        public long AggregateVersion { get; }
+
+        public TKey AggregateId { get; }
     }
 }

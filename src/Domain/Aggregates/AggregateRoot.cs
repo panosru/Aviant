@@ -12,16 +12,18 @@ namespace Aviant.DDD.Domain.Aggregates
         where TAggregateRoot : class, IAggregateRoot<TKey>
     {
         private readonly Queue<IEvent<TKey>> _events = new Queue<IEvent<TKey>>();
-        
+
         protected AggregateRoot()
-        {}
-        
-        protected AggregateRoot(TKey id) 
+        {
+        }
+
+        protected AggregateRoot(TKey id)
             : base(id)
-        {}
+        {
+        }
 
         public IReadOnlyCollection<IEvent<TKey>> Events => _events.ToImmutableArray();
-        
+
         public long Version { get; private set; }
 
         public void ClearEvents()
@@ -39,7 +41,7 @@ namespace Aviant.DDD.Domain.Aggregates
         }
 
         protected abstract void Apply(IEvent<TKey> @event);
-        
+
         #region Factory
 
         private static readonly Lazy<ConstructorInfo> LazyConstructor;
@@ -71,7 +73,7 @@ namespace Aviant.DDD.Domain.Aggregates
             if (result is AggregateRoot<TAggregateRoot, TKey> aggregate)
                 foreach (var @event in events)
                     aggregate.AddEvent(@event);
-            
+
             result.ClearEvents();
 
             return result;

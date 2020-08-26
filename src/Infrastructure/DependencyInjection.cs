@@ -25,7 +25,7 @@ namespace Aviant.DDD.Infrastructure
             where TDbContext : class, IApplicationDbContext
         {
             services.AddTransient<IDateTimeService, DateTimeService>();
-            
+
             services.AddScoped<IOrchestrator, Orchestrator>();
             services.AddScoped<IUnitOfWork, UnitOfWork<TDbContext>>();
             services.AddScoped<IMessages, Messages>();
@@ -38,13 +38,13 @@ namespace Aviant.DDD.Infrastructure
                     var logger = ctx.GetRequiredService<ILogger<EventStoreConnectionWrapper>>();
                     return new EventStoreConnectionWrapper(new Uri(eventStoreConnectionString), logger);
                 });
-            
+
             // Kafka
             services.AddSingleton(consumerConfig)
                 .AddSingleton(typeof(IEventConsumer<,>), typeof(EventConsumer<,>));
-            
+
             services.AddSingleton<IServiceContainer, HttpContextServiceProviderProxy>();
-            
+
             return services;
         }
     }

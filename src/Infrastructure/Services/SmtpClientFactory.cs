@@ -8,15 +8,18 @@ namespace Aviant.DDD.Infrastructure.Services
     {
         private readonly string _address;
 
-        private readonly int _port;
+        private readonly string _password;
 
-        private readonly bool _useSsl;
+        private readonly int _port;
 
         private readonly string _username;
 
-        private readonly string _password;
+        private readonly bool _useSsl;
 
-        public SmtpClientFactory(string address, int port, bool useSsl,
+        public SmtpClientFactory(
+            string address,
+            int port,
+            bool useSsl,
             string username,
             string password)
         {
@@ -31,12 +34,14 @@ namespace Aviant.DDD.Infrastructure.Services
         public SmtpClient GetSmtpClient()
         {
             SmtpClient client = new SmtpClient();
-            
+
             client.Connect(
                 _address,
                 _port,
-                _useSsl ? SecureSocketOptions.SslOnConnect : SecureSocketOptions.None);
-            
+                _useSsl
+                    ? SecureSocketOptions.SslOnConnect
+                    : SecureSocketOptions.None);
+
             client.Authenticate(_username, _password);
 
             return client;

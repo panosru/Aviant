@@ -4,16 +4,16 @@ namespace Aviant.DDD.Infrastructure.Services
     using Application.Services;
     using MailKit.Net.Smtp;
     using MimeKit;
+    using MimeKit.Text;
 
     public class EmailService : IEmailService
     {
-        private readonly string _senderName;
-
-        private readonly string _senderEmail;
+        private readonly string _receiverEmail;
 
         private readonly string _receiverName;
 
-        private readonly string _receiverEmail;
+        private readonly string _senderEmail;
+        private readonly string _senderName;
 
         private readonly ISmtpClientFactory _smtpClientFactory;
 
@@ -21,7 +21,10 @@ namespace Aviant.DDD.Infrastructure.Services
 
         private SmtpClient _smtpClient;
 
-        public EmailService(string senderName, string senderEmail, string receiverName,
+        public EmailService(
+            string senderName,
+            string senderEmail,
+            string receiverName,
             string receiverEmail,
             ISmtpClientFactory smtpClientFactory,
             MimeMessage message,
@@ -46,7 +49,7 @@ namespace Aviant.DDD.Infrastructure.Services
         public IEmailService FromServer()
         {
             _message.From.Add(new MailboxAddress(_senderName, _senderEmail));
-            
+
             return this;
         }
 
@@ -81,11 +84,11 @@ namespace Aviant.DDD.Infrastructure.Services
 
         public IEmailService WithBodyHtml(string body)
         {
-            _message.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            _message.Body = new TextPart(TextFormat.Html)
             {
                 Text = body
             };
-            
+
             return this;
         }
 
@@ -95,7 +98,7 @@ namespace Aviant.DDD.Infrastructure.Services
             {
                 Text = body
             };
-            
+
             return this;
         }
 

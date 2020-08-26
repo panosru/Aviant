@@ -1,6 +1,5 @@
 namespace Aviant.DDD.Domain.Services
 {
-    using Aggregates;
     using Events;
 
     public interface IEventDeserializer

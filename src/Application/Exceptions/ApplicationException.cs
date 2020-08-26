@@ -3,7 +3,7 @@ namespace Aviant.DDD.Application.Exceptions
     using System;
     using Domain.Exceptions;
 
-    public class ApplicationException : DomainException 
+    public class ApplicationException : DomainException
     {
         public ApplicationException()
         {
@@ -19,9 +19,15 @@ namespace Aviant.DDD.Application.Exceptions
         {
         }
 
-        public ApplicationException(string message, int errorCode, int? familyCode = null,
+        public ApplicationException(
+            string message,
+            int errorCode,
+            int? familyCode = null,
             Exception? inner = null)
-            : base(message, errorCode, familyCode,
+            : base(
+                message,
+                errorCode,
+                familyCode,
                 inner)
         {
         }

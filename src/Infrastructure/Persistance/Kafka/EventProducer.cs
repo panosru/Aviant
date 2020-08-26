@@ -3,8 +3,8 @@ namespace Aviant.DDD.Infrastructure.Persistance.Kafka
     using System;
     using System.Linq;
     using System.Text;
+    using System.Text.Json;
     using System.Threading.Tasks;
-    using Application.EventBus;
     using Confluent.Kafka;
     using Domain.Aggregates;
     using Domain.EventBus;
@@ -13,9 +13,9 @@ namespace Aviant.DDD.Infrastructure.Persistance.Kafka
     public class EventProducer<TAggregateRoot, TKey> : IDisposable, IEventProducer<TAggregateRoot, TKey>
         where TAggregateRoot : IAggregateRoot<TKey>
     {
-        private IProducer<TKey, string> _producer;
-        private readonly string _topicName;
         private readonly ILogger<EventProducer<TAggregateRoot, TKey>> _logger;
+        private readonly string _topicName;
+        private IProducer<TKey, string> _producer;
 
         public EventProducer(
             string topicBaseName,
@@ -34,6 +34,12 @@ namespace Aviant.DDD.Infrastructure.Persistance.Kafka
             _producer = producerBuilder.Build();
         }
 
+        public void Dispose()
+        {
+            _producer?.Dispose();
+            _producer = null;
+        }
+
         public async Task DispatchAsync(TAggregateRoot aggregateRoot)
         {
             if (null == aggregateRoot)
@@ -50,7 +56,7 @@ namespace Aviant.DDD.Infrastructure.Persistance.Kafka
             {
                 var eventType = @event.GetType();
 
-                var serialized = System.Text.Json.JsonSerializer.Serialize(@event, eventType);
+                var serialized = JsonSerializer.Serialize(@event, eventType);
 
                 var headers = new Headers
                 {
@@ -58,7 +64,7 @@ namespace Aviant.DDD.Infrastructure.Persistance.Kafka
                     {"type", Encoding.UTF8.GetBytes(eventType.AssemblyQualifiedName)}
                 };
 
-                var message = new Message<TKey, string>()
+                var message = new Message<TKey, string>
                 {
                     Key = @event.AggregateId,
                     Value = serialized,
@@ -69,12 +75,6 @@ namespace Aviant.DDD.Infrastructure.Persistance.Kafka
             }
 
             aggregateRoot.ClearEvents();
-        }
-
-        public void Dispose()
-        {
-            _producer?.Dispose();
-            _producer = null;
         }
     }
 }

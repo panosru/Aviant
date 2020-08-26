@@ -12,25 +12,27 @@ namespace Aviant.DDD.Infrastructure.Persistance.EventStore
         public static IServiceCollection AddEventsRepository<TAggregateRoot, TKey>(this IServiceCollection services)
             where TAggregateRoot : class, IAggregateRoot<TKey>
         {
-            return services.AddSingleton<IEventsRepository<TAggregateRoot, TKey>>(ctx =>
-            {
-                var connectionWrapper = ctx.GetRequiredService<IEventStoreConnectionWrapper>();
-                var eventDeserializer = ctx.GetRequiredService<IEventDeserializer>();
-                
-                return new EventsRepository<TAggregateRoot, TKey>(connectionWrapper, eventDeserializer);
-            });
+            return services.AddSingleton<IEventsRepository<TAggregateRoot, TKey>>(
+                ctx =>
+                {
+                    var connectionWrapper = ctx.GetRequiredService<IEventStoreConnectionWrapper>();
+                    var eventDeserializer = ctx.GetRequiredService<IEventDeserializer>();
+
+                    return new EventsRepository<TAggregateRoot, TKey>(connectionWrapper, eventDeserializer);
+                });
         }
-        
+
         public static IServiceCollection AddEventsService<TAggregateRoot, TKey>(this IServiceCollection services)
             where TAggregateRoot : class, IAggregateRoot<TKey>
         {
-            return services.AddSingleton<IEventsService<TAggregateRoot, TKey>>(ctx =>
-            {
-                var eventsProducer = ctx.GetRequiredService<IEventProducer<TAggregateRoot, TKey>>();
-                var eventsRepo = ctx.GetRequiredService<IEventsRepository<TAggregateRoot, TKey>>();
+            return services.AddSingleton<IEventsService<TAggregateRoot, TKey>>(
+                ctx =>
+                {
+                    var eventsProducer = ctx.GetRequiredService<IEventProducer<TAggregateRoot, TKey>>();
+                    var eventsRepo = ctx.GetRequiredService<IEventsRepository<TAggregateRoot, TKey>>();
 
-                return new EventsService<TAggregateRoot, TKey>(eventsRepo, eventsProducer);
-            });
+                    return new EventsService<TAggregateRoot, TKey>(eventsRepo, eventsProducer);
+                });
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Aviant.DDD.Application.Services
     using Newtonsoft.Json.Serialization;
 
     /// <summary>
-    /// https://www.mking.net/blog/working-with-private-setters-in-json-net
+    ///     https://www.mking.net/blog/working-with-private-setters-in-json-net
     /// </summary>
     internal class PrivateSetterContractResolver : DefaultContractResolver
     {

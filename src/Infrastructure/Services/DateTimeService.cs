@@ -8,7 +8,7 @@ namespace Aviant.DDD.Infrastructure.Services
     {
         public DateTime Now(bool utc = false)
         {
-            return (utc)
+            return utc
                 ? DateTime.UtcNow
                 : DateTime.Now;
         }

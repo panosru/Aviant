@@ -19,9 +19,15 @@ namespace Aviant.DDD.Infrastructure.Exceptions
         {
         }
 
-        public InfrastructureException(string message, int errorCode, int? familyCode = null,
+        public InfrastructureException(
+            string message,
+            int errorCode,
+            int? familyCode = null,
             Exception? inner = null)
-            : base(message, errorCode, familyCode,
+            : base(
+                message,
+                errorCode,
+                familyCode,
                 inner)
         {
         }

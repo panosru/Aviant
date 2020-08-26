@@ -5,29 +5,21 @@ namespace Aviant.DDD.Domain.Exceptions
     [SerializableAttribute]
     public class DomainException : Exception
     {
-        public int ErrorCode => Getcode("ErrorCode");
-
-        public int FamilyCode => Getcode("FamilyCode");
-
-        public DateTime Occurred { get; } = DateTime.UtcNow;
-        
-        public Guid ExceptionId { get; } = Guid.NewGuid();
-
-        public string ExceptionName => GetType().FullName!;
-
         public DomainException()
-        {}
-        
+        {
+        }
+
         public DomainException(string message)
             : base(message, null)
-        {}
+        {
+        }
 
         public DomainException(string message, Exception inner)
             : base(message, inner)
-        {}
+        {
+        }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="message"></param>
         /// <param name="errorCode"></param>
@@ -43,18 +35,28 @@ namespace Aviant.DDD.Domain.Exceptions
             SetHResult(errorCode, familyCode);
         }
 
+        public int ErrorCode => Getcode("ErrorCode");
+
+        public int FamilyCode => Getcode("FamilyCode");
+
+        public DateTime Occurred { get; } = DateTime.UtcNow;
+
+        public Guid ExceptionId { get; } = Guid.NewGuid();
+
+        public string ExceptionName => GetType().FullName!;
+
         private void SetHResult(int errorCode, int? familyCode)
         {
             if (0 > familyCode)
                 throw new Exception(
                     $@"FamilyCode must be a positive number {{ familyCode ∈ R ∣ familyCode >= 0 }}. 
                                '{familyCode}' received.");
-            
+
             Data.Add("ErrorCode", errorCode);
 
             if (!(familyCode is null))
                 Data.Add("FamilyCode", familyCode);
-            
+
             HResult = errorCode + familyCode ?? -1;
         }
 

@@ -1,4 +1,4 @@
-﻿﻿namespace Aviant.DDD.Domain.Enums
+﻿namespace Aviant.DDD.Domain.Enums
 {
     public enum PriorityLevel : byte
     {

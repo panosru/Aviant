@@ -7,15 +7,15 @@ namespace Aviant.DDD.Infrastructure.Persistance.EventStore
 
     public class EventStoreConnectionWrapper : IEventStoreConnectionWrapper, IDisposable
     {
-        private readonly Lazy<Task<IEventStoreConnection>> _lazyConnection;
         private readonly Uri _connectionString;
-        private readonly global::Microsoft.Extensions.Logging.ILogger<EventStoreConnectionWrapper> _logger;
+        private readonly Lazy<Task<IEventStoreConnection>> _lazyConnection;
+        private readonly ILogger<EventStoreConnectionWrapper> _logger;
 
-        public EventStoreConnectionWrapper(Uri connectionString, global::Microsoft.Extensions.Logging.ILogger<EventStoreConnectionWrapper> logger)
+        public EventStoreConnectionWrapper(Uri connectionString, ILogger<EventStoreConnectionWrapper> logger)
         {
             _connectionString = connectionString;
             _logger = logger;
-            
+
             _lazyConnection = new Lazy<Task<IEventStoreConnection>>(
                 () =>
                 {
@@ -30,7 +30,20 @@ namespace Aviant.DDD.Infrastructure.Persistance.EventStore
                         });
                 });
         }
-        
+
+        public void Dispose()
+        {
+            if (!_lazyConnection.IsValueCreated)
+                return;
+
+            _lazyConnection.Value.Result.Dispose();
+        }
+
+        public Task<IEventStoreConnection> GetConnectionAsync()
+        {
+            return _lazyConnection.Value;
+        }
+
         // TODO: I'm not sure this is really the right approach.
         private IEventStoreConnection SetupConnection()
         {
@@ -43,14 +56,15 @@ namespace Aviant.DDD.Infrastructure.Persistance.EventStore
 
             connection.ErrorOccurred += async (s, e) =>
             {
-                _logger.LogWarning(e.Exception,
+                _logger.LogWarning(
+                    e.Exception,
                     $"an error has occurred on the Eventstore connection: {e.Exception.Message} . Trying to reconnect...");
                 connection = SetupConnection();
                 await connection.ConnectAsync();
             };
             connection.Disconnected += async (s, e) =>
             {
-                _logger.LogWarning($"The Eventstore connection has dropped. Trying to reconnect...");
+                _logger.LogWarning("The Eventstore connection has dropped. Trying to reconnect...");
                 connection = SetupConnection();
                 await connection.ConnectAsync();
             };
@@ -61,19 +75,6 @@ namespace Aviant.DDD.Infrastructure.Persistance.EventStore
                 await connection.ConnectAsync();
             };
             return connection;
-        }
-        
-        public Task<IEventStoreConnection> GetConnectionAsync()
-        {
-            return _lazyConnection.Value;
-        }
-
-        public void Dispose()
-        {
-            if (!_lazyConnection.IsValueCreated)
-                return;
-
-            _lazyConnection.Value.Result.Dispose();
         }
     }
 }

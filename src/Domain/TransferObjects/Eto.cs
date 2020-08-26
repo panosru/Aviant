@@ -2,7 +2,7 @@ namespace Aviant.DDD.Domain.TransferObjects
 {
     using Newtonsoft.Json;
 
-    public abstract class Eto : IEto 
+    public abstract class Eto : IEto
     {
         public string ToJson()
         {

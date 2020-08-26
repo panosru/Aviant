@@ -5,12 +5,12 @@ namespace Aviant.DDD.Domain.Aggregates
     public class AggregateId<T> : IAggregateId<T>
         where T : notnull
     {
-        public T Id { get; }
-
         public AggregateId(T id)
         {
             Id = id;
         }
+
+        public T Id { get; }
 
         public override string ToString()
         {

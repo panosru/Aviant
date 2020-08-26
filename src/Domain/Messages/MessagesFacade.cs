@@ -39,7 +39,7 @@ namespace Aviant.DDD.Domain.Messages
 
             if (ServiceLocator.ServiceContainer is null)
                 throw new Exception("ServiceContainer is null");
-            
+
             return ServiceLocator.ServiceContainer.GetService<IMessages>(typeof(IMessages));
         }
 

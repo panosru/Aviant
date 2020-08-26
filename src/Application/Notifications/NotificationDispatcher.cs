@@ -22,13 +22,13 @@ namespace Aviant.DDD.Application.Notifications
 
         public void AddPreCommitNotification(INotification notification)
         {
-            notification.Occured = _dateTimeService.Now(utc:true);
+            notification.Occured = _dateTimeService.Now(true);
             PreCommitEvents.Add(notification);
         }
 
         public void AddPostCommitNotification(INotification notification)
         {
-            notification.Occured = _dateTimeService.Now(utc:true);
+            notification.Occured = _dateTimeService.Now(true);
             PostCommitEvents.Add(notification);
         }
 

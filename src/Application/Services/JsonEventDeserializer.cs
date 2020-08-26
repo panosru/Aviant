@@ -4,8 +4,10 @@ namespace Aviant.DDD.Application.Services
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Text;
     using Domain.Events;
     using Domain.Services;
+    using Newtonsoft.Json;
 
     public class JsonEventDeserializer : IEventDeserializer
     {
@@ -18,7 +20,7 @@ namespace Aviant.DDD.Application.Services
 
         public IEvent<TKey> Deserialize<TKey>(string type, byte[] data)
         {
-            var jsonData = System.Text.Encoding.UTF8.GetString(data);
+            var jsonData = Encoding.UTF8.GetString(data);
             return Deserialize<TKey>(type, jsonData);
         }
 
@@ -33,11 +35,13 @@ namespace Aviant.DDD.Application.Services
             // as of 01/10/2020, "Deserialization to reference types without a parameterless constructor isn't supported."
             // https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to
             // apparently it's being worked on: https://github.com/dotnet/runtime/issues/29895
-            
-            var result = Newtonsoft.Json.JsonConvert.DeserializeObject(data, eventType,
-                new Newtonsoft.Json.JsonSerializerSettings()
+
+            var result = JsonConvert.DeserializeObject(
+                data,
+                eventType,
+                new JsonSerializerSettings
                 {
-                    ConstructorHandling = Newtonsoft.Json.ConstructorHandling.AllowNonPublicDefaultConstructor,
+                    ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
                     ContractResolver = new PrivateSetterContractResolver()
                 });
 

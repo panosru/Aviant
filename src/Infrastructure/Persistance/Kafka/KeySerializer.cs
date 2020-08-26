@@ -9,7 +9,7 @@ namespace Aviant.DDD.Infrastructure.Persistance.Kafka
     {
         public byte[] Serialize(TKey data, SerializationContext context)
         {
-            if(data is Guid g)
+            if (data is Guid g)
                 return g.ToByteArray();
             var json = JsonSerializer.Serialize(data);
             return Encoding.UTF8.GetBytes(json);

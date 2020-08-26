@@ -4,7 +4,6 @@ namespace Aviant.DDD.Application.Orchestration
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Commands;
-    using Domain.Events;
     using Domain.Messages;
     using Domain.Persistence;
     using MediatR;
@@ -13,9 +12,9 @@ namespace Aviant.DDD.Application.Orchestration
 
     public class Orchestrator : IOrchestrator
     {
-        private readonly INotificationDispatcher _notificationDispatcher;
         private readonly IMediator _mediator;
         private readonly IMessages _messages;
+        private readonly INotificationDispatcher _notificationDispatcher;
         private readonly IUnitOfWork _unitOfWork;
 
         public Orchestrator(

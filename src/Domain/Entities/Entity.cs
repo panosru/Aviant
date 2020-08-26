@@ -6,15 +6,24 @@ namespace Aviant.DDD.Domain.Entities
 
     public abstract class Entity<TKey> : IEntity<TKey>
     {
-        public TKey Id { get; protected set; }// = default!;
-        
         protected Entity()
-        {}
+        {
+        }
 
-        protected Entity(TKey id) => Id = id;
+        protected Entity(TKey id)
+        {
+            Id = id;
+        }
+
+        public TKey Id { get; protected set; } // = default!;
+
+        public virtual Task<bool> Validate()
+        {
+            return Task.FromResult(true);
+        }
 
         #region Equality Check
-        
+
         public override bool Equals(object? obj)
         {
             return obj is Entity<TKey> entity && GetType() == entity.GetType() &&
@@ -35,12 +44,7 @@ namespace Aviant.DDD.Domain.Entities
         {
             return !(left == right);
         }
-        
-        #endregion
 
-        public virtual Task<bool> Validate()
-        {
-            return Task.FromResult(true);
-        }
+        #endregion
     }
 }

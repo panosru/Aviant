@@ -13,13 +13,13 @@ namespace Aviant.DDD.Application.Services
         IEmailService ToServer();
 
         IEmailService WithSubject(string subject);
-        
+
         IEmailService Message();
 
         IEmailService WithBodyHtml(string body);
 
         IEmailService WithBodyPlain(string body);
-        
+
         bool Send();
 
         Task<bool> SendAsync();
