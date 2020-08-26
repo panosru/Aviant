@@ -9,7 +9,7 @@ namespace Aviant.DDD.Infrastructure.Persistance.EventStore
 
     public static class DependencyInjection
     {
-        private static IServiceCollection AddEventsRepository<TAggregateRoot, TKey>(this IServiceCollection services)
+        public static IServiceCollection AddEventsRepository<TAggregateRoot, TKey>(this IServiceCollection services)
             where TAggregateRoot : class, IAggregateRoot<TKey>
         {
             return services.AddSingleton<IEventsRepository<TAggregateRoot, TKey>>(ctx =>
@@ -21,7 +21,7 @@ namespace Aviant.DDD.Infrastructure.Persistance.EventStore
             });
         }
         
-        private static IServiceCollection AddEventsService<TAggregateRoot, TKey>(this IServiceCollection services)
+        public static IServiceCollection AddEventsService<TAggregateRoot, TKey>(this IServiceCollection services)
             where TAggregateRoot : class, IAggregateRoot<TKey>
         {
             return services.AddSingleton<IEventsService<TAggregateRoot, TKey>>(ctx =>

@@ -12,17 +12,17 @@ namespace Aviant.DDD.Application
 
     public static class DependencyInjection
     {
-        private static readonly HashSet<Type> _decorators;
+        private static readonly HashSet<Type> Decorators;
 
         static DependencyInjection()
         {
-            _decorators = new HashSet<Type>(new []
+            Decorators = new HashSet<Type>(new []
             {
                 typeof(RetryProcessor<>)
             });
         }
         
-        private static IServiceCollection RegisterApplication(
+        public static IServiceCollection RegisterApplication(
             this IServiceCollection services,
             Assembly domainAssembly,
             Assembly? applicationAssembly = null)
@@ -61,7 +61,7 @@ namespace Aviant.DDD.Application
         {
             return selector.AddClasses(c =>
                     c.AssignableTo(type)
-                        .Where(t => _decorators.Contains(t))
+                        .Where(t => Decorators.Contains(t))
                 )
                 .UsingRegistrationStrategy(RegistrationStrategy.Append)
                 .AsImplementedInterfaces()

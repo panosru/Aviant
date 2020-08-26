@@ -7,7 +7,7 @@ namespace Aviant.DDD.Infrastructure.Persistance.Kafka
 
     public static class DependencyInjection
     {
-        private static IServiceCollection AddKafkaEventProducer<TA, TK>(
+        public static IServiceCollection AddKafkaEventProducer<TA, TK>(
             this IServiceCollection services, 
             EventConsumerConfig configuration)
             where TA : class, IAggregateRoot<TK>

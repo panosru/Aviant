@@ -5,7 +5,7 @@
         <Nullable>enable</Nullable>
         <RootNamespace>Aviant.DDD.Infrastructure</RootNamespace>
         <AssemblyName>Aviant.DDD.Infrastructure</AssemblyName>
-        <Version>1.0.0-dev.4</Version>
+        <Version>1.0.0-dev.5</Version>
         <Description>Aviant Domain Driven Design Library</Description>
         <PackageTags>ddd</PackageTags>
     </PropertyGroup>
