@@ -13,7 +13,7 @@ namespace Aviant.DDD.Application.Services
     {
         private readonly IEnumerable<Assembly> _assemblies;
 
-        public JsonEventDeserializer(IEnumerable<Assembly> assemblies)
+        public JsonEventDeserializer(IEnumerable<Assembly>? assemblies)
         {
             _assemblies = assemblies ?? new[] {Assembly.GetExecutingAssembly()};
         }

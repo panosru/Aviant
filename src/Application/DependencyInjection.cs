@@ -63,7 +63,7 @@ namespace Aviant.DDD.Application
             return selector.AddClasses(
                     c =>
                         c.AssignableTo(type)
-                            .Where(t => Decorators.Contains(t))
+                            .Where(t => !Decorators.Contains(t))
                 )
                 .UsingRegistrationStrategy(RegistrationStrategy.Append)
                 .AsImplementedInterfaces()
