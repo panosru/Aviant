@@ -19,8 +19,8 @@ namespace Aviant.DDD.Domain.Events
             AggregateId = aggregateRoot.Id;
         }
 
-        public long AggregateVersion { get; }
+        public long AggregateVersion { get; private set; }
 
-        public TKey AggregateId { get; }
+        public TKey AggregateId { get; private set; }
     }
 }
