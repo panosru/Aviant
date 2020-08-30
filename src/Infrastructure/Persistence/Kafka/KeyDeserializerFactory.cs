@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Infrastructure.Persistance.Kafka
+namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 {
     using System;
     using Confluent.Kafka;

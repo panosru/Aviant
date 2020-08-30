@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Infrastructure.Persistance.Configurations
+namespace Aviant.DDD.Infrastructure.Persistence.Configurations
 {
     using Domain.Entities;
     using Microsoft.EntityFrameworkCore;

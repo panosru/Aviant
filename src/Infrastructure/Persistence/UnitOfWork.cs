@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Infrastructure.Persistance
+namespace Aviant.DDD.Infrastructure.Persistence
 {
     using System;
     using System.Threading.Tasks;

@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Infrastructure.Persistance.Repository
+namespace Aviant.DDD.Infrastructure.Persistence.Repository
 {
     using System;
     using System.Collections.Generic;

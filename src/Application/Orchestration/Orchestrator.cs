@@ -33,7 +33,7 @@ namespace Aviant.DDD.Application.Orchestration
         {
             var commandResponse = await _mediator.Send(command);
 
-            // Fire pre/post events
+            // Fire pre/post notifications
             await _notificationDispatcher.FirePreCommitNotifications();
 
             if (_messages.HasMessages()) return new RequestResult(_messages.GetAll());
@@ -47,7 +47,7 @@ namespace Aviant.DDD.Application.Orchestration
                         "An error occurred"
                     });
 
-            // Fire post commit events
+            // Fire post commit notifications
             await _notificationDispatcher.FirePostCommitNotifications();
 
             var isLazy = false;

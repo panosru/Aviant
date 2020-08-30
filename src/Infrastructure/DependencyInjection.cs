@@ -11,9 +11,9 @@ namespace Aviant.DDD.Infrastructure
     using Domain.Services;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using Persistance;
-    using Persistance.EventStore;
-    using Persistance.Kafka;
+    using Persistence;
+    using Persistence.EventStore;
+    using Persistence.Kafka;
     using Services;
 
     public static class DependencyInjection
