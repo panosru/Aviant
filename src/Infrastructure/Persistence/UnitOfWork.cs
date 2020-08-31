@@ -3,7 +3,9 @@ namespace Aviant.DDD.Infrastructure.Persistence
     using System;
     using System.Threading.Tasks;
     using Application.Persistance;
+    using Domain.Aggregates;
     using Domain.Persistence;
+    using Domain.Services;
 
     public class UnitOfWork<TDbContext> : IUnitOfWork, IDisposable
         where TDbContext : IApplicationDbContext
@@ -20,6 +22,27 @@ namespace Aviant.DDD.Infrastructure.Persistence
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+        
+        public async Task<bool> Commit<TAggregateRoot, TKey>(TAggregateRoot aggregateRoot)
+            where TAggregateRoot : class, IAggregateRoot<TKey>
+        {
+            try
+            {
+                if (ServiceLocator.ServiceContainer is null)
+                    throw new Exception("ServiceContainer is null");
+            
+                var eventsService = ServiceLocator.ServiceContainer.GetService<IEventsService<TAggregateRoot, TKey>>(
+                    typeof(IEventsService<TAggregateRoot, TKey>));
+
+                await eventsService.PersistAsync(aggregateRoot);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public async Task<int> Commit()

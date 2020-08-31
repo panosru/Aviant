@@ -1,6 +1,7 @@
 namespace Aviant.DDD.Domain.Persistence
 {
     using System.Threading.Tasks;
+    using Aggregates;
 
     /// <summary>
     ///     Unit of Work Interface
@@ -11,6 +12,9 @@ namespace Aviant.DDD.Domain.Persistence
         ///     Commit changes to database
         /// </summary>
         /// <returns>Integer representing affected rows</returns>
-        public Task<int> Commit();
+        Task<int> Commit();
+
+        Task<bool> Commit<TAggregateRoot, TKey>(TAggregateRoot aggregateRoot)
+            where TAggregateRoot : class, IAggregateRoot<TKey>;
     }
 }

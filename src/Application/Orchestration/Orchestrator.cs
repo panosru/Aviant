@@ -4,8 +4,10 @@ namespace Aviant.DDD.Application.Orchestration
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Commands;
+    using Domain.Aggregates;
     using Domain.Messages;
     using Domain.Persistence;
+    using Domain.Services;
     using MediatR;
     using Notifications;
     using Queries;
@@ -27,6 +29,29 @@ namespace Aviant.DDD.Application.Orchestration
             _messages = messages;
             _notificationDispatcher = notificationDispatcher;
             _mediator = mediator;
+        }
+
+        public async Task<RequestResult> SendCommand<TAggregateRoot, TKey>(ICommand<TAggregateRoot, TKey> command)
+            where TAggregateRoot : class, IAggregateRoot<TKey>
+        {
+            var commandResponse = await _mediator.Send(command);
+            
+            // Fire pre/post notifications
+            await _notificationDispatcher.FirePreCommitNotifications();
+
+            if (_messages.HasMessages()) return new RequestResult(_messages.GetAll());
+
+            if (!await _unitOfWork.Commit<TAggregateRoot, TKey>(commandResponse))
+                return new RequestResult(
+                    new List<string>
+                    {
+                        "An error occurred"
+                    });
+
+            // Fire post commit notifications
+            await _notificationDispatcher.FirePostCommitNotifications();
+
+            return new RequestResult(commandResponse);
         }
 
         public async Task<RequestResult> SendCommand<T>(ICommand<T> command)
