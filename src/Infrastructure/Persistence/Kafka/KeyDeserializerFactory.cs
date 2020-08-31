@@ -8,9 +8,13 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
         public IDeserializer<TKey> Create<TKey>()
         {
             var tk = typeof(TKey);
+            
             if (typeof(Guid) == tk)
                 return (dynamic) new GuidDeserializer();
 
+            if (typeof(int) == tk)
+                return (dynamic) new IntDeserializer();
+            
             throw new ArgumentOutOfRangeException($"Invalid type: {tk}");
         }
     }
