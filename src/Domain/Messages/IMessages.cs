@@ -4,7 +4,7 @@ namespace Aviant.DDD.Domain.Messages
 
     public interface IMessages
     {
-        void AddMessage(string notification);
+        void AddMessage(string message);
 
         bool HasMessages();
 

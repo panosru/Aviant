@@ -4,26 +4,24 @@ namespace Aviant.DDD.Domain.Messages
 
     public class Messages : IMessages
     {
-        private List<string> _notifications = new List<string>();
+        private List<string> _messages = new List<string>();
 
-        public void AddMessage(string notification)
+    #region IMessages Members
+
+        public void AddMessage(string message)
         {
-            _notifications.Add(notification);
+            _messages.Add(message);
         }
 
         public void CleanMessages()
         {
-            _notifications = new List<string>();
+            _messages = new List<string>();
         }
 
-        public List<string> GetAll()
-        {
-            return _notifications;
-        }
+        public List<string> GetAll() => _messages;
 
-        public bool HasMessages()
-        {
-            return 0 < _notifications.Count;
-        }
+        public bool HasMessages() => 0 < _messages.Count;
+
+    #endregion
     }
 }
