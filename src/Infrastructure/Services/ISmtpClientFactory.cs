@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.Services
+namespace Aviant.DDD.Infrastructure.Services
 {
     using MailKit.Net.Smtp;
 
