@@ -12,30 +12,33 @@ namespace Aviant.DDD.Application.EventBus
     {
         private readonly IServiceScopeFactory _scopeFactory;
 
-        public EventConsumerFactory(IServiceScopeFactory scopeFactory)
-        {
-            _scopeFactory = scopeFactory;
-        }
+        public EventConsumerFactory(IServiceScopeFactory scopeFactory) => _scopeFactory = scopeFactory;
 
-        public IEventConsumer Build<TAggregateRoot, TKey>()
-            where TAggregateRoot : IAggregateRoot<TKey>
+    #region IEventConsumerFactory Members
+
+        public IEventConsumer Build<TAggregateRoot, TAggregateId, TDeserializer>()
+            where TAggregateRoot : IAggregateRoot<TAggregateId>
+            where TAggregateId : IAggregateId
         {
             using var scope = _scopeFactory.CreateScope();
-            var consumer = scope.ServiceProvider.GetRequiredService<IEventConsumer<TAggregateRoot, TKey>>();
 
-            async Task onEventReceived(object s, IEvent<TKey> @event)
+            var consumer = scope.ServiceProvider.GetRequiredService<IEventConsumer<
+                TAggregateRoot, TAggregateId, TDeserializer>>();
+
+            async Task OnEventReceived(object s, IEvent<TAggregateId> @event)
             {
                 var constructedEvent = EventReceivedFactory.Create((dynamic) @event);
 
                 using var innerScope = _scopeFactory.CreateScope();
-                //TODO: User Orchestrator
-                var mediator = innerScope.ServiceProvider.GetRequiredService<IMediator>();
+                var       mediator   = innerScope.ServiceProvider.GetRequiredService<IMediator>();
                 await mediator.Publish(constructedEvent, CancellationToken.None);
             }
 
-            consumer.EventReceived += onEventReceived;
+            consumer.EventReceived += OnEventReceived;
 
             return consumer;
         }
+
+    #endregion
     }
 }

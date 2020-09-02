@@ -9,24 +9,37 @@ namespace Aviant.DDD.Application.Commands
     public abstract class CommandHandler<TCommand, TResponse> : ICommandHandler<TCommand, TResponse>
         where TCommand : ICommand<TResponse>
     {
+    #region ICommandHandler<TCommand,TResponse> Members
+
         public abstract Task<TResponse> Handle(TCommand command, CancellationToken cancellationToken);
+
+    #endregion
     }
-    
+
     public abstract class CommandHandler<TCommand> : ICommandHandler<TCommand>
         where TCommand : ICommand<Unit>
     {
+    #region ICommandHandler<TCommand> Members
+
         public abstract Task<Unit> Handle(TCommand command, CancellationToken cancellationToken);
+
+    #endregion
     }
 
-    public abstract class CommandHandler<TCommand, TAggregateRoot, TKey>
-        : ICommandHandler<TCommand, TAggregateRoot, TKey>
-            where TCommand : ICommand<TAggregateRoot, TKey>
-            where TAggregateRoot : class, IAggregateRoot<TKey>
+    public abstract class CommandHandler<TCommand, TAggregateRoot, TAggregateId>
+        : ICommandHandler<TCommand, TAggregateRoot, TAggregateId>
+        where TCommand : ICommand<TAggregateRoot, TAggregateId>
+        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+        where TAggregateId : class, IAggregateId
     {
-        protected IEventsService<TAggregateRoot, TKey> EventsService =>
-            ServiceLocator.ServiceContainer?.GetService<IEventsService<TAggregateRoot, TKey>>(
-                typeof(IEventsService<TAggregateRoot, TKey>));
+        protected IEventsService<TAggregateRoot, TAggregateId> EventsService => ServiceLocator.ServiceContainer
+          ?.GetService<IEventsService<TAggregateRoot, TAggregateId>>(
+                typeof(IEventsService<TAggregateRoot, TAggregateId>));
+
+    #region ICommandHandler<TCommand,TAggregateRoot,TAggregateId> Members
 
         public abstract Task<TAggregateRoot> Handle(TCommand command, CancellationToken cancellationToken);
+
+    #endregion
     }
 }

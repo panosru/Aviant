@@ -7,9 +7,10 @@ namespace Aviant.DDD.Application.Orchestration
 
     public interface IOrchestrator
     {
-        Task<RequestResult> SendCommand<TAggregateRoot, TKey>(ICommand<TAggregateRoot, TKey> command)
-            where TAggregateRoot : class, IAggregateRoot<TKey>;
-        
+        Task<RequestResult> SendCommand<TAggregateRoot, TAggregateId>(ICommand<TAggregateRoot, TAggregateId> command)
+            where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+            where TAggregateId : class, IAggregateId;
+
         Task<RequestResult> SendCommand<T>(ICommand<T> command);
 
         Task<RequestResult> SendQuery<T>(IQuery<T> query);

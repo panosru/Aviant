@@ -5,6 +5,7 @@ namespace Aviant.DDD.Application.Services
     using System.Linq;
     using System.Reflection;
     using System.Text;
+    using Domain.Aggregates;
     using Domain.Events;
     using Domain.Services;
     using Newtonsoft.Json;
@@ -15,20 +16,28 @@ namespace Aviant.DDD.Application.Services
 
         public JsonEventDeserializer(IEnumerable<Assembly>? assemblies)
         {
-            _assemblies = assemblies ?? new[] {Assembly.GetExecutingAssembly()};
+            _assemblies = assemblies ?? new[] { Assembly.GetExecutingAssembly() };
         }
 
-        public IEvent<TKey> Deserialize<TKey>(string type, byte[] data)
+    #region IEventDeserializer Members
+
+        public IEvent<TAggregateId> Deserialize<TAggregateId>(string type, byte[] data)
+            where TAggregateId : IAggregateId
         {
             var jsonData = Encoding.UTF8.GetString(data);
-            return Deserialize<TKey>(type, jsonData);
+
+            return Deserialize<TAggregateId>(type, jsonData);
         }
 
-        public IEvent<TKey> Deserialize<TKey>(string type, string data)
+        public IEvent<TAggregateId> Deserialize<TAggregateId>(string type, string data)
+            where TAggregateId : IAggregateId
         {
             //TODO: cache types
-            var eventType = _assemblies.Select(a => a.GetType(type, false))
-                .FirstOrDefault(t => t != null) ?? Type.GetType(type);
+            var eventType = _assemblies
+                           .Select(a => a.GetType(type, false))
+                           .FirstOrDefault(t => t != null)
+                         ?? Type.GetType(type);
+
             if (null == eventType)
                 throw new ArgumentOutOfRangeException(nameof(type), $"invalid notification type: {type}");
 
@@ -42,10 +51,12 @@ namespace Aviant.DDD.Application.Services
                 new JsonSerializerSettings
                 {
                     ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-                    ContractResolver = new PrivateSetterContractResolver()
+                    ContractResolver    = new PrivateSetterContractResolver()
                 });
 
-            return (IEvent<TKey>) result;
+            return (IEvent<TAggregateId>) result;
         }
+
+    #endregion
     }
 }
