@@ -4,24 +4,17 @@ namespace Aviant.DDD.Domain.TransferObjects
 
     public abstract class Dto : IDto
     {
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this);
-        }
+    #region IDto Members
 
-        public string ToJson(Formatting formatting)
-        {
-            return JsonConvert.SerializeObject(this, formatting);
-        }
+        public string ToJson() => JsonConvert.SerializeObject(this);
 
-        public string ToJson(JsonSerializerSettings settings)
-        {
-            return JsonConvert.SerializeObject(this, settings);
-        }
+        public string ToJson(Formatting formatting) => JsonConvert.SerializeObject(this, formatting);
 
-        public string ToJson(Formatting formatting, JsonSerializerSettings settings)
-        {
-            return JsonConvert.SerializeObject(this, formatting, settings);
-        }
+        public string ToJson(JsonSerializerSettings settings) => JsonConvert.SerializeObject(this, settings);
+
+        public string ToJson(Formatting formatting, JsonSerializerSettings settings) =>
+            JsonConvert.SerializeObject(this, formatting, settings);
+
+    #endregion
     }
 }

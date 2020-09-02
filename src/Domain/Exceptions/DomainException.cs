@@ -6,18 +6,15 @@ namespace Aviant.DDD.Domain.Exceptions
     public class DomainException : Exception
     {
         public DomainException()
-        {
-        }
+        { }
 
         public DomainException(string message)
             : base(message, null)
-        {
-        }
+        { }
 
         public DomainException(string message, Exception inner)
             : base(message, inner)
-        {
-        }
+        { }
 
         /// <summary>
         /// </summary>
@@ -26,10 +23,10 @@ namespace Aviant.DDD.Domain.Exceptions
         /// <param name="familyCode">{ familyCode ∈ R ∣ familyCode >= 0 }</param>
         /// <param name="inner"></param>
         public DomainException(
-            string message,
-            int errorCode,
-            int? familyCode = null,
-            Exception? inner = null)
+            string     message,
+            int        errorCode,
+            int?       familyCode = null,
+            Exception? inner      = null)
             : base(message, inner)
         {
             SetHResult(errorCode, familyCode);

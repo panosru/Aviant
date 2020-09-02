@@ -49,10 +49,7 @@ namespace Aviant.DDD.Domain.Messages
             container?.AddMessage(message);
         }
 
-        public static List<string>? GetAll()
-        {
-            return GetContainer()?.GetAll();
-        }
+        public static List<string>? GetAll() => GetContainer()?.GetAll();
 
         public static bool HasMessages()
         {

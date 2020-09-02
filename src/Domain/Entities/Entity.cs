@@ -7,44 +7,31 @@ namespace Aviant.DDD.Domain.Entities
     public abstract class Entity<TKey> : IEntity<TKey>
     {
         protected Entity()
-        {
-        }
+        { }
 
-        protected Entity(TKey id)
-        {
-            Id = id;
-        }
+        protected Entity(TKey id) => Id = id;
 
-        public TKey Id { get; protected set; } // = default!;
+    #region IEntity<TKey> Members
 
-        public virtual Task<bool> Validate()
-        {
-            return Task.FromResult(true);
-        }
+        public TKey Id { get; protected set; }
 
-        #region Equality Check
+        public virtual Task<bool> Validate() => Task.FromResult(true);
 
-        public override bool Equals(object? obj)
-        {
-            return obj is Entity<TKey> entity && GetType() == entity.GetType() &&
-                   EqualityComparer<TKey>.Default.Equals(Id, entity.Id);
-        }
+    #endregion
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(GetType(), Id);
-        }
+    #region Equality Check
 
-        public static bool operator ==(Entity<TKey> left, Entity<TKey> right)
-        {
-            return EqualityComparer<Entity<TKey>>.Default.Equals(left, right);
-        }
+        public override bool Equals(object? obj) => obj is Entity<TKey> entity
+                                                 && GetType() == entity.GetType()
+                                                 && EqualityComparer<TKey>.Default.Equals(Id, entity.Id);
 
-        public static bool operator !=(Entity<TKey> left, Entity<TKey> right)
-        {
-            return !(left == right);
-        }
+        public override int GetHashCode() => HashCode.Combine(GetType(), Id);
 
-        #endregion
+        public static bool operator ==(Entity<TKey> left, Entity<TKey> right) =>
+            EqualityComparer<Entity<TKey>>.Default.Equals(left, right);
+
+        public static bool operator !=(Entity<TKey> left, Entity<TKey> right) => !(left == right);
+
+    #endregion
     }
 }

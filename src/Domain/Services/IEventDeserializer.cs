@@ -1,11 +1,14 @@
 namespace Aviant.DDD.Domain.Services
 {
+    using Aggregates;
     using Events;
 
     public interface IEventDeserializer
     {
-        IEvent<TKey> Deserialize<TKey>(string type, byte[] data);
+        IEvent<TAggregateId> Deserialize<TAggregateId>(string type, byte[] data)
+            where TAggregateId : IAggregateId;
 
-        IEvent<TKey> Deserialize<TKey>(string type, string data);
+        IEvent<TAggregateId> Deserialize<TAggregateId>(string type, string data)
+            where TAggregateId : IAggregateId;
     }
 }
