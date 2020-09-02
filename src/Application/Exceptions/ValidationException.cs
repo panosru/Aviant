@@ -7,10 +7,7 @@ namespace Aviant.DDD.Application.Exceptions
     public class ValidationException : ApplicationException
     {
         public ValidationException()
-            : base("One or more validation failures have occurred.")
-        {
-            Failures = new Dictionary<string, string[]>();
-        }
+            : base("One or more validation failures have occurred.") => Failures = new Dictionary<string, string[]>();
 
         public ValidationException(IEnumerable<ValidationFailure> failures)
             : this()

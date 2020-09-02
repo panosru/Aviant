@@ -3,7 +3,7 @@ namespace Aviant.DDD.Domain.Entities
     using System;
 
     public interface IAuditedEntity
-    { }
+    {}
 
     public interface IHasCreationTime : IAuditedEntity
     {
