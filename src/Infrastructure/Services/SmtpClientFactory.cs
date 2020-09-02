@@ -18,22 +18,23 @@ namespace Aviant.DDD.Infrastructure.Services
 
         public SmtpClientFactory(
             string address,
-            int port,
-            bool useSsl,
+            int    port,
+            bool   useSsl,
             string username,
             string password)
         {
-            _address = address;
-            _port = port;
-            _useSsl = useSsl;
+            _address  = address;
+            _port     = port;
+            _useSsl   = useSsl;
             _username = username;
             _password = password;
         }
 
+    #region ISmtpClientFactory Members
 
         public SmtpClient GetSmtpClient()
         {
-            SmtpClient client = new SmtpClient();
+            var client = new SmtpClient();
 
             client.Connect(
                 _address,
@@ -46,5 +47,7 @@ namespace Aviant.DDD.Infrastructure.Services
 
             return client;
         }
+
+    #endregion
     }
 }

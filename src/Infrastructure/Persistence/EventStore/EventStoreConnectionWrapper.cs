@@ -8,13 +8,15 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
     public class EventStoreConnectionWrapper : IEventStoreConnectionWrapper, IDisposable
     {
         private readonly Uri _connectionString;
+
         private readonly Lazy<Task<IEventStoreConnection>> _lazyConnection;
+
         private readonly ILogger<EventStoreConnectionWrapper> _logger;
 
         public EventStoreConnectionWrapper(Uri connectionString, ILogger<EventStoreConnectionWrapper> logger)
         {
             _connectionString = connectionString;
-            _logger = logger;
+            _logger           = logger;
 
             _lazyConnection = new Lazy<Task<IEventStoreConnection>>(
                 () =>
@@ -31,6 +33,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
                 });
         }
 
+    #region IDisposable Members
+
         public void Dispose()
         {
             if (!_lazyConnection.IsValueCreated)
@@ -39,19 +43,22 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             _lazyConnection.Value.Result.Dispose();
         }
 
-        public Task<IEventStoreConnection> GetConnectionAsync()
-        {
-            return _lazyConnection.Value;
-        }
+    #endregion
+
+    #region IEventStoreConnectionWrapper Members
+
+        public Task<IEventStoreConnection> GetConnectionAsync() => _lazyConnection.Value;
+
+    #endregion
 
         // TODO: I'm not sure this is really the right approach.
         private IEventStoreConnection SetupConnection()
         {
             var settings = ConnectionSettings.Create()
-                .EnableVerboseLogging()
-                .UseConsoleLogger()
-                .DisableTls() // https://github.com/EventStore/EventStore/issues/2547
-                .Build();
+                                             .EnableVerboseLogging()
+                                             .UseConsoleLogger()
+                                             .DisableTls() // https://github.com/EventStore/EventStore/issues/2547
+                                             .Build();
             var connection = EventStoreConnection.Create(settings, _connectionString);
 
             connection.ErrorOccurred += async (s, e) =>
@@ -62,18 +69,21 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
                 connection = SetupConnection();
                 await connection.ConnectAsync();
             };
+
             connection.Disconnected += async (s, e) =>
             {
                 _logger.LogWarning("The Eventstore connection has dropped. Trying to reconnect...");
                 connection = SetupConnection();
                 await connection.ConnectAsync();
             };
+
             connection.Closed += async (s, e) =>
             {
                 _logger.LogWarning($"The Eventstore connection was closed: {e.Reason}. Opening new connection...");
                 connection = SetupConnection();
                 await connection.ConnectAsync();
             };
+
             return connection;
         }
     }

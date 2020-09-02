@@ -33,12 +33,11 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         /// <param name="options">The <see cref="DbContextOptions" />.</param>
         /// <param name="operationalStoreOptions">The <see cref="IOptions{OperationalStoreOptions}" />.</param>
         public ApiAuthorizationDbContext(
-            DbContextOptions options,
+            DbContextOptions                  options,
             IOptions<OperationalStoreOptions> operationalStoreOptions)
-            : base(options)
-        {
-            _operationalStoreOptions = operationalStoreOptions;
-        }
+            : base(options) => _operationalStoreOptions = operationalStoreOptions;
+
+    #region IPersistedGrantDbContext Members
 
         /// <summary>
         ///     Gets or sets the <see cref="DbSet{PersistedGrant}" />.
@@ -50,10 +49,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         /// </summary>
         public DbSet<DeviceFlowCodes>? DeviceFlowCodes { get; set; }
 
-        Task<int> IPersistedGrantDbContext.SaveChangesAsync()
-        {
-            return base.SaveChangesAsync();
-        }
+        Task<int> IPersistedGrantDbContext.SaveChangesAsync() => base.SaveChangesAsync();
+
+    #endregion
 
         /// <inheritdoc />
         protected override void OnModelCreating(ModelBuilder builder)
@@ -76,10 +74,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         /// <param name="options">The <see cref="DbContextOptions" />.</param>
         /// <param name="operationalStoreOptions">The <see cref="IOptions{OperationalStoreOptions}" />.</param>
         public ApiAuthorizationDbContext(
-            DbContextOptions options,
+            DbContextOptions                  options,
             IOptions<OperationalStoreOptions> operationalStoreOptions)
             : base(options, operationalStoreOptions)
-        {
-        }
+        { }
     }
 }

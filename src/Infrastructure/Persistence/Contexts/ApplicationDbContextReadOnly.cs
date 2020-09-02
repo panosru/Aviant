@@ -16,7 +16,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         where TApplicationRole : ApplicationRole
     {
         protected ApplicationDbContextReadOnly(
-            DbContextOptions options,
+            DbContextOptions                  options,
             IOptions<OperationalStoreOptions> operationalStoreOptions)
             : base(options, operationalStoreOptions)
         {
@@ -38,7 +38,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         }
 
         public override Task<int> SaveChangesAsync(
-            bool acceptAllChangesOnSuccess,
+            bool              acceptAllChangesOnSuccess,
             CancellationToken cancellationToken = new CancellationToken())
         {
             ThrowWriteException();
@@ -56,7 +56,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var foreignKey in modelBuilder.Model.GetEntityTypes()
-                .SelectMany(e => e.GetForeignKeys()))
+                                                   .SelectMany(e => e.GetForeignKeys()))
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
 
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
@@ -66,7 +66,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         protected void TrackerSettings()
         {
-            ChangeTracker.LazyLoadingEnabled = false;
+            ChangeTracker.LazyLoadingEnabled    = false;
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 

@@ -19,13 +19,16 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
         where TDbContext : ApplicationDbContext<TDbContext, TApplicationUser, TApplicationRole>
     {
         private readonly TDbContext _dbContext;
+
         private readonly DbSet<TEntity> _dbSet;
 
         protected RepositoryWriteOnly(TDbContext context)
         {
             _dbContext = context;
-            _dbSet = _dbContext.Set<TEntity>();
+            _dbSet     = _dbContext.Set<TEntity>();
         }
+
+    #region IRepositoryWrite<TEntity,TPrimaryKey> Members
 
         public async Task Add(TEntity entity)
         {
@@ -68,5 +71,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
         {
             _dbContext.Dispose();
         }
+
+    #endregion
     }
 }

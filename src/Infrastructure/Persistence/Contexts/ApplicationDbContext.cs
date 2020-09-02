@@ -22,38 +22,46 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         where TApplicationRole : ApplicationRole
     {
         private static readonly MethodInfo? ConfigureGlobalFiltersMethodInfo = typeof(TDbContext)
-            .GetMethod(nameof(ConfigureGlobalFilters), BindingFlags.Instance | BindingFlags.NonPublic);
+           .GetMethod(nameof(ConfigureGlobalFilters), BindingFlags.Instance | BindingFlags.NonPublic);
 
         private readonly ICurrentUserService _currentUserService;
+
         private readonly IDateTimeService _dateTimeService;
 
         protected ApplicationDbContext(
-            DbContextOptions options,
+            DbContextOptions                  options,
             IOptions<OperationalStoreOptions> operationalStoreOptions,
-            ICurrentUserService currentUserService,
-            IDateTimeService dateTimeService)
+            ICurrentUserService               currentUserService,
+            IDateTimeService                  dateTimeService)
             : base(options, operationalStoreOptions)
         {
             _currentUserService = currentUserService;
-            _dateTimeService = dateTimeService;
+            _dateTimeService    = dateTimeService;
 
             TrackerSettings();
         }
 
+    #region IApplicationDbContext Members
+
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            foreach (var entry in ChangeTracker.Entries<IAuditedEntity>())
+            foreach (EntityEntry<IAuditedEntity> entry in ChangeTracker.Entries<IAuditedEntity>())
                 switch (entry.State)
                 {
                     case EntityState.Added:
                         SetCreationAuditProperties(entry);
+
                         break;
+
                     case EntityState.Modified:
                         SetModificationAuditProperties(entry);
+
                         break;
+
                     case EntityState.Deleted:
                         CancelDeletionForSoftDelete(entry);
                         SetDeletionAuditProperties(entry);
+
                         break;
                 }
 
@@ -61,6 +69,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
             return result;
         }
+
+    #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -70,8 +80,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
                 ConfigureGlobalFiltersMethodInfo?
-                    .MakeGenericMethod(entityType.ClrType)
-                    .Invoke(this, new object[] {modelBuilder, entityType});
+                   .MakeGenericMethod(entityType.ClrType)
+                   .Invoke(this, new object[] { modelBuilder, entityType });
         }
 
         protected void TrackerSettings()
@@ -79,14 +89,14 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             ChangeTracker.LazyLoadingEnabled = false;
         }
 
-        #region Configure Global Filters
+    #region Configure Global Filters
 
         protected void ConfigureGlobalFilters<TEntity>(ModelBuilder modelBuilder, IMutableEntityType entityType)
             where TEntity : class
         {
             if (ShouldFilterEntity<TEntity>(entityType))
             {
-                var filterExpression = CreateFilterExpression<TEntity>();
+                Expression<Func<TEntity, bool>>? filterExpression = CreateFilterExpression<TEntity>();
                 if (filterExpression != null) modelBuilder.Entity<TEntity>().HasQueryFilter(filterExpression);
             }
         }
@@ -113,9 +123,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             return expression;
         }
 
-        #endregion
+    #endregion
 
-        #region Configure Audit Properties
+    #region Configure Audit Properties
 
         protected virtual void SetCreationAuditProperties(EntityEntry entry)
         {
@@ -156,7 +166,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             if (!(entry.Entity is IDeletionAudited deletionAuditedEntity)) return;
 
             deletionAuditedEntity.DeletedBy = _currentUserService.UserId;
-            deletionAuditedEntity.Deleted = _dateTimeService.Now(true);
+            deletionAuditedEntity.Deleted   = _dateTimeService.Now(true);
         }
 
         protected virtual void CancelDeletionForSoftDelete(EntityEntry entry)
@@ -164,10 +174,10 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             if (!(entry.Entity is ISoftDelete)) return;
 
             entry.Reload();
-            entry.State = EntityState.Modified;
+            entry.State                            = EntityState.Modified;
             ((ISoftDelete) entry.Entity).IsDeleted = true;
         }
 
-        #endregion
+    #endregion
     }
 }

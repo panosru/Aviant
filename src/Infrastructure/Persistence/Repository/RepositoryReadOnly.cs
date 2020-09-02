@@ -19,142 +19,126 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
         where TDbContext : ApplicationDbContextReadOnly<TApplicationUser, TApplicationRole>
     {
         private readonly TDbContext _dbContext;
+
         private readonly DbSet<TEntity> _dbSet;
 
         protected RepositoryReadOnly(TDbContext context)
         {
             _dbContext = context;
-            _dbSet = _dbContext.Set<TEntity>();
+            _dbSet     = _dbContext.Set<TEntity>();
         }
+
+    #region IRepositoryRead<TEntity,TPrimaryKey> Members
 
         public IQueryable<TEntity> GetAll()
         {
             IQueryable<TEntity> query = _dbSet;
+
             return query;
         }
 
         public IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            var query = GetAll();
+            IQueryable<TEntity> query = GetAll();
             BindIncludeProperties(query, includeProperties);
             includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+
             return query;
         }
 
-        public async Task<List<TEntity>> GetAllList()
-        {
-            return await GetAll().ToListAsync();
-        }
+        public async Task<List<TEntity>> GetAllList() => await GetAll().ToListAsync();
 
         public Task<List<TEntity>> GetAllListIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            var query = GetAll();
+            IQueryable<TEntity> query = GetAll();
             includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+
             return query.ToListAsync();
         }
 
-        public ValueTask<TEntity> Find(TPrimaryKey id)
-        {
-            return _dbSet.FindAsync(id);
-        }
+        public ValueTask<TEntity> Find(TPrimaryKey id) => _dbSet.FindAsync(id);
 
-        public Task<TEntity> GetFirst(TPrimaryKey id)
-        {
-            return GetAll().FirstOrDefaultAsync(CreateEqualityExpressionForId(id));
-        }
+        public Task<TEntity> GetFirst(TPrimaryKey id) =>
+            GetAll().FirstOrDefaultAsync(CreateEqualityExpressionForId(id));
 
         public Task<TEntity> GetFirstIncluding(
-            TPrimaryKey id,
+            TPrimaryKey                                id,
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            var query = GetAll();
+            IQueryable<TEntity> query = GetAll();
             query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+
             return query.FirstOrDefaultAsync(CreateEqualityExpressionForId(id));
         }
 
-        public Task<TEntity> GetFirst(Expression<Func<TEntity, bool>> predicate)
-        {
-            return GetAll().FirstOrDefaultAsync(predicate);
-        }
+        public Task<TEntity> GetFirst(Expression<Func<TEntity, bool>> predicate) =>
+            GetAll().FirstOrDefaultAsync(predicate);
 
         public Task<TEntity> GetFirstIncluding(
-            Expression<Func<TEntity, bool>> predicate,
+            Expression<Func<TEntity, bool>>            predicate,
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            var query = GetAll();
+            IQueryable<TEntity> query = GetAll();
             query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+
             return query.FirstOrDefaultAsync(predicate);
         }
 
-        public Task<TEntity> GetSingle(TPrimaryKey id)
-        {
-            return GetAll().SingleOrDefaultAsync(CreateEqualityExpressionForId(id));
-        }
+        public Task<TEntity> GetSingle(TPrimaryKey id) =>
+            GetAll().SingleOrDefaultAsync(CreateEqualityExpressionForId(id));
 
         public Task<TEntity> GetSingleIncluding(
-            TPrimaryKey id,
+            TPrimaryKey                                id,
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            var query = GetAll();
+            IQueryable<TEntity> query = GetAll();
             query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+
             return query.SingleOrDefaultAsync(CreateEqualityExpressionForId(id));
         }
 
-        public Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> predicate)
-        {
-            return GetAll().SingleOrDefaultAsync(predicate);
-        }
+        public Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> predicate) =>
+            GetAll().SingleOrDefaultAsync(predicate);
 
         public Task<TEntity> GetSingleIncluding(
-            Expression<Func<TEntity, bool>> predicate,
+            Expression<Func<TEntity, bool>>            predicate,
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            var query = GetAll();
+            IQueryable<TEntity> query = GetAll();
             query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+
             return query.SingleOrDefaultAsync(predicate);
         }
 
-        public IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate)
-        {
-            return GetAll().Where(predicate);
-        }
+        public IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate) => GetAll().Where(predicate);
 
         public IQueryable<TEntity> FindByIncluding(
-            Expression<Func<TEntity, bool>> predicate,
+            Expression<Func<TEntity, bool>>            predicate,
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            var query = GetAll();
+            IQueryable<TEntity> query = GetAll();
             query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+
             return query.Where(predicate);
         }
 
-        public Task<bool> Any(Expression<Func<TEntity, bool>> predicate)
-        {
-            return _dbSet.AnyAsync(predicate);
-        }
+        public Task<bool> Any(Expression<Func<TEntity, bool>> predicate) => _dbSet.AnyAsync(predicate);
 
-        public Task<bool> All(Expression<Func<TEntity, bool>> predicate)
-        {
-            return _dbSet.AllAsync(predicate);
-        }
+        public Task<bool> All(Expression<Func<TEntity, bool>> predicate) => _dbSet.AllAsync(predicate);
 
-        public async Task<int> Count()
-        {
-            return await _dbSet.CountAsync();
-        }
+        public async Task<int> Count() => await _dbSet.CountAsync();
 
-        public Task<int> Count(Expression<Func<TEntity, bool>> predicate)
-        {
-            return _dbSet.CountAsync(predicate);
-        }
+        public Task<int> Count(Expression<Func<TEntity, bool>> predicate) => _dbSet.CountAsync(predicate);
 
         public void Dispose()
         {
             _dbContext.Dispose();
         }
 
+    #endregion
+
         private static void BindIncludeProperties(
-            IQueryable<TEntity> query,
+            IQueryable<TEntity>                            query,
             IEnumerable<Expression<Func<TEntity, object>>> includeProperties)
         {
             includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));

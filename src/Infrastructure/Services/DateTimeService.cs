@@ -6,11 +6,12 @@ namespace Aviant.DDD.Infrastructure.Services
     public class DateTimeService
         : IDateTimeService
     {
-        public DateTime Now(bool utc = false)
-        {
-            return utc
-                ? DateTime.UtcNow
-                : DateTime.Now;
-        }
+    #region IDateTimeService Members
+
+        public DateTime Now(bool utc = false) => utc
+            ? DateTime.UtcNow
+            : DateTime.Now;
+
+    #endregion
     }
 }

@@ -11,9 +11,12 @@ namespace Aviant.DDD.Infrastructure.Services
         where TRecrod : class
         where TMap : ClassMap<TRecrod>
     {
+    #region ICsvFileBuilder<TRecrod> Members
+
         public byte[] BuildTodoItemsFile(IEnumerable<TRecrod> records)
         {
             using var memoryStream = new MemoryStream();
+
             using (var streamWriter = new StreamWriter(memoryStream))
             {
                 using var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture);
@@ -24,5 +27,7 @@ namespace Aviant.DDD.Infrastructure.Services
 
             return memoryStream.ToArray();
         }
+
+    #endregion
     }
 }

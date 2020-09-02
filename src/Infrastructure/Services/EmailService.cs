@@ -13,6 +13,7 @@ namespace Aviant.DDD.Infrastructure.Services
         private readonly string _receiverName;
 
         private readonly string _senderEmail;
+
         private readonly string _senderName;
 
         private readonly ISmtpClientFactory _smtpClientFactory;
@@ -22,22 +23,24 @@ namespace Aviant.DDD.Infrastructure.Services
         private SmtpClient _smtpClient;
 
         public EmailService(
-            string senderName,
-            string senderEmail,
-            string receiverName,
-            string receiverEmail,
+            string             senderName,
+            string             senderEmail,
+            string             receiverName,
+            string             receiverEmail,
             ISmtpClientFactory smtpClientFactory,
-            MimeMessage message,
-            SmtpClient smtpClient)
+            MimeMessage        message,
+            SmtpClient         smtpClient)
         {
-            _senderName = senderName;
-            _senderEmail = senderEmail;
-            _receiverName = receiverName;
-            _receiverEmail = receiverEmail;
+            _senderName        = senderName;
+            _senderEmail       = senderEmail;
+            _receiverName      = receiverName;
+            _receiverEmail     = receiverEmail;
             _smtpClientFactory = smtpClientFactory;
-            _message = message;
-            _smtpClient = smtpClient;
+            _message           = message;
+            _smtpClient        = smtpClient;
         }
+
+    #region IEmailService Members
 
         public IEmailService From(string name, string address)
         {
@@ -77,7 +80,7 @@ namespace Aviant.DDD.Infrastructure.Services
         public IEmailService Message()
         {
             _smtpClient = _smtpClientFactory.GetSmtpClient();
-            _message = new MimeMessage();
+            _message    = new MimeMessage();
 
             return this;
         }
@@ -111,9 +114,8 @@ namespace Aviant.DDD.Infrastructure.Services
             return true;
         }
 
-        public Task<bool> SendAsync()
-        {
-            return Task.FromResult(Send());
-        }
+        public Task<bool> SendAsync() => Task.FromResult(Send());
+
+    #endregion
     }
 }
