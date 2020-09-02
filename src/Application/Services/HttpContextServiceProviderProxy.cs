@@ -8,14 +8,13 @@ namespace Aviant.DDD.Application.Services
     {
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public HttpContextServiceProviderProxy(IHttpContextAccessor contextAccessor)
-        {
+        public HttpContextServiceProviderProxy(IHttpContextAccessor contextAccessor) =>
             _contextAccessor = contextAccessor;
-        }
 
-        public T GetService<T>(Type type)
-        {
-            return (T) _contextAccessor.HttpContext.RequestServices.GetService(type);
-        }
+    #region IServiceContainer Members
+
+        public T GetService<T>(Type type) => (T) _contextAccessor.HttpContext.RequestServices.GetService(type);
+
+    #endregion
     }
 }

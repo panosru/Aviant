@@ -12,14 +12,13 @@ namespace Aviant.DDD.Application.Behaviours
     {
         private readonly ILogger<TRequest> _logger;
 
-        public UnhandledExceptionBehaviour(ILogger<TRequest> logger)
-        {
-            _logger = logger;
-        }
+        public UnhandledExceptionBehaviour(ILogger<TRequest> logger) => _logger = logger;
+
+    #region IPipelineBehavior<TRequest,TResponse> Members
 
         public async Task<TResponse> Handle(
-            TRequest request,
-            CancellationToken cancellationToken,
+            TRequest                          request,
+            CancellationToken                 cancellationToken,
             RequestHandlerDelegate<TResponse> next)
         {
             Console.WriteLine("************");
@@ -44,5 +43,7 @@ namespace Aviant.DDD.Application.Behaviours
                 throw;
             }
         }
+
+    #endregion
     }
 }

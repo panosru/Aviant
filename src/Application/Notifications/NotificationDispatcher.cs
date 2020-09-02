@@ -9,16 +9,20 @@ namespace Aviant.DDD.Application.Notifications
     public class NotificationDispatcher : INotificationDispatcher
     {
         private readonly IDateTimeService _dateTimeService;
+
         private readonly IMediator _mediator;
 
         public NotificationDispatcher(IMediator mediator, IDateTimeService dateTimeService)
         {
-            _mediator = mediator;
+            _mediator        = mediator;
             _dateTimeService = dateTimeService;
         }
 
         private List<INotification> PreCommitEvents { get; } = new List<INotification>();
+
         private List<INotification> PostCommitEvents { get; } = new List<INotification>();
+
+    #region INotificationDispatcher Members
 
         public void AddPreCommitNotification(INotification notification)
         {
@@ -34,7 +38,7 @@ namespace Aviant.DDD.Application.Notifications
 
         public async Task FirePreCommitNotifications()
         {
-            foreach (INotification notification in PreCommitEvents.ToList())
+            foreach (var notification in PreCommitEvents.ToList())
             {
                 await _mediator.Publish(notification).ConfigureAwait(false);
                 RemovePreCommitNotification(notification);
@@ -43,22 +47,16 @@ namespace Aviant.DDD.Application.Notifications
 
         public async Task FirePostCommitNotifications()
         {
-            foreach (INotification notification in PostCommitEvents.ToList())
+            foreach (var notification in PostCommitEvents.ToList())
             {
                 await _mediator.Publish(notification).ConfigureAwait(false);
                 RemovePostCommitNotification(notification);
             }
         }
 
-        public List<INotification> GetPreCommitEvents()
-        {
-            return PreCommitEvents;
-        }
+        public List<INotification> GetPreCommitEvents() => PreCommitEvents;
 
-        public List<INotification> GetPostCommitNotifications()
-        {
-            return PostCommitEvents;
-        }
+        public List<INotification> GetPostCommitNotifications() => PostCommitEvents;
 
         public void RemovePreCommitNotification(INotification notification)
         {
@@ -69,5 +67,7 @@ namespace Aviant.DDD.Application.Notifications
         {
             PostCommitEvents.Remove(notification);
         }
+
+    #endregion
     }
 }

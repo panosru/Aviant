@@ -4,6 +4,6 @@ namespace Aviant.DDD.Application.Notifications
 
     public interface INotification : MediatR.INotification
     {
-        public DateTime Occured { get; set; }
+        DateTime Occured { get; set; }
     }
 }

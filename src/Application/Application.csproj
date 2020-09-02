@@ -5,7 +5,7 @@
         <Nullable>enable</Nullable>
         <RootNamespace>Aviant.DDD.Application</RootNamespace>
         <AssemblyName>Aviant.DDD.Application</AssemblyName>
-        <Version>1.0.0-dev.6</Version>
+        <Version>1.0.0-beta.1</Version>
         <Description>Aviant Domain Driven Design Library</Description>
         <PackageTags>ddd</PackageTags>
     </PropertyGroup>

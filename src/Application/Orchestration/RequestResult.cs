@@ -8,25 +8,21 @@ namespace Aviant.DDD.Application.Orchestration
         private readonly object? _payload;
 
         public RequestResult()
-        {
-        }
+        { }
 
         public RequestResult(object? payload)
         {
             _payload = payload;
-            Success = true;
+            Success  = true;
         }
 
         public RequestResult(object? payload, int? affectedRows)
-            : this(payload)
-        {
-            AffectedRows = affectedRows;
-        }
+            : this(payload) => AffectedRows = affectedRows;
 
         public RequestResult(List<string> messages)
         {
             Messages = messages;
-            Success = false;
+            Success  = false;
         }
 
         public bool Success { get; set; }
@@ -35,10 +31,7 @@ namespace Aviant.DDD.Application.Orchestration
 
         public int? AffectedRows { get; set; }
 
-        public object? Payload()
-        {
-            return _payload;
-        }
+        public object? Payload() => _payload;
 
         public T Payload<T>()
         {

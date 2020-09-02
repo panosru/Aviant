@@ -4,9 +4,6 @@ namespace Aviant.DDD.Application.Commands
 
     public abstract class CommandValidator<TCommand> : AbstractValidator<TCommand>
     {
-        protected CommandValidator(CascadeMode cascadeMode = CascadeMode.Stop)
-        {
-            CascadeMode = cascadeMode;
-        }
+        protected CommandValidator(CascadeMode cascadeMode = CascadeMode.Stop) => CascadeMode = cascadeMode;
     }
 }

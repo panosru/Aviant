@@ -25,8 +25,8 @@ namespace Aviant.DDD.Application
 
         public static IServiceCollection RegisterApplication(
             this IServiceCollection services,
-            Assembly domainAssembly,
-            Assembly? applicationAssembly = null)
+            Assembly                domainAssembly,
+            Assembly?               applicationAssembly = null)
         {
             applicationAssembly ??= Assembly.GetCallingAssembly();
 
@@ -61,13 +61,13 @@ namespace Aviant.DDD.Application
         public static IImplementationTypeSelector RegisterHandlers(this IImplementationTypeSelector selector, Type type)
         {
             return selector.AddClasses(
-                    c =>
-                        c.AssignableTo(type)
-                            .Where(t => !Decorators.Contains(t))
-                )
-                .UsingRegistrationStrategy(RegistrationStrategy.Append)
-                .AsImplementedInterfaces()
-                .WithScopedLifetime();
+                                c =>
+                                    c.AssignableTo(type)
+                                     .Where(t => !Decorators.Contains(t))
+                            )
+                           .UsingRegistrationStrategy(RegistrationStrategy.Append)
+                           .AsImplementedInterfaces()
+                           .WithScopedLifetime();
         }
     }
 }

@@ -7,29 +7,32 @@ namespace Aviant.DDD.Application.Behaviours
     using MediatR.Pipeline;
     using Microsoft.Extensions.Logging;
 
-    public abstract class LoggerBehaviour<TRequest> : IRequestPreProcessor<TRequest>
+    public class LoggerBehaviour<TRequest> : IRequestPreProcessor<TRequest>
         where TRequest : notnull
     {
         private readonly ICurrentUserService _currentUserService;
 
         private readonly IIdentityService _identityIdentityService;
+
         private readonly ILogger _logger;
 
         public LoggerBehaviour(
-            ILogger<TRequest> logger,
+            ILogger<TRequest>   logger,
             ICurrentUserService currentUserService,
-            IIdentityService identityIdentityService)
+            IIdentityService    identityIdentityService)
         {
-            _logger = logger;
-            _currentUserService = currentUserService;
+            _logger                  = logger;
+            _currentUserService      = currentUserService;
             _identityIdentityService = identityIdentityService;
         }
 
+    #region IRequestPreProcessor<TRequest> Members
+
         public async Task Process(TRequest request, CancellationToken cancellationToken)
         {
-            string requestName = typeof(TRequest).Name;
-            var userId = _currentUserService.UserId;
-            string username = string.Empty;
+            var requestName = typeof(TRequest).Name;
+            var userId      = _currentUserService.UserId;
+            var username    = string.Empty;
 
             if (Guid.Empty != userId)
                 username = await _identityIdentityService.GetUserNameAsync(userId);
@@ -43,5 +46,7 @@ namespace Aviant.DDD.Application.Behaviours
 
             await Task.CompletedTask;
         }
+
+    #endregion
     }
 }

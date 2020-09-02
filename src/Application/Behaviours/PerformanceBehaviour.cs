@@ -20,20 +20,22 @@ namespace Aviant.DDD.Application.Behaviours
         private readonly Stopwatch _timer;
 
         public PerformanceBehaviour(
-            ILogger<TRequest> logger,
+            ILogger<TRequest>   logger,
             ICurrentUserService currentUserService,
-            IIdentityService identityIdentityService)
+            IIdentityService    identityIdentityService)
         {
             _timer = new Stopwatch();
 
-            _logger = logger;
-            _currentUserService = currentUserService;
+            _logger                  = logger;
+            _currentUserService      = currentUserService;
             _identityIdentityService = identityIdentityService;
         }
 
+    #region IPipelineBehavior<TRequest,TResponse> Members
+
         public async Task<TResponse> Handle(
-            TRequest request,
-            CancellationToken cancellationToken,
+            TRequest                          request,
+            CancellationToken                 cancellationToken,
             RequestHandlerDelegate<TResponse> next)
         {
             _timer.Start();
@@ -44,9 +46,9 @@ namespace Aviant.DDD.Application.Behaviours
 
             if (500 < elapsedMilliseconds)
             {
-                string requestName = typeof(TRequest).Name;
-                var userId = _currentUserService.UserId;
-                string username = string.Empty;
+                var requestName = typeof(TRequest).Name;
+                var userId      = _currentUserService.UserId;
+                var username    = string.Empty;
 
                 if (Guid.Empty != userId)
                     username = await _identityIdentityService.GetUserNameAsync(userId);
@@ -62,5 +64,7 @@ namespace Aviant.DDD.Application.Behaviours
 
             return response;
         }
+
+    #endregion
     }
 }

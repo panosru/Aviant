@@ -5,7 +5,7 @@ namespace Aviant.DDD.Application.Notifications
 
     public interface INotificationDispatcher
     {
-        #region Pre Commit Notifications
+    #region Pre Commit Notifications
 
         List<INotification> GetPreCommitEvents();
 
@@ -15,9 +15,9 @@ namespace Aviant.DDD.Application.Notifications
 
         Task FirePreCommitNotifications();
 
-        #endregion
+    #endregion
 
-        #region Post Commit Notifications
+    #region Post Commit Notifications
 
         List<INotification> GetPostCommitNotifications();
 
@@ -27,6 +27,6 @@ namespace Aviant.DDD.Application.Notifications
 
         Task FirePostCommitNotifications();
 
-        #endregion
+    #endregion
     }
 }
