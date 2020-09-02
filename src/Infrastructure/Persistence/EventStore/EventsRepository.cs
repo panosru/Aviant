@@ -12,11 +12,14 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
     using Domain.Services;
     using global::EventStore.ClientAPI;
 
-    public class EventsRepository<TAggregateRoot, TKey> : IEventsRepository<TAggregateRoot, TKey>
-        where TAggregateRoot : class, IAggregateRoot<TKey>
+    public class EventsRepository<TAggregateRoot, TAggregateId> : IEventsRepository<TAggregateRoot, TAggregateId>
+        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+        where TAggregateId : class, IAggregateId
     {
         private readonly IEventStoreConnectionWrapper _connectionWrapper;
+
         private readonly IEventDeserializer _eventDeserializer;
+
         private readonly string _streamBaseName;
 
         public EventsRepository(IEventStoreConnectionWrapper connectionWrapper, IEventDeserializer eventDeserializer)
@@ -27,6 +30,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             var aggregateType = typeof(TAggregateRoot);
             _streamBaseName = aggregateType.Name;
         }
+
+    #region IEventsRepository<TAggregateRoot,TAggregateId> Members
 
         public async Task AppendAsync(TAggregateRoot aggregateRoot)
         {
@@ -40,7 +45,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             var streamName = GetStreamName(aggregateRoot.Id);
 
-            var firstEvent = aggregateRoot.Events.First();
+            IEvent<TAggregateId> firstEvent = aggregateRoot.Events.First();
 
             var version = firstEvent.AggregateVersion - 1;
 
@@ -48,7 +53,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             try
             {
-                foreach (var @event in aggregateRoot.Events)
+                foreach (IEvent<TAggregateId> @event in aggregateRoot.Events)
                 {
                     var eventData = Map(@event);
                     await transaction.WriteAsync(eventData);
@@ -59,20 +64,22 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             catch
             {
                 transaction.Rollback();
+
                 throw;
             }
         }
 
-        public async Task<TAggregateRoot> RehydrateAsync(TKey key)
+        public async Task<TAggregateRoot> RehydrateAsync(TAggregateId aggregateId)
         {
             var connection = await _connectionWrapper.GetConnectionAsync();
 
-            var streamName = GetStreamName(key);
+            var streamName = GetStreamName(aggregateId);
 
-            var events = new List<IEvent<TKey>>();
+            var events = new List<IEvent<TAggregateId>>();
 
             StreamEventsSlice currentSlice;
-            long nextSliceStart = StreamPosition.Start;
+            long              nextSliceStart = StreamPosition.Start;
+
             do
             {
                 currentSlice = await connection.ReadStreamEventsForwardAsync(
@@ -86,37 +93,42 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
                 events.AddRange(currentSlice.Events.Select(Map));
             } while (!currentSlice.IsEndOfStream);
 
-            var result = AggregateRoot<TAggregateRoot, TKey>.Create(
+            var result = AggregateRoot<TAggregateRoot, TAggregateId>.Create(
                 events.OrderBy(
                     e => e.AggregateVersion));
 
             return result;
         }
 
-        private string GetStreamName(TKey aggregateId)
+    #endregion
+
+        private string GetStreamName(TAggregateId aggregateId)
         {
             var streamName = $"{_streamBaseName}_{aggregateId}";
+
             return streamName;
         }
 
-        private IEvent<TKey> Map(ResolvedEvent resolvedEvent)
+        private IEvent<TAggregateId> Map(ResolvedEvent resolvedEvent)
         {
             var meta = JsonSerializer.Deserialize<EventMeta>(resolvedEvent.Event.Metadata);
-            return _eventDeserializer.Deserialize<TKey>(meta.EventType, resolvedEvent.Event.Data);
+
+            return _eventDeserializer.Deserialize<TAggregateId>(meta.EventType, resolvedEvent.Event.Data);
         }
 
-        private static EventData Map(IEvent<TKey> @event)
+        private static EventData Map(IEvent<TAggregateId> @event)
         {
             var json = JsonSerializer.Serialize((dynamic) @event);
             var data = Encoding.UTF8.GetBytes(json);
 
             var eventType = @event.GetType();
+
             var meta = new EventMeta
             {
                 EventType = eventType.AssemblyQualifiedName
             };
-            var metaJson = JsonSerializer.Serialize(meta);
-            var metadata = Encoding.UTF8.GetBytes(metaJson);
+            var    metaJson = JsonSerializer.Serialize(meta);
+            byte[] metadata = Encoding.UTF8.GetBytes(metaJson);
 
             var eventPayload = new EventData(
                 Guid.NewGuid(),
@@ -124,6 +136,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
                 true,
                 data,
                 metadata);
+
             return eventPayload;
         }
     }

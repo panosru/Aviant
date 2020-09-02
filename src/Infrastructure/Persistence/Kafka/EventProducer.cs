@@ -8,19 +8,23 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using Confluent.Kafka;
     using Domain.Aggregates;
     using Domain.EventBus;
+    using Domain.Events;
     using Microsoft.Extensions.Logging;
 
-    public class EventProducer<TAggregateRoot, TKey> : IDisposable, IEventProducer<TAggregateRoot, TKey>
-        where TAggregateRoot : IAggregateRoot<TKey>
+    public class EventProducer<TAggregateRoot, TAggregateId> : IDisposable, IEventProducer<TAggregateRoot, TAggregateId>
+        where TAggregateRoot : IAggregateRoot<TAggregateId>
+        where TAggregateId : class, IAggregateId
     {
-        private readonly ILogger<EventProducer<TAggregateRoot, TKey>> _logger;
+        private readonly ILogger<EventProducer<TAggregateRoot, TAggregateId>> _logger;
+
         private readonly string _topicName;
-        private IProducer<TKey, string> _producer;
+
+        private IProducer<TAggregateId, string> _producer;
 
         public EventProducer(
-            string topicBaseName,
-            string kafkaConnString,
-            ILogger<EventProducer<TAggregateRoot, TKey>> logger)
+            string                                               topicBaseName,
+            string                                               kafkaConnString,
+            ILogger<EventProducer<TAggregateRoot, TAggregateId>> logger)
         {
             _logger = logger;
 
@@ -28,17 +32,23 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
             _topicName = $"{topicBaseName}-{aggregateType.Name}";
 
-            var producerConfig = new ProducerConfig {BootstrapServers = kafkaConnString};
-            var producerBuilder = new ProducerBuilder<TKey, string>(producerConfig);
-            producerBuilder.SetKeySerializer(new KeySerializer<TKey>());
+            var producerConfig  = new ProducerConfig { BootstrapServers = kafkaConnString };
+            var producerBuilder = new ProducerBuilder<TAggregateId, string>(producerConfig);
+            producerBuilder.SetKeySerializer(new KeySerializer<TAggregateId>());
             _producer = producerBuilder.Build();
         }
+
+    #region IDisposable Members
 
         public void Dispose()
         {
             _producer?.Dispose();
             _producer = null;
         }
+
+    #endregion
+
+    #region IEventProducer<TAggregateRoot,TAggregateId> Members
 
         public async Task DispatchAsync(TAggregateRoot aggregateRoot)
         {
@@ -52,7 +62,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                 "publishing " + aggregateRoot.Events.Count + " events for {AggregateId} ...",
                 aggregateRoot.Id);
 
-            foreach (var @event in aggregateRoot.Events)
+            foreach (IEvent<TAggregateId> @event in aggregateRoot.Events)
             {
                 var eventType = @event.GetType();
 
@@ -60,14 +70,14 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
                 var headers = new Headers
                 {
-                    {"aggregate", Encoding.UTF8.GetBytes(@event.AggregateId.ToString())},
-                    {"type", Encoding.UTF8.GetBytes(eventType.AssemblyQualifiedName)}
+                    { "aggregate", Encoding.UTF8.GetBytes(@event.AggregateId.ToString()) },
+                    { "type", Encoding.UTF8.GetBytes(eventType.AssemblyQualifiedName) }
                 };
 
-                var message = new Message<TKey, string>
+                var message = new Message<TAggregateId, string>
                 {
-                    Key = @event.AggregateId,
-                    Value = serialized,
+                    Key     = @event.AggregateId,
+                    Value   = serialized,
                     Headers = headers
                 };
 
@@ -76,5 +86,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
             aggregateRoot.ClearEvents();
         }
+
+    #endregion
     }
 }

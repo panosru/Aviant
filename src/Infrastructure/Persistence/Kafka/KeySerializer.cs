@@ -1,18 +1,15 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 {
-    using System;
-    using System.Text;
-    using System.Text.Json;
     using Confluent.Kafka;
+    using Domain.Aggregates;
 
-    internal class KeySerializer<TKey> : ISerializer<TKey>
+    internal class KeySerializer<TAggregateId> : ISerializer<TAggregateId>
+        where TAggregateId : class, IAggregateId
     {
-        public byte[] Serialize(TKey data, SerializationContext context)
-        {
-            if (data is Guid g)
-                return g.ToByteArray();
-            var json = JsonSerializer.Serialize(data);
-            return Encoding.UTF8.GetBytes(json);
-        }
+    #region ISerializer<TAggregateId> Members
+
+        public byte[] Serialize(TAggregateId data, SerializationContext context) => data.Serialize();
+
+    #endregion
     }
 }

@@ -1,21 +1,12 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 {
-    using System;
     using Confluent.Kafka;
+    using Domain.Aggregates;
 
     internal class KeyDeserializerFactory
     {
-        public IDeserializer<TKey> Create<TKey>()
-        {
-            var tk = typeof(TKey);
-            
-            if (typeof(Guid) == tk)
-                return (dynamic) new GuidDeserializer();
-
-            if (typeof(int) == tk)
-                return (dynamic) new IntDeserializer();
-            
-            throw new ArgumentOutOfRangeException($"Invalid type: {tk}");
-        }
+        public IDeserializer<TAggregateId> Create<TDeserializer, TAggregateId>()
+            where TAggregateId : class, IAggregateId
+            where TDeserializer : class, IDeserializer<TAggregateId>, new() => new TDeserializer();
     }
 }

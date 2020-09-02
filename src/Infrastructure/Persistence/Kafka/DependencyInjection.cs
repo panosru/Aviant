@@ -7,16 +7,18 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
     public static class DependencyInjection
     {
-        public static IServiceCollection AddKafkaEventProducer<TA, TK>(
+        public static IServiceCollection AddKafkaEventProducer<TAggregateRoot, TAggregateId>(
             this IServiceCollection services,
-            EventConsumerConfig configuration)
-            where TA : class, IAggregateRoot<TK>
+            EventConsumerConfig     configuration)
+            where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+            where TAggregateId : class, IAggregateId
         {
-            return services.AddSingleton<IEventProducer<TA, TK>>(
+            return services.AddSingleton<IEventProducer<TAggregateRoot, TAggregateId>>(
                 ctx =>
                 {
-                    var logger = ctx.GetRequiredService<ILogger<EventProducer<TA, TK>>>();
-                    return new EventProducer<TA, TK>(
+                    var logger = ctx.GetRequiredService<ILogger<EventProducer<TAggregateRoot, TAggregateId>>>();
+
+                    return new EventProducer<TAggregateRoot, TAggregateId>(
                         configuration.TopicBaseName,
                         configuration.KafkaConnectionString,
                         logger);

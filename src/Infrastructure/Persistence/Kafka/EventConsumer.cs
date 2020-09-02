@@ -13,38 +13,47 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using Domain.Services;
     using Microsoft.Extensions.Logging;
 
-    public class EventConsumer<TAggregateRoot, TKey> : IDisposable, IEventConsumer<TAggregateRoot, TKey>
-        where TAggregateRoot : IAggregateRoot<TKey>
+    public class EventConsumer<TAggregateRoot, TAggregateId, TDeserializer>
+        : IDisposable, IEventConsumer<TAggregateRoot, TAggregateId, TDeserializer>
+        where TAggregateRoot : IAggregateRoot<TAggregateId>
+        where TAggregateId : class, IAggregateId
+        where TDeserializer : class, IDeserializer<TAggregateId>, new()
     {
+    #region Delegates
+
         public delegate void ConsumerStoppedHandler(object sender);
 
         public delegate void ExceptionThrownHandler(object sender, Exception e);
 
+    #endregion
+
         private readonly IEventDeserializer _eventDeserializer;
-        private readonly ILogger<EventConsumer<TAggregateRoot, TKey>> _logger;
-        private IConsumer<TKey, string> _eventConsumer;
+
+        private readonly ILogger<EventConsumer<TAggregateRoot, TAggregateId, TDeserializer>> _logger;
+
+        private IConsumer<TAggregateId, string> _eventConsumer;
 
         public EventConsumer(
-            IEventDeserializer eventDeserializer,
-            EventConsumerConfig config,
-            ILogger<EventConsumer<TAggregateRoot, TKey>> logger)
+            IEventDeserializer                                                  eventDeserializer,
+            EventConsumerConfig                                                 config,
+            ILogger<EventConsumer<TAggregateRoot, TAggregateId, TDeserializer>> logger)
         {
             _eventDeserializer = eventDeserializer;
-            _logger = logger;
+            _logger            = logger;
 
             var aggregateType = typeof(TAggregateRoot);
 
             var consumerConfig = new ConsumerConfig
             {
-                GroupId = config.ConsumerGroup,
-                BootstrapServers = config.KafkaConnectionString,
-                AutoOffsetReset = AutoOffsetReset.Earliest,
+                GroupId            = config.ConsumerGroup,
+                BootstrapServers   = config.KafkaConnectionString,
+                AutoOffsetReset    = AutoOffsetReset.Earliest,
                 EnablePartitionEof = true
             };
 
-            var consumerBuilder = new ConsumerBuilder<TKey, string>(consumerConfig);
+            var consumerBuilder        = new ConsumerBuilder<TAggregateId, string>(consumerConfig);
             var keyDeserializerFactory = new KeyDeserializerFactory();
-            consumerBuilder.SetKeyDeserializer(keyDeserializerFactory.Create<TKey>());
+            consumerBuilder.SetKeyDeserializer(keyDeserializerFactory.Create<TDeserializer, TAggregateId>());
 
             _eventConsumer = consumerBuilder.Build();
 
@@ -52,11 +61,17 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
             _eventConsumer.Subscribe(topicName);
         }
 
+    #region IDisposable Members
+
         public void Dispose()
         {
             _eventConsumer?.Dispose();
             _eventConsumer = null;
         }
+
+    #endregion
+
+    #region IEventConsumer<TAggregateRoot,TAggregateId,TDeserializer> Members
 
         public Task ConsumeAsync(CancellationToken stoppingToken)
         {
@@ -64,6 +79,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                 async () =>
                 {
                     var topics = string.Join(",", _eventConsumer.Subscription);
+
                     _logger.LogInformation(
                         "started Kafka consumer {ConsumerName} on {ConsumerTopic}",
                         _eventConsumer.Name,
@@ -72,14 +88,17 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                     while (!stoppingToken.IsCancellationRequested)
                         try
                         {
-                            var cr = _eventConsumer.Consume(stoppingToken);
+                            ConsumeResult<TAggregateId, string> cr = _eventConsumer.Consume(stoppingToken);
+
                             if (cr.IsPartitionEOF)
                                 continue;
 
                             var messageTypeHeader = cr.Message.Headers.First(h => h.Key == "type");
-                            var eventType = Encoding.UTF8.GetString(messageTypeHeader.GetValueBytes());
+                            var eventType         = Encoding.UTF8.GetString(messageTypeHeader.GetValueBytes());
 
-                            var @event = _eventDeserializer.Deserialize<TKey>(eventType, cr.Message.Value);
+                            IEvent<TAggregateId> @event =
+                                _eventDeserializer.Deserialize<TAggregateId>(eventType, cr.Message.Value);
+
                             if (null == @event)
                                 throw new SerializationException(
                                     $"unable to deserialize notification {eventType} : {cr.Message.Value}");
@@ -105,11 +124,14 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                 stoppingToken);
         }
 
-        public event EventReceivedHandler<TKey> EventReceived;
+        public event EventReceivedHandler<TAggregateId> EventReceived;
 
-        protected virtual Task OnEventReceived(IEvent<TKey> e)
+    #endregion
+
+        protected virtual Task OnEventReceived(IEvent<TAggregateId> e)
         {
-            var handler = EventReceived;
+            EventReceivedHandler<TAggregateId> handler = EventReceived;
+
             return handler?.Invoke(this, e);
         }
 
