@@ -8,21 +8,23 @@ namespace Aviant.DDD.Domain.Aggregates
     using Entities;
     using Events;
 
-    public abstract class AggregateRoot<TAggregateRoot, TKey> : Entity<TKey>, IAggregateRoot<TKey>
-        where TAggregateRoot : class, IAggregateRoot<TKey>
+    public abstract class AggregateRoot<TAggregateRoot, TAggregateId>
+        : Entity<TAggregateId>, IAggregateRoot<TAggregateId>
+        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+        where TAggregateId : class, IAggregateId
     {
-        private readonly Queue<IEvent<TKey>> _events = new Queue<IEvent<TKey>>();
+        private readonly Queue<IEvent<TAggregateId>> _events = new Queue<IEvent<TAggregateId>>();
 
         protected AggregateRoot()
-        {
-        }
+        { }
 
-        protected AggregateRoot(TKey id)
+        protected AggregateRoot(TAggregateId id)
             : base(id)
-        {
-        }
+        { }
 
-        public IReadOnlyCollection<IEvent<TKey>> Events => _events.ToImmutableArray();
+    #region IAggregateRoot<TAggregateId> Members
+
+        public IReadOnlyCollection<IEvent<TAggregateId>> Events => _events.ToImmutableArray();
 
         public long Version { get; private set; }
 
@@ -31,7 +33,9 @@ namespace Aviant.DDD.Domain.Aggregates
             _events.Clear();
         }
 
-        public void AddEvent(IEvent<TKey> @event)
+    #endregion
+
+        protected void AddEvent(IEvent<TAggregateId> @event)
         {
             _events.Enqueue(@event);
 
@@ -40,10 +44,11 @@ namespace Aviant.DDD.Domain.Aggregates
             Version++;
         }
 
-        protected abstract void Apply(IEvent<TKey> @event);
+        protected abstract void Apply(IEvent<TAggregateId> @event);
 
-        #region Factory
+    #region Factory
 
+        // ReSharper disable once StaticMemberInGenericType
         private static readonly Lazy<ConstructorInfo> LazyConstructor;
 
         static AggregateRoot()
@@ -52,6 +57,7 @@ namespace Aviant.DDD.Domain.Aggregates
                 () =>
                 {
                     var aggregateType = typeof(TAggregateRoot);
+
                     var constructor = aggregateType.GetConstructor(
                         BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
                         null,
@@ -62,16 +68,19 @@ namespace Aviant.DDD.Domain.Aggregates
                 });
         }
 
-        public static TAggregateRoot Create(IEnumerable<IEvent<TKey>> events)
+        public static TAggregateRoot Create(IEnumerable<IEvent<TAggregateId>> events)
         {
-            if (null == events || !events.Any())
+            List<IEvent<TAggregateId>>? enumerable = events.ToList();
+
+            if (null == events
+             || !enumerable.Any())
                 throw new ArgumentException(nameof(events));
 
             var constructor = LazyConstructor.Value;
-            var result = (TAggregateRoot) constructor.Invoke(new object[0]);
+            var result      = (TAggregateRoot) constructor.Invoke(new object[0]);
 
-            if (result is AggregateRoot<TAggregateRoot, TKey> aggregate)
-                foreach (var @event in events)
+            if (result is AggregateRoot<TAggregateRoot, TAggregateId> aggregate)
+                foreach (var @event in enumerable)
                     aggregate.AddEvent(@event);
 
             result.ClearEvents();
@@ -79,6 +88,6 @@ namespace Aviant.DDD.Domain.Aggregates
             return result;
         }
 
-        #endregion
+    #endregion
     }
 }

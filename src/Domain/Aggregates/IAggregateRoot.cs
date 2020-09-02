@@ -4,11 +4,12 @@ namespace Aviant.DDD.Domain.Aggregates
     using Entities;
     using Events;
 
-    public interface IAggregateRoot<out TKey> : IEntity<TKey>
+    public interface IAggregateRoot<out TAggregateId> : IEntity<TAggregateId>
+        where TAggregateId : IAggregateId
     {
-        public long Version { get; }
+        long Version { get; }
 
-        IReadOnlyCollection<IEvent<TKey>> Events { get; }
+        IReadOnlyCollection<IEvent<TAggregateId>> Events { get; }
 
         void ClearEvents();
     }

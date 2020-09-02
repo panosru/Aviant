@@ -1,8 +1,13 @@
 namespace Aviant.DDD.Domain.Aggregates
 {
-    public interface IAggregateId<out T>
+    public interface IAggregateId
+    {
+        byte[] Serialize();
+    }
+
+    public interface IAggregateId<out T> : IAggregateId
         where T : notnull
     {
-        T Id { get; }
+        T Key { get; }
     }
 }

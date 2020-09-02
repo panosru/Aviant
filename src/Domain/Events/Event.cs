@@ -3,12 +3,12 @@ namespace Aviant.DDD.Domain.Events
     using System;
     using Aggregates;
 
-    public abstract class Event<TAggregateRoot, TKey> : IEvent<TKey>
-        where TAggregateRoot : IAggregateRoot<TKey>
+    public abstract class Event<TAggregateRoot, TAggregateId> : IEvent<TAggregateId>
+        where TAggregateRoot : IAggregateRoot<TAggregateId>
+        where TAggregateId : IAggregateId
     {
         protected Event()
-        {
-        }
+        { }
 
         protected Event(TAggregateRoot aggregateRoot)
         {
@@ -16,11 +16,15 @@ namespace Aviant.DDD.Domain.Events
                 throw new ArgumentNullException(nameof(aggregateRoot));
 
             AggregateVersion = aggregateRoot.Version;
-            AggregateId = aggregateRoot.Id;
+            AggregateId      = aggregateRoot.Id;
         }
 
-        public long AggregateVersion { get; private set; }
+    #region IEvent<TAggregateId> Members
 
-        public TKey AggregateId { get; private set; }
+        public long AggregateVersion { get; }
+
+        public TAggregateId AggregateId { get; }
+
+    #endregion
     }
 }

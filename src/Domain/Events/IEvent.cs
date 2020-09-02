@@ -1,9 +1,12 @@
 namespace Aviant.DDD.Domain.Events
 {
-    public interface IEvent<out TKey>
+    using Aggregates;
+
+    public interface IEvent<out TAggregateId>
+        where TAggregateId : IAggregateId
     {
         long AggregateVersion { get; }
 
-        TKey AggregateId { get; }
+        TAggregateId AggregateId { get; }
     }
 }
