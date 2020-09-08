@@ -18,7 +18,7 @@ namespace Aviant.DDD.Application.Orchestration
         private readonly IMessages _messages;
 
         private readonly INotificationDispatcher _notificationDispatcher;
-        
+
         protected OrchestratorBase(
             IMessages               messages,
             INotificationDispatcher notificationDispatcher,
@@ -28,8 +28,8 @@ namespace Aviant.DDD.Application.Orchestration
             _notificationDispatcher = notificationDispatcher;
             _mediator               = mediator;
         }
-        
-        protected async Task<(TCommandResponse commandResponse, List<string>? _messages)> 
+
+        protected async Task<(TCommandResponse commandResponse, List<string>? _messages)>
             PreUnitOfWork<TCommand, TCommandResponse>(TCommand command)
             where TCommand : class, IRequest<TCommandResponse>
         {
@@ -39,7 +39,7 @@ namespace Aviant.DDD.Application.Orchestration
             await _notificationDispatcher.FirePreCommitNotifications();
 
             List<string>? messages = null;
-            
+
             if (_messages.HasMessages())
                 messages = _messages.GetAll();
 
@@ -50,7 +50,7 @@ namespace Aviant.DDD.Application.Orchestration
         {
             // Fire post commit notifications
             Task.Run(() => _notificationDispatcher.FirePostCommitNotifications());
-            
+
             var isLazy = false;
 
             try
@@ -66,7 +66,7 @@ namespace Aviant.DDD.Application.Orchestration
                 ? commandResponse?.GetType().GetProperty("Value")?.GetValue(commandResponse, null)
                 : commandResponse;
         }
-        
+
         public async Task<RequestResult> SendQuery<T>(IQuery<T> query)
         {
             var commandResponse = await _mediator.Send(query);
@@ -76,22 +76,24 @@ namespace Aviant.DDD.Application.Orchestration
                 : new RequestResult(commandResponse);
         }
     }
-    
-    public class Orchestrator 
-        : OrchestratorBase, 
+
+    public class Orchestrator
+        : OrchestratorBase,
           IOrchestrator
     {
         public Orchestrator(
-            IMessages messages, 
+            IMessages               messages,
             INotificationDispatcher notificationDispatcher,
-            IMediator mediator)
+            IMediator               mediator)
             : base(messages, notificationDispatcher, mediator)
         { }
+
+        #region IOrchestrator Members
 
         public async Task<RequestResult> SendCommand<T>(ICommand<T> command)
         {
             (var commandResponse, List<string>? messages) = await PreUnitOfWork<ICommand<T>, T>(command);
-            
+
             if (!(messages is null))
                 return new RequestResult(messages);
 
@@ -99,10 +101,12 @@ namespace Aviant.DDD.Application.Orchestration
 
             return new RequestResult(result);
         }
+
+        #endregion
     }
-    
-    public class Orchestrator<TDbContext> 
-        : OrchestratorBase, 
+
+    public class Orchestrator<TDbContext>
+        : OrchestratorBase,
           IOrchestrator<TDbContext>
         where TDbContext : IApplicationDbContext
     {
@@ -113,37 +117,38 @@ namespace Aviant.DDD.Application.Orchestration
             IMessages               messages,
             INotificationDispatcher notificationDispatcher,
             IMediator               mediator)
-            : base(messages, notificationDispatcher, mediator)
-        {
-            _unitOfWork = unitOfWork;
-        }
-        
+            : base(messages, notificationDispatcher, mediator) => _unitOfWork = unitOfWork;
+
+        #region IOrchestrator<TDbContext> Members
+
         public async Task<RequestResult> SendCommand<T>(ICommand<T> command)
         {
             (var commandResponse, List<string>? messages) = await PreUnitOfWork<ICommand<T>, T>(command);
-            
+
             if (!(messages is null))
                 return new RequestResult(messages);
 
             var affectedRows = await _unitOfWork.Commit();
-            
+
             if (-1 == affectedRows)
                 return new RequestResult(
                     new List<string>
                     {
                         "An error occurred" //TODO: this is a very bad error message
                     });
-            
+
             var result = PostUnitOfWork(commandResponse);
 
             return new RequestResult(result, affectedRows);
         }
+
+        #endregion
     }
-    
-    public class Orchestrator<TAggregateRoot, TAggregateId> 
-        : OrchestratorBase, 
-          IOrchestrator<TAggregateRoot, TAggregateId> 
-        where TAggregateRoot : class, IAggregateRoot<TAggregateId> 
+
+    public class Orchestrator<TAggregateRoot, TAggregateId>
+        : OrchestratorBase,
+          IOrchestrator<TAggregateRoot, TAggregateId>
+        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
         private readonly IUnitOfWork<TAggregateRoot, TAggregateId> _unitOfWork;
@@ -153,16 +158,15 @@ namespace Aviant.DDD.Application.Orchestration
             IMessages                                 messages,
             INotificationDispatcher                   notificationDispatcher,
             IMediator                                 mediator)
-            : base(messages, notificationDispatcher, mediator)
-        {
-            _unitOfWork = unitOfWork;
-        }
+            : base(messages, notificationDispatcher, mediator) => _unitOfWork = unitOfWork;
+
+        #region IOrchestrator<TAggregateRoot,TAggregateId> Members
 
         public async Task<RequestResult> SendCommand(ICommand<TAggregateRoot, TAggregateId> command)
         {
-            (var commandResponse, List<string>? messages) = 
+            (var commandResponse, List<string>? messages) =
                 await PreUnitOfWork<ICommand<TAggregateRoot, TAggregateId>, TAggregateRoot>(command);
-            
+
             if (!(messages is null))
                 return new RequestResult(messages);
 
@@ -177,5 +181,7 @@ namespace Aviant.DDD.Application.Orchestration
 
             return new RequestResult(result);
         }
+
+        #endregion
     }
 }

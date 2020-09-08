@@ -22,7 +22,7 @@ namespace Aviant.DDD.Domain.Aggregates
             : base(id)
         { }
 
-    #region IAggregateRoot<TAggregateId> Members
+        #region IAggregateRoot<TAggregateId> Members
 
         public IReadOnlyCollection<IEvent<TAggregateId>> Events => _events.ToImmutableArray();
 
@@ -33,7 +33,7 @@ namespace Aviant.DDD.Domain.Aggregates
             _events.Clear();
         }
 
-    #endregion
+        #endregion
 
         protected void AddEvent(IEvent<TAggregateId> @event)
         {
@@ -46,7 +46,7 @@ namespace Aviant.DDD.Domain.Aggregates
 
         protected abstract void Apply(IEvent<TAggregateId> @event);
 
-    #region Factory
+        #region Factory
 
         // ReSharper disable once StaticMemberInGenericType
         private static readonly Lazy<ConstructorInfo> LazyConstructor;
@@ -88,6 +88,6 @@ namespace Aviant.DDD.Domain.Aggregates
             return result;
         }
 
-    #endregion
+        #endregion
     }
 }

@@ -14,7 +14,7 @@ namespace Aviant.DDD.Application.EventBus
 
         public EventConsumerFactory(IServiceScopeFactory scopeFactory) => _scopeFactory = scopeFactory;
 
-    #region IEventConsumerFactory Members
+        #region IEventConsumerFactory Members
 
         public IEventConsumer Build<TAggregateRoot, TAggregateId, TDeserializer>()
             where TAggregateRoot : IAggregateRoot<TAggregateId>
@@ -39,6 +39,6 @@ namespace Aviant.DDD.Application.EventBus
             return consumer;
         }
 
-    #endregion
+        #endregion
     }
 }

@@ -14,7 +14,7 @@ namespace Aviant.DDD.Application.Behaviours
 
         public UnhandledExceptionBehaviour(ILogger<TRequest> logger) => _logger = logger;
 
-    #region IPipelineBehavior<TRequest,TResponse> Members
+        #region IPipelineBehavior<TRequest,TResponse> Members
 
         public async Task<TResponse> Handle(
             TRequest                          request,
@@ -44,6 +44,6 @@ namespace Aviant.DDD.Application.Behaviours
             }
         }
 
-    #endregion
+        #endregion
     }
 }

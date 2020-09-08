@@ -1,6 +1,5 @@
 namespace Aviant.DDD.Infrastructure.Services
 {
-    using Application.Services;
     using MailKit.Net.Smtp;
     using MailKit.Security;
 
@@ -30,7 +29,7 @@ namespace Aviant.DDD.Infrastructure.Services
             _password = password;
         }
 
-    #region ISmtpClientFactory Members
+        #region ISmtpClientFactory Members
 
         public SmtpClient GetSmtpClient()
         {
@@ -48,6 +47,6 @@ namespace Aviant.DDD.Infrastructure.Services
             return client;
         }
 
-    #endregion
+        #endregion
     }
 }

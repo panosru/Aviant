@@ -4,7 +4,7 @@ namespace Aviant.DDD.Domain.TransferObjects
 
     public abstract class Eto : IEto
     {
-    #region IEto Members
+        #region IEto Members
 
         public string ToJson() => JsonConvert.SerializeObject(this);
 
@@ -15,6 +15,6 @@ namespace Aviant.DDD.Domain.TransferObjects
         public string ToJson(Formatting formatting, JsonSerializerSettings settings) =>
             JsonConvert.SerializeObject(this, formatting, settings);
 
-    #endregion
+        #endregion
     }
 }

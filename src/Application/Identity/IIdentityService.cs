@@ -5,7 +5,7 @@ namespace Aviant.DDD.Application.Identity
 
     public interface IIdentityService
     {
-        Task<object> Authenticate(string username, string password);
+        Task<object?> Authenticate(string username, string password);
 
         Task<IdentityResult> ConfirmEmail(string toekn, string email);
 

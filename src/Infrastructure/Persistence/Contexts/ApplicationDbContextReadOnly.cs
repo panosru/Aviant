@@ -56,7 +56,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var foreignKey in modelBuilder.Model.GetEntityTypes()
-                                                   .SelectMany(e => e.GetForeignKeys()))
+               .SelectMany(e => e.GetForeignKeys()))
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
 
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);

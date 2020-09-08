@@ -6,10 +6,10 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     internal class KeySerializer<TAggregateId> : ISerializer<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
-    #region ISerializer<TAggregateId> Members
+        #region ISerializer<TAggregateId> Members
 
         public byte[] Serialize(TAggregateId data, SerializationContext context) => data.Serialize();
 
-    #endregion
+        #endregion
     }
 }

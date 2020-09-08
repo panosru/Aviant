@@ -41,7 +41,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             TrackerSettings();
         }
 
-    #region IApplicationDbContext Members
+        #region IApplicationDbContext Members
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
@@ -70,7 +70,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             return result;
         }
 
-    #endregion
+        #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -89,7 +89,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             ChangeTracker.LazyLoadingEnabled = false;
         }
 
-    #region Configure Global Filters
+        #region Configure Global Filters
 
         protected void ConfigureGlobalFilters<TEntity>(ModelBuilder modelBuilder, IMutableEntityType entityType)
             where TEntity : class
@@ -123,9 +123,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             return expression;
         }
 
-    #endregion
+        #endregion
 
-    #region Configure Audit Properties
+        #region Configure Audit Properties
 
         protected virtual void SetCreationAuditProperties(EntityEntry entry)
         {
@@ -178,6 +178,6 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             ((ISoftDelete) entry.Entity).IsDeleted = true;
         }
 
-    #endregion
+        #endregion
     }
 }

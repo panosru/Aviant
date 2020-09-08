@@ -16,7 +16,7 @@ namespace Aviant.DDD.Application.Behaviours
 
         public ValidationBehaviour(IEnumerable<IValidator<TRequest>> validators) => _validators = validators;
 
-    #region IPipelineBehavior<TRequest,TResponse> Members
+        #region IPipelineBehavior<TRequest,TResponse> Members
 
         public async Task<TResponse> Handle(
             TRequest                          request,
@@ -31,8 +31,8 @@ namespace Aviant.DDD.Application.Behaviours
                     _validators.Select(v => v.ValidateAsync(context, cancellationToken)));
 
                 List<ValidationFailure> failures = validationResults.SelectMany(r => r.Errors)
-                                                                    .Where(f => f != null)
-                                                                    .ToList();
+                   .Where(f => f != null)
+                   .ToList();
 
                 if (0 != failures.Count)
                     throw new ValidationException(failures);
@@ -41,6 +41,6 @@ namespace Aviant.DDD.Application.Behaviours
             return await next();
         }
 
-    #endregion
+        #endregion
     }
 }

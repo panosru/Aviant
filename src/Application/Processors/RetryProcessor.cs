@@ -18,13 +18,13 @@ namespace Aviant.DDD.Application.Processors
             _inner = inner; //TODO: check RetryDecorator doesn't get injected twice
 
             _retryPolicy = Policy
-                          .Handle<ArgumentOutOfRangeException>()
-                          .WaitAndRetryAsync(
-                               3,
-                               i => TimeSpan.FromSeconds(i));
+               .Handle<ArgumentOutOfRangeException>()
+               .WaitAndRetryAsync(
+                    3,
+                    i => TimeSpan.FromSeconds(i));
         }
 
-    #region INotificationHandler<TNotification> Members
+        #region INotificationHandler<TNotification> Members
 
         public Task Handle(TNotification notification, CancellationToken cancellationToken)
         {
@@ -33,6 +33,6 @@ namespace Aviant.DDD.Application.Processors
                     _inner.Handle(notification, cancellationToken));
         }
 
-    #endregion
+        #endregion
     }
 }

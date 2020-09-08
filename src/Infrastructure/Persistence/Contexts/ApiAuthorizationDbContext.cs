@@ -37,7 +37,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             IOptions<OperationalStoreOptions> operationalStoreOptions)
             : base(options) => _operationalStoreOptions = operationalStoreOptions;
 
-    #region IPersistedGrantDbContext Members
+        #region IPersistedGrantDbContext Members
 
         /// <summary>
         ///     Gets or sets the <see cref="DbSet{PersistedGrant}" />.
@@ -51,7 +51,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         Task<int> IPersistedGrantDbContext.SaveChangesAsync() => base.SaveChangesAsync();
 
-    #endregion
+        #endregion
 
         /// <inheritdoc />
         protected override void OnModelCreating(ModelBuilder builder)

@@ -11,7 +11,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using Domain.Events;
     using Microsoft.Extensions.Logging;
 
-    public class EventProducer<TAggregateRoot, TAggregateId> : IDisposable, IEventProducer<TAggregateRoot, TAggregateId>
+    public class EventProducer<TAggregateRoot, TAggregateId> : IEventProducer<TAggregateRoot, TAggregateId>
         where TAggregateRoot : IAggregateRoot<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
@@ -38,17 +38,13 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
             _producer = producerBuilder.Build();
         }
 
-    #region IDisposable Members
+        #region IEventProducer<TAggregateRoot,TAggregateId> Members
 
         public void Dispose()
         {
             _producer?.Dispose();
             _producer = null;
         }
-
-    #endregion
-
-    #region IEventProducer<TAggregateRoot,TAggregateId> Members
 
         public async Task DispatchAsync(TAggregateRoot aggregateRoot)
         {
@@ -87,6 +83,6 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
             aggregateRoot.ClearEvents();
         }
 
-    #endregion
+        #endregion
     }
 }

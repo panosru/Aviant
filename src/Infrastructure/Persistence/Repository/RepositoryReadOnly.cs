@@ -28,7 +28,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             _dbSet     = _dbContext.Set<TEntity>();
         }
 
-    #region IRepositoryRead<TEntity,TPrimaryKey> Members
+        #region IRepositoryRead<TEntity,TPrimaryKey> Members
 
         public IQueryable<TEntity> GetAll()
         {
@@ -135,7 +135,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             _dbContext.Dispose();
         }
 
-    #endregion
+        #endregion
 
         private static void BindIncludeProperties(
             IQueryable<TEntity>                            query,

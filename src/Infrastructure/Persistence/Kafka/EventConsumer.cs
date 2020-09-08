@@ -19,13 +19,13 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
         where TAggregateId : class, IAggregateId
         where TDeserializer : class, IDeserializer<TAggregateId>, new()
     {
-    #region Delegates
+        #region Delegates
 
         public delegate void ConsumerStoppedHandler(object sender);
 
         public delegate void ExceptionThrownHandler(object sender, Exception e);
 
-    #endregion
+        #endregion
 
         private readonly IEventDeserializer _eventDeserializer;
 
@@ -61,7 +61,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
             _eventConsumer.Subscribe(topicName);
         }
 
-    #region IDisposable Members
+        #region IDisposable Members
 
         public void Dispose()
         {
@@ -69,9 +69,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
             _eventConsumer = null;
         }
 
-    #endregion
+        #endregion
 
-    #region IEventConsumer<TAggregateRoot,TAggregateId,TDeserializer> Members
+        #region IEventConsumer<TAggregateRoot,TAggregateId,TDeserializer> Members
 
         public Task ConsumeAsync(CancellationToken stoppingToken)
         {
@@ -126,7 +126,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
         public event EventReceivedHandler<TAggregateId> EventReceived;
 
-    #endregion
+        #endregion
 
         protected virtual Task OnEventReceived(IEvent<TAggregateId> e)
         {

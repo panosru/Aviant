@@ -5,13 +5,13 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
     internal class AggregateIdDeserializer : IDeserializer<Guid>
     {
-    #region IDeserializer<Guid> Members
+        #region IDeserializer<Guid> Members
 
         public Guid Deserialize(
             ReadOnlySpan<byte>   data,
             bool                 isNull,
             SerializationContext context) => new Guid(data);
 
-    #endregion
+        #endregion
     }
 }

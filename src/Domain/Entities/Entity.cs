@@ -11,15 +11,15 @@ namespace Aviant.DDD.Domain.Entities
 
         protected Entity(TKey id) => Id = id;
 
-    #region IEntity<TKey> Members
+        #region IEntity<TKey> Members
 
         public TKey Id { get; protected set; }
 
         public virtual Task<bool> Validate() => Task.FromResult(true);
 
-    #endregion
+        #endregion
 
-    #region Equality Check
+        #region Equality Check
 
         public override bool Equals(object? obj) => obj is Entity<TKey> entity
                                                  && GetType() == entity.GetType()
@@ -32,6 +32,6 @@ namespace Aviant.DDD.Domain.Entities
 
         public static bool operator !=(Entity<TKey> left, Entity<TKey> right) => !(left == right);
 
-    #endregion
+        #endregion
     }
 }

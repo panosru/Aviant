@@ -1,6 +1,5 @@
 namespace Aviant.DDD.Application.Persistance
 {
-    using System;
     using System.Threading.Tasks;
     using Domain.Aggregates;
 
@@ -22,7 +21,7 @@ namespace Aviant.DDD.Application.Persistance
         where TAggregateId : class, IAggregateId
     {
         /// <summary>
-        /// Commit changes to event sourcing persistence
+        ///     Commit changes to event sourcing persistence
         /// </summary>
         /// <param name="aggregateRoot"></param>
         /// <returns></returns>

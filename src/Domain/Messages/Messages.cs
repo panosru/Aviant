@@ -6,7 +6,7 @@ namespace Aviant.DDD.Domain.Messages
     {
         private List<string> _messages = new List<string>();
 
-    #region IMessages Members
+        #region IMessages Members
 
         public void AddMessage(string message)
         {
@@ -22,6 +22,6 @@ namespace Aviant.DDD.Domain.Messages
 
         public bool HasMessages() => 0 < _messages.Count;
 
-    #endregion
+        #endregion
     }
 }

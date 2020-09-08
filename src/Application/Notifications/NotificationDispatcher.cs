@@ -22,7 +22,7 @@ namespace Aviant.DDD.Application.Notifications
 
         private List<INotification> PostCommitEvents { get; } = new List<INotification>();
 
-    #region INotificationDispatcher Members
+        #region INotificationDispatcher Members
 
         public void AddPreCommitNotification(INotification notification)
         {
@@ -68,6 +68,6 @@ namespace Aviant.DDD.Application.Notifications
             PostCommitEvents.Remove(notification);
         }
 
-    #endregion
+        #endregion
     }
 }

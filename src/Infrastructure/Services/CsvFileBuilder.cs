@@ -11,7 +11,7 @@ namespace Aviant.DDD.Infrastructure.Services
         where TRecrod : class
         where TMap : ClassMap<TRecrod>
     {
-    #region ICsvFileBuilder<TRecrod> Members
+        #region ICsvFileBuilder<TRecrod> Members
 
         public byte[] BuildTodoItemsFile(IEnumerable<TRecrod> records)
         {
@@ -28,6 +28,6 @@ namespace Aviant.DDD.Infrastructure.Services
             return memoryStream.ToArray();
         }
 
-    #endregion
+        #endregion
     }
 }

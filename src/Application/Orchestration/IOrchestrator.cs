@@ -12,7 +12,7 @@ namespace Aviant.DDD.Application.Orchestration
 
         Task<RequestResult> SendQuery<T>(IQuery<T> query);
     }
-    
+
     public interface IOrchestrator<TDbContext>
         where TDbContext : IApplicationDbContext
     {
@@ -20,7 +20,7 @@ namespace Aviant.DDD.Application.Orchestration
 
         Task<RequestResult> SendQuery<T>(IQuery<T> query);
     }
-    
+
     public interface IOrchestrator<in TAggregateRoot, out TAggregateId>
         where TAggregateRoot : class, IAggregateRoot<TAggregateId>
         where TAggregateId : class, IAggregateId

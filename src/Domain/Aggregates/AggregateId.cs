@@ -9,7 +9,7 @@ namespace Aviant.DDD.Domain.Aggregates
     {
         protected AggregateId(TKey key) => Key = key;
 
-    #region IAggregateId<TKey> Members
+        #region IAggregateId<TKey> Members
 
         public TKey Key { get; }
 
@@ -24,7 +24,7 @@ namespace Aviant.DDD.Domain.Aggregates
             };
         }
 
-    #endregion
+        #endregion
 
         public override string ToString()
         {

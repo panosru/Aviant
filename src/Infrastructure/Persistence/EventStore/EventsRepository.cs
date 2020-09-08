@@ -31,7 +31,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             _streamBaseName = aggregateType.Name;
         }
 
-    #region IEventsRepository<TAggregateRoot,TAggregateId> Members
+        #region IEventsRepository<TAggregateRoot,TAggregateId> Members
 
         public async Task AppendAsync(TAggregateRoot aggregateRoot)
         {
@@ -100,7 +100,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             return result;
         }
 
-    #endregion
+        #endregion
 
         private string GetStreamName(TAggregateId aggregateId)
         {

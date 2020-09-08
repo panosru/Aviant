@@ -12,7 +12,7 @@ namespace Aviant.DDD.Domain.ValueObjects
 
         private List<PropertyInfo>? _properties;
 
-    #region IValueObject Members
+        #region IValueObject Members
 
         public bool Equals(ValueObject? obj) => Equals(obj as object);
 
@@ -45,7 +45,7 @@ namespace Aviant.DDD.Domain.ValueObjects
             return seed * 23 + currentHash;
         }
 
-    #endregion
+        #endregion
 
         public static bool operator ==(ValueObject? left, ValueObject? right)
         {
@@ -73,17 +73,17 @@ namespace Aviant.DDD.Domain.ValueObjects
         private IEnumerable<PropertyInfo> GetProperties()
         {
             return _properties ??= GetType()
-                                  .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                                  .Where(p => p.GetCustomAttribute(typeof(IgnoreMemberAttribute)) is null)
-                                  .ToList();
+               .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+               .Where(p => p.GetCustomAttribute(typeof(IgnoreMemberAttribute)) is null)
+               .ToList();
         }
 
         private IEnumerable<FieldInfo> GetFields()
         {
             return _fields ??= GetType()
-                              .GetFields(BindingFlags.Instance | BindingFlags.Public)
-                              .Where(f => f.GetCustomAttribute(typeof(IgnoreMemberAttribute)) is null)
-                              .ToList();
+               .GetFields(BindingFlags.Instance | BindingFlags.Public)
+               .Where(f => f.GetCustomAttribute(typeof(IgnoreMemberAttribute)) is null)
+               .ToList();
         }
     }
 }

@@ -4,10 +4,10 @@ namespace Aviant.DDD.Application.Notifications
 
     public abstract class Notification : INotification
     {
-    #region INotification Members
+        #region INotification Members
 
         public DateTime Occured { get; set; }
 
-    #endregion
+        #endregion
     }
 }

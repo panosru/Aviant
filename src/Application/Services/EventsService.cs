@@ -25,7 +25,7 @@ namespace Aviant.DDD.Application.Services
             _eventProducer = eventProducer ?? throw new ArgumentNullException(nameof(eventProducer));
         }
 
-    #region IEventsService<TAggregateRoot,TAggregateId> Members
+        #region IEventsService<TAggregateRoot,TAggregateId> Members
 
         public async Task PersistAsync(TAggregateRoot aggregateRoot)
         {
@@ -41,6 +41,6 @@ namespace Aviant.DDD.Application.Services
 
         public Task<TAggregateRoot> RehydrateAsync(TAggregateId key) => _eventsRepository.RehydrateAsync(key);
 
-    #endregion
+        #endregion
     }
 }

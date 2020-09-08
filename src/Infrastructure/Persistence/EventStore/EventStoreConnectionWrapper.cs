@@ -33,7 +33,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
                 });
         }
 
-    #region IDisposable Members
+        #region IDisposable Members
 
         public void Dispose()
         {
@@ -43,22 +43,22 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             _lazyConnection.Value.Result.Dispose();
         }
 
-    #endregion
+        #endregion
 
-    #region IEventStoreConnectionWrapper Members
+        #region IEventStoreConnectionWrapper Members
 
         public Task<IEventStoreConnection> GetConnectionAsync() => _lazyConnection.Value;
 
-    #endregion
+        #endregion
 
         // TODO: I'm not sure this is really the right approach.
         private IEventStoreConnection SetupConnection()
         {
             var settings = ConnectionSettings.Create()
-                                             .EnableVerboseLogging()
-                                             .UseConsoleLogger()
-                                             .DisableTls() // https://github.com/EventStore/EventStore/issues/2547
-                                             .Build();
+               .EnableVerboseLogging()
+               .UseConsoleLogger()
+               .DisableTls() // https://github.com/EventStore/EventStore/issues/2547
+               .Build();
             var connection = EventStoreConnection.Create(settings, _connectionString);
 
             connection.ErrorOccurred += async (s, e) =>

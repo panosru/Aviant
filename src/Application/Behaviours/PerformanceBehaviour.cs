@@ -31,7 +31,7 @@ namespace Aviant.DDD.Application.Behaviours
             _identityIdentityService = identityIdentityService;
         }
 
-    #region IPipelineBehavior<TRequest,TResponse> Members
+        #region IPipelineBehavior<TRequest,TResponse> Members
 
         public async Task<TResponse> Handle(
             TRequest                          request,
@@ -65,6 +65,6 @@ namespace Aviant.DDD.Application.Behaviours
             return response;
         }
 
-    #endregion
+        #endregion
     }
 }

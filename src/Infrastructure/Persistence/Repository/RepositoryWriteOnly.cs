@@ -28,7 +28,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             _dbSet     = _dbContext.Set<TEntity>();
         }
 
-    #region IRepositoryWrite<TEntity,TPrimaryKey> Members
+        #region IRepositoryWrite<TEntity,TPrimaryKey> Members
 
         public async Task Add(TEntity entity)
         {
@@ -72,6 +72,6 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             _dbContext.Dispose();
         }
 
-    #endregion
+        #endregion
     }
 }

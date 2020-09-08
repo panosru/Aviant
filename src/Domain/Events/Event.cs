@@ -19,12 +19,12 @@ namespace Aviant.DDD.Domain.Events
             AggregateId      = aggregateRoot.Id;
         }
 
-    #region IEvent<TAggregateId> Members
+        #region IEvent<TAggregateId> Members
 
         public long AggregateVersion { get; }
 
         public TAggregateId AggregateId { get; }
 
-    #endregion
+        #endregion
     }
 }

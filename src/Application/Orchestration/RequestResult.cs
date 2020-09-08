@@ -29,7 +29,7 @@ namespace Aviant.DDD.Application.Orchestration
 
         public List<string> Messages { get; set; } = new List<string>();
 
-        public int? AffectedRows { get; set; }
+        private int? AffectedRows { get; }
 
         public object? Payload() => _payload;
 

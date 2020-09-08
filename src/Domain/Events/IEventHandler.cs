@@ -4,5 +4,5 @@ namespace Aviant.DDD.Domain.Events
     using MediatR;
 
     public interface IEventHandler<TEvent> : INotificationHandler<EventReceived<TEvent>>
-    {}
+    { }
 }

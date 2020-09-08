@@ -19,7 +19,7 @@ namespace Aviant.DDD.Application.Services
             _assemblies = assemblies ?? new[] { Assembly.GetExecutingAssembly() };
         }
 
-    #region IEventDeserializer Members
+        #region IEventDeserializer Members
 
         public IEvent<TAggregateId> Deserialize<TAggregateId>(string type, byte[] data)
             where TAggregateId : IAggregateId
@@ -34,8 +34,8 @@ namespace Aviant.DDD.Application.Services
         {
             //TODO: cache types
             var eventType = _assemblies
-                           .Select(a => a.GetType(type, false))
-                           .FirstOrDefault(t => t != null)
+                               .Select(a => a.GetType(type, false))
+                               .FirstOrDefault(t => t != null)
                          ?? Type.GetType(type);
 
             if (null == eventType)
@@ -57,6 +57,6 @@ namespace Aviant.DDD.Application.Services
             return (IEvent<TAggregateId>) result;
         }
 
-    #endregion
+        #endregion
     }
 }

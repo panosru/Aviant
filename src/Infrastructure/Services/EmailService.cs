@@ -40,7 +40,7 @@ namespace Aviant.DDD.Infrastructure.Services
             _smtpClient        = smtpClient;
         }
 
-    #region IEmailService Members
+        #region IEmailService Members
 
         public IEmailService From(string name, string address)
         {
@@ -116,6 +116,6 @@ namespace Aviant.DDD.Infrastructure.Services
 
         public Task<bool> SendAsync() => Task.FromResult(Send());
 
-    #endregion
+        #endregion
     }
 }
