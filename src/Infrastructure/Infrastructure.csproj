@@ -5,9 +5,9 @@
         <Nullable>enable</Nullable>
         <RootNamespace>Aviant.DDD.Infrastructure</RootNamespace>
         <AssemblyName>Aviant.DDD.Infrastructure</AssemblyName>
-        <Version>1.0.0-beta.1</Version>
+        <Version>1.0.0-beta.2</Version>
         <Description>Aviant Domain Driven Design Library</Description>
-        <PackageTags>ddd</PackageTags>
+        <PackageTags>ddd, cqrs, event sourcing</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

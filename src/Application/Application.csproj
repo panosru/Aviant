@@ -5,14 +5,14 @@
         <Nullable>enable</Nullable>
         <RootNamespace>Aviant.DDD.Application</RootNamespace>
         <AssemblyName>Aviant.DDD.Application</AssemblyName>
-        <Version>1.0.0-beta.1</Version>
+        <Version>1.0.0-beta.2</Version>
         <Description>Aviant Domain Driven Design Library</Description>
-        <PackageTags>ddd</PackageTags>
+        <PackageTags>ddd, cqrs, event sourcing</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.1.3" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
         <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.7" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7" />
