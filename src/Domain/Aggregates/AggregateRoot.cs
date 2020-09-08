@@ -18,8 +18,8 @@ namespace Aviant.DDD.Domain.Aggregates
         protected AggregateRoot()
         { }
 
-        protected AggregateRoot(TAggregateId id)
-            : base(id)
+        protected AggregateRoot(TAggregateId aggregateId)
+            : base(aggregateId)
         { }
 
         #region IAggregateRoot<TAggregateId> Members
