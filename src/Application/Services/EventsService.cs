@@ -8,38 +8,38 @@ namespace Aviant.DDD.Application.Services
     using Domain.Persistence;
     using Domain.Services;
 
-    public class EventsService<TAggregateRoot, TAggregateId> : IEventsService<TAggregateRoot, TAggregateId>
-        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+    public class EventsService<TAggregate, TAggregateId> : IEventsService<TAggregate, TAggregateId>
+        where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
-        private readonly IEventProducer<TAggregateRoot, TAggregateId> _eventProducer;
+        private readonly IEventProducer<TAggregate, TAggregateId> _eventProducer;
 
-        private readonly IEventsRepository<TAggregateRoot, TAggregateId> _eventsRepository;
+        private readonly IEventsRepository<TAggregate, TAggregateId> _eventsRepository;
 
         public EventsService(
-            IEventsRepository<TAggregateRoot, TAggregateId> eventsRepository,
-            IEventProducer<TAggregateRoot, TAggregateId>    eventProducer)
+            IEventsRepository<TAggregate, TAggregateId> eventsRepository,
+            IEventProducer<TAggregate, TAggregateId>    eventProducer)
         {
             _eventsRepository = eventsRepository ?? throw new ArgumentNullException(nameof(eventsRepository));
 
             _eventProducer = eventProducer ?? throw new ArgumentNullException(nameof(eventProducer));
         }
 
-        #region IEventsService<TAggregateRoot,TAggregateId> Members
+        #region IEventsService<TAggregate,TAggregateId> Members
 
-        public async Task PersistAsync(TAggregateRoot aggregateRoot)
+        public async Task PersistAsync(TAggregate aggregate)
         {
-            if (aggregateRoot is null)
-                throw new ArgumentNullException(nameof(aggregateRoot));
+            if (aggregate is null)
+                throw new ArgumentNullException(nameof(aggregate));
 
-            if (!aggregateRoot.Events.Any())
+            if (!aggregate.Events.Any())
                 return;
 
-            await _eventsRepository.AppendAsync(aggregateRoot);
-            await _eventProducer.DispatchAsync(aggregateRoot);
+            await _eventsRepository.AppendAsync(aggregate);
+            await _eventProducer.DispatchAsync(aggregate);
         }
 
-        public Task<TAggregateRoot> RehydrateAsync(TAggregateId key) => _eventsRepository.RehydrateAsync(key);
+        public Task<TAggregate> RehydrateAsync(TAggregateId key) => _eventsRepository.RehydrateAsync(key);
 
         #endregion
     }

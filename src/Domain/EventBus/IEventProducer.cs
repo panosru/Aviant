@@ -4,10 +4,10 @@ namespace Aviant.DDD.Domain.EventBus
     using System.Threading.Tasks;
     using Aggregates;
 
-    public interface IEventProducer<in TAggregateRoot, in TAggregateId> : IDisposable
-        where TAggregateRoot : IAggregateRoot<TAggregateId>
+    public interface IEventProducer<in TAggregate, in TAggregateId> : IDisposable
+        where TAggregate : IAggregate<TAggregateId>
         where TAggregateId : IAggregateId
     {
-        Task DispatchAsync(TAggregateRoot aggregateRoot);
+        Task DispatchAsync(TAggregate aggregate);
     }
 }

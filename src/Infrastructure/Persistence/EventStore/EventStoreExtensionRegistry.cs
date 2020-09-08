@@ -9,33 +9,33 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
     public static class EventStoreExtensionRegistry
     {
-        public static IServiceCollection AddEventsRepository<TAggregateRoot, TAggregateId>(
+        public static IServiceCollection AddEventsRepository<TAggregate, TAggregateId>(
             this IServiceCollection services)
-            where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+            where TAggregate : class, IAggregate<TAggregateId>
             where TAggregateId : class, IAggregateId
         {
-            return services.AddSingleton<IEventsRepository<TAggregateRoot, TAggregateId>>(
+            return services.AddSingleton<IEventsRepository<TAggregate, TAggregateId>>(
                 ctx =>
                 {
                     var connectionWrapper = ctx.GetRequiredService<IEventStoreConnectionWrapper>();
                     var eventDeserializer = ctx.GetRequiredService<IEventDeserializer>();
 
-                    return new EventsRepository<TAggregateRoot, TAggregateId>(connectionWrapper, eventDeserializer);
+                    return new EventsRepository<TAggregate, TAggregateId>(connectionWrapper, eventDeserializer);
                 });
         }
 
-        public static IServiceCollection AddEventsService<TAggregateRoot, TAggregateId>(
+        public static IServiceCollection AddEventsService<TAggregate, TAggregateId>(
             this IServiceCollection services)
-            where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+            where TAggregate : class, IAggregate<TAggregateId>
             where TAggregateId : class, IAggregateId
         {
-            return services.AddSingleton<IEventsService<TAggregateRoot, TAggregateId>>(
+            return services.AddSingleton<IEventsService<TAggregate, TAggregateId>>(
                 ctx =>
                 {
-                    var eventsProducer = ctx.GetRequiredService<IEventProducer<TAggregateRoot, TAggregateId>>();
-                    var eventsRepo     = ctx.GetRequiredService<IEventsRepository<TAggregateRoot, TAggregateId>>();
+                    var eventsProducer = ctx.GetRequiredService<IEventProducer<TAggregate, TAggregateId>>();
+                    var eventsRepo     = ctx.GetRequiredService<IEventsRepository<TAggregate, TAggregateId>>();
 
-                    return new EventsService<TAggregateRoot, TAggregateId>(eventsRepo, eventsProducer);
+                    return new EventsService<TAggregate, TAggregateId>(eventsRepo, eventsProducer);
                 });
         }
     }

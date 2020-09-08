@@ -12,8 +12,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
     using Domain.Services;
     using global::EventStore.ClientAPI;
 
-    public class EventsRepository<TAggregateRoot, TAggregateId> : IEventsRepository<TAggregateRoot, TAggregateId>
-        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+    public class EventsRepository<TAggregate, TAggregateId> : IEventsRepository<TAggregate, TAggregateId>
+        where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
         private readonly IEventStoreConnectionWrapper _connectionWrapper;
@@ -27,25 +27,25 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             _connectionWrapper = connectionWrapper;
             _eventDeserializer = eventDeserializer;
 
-            var aggregateType = typeof(TAggregateRoot);
+            var aggregateType = typeof(TAggregate);
             _streamBaseName = aggregateType.Name;
         }
 
-        #region IEventsRepository<TAggregateRoot,TAggregateId> Members
+        #region IEventsRepository<TAggregate,TAggregateId> Members
 
-        public async Task AppendAsync(TAggregateRoot aggregateRoot)
+        public async Task AppendAsync(TAggregate aggregate)
         {
-            if (aggregateRoot is null)
-                throw new ArgumentNullException(nameof(aggregateRoot));
+            if (aggregate is null)
+                throw new ArgumentNullException(nameof(aggregate));
 
-            if (!aggregateRoot.Events.Any())
+            if (!aggregate.Events.Any())
                 return;
 
             var connection = await _connectionWrapper.GetConnectionAsync();
 
-            var streamName = GetStreamName(aggregateRoot.Id);
+            var streamName = GetStreamName(aggregate.Id);
 
-            IEvent<TAggregateId> firstEvent = aggregateRoot.Events.First();
+            IEvent<TAggregateId> firstEvent = aggregate.Events.First();
 
             var version = firstEvent.AggregateVersion - 1;
 
@@ -53,7 +53,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             try
             {
-                foreach (IEvent<TAggregateId> @event in aggregateRoot.Events)
+                foreach (IEvent<TAggregateId> @event in aggregate.Events)
                 {
                     var eventData = Map(@event);
                     await transaction.WriteAsync(eventData);
@@ -69,7 +69,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             }
         }
 
-        public async Task<TAggregateRoot> RehydrateAsync(TAggregateId aggregateId)
+        public async Task<TAggregate> RehydrateAsync(TAggregateId aggregateId)
         {
             var connection = await _connectionWrapper.GetConnectionAsync();
 
@@ -93,7 +93,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
                 events.AddRange(currentSlice.Events.Select(Map));
             } while (!currentSlice.IsEndOfStream);
 
-            var result = AggregateRoot<TAggregateRoot, TAggregateId>.Create(
+            var result = Aggregate<TAggregate, TAggregateId>.Create(
                 events.OrderBy(
                     e => e.AggregateVersion));
 

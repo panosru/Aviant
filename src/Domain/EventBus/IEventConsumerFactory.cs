@@ -4,8 +4,8 @@ namespace Aviant.DDD.Domain.EventBus
 
     public interface IEventConsumerFactory
     {
-        IEventConsumer Build<TAggregateRoot, TAggregateId, TDeserializer>()
-            where TAggregateRoot : IAggregateRoot<TAggregateId>
+        IEventConsumer Build<TAggregate, TAggregateId, TDeserializer>()
+            where TAggregate : IAggregate<TAggregateId>
             where TAggregateId : IAggregateId;
     }
 }

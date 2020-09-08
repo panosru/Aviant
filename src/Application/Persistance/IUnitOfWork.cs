@@ -16,15 +16,15 @@ namespace Aviant.DDD.Application.Persistance
         Task<int> Commit();
     }
 
-    public interface IUnitOfWork<in TAggregateRoot, TAggregateId>
-        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+    public interface IUnitOfWork<in TAggregate, TAggregateId>
+        where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
         /// <summary>
         ///     Commit changes to event sourcing persistence
         /// </summary>
-        /// <param name="aggregateRoot"></param>
+        /// <param name="aggregate"></param>
         /// <returns></returns>
-        Task<bool> Commit(TAggregateRoot aggregateRoot);
+        Task<bool> Commit(TAggregate aggregate);
     }
 }

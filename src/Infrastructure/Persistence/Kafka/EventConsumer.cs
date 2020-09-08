@@ -13,9 +13,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using Domain.Services;
     using Microsoft.Extensions.Logging;
 
-    public class EventConsumer<TAggregateRoot, TAggregateId, TDeserializer>
-        : IDisposable, IEventConsumer<TAggregateRoot, TAggregateId, TDeserializer>
-        where TAggregateRoot : IAggregateRoot<TAggregateId>
+    public class EventConsumer<TAggregate, TAggregateId, TDeserializer>
+        : IDisposable, IEventConsumer<TAggregate, TAggregateId, TDeserializer>
+        where TAggregate : IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
         where TDeserializer : class, IDeserializer<TAggregateId>, new()
     {
@@ -29,19 +29,19 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
         private readonly IEventDeserializer _eventDeserializer;
 
-        private readonly ILogger<EventConsumer<TAggregateRoot, TAggregateId, TDeserializer>> _logger;
+        private readonly ILogger<EventConsumer<TAggregate, TAggregateId, TDeserializer>> _logger;
 
         private IConsumer<TAggregateId, string> _eventConsumer;
 
         public EventConsumer(
             IEventDeserializer                                                  eventDeserializer,
             EventConsumerConfig                                                 config,
-            ILogger<EventConsumer<TAggregateRoot, TAggregateId, TDeserializer>> logger)
+            ILogger<EventConsumer<TAggregate, TAggregateId, TDeserializer>> logger)
         {
             _eventDeserializer = eventDeserializer;
             _logger            = logger;
 
-            var aggregateType = typeof(TAggregateRoot);
+            var aggregateType = typeof(TAggregate);
 
             var consumerConfig = new ConsumerConfig
             {
@@ -71,7 +71,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
         #endregion
 
-        #region IEventConsumer<TAggregateRoot,TAggregateId,TDeserializer> Members
+        #region IEventConsumer<TAggregate,TAggregateId,TDeserializer> Members
 
         public Task ConsumeAsync(CancellationToken stoppingToken)
         {

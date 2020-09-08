@@ -26,19 +26,19 @@ namespace Aviant.DDD.Application.Commands
         #endregion
     }
 
-    public abstract class CommandHandler<TCommand, TAggregateRoot, TAggregateId>
-        : ICommandHandler<TCommand, TAggregateRoot, TAggregateId>
-        where TCommand : ICommand<TAggregateRoot, TAggregateId>
-        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+    public abstract class CommandHandler<TCommand, TAggregate, TAggregateId>
+        : ICommandHandler<TCommand, TAggregate, TAggregateId>
+        where TCommand : ICommand<TAggregate, TAggregateId>
+        where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
-        protected IEventsService<TAggregateRoot, TAggregateId> EventsService => ServiceLocator.ServiceContainer
-          ?.GetService<IEventsService<TAggregateRoot, TAggregateId>>(
-                typeof(IEventsService<TAggregateRoot, TAggregateId>));
+        protected IEventsService<TAggregate, TAggregateId> EventsService => ServiceLocator.ServiceContainer
+          ?.GetService<IEventsService<TAggregate, TAggregateId>>(
+                typeof(IEventsService<TAggregate, TAggregateId>));
 
-        #region ICommandHandler<TCommand,TAggregateRoot,TAggregateId> Members
+        #region ICommandHandler<TCommand,TAggregate,TAggregateId> Members
 
-        public abstract Task<TAggregateRoot> Handle(TCommand command, CancellationToken cancellationToken);
+        public abstract Task<TAggregate> Handle(TCommand command, CancellationToken cancellationToken);
 
         #endregion
     }

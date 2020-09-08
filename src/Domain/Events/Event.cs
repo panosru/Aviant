@@ -3,20 +3,20 @@ namespace Aviant.DDD.Domain.Events
     using System;
     using Aggregates;
 
-    public abstract class Event<TAggregateRoot, TAggregateId> : IEvent<TAggregateId>
-        where TAggregateRoot : IAggregateRoot<TAggregateId>
+    public abstract class Event<TAggregate, TAggregateId> : IEvent<TAggregateId>
+        where TAggregate : IAggregate<TAggregateId>
         where TAggregateId : IAggregateId
     {
         protected Event()
         { }
 
-        protected Event(TAggregateRoot aggregateRoot)
+        protected Event(TAggregate aggregate)
         {
-            if (aggregateRoot is null)
-                throw new ArgumentNullException(nameof(aggregateRoot));
+            if (aggregate is null)
+                throw new ArgumentNullException(nameof(aggregate));
 
-            AggregateVersion = aggregateRoot.Version;
-            AggregateId      = aggregateRoot.Id;
+            AggregateVersion = aggregate.Version;
+            AggregateId      = aggregate.Id;
         }
 
         #region IEvent<TAggregateId> Members

@@ -145,27 +145,27 @@ namespace Aviant.DDD.Application.Orchestration
         #endregion
     }
 
-    public class Orchestrator<TAggregateRoot, TAggregateId>
+    public class Orchestrator<TAggregate, TAggregateId>
         : OrchestratorBase,
-          IOrchestrator<TAggregateRoot, TAggregateId>
-        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+          IOrchestrator<TAggregate, TAggregateId>
+        where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
-        private readonly IUnitOfWork<TAggregateRoot, TAggregateId> _unitOfWork;
+        private readonly IUnitOfWork<TAggregate, TAggregateId> _unitOfWork;
 
         public Orchestrator(
-            IUnitOfWork<TAggregateRoot, TAggregateId> unitOfWork,
+            IUnitOfWork<TAggregate, TAggregateId> unitOfWork,
             IMessages                                 messages,
             INotificationDispatcher                   notificationDispatcher,
             IMediator                                 mediator)
             : base(messages, notificationDispatcher, mediator) => _unitOfWork = unitOfWork;
 
-        #region IOrchestrator<TAggregateRoot,TAggregateId> Members
+        #region IOrchestrator<TAggregate,TAggregateId> Members
 
-        public async Task<RequestResult> SendCommand(ICommand<TAggregateRoot, TAggregateId> command)
+        public async Task<RequestResult> SendCommand(ICommand<TAggregate, TAggregateId> command)
         {
             (var commandResponse, List<string>? messages) =
-                await PreUnitOfWork<ICommand<TAggregateRoot, TAggregateId>, TAggregateRoot>(command);
+                await PreUnitOfWork<ICommand<TAggregate, TAggregateId>, TAggregate>(command);
 
             if (!(messages is null))
                 return new RequestResult(messages);

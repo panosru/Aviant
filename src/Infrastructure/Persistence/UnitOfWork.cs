@@ -52,19 +52,19 @@ namespace Aviant.DDD.Infrastructure.Persistence
         }
     }
 
-    public class UnitOfWork<TAggregateRoot, TAggregateId>
-        : IUnitOfWork<TAggregateRoot, TAggregateId>
-        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+    public class UnitOfWork<TAggregate, TAggregateId>
+        : IUnitOfWork<TAggregate, TAggregateId>
+        where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
-        private readonly IEventsService<TAggregateRoot, TAggregateId> _eventsService;
+        private readonly IEventsService<TAggregate, TAggregateId> _eventsService;
 
-        public UnitOfWork(IEventsService<TAggregateRoot, TAggregateId> eventsService) =>
+        public UnitOfWork(IEventsService<TAggregate, TAggregateId> eventsService) =>
             _eventsService = eventsService;
 
-        #region IUnitOfWork<TAggregateRoot,TAggregateId> Members
+        #region IUnitOfWork<TAggregate,TAggregateId> Members
 
-        public async Task<bool> Commit(TAggregateRoot aggregateRoot)
+        public async Task<bool> Commit(TAggregate aggregate)
         {
             try
             {
@@ -72,10 +72,10 @@ namespace Aviant.DDD.Infrastructure.Persistence
                 //     throw new Exception("ServiceContainer is null");
                 //
                 // var eventsService = ServiceLocator.ServiceContainer
-                //                                   .GetService<IEventsService<TAggregateRoot, TAggregateId>>(
-                //                                        typeof(IEventsService<TAggregateRoot, TAggregateId>));
+                //                                   .GetService<IEventsService<TAggregate, TAggregateId>>(
+                //                                        typeof(IEventsService<TAggregate, TAggregateId>));
 
-                await _eventsService.PersistAsync(aggregateRoot);
+                await _eventsService.PersistAsync(aggregate);
 
                 return true;
             }

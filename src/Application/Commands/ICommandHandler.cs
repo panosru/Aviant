@@ -11,10 +11,10 @@ namespace Aviant.DDD.Application.Commands
         where TCommand : ICommand<Unit>
     { }
 
-    public interface ICommandHandler<in TCommand, TAggregateRoot, TAggregateId>
-        : IRequestHandler<TCommand, TAggregateRoot>
-        where TCommand : ICommand<TAggregateRoot, TAggregateId>
-        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+    public interface ICommandHandler<in TCommand, TAggregate, TAggregateId>
+        : IRequestHandler<TCommand, TAggregate>
+        where TCommand : ICommand<TAggregate, TAggregateId>
+        where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     { }
 }

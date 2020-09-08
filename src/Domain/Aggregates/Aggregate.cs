@@ -8,21 +8,21 @@ namespace Aviant.DDD.Domain.Aggregates
     using Entities;
     using Events;
 
-    public abstract class AggregateRoot<TAggregateRoot, TAggregateId>
-        : Entity<TAggregateId>, IAggregateRoot<TAggregateId>
-        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+    public abstract class Aggregate<TAggregate, TAggregateId>
+        : Entity<TAggregateId>, IAggregate<TAggregateId>
+        where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
         private readonly Queue<IEvent<TAggregateId>> _events = new Queue<IEvent<TAggregateId>>();
 
-        protected AggregateRoot()
+        protected Aggregate()
         { }
 
-        protected AggregateRoot(TAggregateId aggregateId)
+        protected Aggregate(TAggregateId aggregateId)
             : base(aggregateId)
         { }
 
-        #region IAggregateRoot<TAggregateId> Members
+        #region IAggregate<TAggregateId> Members
 
         public IReadOnlyCollection<IEvent<TAggregateId>> Events => _events.ToImmutableArray();
 
@@ -51,12 +51,12 @@ namespace Aviant.DDD.Domain.Aggregates
         // ReSharper disable once StaticMemberInGenericType
         private static readonly Lazy<ConstructorInfo> LazyConstructor;
 
-        static AggregateRoot()
+        static Aggregate()
         {
             LazyConstructor = new Lazy<ConstructorInfo>(
                 () =>
                 {
-                    var aggregateType = typeof(TAggregateRoot);
+                    var aggregateType = typeof(TAggregate);
 
                     var constructor = aggregateType.GetConstructor(
                         BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
@@ -68,7 +68,7 @@ namespace Aviant.DDD.Domain.Aggregates
                 });
         }
 
-        public static TAggregateRoot Create(IEnumerable<IEvent<TAggregateId>> events)
+        public static TAggregate Create(IEnumerable<IEvent<TAggregateId>> events)
         {
             List<IEvent<TAggregateId>>? enumerable = events.ToList();
 
@@ -77,9 +77,9 @@ namespace Aviant.DDD.Domain.Aggregates
                 throw new ArgumentException(nameof(events));
 
             var constructor = LazyConstructor.Value;
-            var result      = (TAggregateRoot) constructor.Invoke(new object[0]);
+            var result      = (TAggregate) constructor.Invoke(new object[0]);
 
-            if (result is AggregateRoot<TAggregateRoot, TAggregateId> aggregate)
+            if (result is Aggregate<TAggregate, TAggregateId> aggregate)
                 foreach (var @event in enumerable)
                     aggregate.AddEvent(@event);
 

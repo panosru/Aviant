@@ -16,14 +16,14 @@ namespace Aviant.DDD.Application.EventBus
 
         #region IEventConsumerFactory Members
 
-        public IEventConsumer Build<TAggregateRoot, TAggregateId, TDeserializer>()
-            where TAggregateRoot : IAggregateRoot<TAggregateId>
+        public IEventConsumer Build<TAggregate, TAggregateId, TDeserializer>()
+            where TAggregate : IAggregate<TAggregateId>
             where TAggregateId : IAggregateId
         {
             using var scope = _scopeFactory.CreateScope();
 
             var consumer = scope.ServiceProvider.GetRequiredService<IEventConsumer<
-                TAggregateRoot, TAggregateId, TDeserializer>>();
+                TAggregate, TAggregateId, TDeserializer>>();
 
             async Task OnEventReceived(object s, IEvent<TAggregateId> @event)
             {

@@ -4,7 +4,7 @@ namespace Aviant.DDD.Domain.Aggregates
     using Entities;
     using Events;
 
-    public interface IAggregateRoot<out TAggregateId> : IEntity<TAggregateId>
+    public interface IAggregate<out TAggregateId> : IEntity<TAggregateId>
         where TAggregateId : IAggregateId
     {
         long Version { get; }

@@ -10,9 +10,9 @@ namespace Aviant.DDD.Domain.EventBus
         Task ConsumeAsync(CancellationToken cancellationToken);
     }
 
-    public interface IEventConsumer<TAggregateRoot, out TAggregateId, TDeserializer>
+    public interface IEventConsumer<TAggregate, out TAggregateId, TDeserializer>
         : IEventConsumer
-        where TAggregateRoot : IAggregateRoot<TAggregateId>
+        where TAggregate : IAggregate<TAggregateId>
         where TAggregateId : IAggregateId
     {
         event EventReceivedHandler<TAggregateId> EventReceived;

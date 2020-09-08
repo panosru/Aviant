@@ -21,11 +21,11 @@ namespace Aviant.DDD.Application.Orchestration
         Task<RequestResult> SendQuery<T>(IQuery<T> query);
     }
 
-    public interface IOrchestrator<in TAggregateRoot, out TAggregateId>
-        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+    public interface IOrchestrator<in TAggregate, out TAggregateId>
+        where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
-        Task<RequestResult> SendCommand(ICommand<TAggregateRoot, TAggregateId> command);
+        Task<RequestResult> SendCommand(ICommand<TAggregate, TAggregateId> command);
 
         Task<RequestResult> SendQuery<T>(IQuery<T> query);
     }

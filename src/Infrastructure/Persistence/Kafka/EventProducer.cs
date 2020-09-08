@@ -11,11 +11,11 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using Domain.Events;
     using Microsoft.Extensions.Logging;
 
-    public class EventProducer<TAggregateRoot, TAggregateId> : IEventProducer<TAggregateRoot, TAggregateId>
-        where TAggregateRoot : IAggregateRoot<TAggregateId>
+    public class EventProducer<TAggregate, TAggregateId> : IEventProducer<TAggregate, TAggregateId>
+        where TAggregate : IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
-        private readonly ILogger<EventProducer<TAggregateRoot, TAggregateId>> _logger;
+        private readonly ILogger<EventProducer<TAggregate, TAggregateId>> _logger;
 
         private readonly string _topicName;
 
@@ -24,11 +24,11 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
         public EventProducer(
             string                                               topicBaseName,
             string                                               kafkaConnString,
-            ILogger<EventProducer<TAggregateRoot, TAggregateId>> logger)
+            ILogger<EventProducer<TAggregate, TAggregateId>> logger)
         {
             _logger = logger;
 
-            var aggregateType = typeof(TAggregateRoot);
+            var aggregateType = typeof(TAggregate);
 
             _topicName = $"{topicBaseName}-{aggregateType.Name}";
 
@@ -38,7 +38,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
             _producer = producerBuilder.Build();
         }
 
-        #region IEventProducer<TAggregateRoot,TAggregateId> Members
+        #region IEventProducer<TAggregate,TAggregateId> Members
 
         public void Dispose()
         {
@@ -46,19 +46,19 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
             _producer = null;
         }
 
-        public async Task DispatchAsync(TAggregateRoot aggregateRoot)
+        public async Task DispatchAsync(TAggregate aggregate)
         {
-            if (null == aggregateRoot)
-                throw new ArgumentNullException(nameof(aggregateRoot));
+            if (null == aggregate)
+                throw new ArgumentNullException(nameof(aggregate));
 
-            if (!aggregateRoot.Events.Any())
+            if (!aggregate.Events.Any())
                 return;
 
             _logger.LogInformation(
-                "publishing " + aggregateRoot.Events.Count + " events for {AggregateId} ...",
-                aggregateRoot.Id);
+                "publishing " + aggregate.Events.Count + " events for {AggregateId} ...",
+                aggregate.Id);
 
-            foreach (IEvent<TAggregateId> @event in aggregateRoot.Events)
+            foreach (IEvent<TAggregateId> @event in aggregate.Events)
             {
                 var eventType = @event.GetType();
 
@@ -80,7 +80,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                 await _producer.ProduceAsync(_topicName, message);
             }
 
-            aggregateRoot.ClearEvents();
+            aggregate.ClearEvents();
         }
 
         #endregion

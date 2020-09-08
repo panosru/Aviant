@@ -3,12 +3,12 @@ namespace Aviant.DDD.Domain.Persistence
     using System.Threading.Tasks;
     using Aggregates;
 
-    public interface IEventsRepository<TAggregateRoot, in TAggregateId>
-        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+    public interface IEventsRepository<TAggregate, in TAggregateId>
+        where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
-        Task AppendAsync(TAggregateRoot aggregateRoot);
+        Task AppendAsync(TAggregate aggregate);
 
-        Task<TAggregateRoot> RehydrateAsync(TAggregateId aggregateId);
+        Task<TAggregate> RehydrateAsync(TAggregateId aggregateId);
     }
 }

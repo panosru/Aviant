@@ -7,18 +7,18 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
     public static class KafkaExtensionRegistry
     {
-        public static IServiceCollection AddKafkaEventProducer<TAggregateRoot, TAggregateId>(
+        public static IServiceCollection AddKafkaEventProducer<TAggregate, TAggregateId>(
             this IServiceCollection services,
             EventConsumerConfig     configuration)
-            where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+            where TAggregate : class, IAggregate<TAggregateId>
             where TAggregateId : class, IAggregateId
         {
-            return services.AddSingleton<IEventProducer<TAggregateRoot, TAggregateId>>(
+            return services.AddSingleton<IEventProducer<TAggregate, TAggregateId>>(
                 ctx =>
                 {
-                    var logger = ctx.GetRequiredService<ILogger<EventProducer<TAggregateRoot, TAggregateId>>>();
+                    var logger = ctx.GetRequiredService<ILogger<EventProducer<TAggregate, TAggregateId>>>();
 
-                    return new EventProducer<TAggregateRoot, TAggregateId>(
+                    return new EventProducer<TAggregate, TAggregateId>(
                         configuration.TopicBaseName,
                         configuration.KafkaConnectionString,
                         logger);

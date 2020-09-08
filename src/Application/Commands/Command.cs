@@ -9,8 +9,8 @@ namespace Aviant.DDD.Application.Commands
     public abstract class Command : Command<Unit>, ICommand
     { }
 
-    public abstract class Command<TAggregateRoot, TAggregateId> : ICommand<TAggregateRoot, TAggregateId>
-        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+    public abstract class Command<TAggregate, TAggregateId> : ICommand<TAggregate, TAggregateId>
+        where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     { }
 }
