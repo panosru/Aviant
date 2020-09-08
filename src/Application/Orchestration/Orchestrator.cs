@@ -6,81 +6,51 @@ namespace Aviant.DDD.Application.Orchestration
     using Commands;
     using Domain.Aggregates;
     using Domain.Messages;
-    using Domain.Persistence;
     using MediatR;
     using Notifications;
+    using Persistance;
     using Queries;
 
-    public class Orchestrator : IOrchestrator
+    public abstract class OrchestratorBase
     {
         private readonly IMediator _mediator;
 
         private readonly IMessages _messages;
 
         private readonly INotificationDispatcher _notificationDispatcher;
-
-        private readonly IUnitOfWork _unitOfWork;
-
-        public Orchestrator(
-            IUnitOfWork             unitOfWork,
+        
+        protected OrchestratorBase(
             IMessages               messages,
             INotificationDispatcher notificationDispatcher,
             IMediator               mediator)
         {
-            _unitOfWork             = unitOfWork;
             _messages               = messages;
             _notificationDispatcher = notificationDispatcher;
             _mediator               = mediator;
         }
-
-    #region IOrchestrator Members
-
-        public async Task<RequestResult> SendCommand<TAggregateRoot, TAggregateId>(
-            ICommand<TAggregateRoot, TAggregateId> command)
-            where TAggregateRoot : class, IAggregateRoot<TAggregateId>
-            where TAggregateId : class, IAggregateId
+        
+        protected async Task<(TCommandResponse commandResponse, List<string>? _messages)> 
+            PreUnitOfWork<TCommand, TCommandResponse>(TCommand command)
+            where TCommand : class, IRequest<TCommandResponse>
         {
             var commandResponse = await _mediator.Send(command);
 
             // Fire pre/post notifications
             await _notificationDispatcher.FirePreCommitNotifications();
 
-            if (_messages.HasMessages()) return new RequestResult(_messages.GetAll());
+            List<string>? messages = null;
+            
+            if (_messages.HasMessages())
+                messages = _messages.GetAll();
 
-            if (!await _unitOfWork.Commit<TAggregateRoot, TAggregateId>(commandResponse))
-                return new RequestResult(
-                    new List<string>
-                    {
-                        "An error occurred"
-                    });
-
-            // Fire post commit notifications
-            await _notificationDispatcher.FirePostCommitNotifications();
-
-            return new RequestResult(commandResponse);
+            return (commandResponse, messages);
         }
 
-        public async Task<RequestResult> SendCommand<T>(ICommand<T> command)
+        protected dynamic? PostUnitOfWork<TCommandResponse>(TCommandResponse commandResponse)
         {
-            var commandResponse = await _mediator.Send(command);
-
-            // Fire pre/post notifications
-            await _notificationDispatcher.FirePreCommitNotifications();
-
-            if (_messages.HasMessages()) return new RequestResult(_messages.GetAll());
-
-            var affectedRows = await _unitOfWork.Commit();
-
-            if (-1 == affectedRows)
-                return new RequestResult(
-                    new List<string>
-                    {
-                        "An error occurred"
-                    });
-
             // Fire post commit notifications
-            await _notificationDispatcher.FirePostCommitNotifications();
-
+            Task.Run(() => _notificationDispatcher.FirePostCommitNotifications());
+            
             var isLazy = false;
 
             try
@@ -89,25 +59,123 @@ namespace Aviant.DDD.Application.Orchestration
             }
             catch (Exception)
             {
-                // ignored
+                // ignore
             }
 
-            return new RequestResult(
-                isLazy
-                    ? commandResponse?.GetType().GetProperty("Value")?.GetValue(commandResponse, null)
-                    : commandResponse,
-                affectedRows);
+            return isLazy
+                ? commandResponse?.GetType().GetProperty("Value")?.GetValue(commandResponse, null)
+                : commandResponse;
         }
-
+        
         public async Task<RequestResult> SendQuery<T>(IQuery<T> query)
         {
             var commandResponse = await _mediator.Send(query);
 
-            if (_messages.HasMessages()) return new RequestResult(_messages.GetAll());
+            return _messages.HasMessages()
+                ? new RequestResult(_messages.GetAll())
+                : new RequestResult(commandResponse);
+        }
+    }
+    
+    public class Orchestrator 
+        : OrchestratorBase, 
+          IOrchestrator
+    {
+        public Orchestrator(
+            IMessages messages, 
+            INotificationDispatcher notificationDispatcher,
+            IMediator mediator)
+            : base(messages, notificationDispatcher, mediator)
+        { }
 
-            return new RequestResult(commandResponse);
+        public async Task<RequestResult> SendCommand<T>(ICommand<T> command)
+        {
+            (var commandResponse, List<string>? messages) = await PreUnitOfWork<ICommand<T>, T>(command);
+            
+            if (!(messages is null))
+                return new RequestResult(messages);
+
+            var result = PostUnitOfWork(commandResponse);
+
+            return new RequestResult(result);
+        }
+    }
+    
+    public class Orchestrator<TDbContext> 
+        : OrchestratorBase, 
+          IOrchestrator<TDbContext>
+        where TDbContext : IApplicationDbContext
+    {
+        private readonly IUnitOfWork<TDbContext> _unitOfWork;
+
+        public Orchestrator(
+            IUnitOfWork<TDbContext> unitOfWork,
+            IMessages               messages,
+            INotificationDispatcher notificationDispatcher,
+            IMediator               mediator)
+            : base(messages, notificationDispatcher, mediator)
+        {
+            _unitOfWork = unitOfWork;
+        }
+        
+        public async Task<RequestResult> SendCommand<T>(ICommand<T> command)
+        {
+            (var commandResponse, List<string>? messages) = await PreUnitOfWork<ICommand<T>, T>(command);
+            
+            if (!(messages is null))
+                return new RequestResult(messages);
+
+            var affectedRows = await _unitOfWork.Commit();
+            
+            if (-1 == affectedRows)
+                return new RequestResult(
+                    new List<string>
+                    {
+                        "An error occurred" //TODO: this is a very bad error message
+                    });
+            
+            var result = PostUnitOfWork(commandResponse);
+
+            return new RequestResult(result, affectedRows);
+        }
+    }
+    
+    public class Orchestrator<TAggregateRoot, TAggregateId> 
+        : OrchestratorBase, 
+          IOrchestrator<TAggregateRoot, TAggregateId> 
+        where TAggregateRoot : class, IAggregateRoot<TAggregateId> 
+        where TAggregateId : class, IAggregateId
+    {
+        private readonly IUnitOfWork<TAggregateRoot, TAggregateId> _unitOfWork;
+
+        public Orchestrator(
+            IUnitOfWork<TAggregateRoot, TAggregateId> unitOfWork,
+            IMessages                                 messages,
+            INotificationDispatcher                   notificationDispatcher,
+            IMediator                                 mediator)
+            : base(messages, notificationDispatcher, mediator)
+        {
+            _unitOfWork = unitOfWork;
         }
 
-    #endregion
+        public async Task<RequestResult> SendCommand(ICommand<TAggregateRoot, TAggregateId> command)
+        {
+            (var commandResponse, List<string>? messages) = 
+                await PreUnitOfWork<ICommand<TAggregateRoot, TAggregateId>, TAggregateRoot>(command);
+            
+            if (!(messages is null))
+                return new RequestResult(messages);
+
+            if (!await _unitOfWork.Commit(commandResponse))
+                return new RequestResult(
+                    new List<string>
+                    {
+                        "An error occurred"
+                    });
+
+            var result = PostUnitOfWork(commandResponse);
+
+            return new RequestResult(result);
+        }
     }
 }
