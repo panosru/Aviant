@@ -4,10 +4,9 @@ namespace Aviant.DDD.Infrastructure.Persistence
     using System.Threading.Tasks;
     using Application.Persistance;
     using Domain.Aggregates;
-    using Domain.Persistence;
     using Domain.Services;
 
-    public class UnitOfWork<TDbContext> : IUnitOfWork, IDisposable
+    public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext>, IDisposable
         where TDbContext : IApplicationDbContext
     {
         private readonly TDbContext _context;
@@ -16,7 +15,7 @@ namespace Aviant.DDD.Infrastructure.Persistence
 
         public UnitOfWork(TDbContext context) => _context = context;
 
-    #region IDisposable Members
+        #region IDisposable Members
 
         public void Dispose()
         {
@@ -24,39 +23,16 @@ namespace Aviant.DDD.Infrastructure.Persistence
             GC.SuppressFinalize(this);
         }
 
-    #endregion
+        #endregion
 
-    #region IUnitOfWork Members
-
-        public async Task<bool> Commit<TAggregateRoot, TAggregateId>(TAggregateRoot aggregateRoot)
-            where TAggregateRoot : class, IAggregateRoot<TAggregateId>
-            where TAggregateId : class, IAggregateId
-        {
-            try
-            {
-                if (ServiceLocator.ServiceContainer is null)
-                    throw new Exception("ServiceContainer is null");
-
-                var eventsService = ServiceLocator.ServiceContainer
-                                                  .GetService<IEventsService<TAggregateRoot, TAggregateId>>(
-                                                       typeof(IEventsService<TAggregateRoot, TAggregateId>));
-
-                await eventsService.PersistAsync(aggregateRoot);
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
+        #region IUnitOfWork<TDbContext> Members
 
         public async Task<int> Commit()
         {
             try
             {
                 var affectedRows = await _context.SaveChangesAsync()
-                                                 .ConfigureAwait(false);
+                   .ConfigureAwait(false);
 
                 return affectedRows;
             }
@@ -66,7 +42,7 @@ namespace Aviant.DDD.Infrastructure.Persistence
             }
         }
 
-    #endregion
+        #endregion
 
         private void Dispose(bool disposing)
         {
@@ -74,5 +50,41 @@ namespace Aviant.DDD.Infrastructure.Persistence
 
             _isDisposed = true;
         }
+    }
+
+    public class UnitOfWork<TAggregateRoot, TAggregateId>
+        : IUnitOfWork<TAggregateRoot, TAggregateId>
+        where TAggregateRoot : class, IAggregateRoot<TAggregateId>
+        where TAggregateId : class, IAggregateId
+    {
+        private readonly IEventsService<TAggregateRoot, TAggregateId> _eventsService;
+
+        public UnitOfWork(IEventsService<TAggregateRoot, TAggregateId> eventsService) =>
+            _eventsService = eventsService;
+
+        #region IUnitOfWork<TAggregateRoot,TAggregateId> Members
+
+        public async Task<bool> Commit(TAggregateRoot aggregateRoot)
+        {
+            try
+            {
+                // if (ServiceLocator.ServiceContainer is null)
+                //     throw new Exception("ServiceContainer is null");
+                //
+                // var eventsService = ServiceLocator.ServiceContainer
+                //                                   .GetService<IEventsService<TAggregateRoot, TAggregateId>>(
+                //                                        typeof(IEventsService<TAggregateRoot, TAggregateId>));
+
+                await _eventsService.PersistAsync(aggregateRoot);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
     }
 }
