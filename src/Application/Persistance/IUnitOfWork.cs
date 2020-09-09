@@ -7,7 +7,7 @@ namespace Aviant.DDD.Application.Persistance
     ///     Unit of Work Interface
     /// </summary>
     public interface IUnitOfWork<TDbContext>
-        where TDbContext : IApplicationDbContext
+        where TDbContext : IDbContextWrite
     {
         /// <summary>
         ///     Commit changes to database persistence

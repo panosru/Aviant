@@ -108,7 +108,7 @@ namespace Aviant.DDD.Application.Orchestration
     public class Orchestrator<TDbContext>
         : OrchestratorBase,
           IOrchestrator<TDbContext>
-        where TDbContext : IApplicationDbContext
+        where TDbContext : IDbContextWrite
     {
         private readonly IUnitOfWork<TDbContext> _unitOfWork;
 

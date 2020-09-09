@@ -14,7 +14,7 @@ namespace Aviant.DDD.Application.Orchestration
     }
 
     public interface IOrchestrator<TDbContext>
-        where TDbContext : IApplicationDbContext
+        where TDbContext : IDbContextWrite
     {
         Task<RequestResult> SendCommand<T>(ICommand<T> command);
 

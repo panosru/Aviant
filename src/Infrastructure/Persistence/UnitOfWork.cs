@@ -7,7 +7,7 @@ namespace Aviant.DDD.Infrastructure.Persistence
     using Domain.Services;
 
     public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext>, IDisposable
-        where TDbContext : IApplicationDbContext
+        where TDbContext : IDbContextWrite
     {
         private readonly TDbContext _context;
 
