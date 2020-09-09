@@ -155,6 +155,13 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
         }
     }
     
+    /**
+     * No one likes code duplication, but I can’t think of an elegant solution to use
+     * C# 8.0 default interface implementation for a trait-like pattern to avoid code
+     * duplication in this case (as I did for DbContext objects).
+     * TODO: Find a way to avoid code duplication here
+     */
+    
     public abstract class RepositoryRead<TDbContext, TApplicationUser, TApplicationRole, TEntity, TPrimaryKey>
         : IRepositoryRead<TEntity, TPrimaryKey>
         where TEntity : Entity<TPrimaryKey>
