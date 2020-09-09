@@ -4,21 +4,14 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Application.Identity;
     using Application.Persistance;
-    using IdentityServer4.EntityFramework.Options;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Options;
 
-    public abstract class AuthorizationDbContextRead<TApplicationUser, TApplicationRole>
-        : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>, IDbContextRead
-        where TApplicationUser : ApplicationUser
-        where TApplicationRole : ApplicationRole
+    public abstract class DbContextRead
+        : DbContext, IDbContextRead
     {
-        protected AuthorizationDbContextRead(
-            DbContextOptions                  options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions)
-            : base(options, operationalStoreOptions)
+        protected DbContextRead(DbContextOptions options)
+            : base(options)
         {
             TrackerSettings();
         }

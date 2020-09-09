@@ -3,34 +3,26 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Application.Identity;
     using Application.Persistance;
     using Domain.Entities;
-    using IdentityServer4.EntityFramework.Options;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
-    using Microsoft.Extensions.Options;
 
-    public abstract class AuthorizationDbContextWrite<TDbContext, TApplicationUser, TApplicationRole>
-        : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>, 
-          IDbContextWrite,
-          IAuditableImplementation<TDbContext>
+    public abstract class DbContextWrite<TDbContext>
+        : DbContext, IDbContextWrite, IAuditableImplementation<TDbContext>
         where TDbContext : class, IDbContextWrite
-        where TApplicationUser : ApplicationUser
-        where TApplicationRole : ApplicationRole
     {
+        
         private readonly IAuditableImplementation<TDbContext> _trait;
-
-        protected AuthorizationDbContextWrite(
-            DbContextOptions                  options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions)
-            : base(options, operationalStoreOptions)
+        
+        protected DbContextWrite(DbContextOptions options)
+            : base(options)
         {
             _trait = this;
-
+            
             TrackerSettings();
         }
-
+        
         #region IAuthorizationDbContextWrite Members
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
