@@ -11,18 +11,18 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
     using Domain.Persistence;
     using Microsoft.EntityFrameworkCore;
 
-    public abstract class RepositoryReadOnly<TDbContext, TApplicationUser, TApplicationRole, TEntity, TPrimaryKey>
+    public abstract class RepositoryRead<TDbContext, TApplicationUser, TApplicationRole, TEntity, TPrimaryKey>
         : IRepositoryRead<TEntity, TPrimaryKey>
         where TEntity : Entity<TPrimaryKey>
         where TApplicationUser : ApplicationUser
         where TApplicationRole : ApplicationRole
-        where TDbContext : ApplicationDbContextReadOnly<TApplicationUser, TApplicationRole>
+        where TDbContext : AuthorizationDbContextRead<TApplicationUser, TApplicationRole>
     {
         private readonly TDbContext _dbContext;
 
         private readonly DbSet<TEntity> _dbSet;
 
-        protected RepositoryReadOnly(TDbContext context)
+        protected RepositoryRead(TDbContext context)
         {
             _dbContext = context;
             _dbSet     = _dbContext.Set<TEntity>();

@@ -11,18 +11,18 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
     using Domain.Persistence;
     using Microsoft.EntityFrameworkCore;
 
-    public abstract class RepositoryWriteOnly<TDbContext, TApplicationUser, TApplicationRole, TEntity, TPrimaryKey>
+    public abstract class RepositoryWrite<TDbContext, TApplicationUser, TApplicationRole, TEntity, TPrimaryKey>
         : IRepositoryWrite<TEntity, TPrimaryKey>
         where TEntity : Entity<TPrimaryKey>
         where TApplicationUser : ApplicationUser
         where TApplicationRole : ApplicationRole
-        where TDbContext : ApplicationDbContext<TDbContext, TApplicationUser, TApplicationRole>
+        where TDbContext : AuthorizationDbContextWrite<TDbContext, TApplicationUser, TApplicationRole>
     {
         private readonly TDbContext _dbContext;
 
         private readonly DbSet<TEntity> _dbSet;
 
-        protected RepositoryWriteOnly(TDbContext context)
+        protected RepositoryWrite(TDbContext context)
         {
             _dbContext = context;
             _dbSet     = _dbContext.Set<TEntity>();
