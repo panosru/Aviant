@@ -15,9 +15,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using Microsoft.EntityFrameworkCore.Metadata;
     using Microsoft.Extensions.Options;
 
-    public abstract class ApplicationDbContext<TDbContext, TApplicationUser, TApplicationRole>
-        : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>, IApplicationDbContext
-        where TDbContext : IApplicationDbContext
+    public abstract class AuthorizationDbContextWrite<TDbContext, TApplicationUser, TApplicationRole>
+        : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>, IDbContextWrite
+        where TDbContext : IDbContextWrite
         where TApplicationUser : ApplicationUser
         where TApplicationRole : ApplicationRole
     {
@@ -28,7 +28,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         private readonly IDateTimeService _dateTimeService;
 
-        protected ApplicationDbContext(
+        protected AuthorizationDbContextWrite(
             DbContextOptions                  options,
             IOptions<OperationalStoreOptions> operationalStoreOptions,
             ICurrentUserService               currentUserService,
@@ -41,7 +41,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             TrackerSettings();
         }
 
-        #region IApplicationDbContext Members
+        #region IAuthorizationDbContextWrite Members
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
