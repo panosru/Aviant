@@ -1,10 +1,13 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 {
     using System;
+    using System.Collections.Generic;
+    using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Identity;
     using Application.Persistance;
+    using Configurations;
     using Domain.Entities;
     using IdentityServer4.EntityFramework.Options;
     using Microsoft.EntityFrameworkCore;
@@ -20,6 +23,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         where TApplicationRole : ApplicationRole
     {
         private readonly IAuditableImplementation<TDbContext> _trait;
+        
+        // ReSharper disable once StaticMemberInGenericType
+        private static readonly HashSet<Assembly> ConfigurationAssemblies = new HashSet<Assembly>();
 
         protected AuthorizationDbContextWrite(
             DbContextOptions                  options,
@@ -29,6 +35,13 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             _trait = this;
 
             TrackerSettings();
+        }
+        
+        public static void AddConfigurationAssemblyFromEntity<TEntity, TKey>(
+            EntityConfiguration<TEntity, TKey> entityConfiguration)
+            where TEntity : Entity<TKey>
+        {
+            ConfigurationAssemblies.Add(entityConfiguration.GetType().Assembly);
         }
 
         #region IAuthorizationDbContextWrite Members
@@ -70,7 +83,17 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+            // By default add the assembly of the dervided DbContext object
+            // so that if the entity configuration is in the same assembly
+            // as the derived DbContext object, then you don't have to use
+            // AddConfigurationAssemblyFromEntity method to specify entity
+            // configuration assemblies
+            ConfigurationAssemblies.Add(GetType().Assembly);
+            
+            foreach (var assembly in ConfigurationAssemblies)
+            {
+                modelBuilder.ApplyConfigurationsFromAssembly(assembly);
+            }
 
             base.OnModelCreating(modelBuilder);
 

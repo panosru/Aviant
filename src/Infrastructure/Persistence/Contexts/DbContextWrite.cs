@@ -1,9 +1,12 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 {
     using System;
+    using System.Collections.Generic;
+    using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Persistance;
+    using Configurations;
     using Domain.Entities;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -14,6 +17,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     {
         
         private readonly IAuditableImplementation<TDbContext> _trait;
+
+        // ReSharper disable once StaticMemberInGenericType
+        private static readonly HashSet<Assembly> ConfigurationAssemblies = new HashSet<Assembly>();
         
         protected DbContextWrite(DbContextOptions options)
             : base(options)
@@ -21,6 +27,13 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             _trait = this;
             
             TrackerSettings();
+        }
+
+        public static void AddConfigurationAssemblyFromEntity<TEntity, TKey>(
+            EntityConfiguration<TEntity, TKey> entityConfiguration)
+            where TEntity : Entity<TKey>
+        {
+            ConfigurationAssemblies.Add(entityConfiguration.GetType().Assembly);
         }
         
         #region IAuthorizationDbContextWrite Members
@@ -62,7 +75,17 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+            // By default add the assembly of the dervided DbContext object
+            // so that if the entity configuration is in the same assembly
+            // as the derived DbContext object, then you don't have to use
+            // AddConfigurationAssemblyFromEntity method to specify entity
+            // configuration assemblies
+            ConfigurationAssemblies.Add(GetType().Assembly);
+            
+            foreach (var assembly in ConfigurationAssemblies)
+            {
+                modelBuilder.ApplyConfigurationsFromAssembly(assembly);
+            }
 
             base.OnModelCreating(modelBuilder);
 
