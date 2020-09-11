@@ -128,18 +128,23 @@ namespace Aviant.DDD.Application.Orchestration
             if (!(messages is null))
                 return new RequestResult(messages);
 
-            var affectedRows = await _unitOfWork.Commit();
+            try
+            {
+                var affectedRows = await _unitOfWork.Commit()
+                   .ConfigureAwait(false);
 
-            if (-1 == affectedRows)
+                var result = PostUnitOfWork(commandResponse);
+
+                return new RequestResult(result, affectedRows);
+            }
+            catch (Exception exception)
+            {
                 return new RequestResult(
                     new List<string>
                     {
-                        "An error occurred" //TODO: this is a very bad error message
+                        exception.Message
                     });
-
-            var result = PostUnitOfWork(commandResponse);
-
-            return new RequestResult(result, affectedRows);
+            }
         }
 
         #endregion
@@ -170,13 +175,19 @@ namespace Aviant.DDD.Application.Orchestration
             if (!(messages is null))
                 return new RequestResult(messages);
 
-            if (!await _unitOfWork.Commit(commandResponse))
+            try
+            {
+                await _unitOfWork.Commit(commandResponse);
+            }
+            catch (Exception exception)
+            {
                 return new RequestResult(
                     new List<string>
                     {
-                        "An error occurred"
+                        exception.Message
                     });
-
+            }
+            
             var result = PostUnitOfWork(commandResponse);
 
             return new RequestResult(result);

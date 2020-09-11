@@ -38,7 +38,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         
         #region IAuthorizationDbContextWrite Members
 
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (EntityEntry<IAuditedEntity> entry in ChangeTracker.Entries<IAuditedEntity>())
                 switch (entry.State)
@@ -66,9 +66,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
                         throw new ArgumentOutOfRangeException();
                 }
 
-            var result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-            return result;
+            return base.SaveChangesAsync(cancellationToken);
         }
 
         #endregion

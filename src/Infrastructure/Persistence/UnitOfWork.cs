@@ -27,19 +27,9 @@ namespace Aviant.DDD.Infrastructure.Persistence
 
         #region IUnitOfWork<TDbContext> Members
 
-        public async Task<int> Commit()
+        public Task<int> Commit()
         {
-            try
-            {
-                var affectedRows = await _context.SaveChangesAsync()
-                   .ConfigureAwait(false);
-
-                return affectedRows;
-            }
-            catch (Exception)
-            {
-                return -1;
-            }
+            return _context.SaveChangesAsync();
         }
 
         #endregion
@@ -66,23 +56,10 @@ namespace Aviant.DDD.Infrastructure.Persistence
 
         public async Task<bool> Commit(TAggregate aggregate)
         {
-            try
-            {
-                // if (ServiceLocator.ServiceContainer is null)
-                //     throw new Exception("ServiceContainer is null");
-                //
-                // var eventsService = ServiceLocator.ServiceContainer
-                //                                   .GetService<IEventsService<TAggregate, TAggregateId>>(
-                //                                        typeof(IEventsService<TAggregate, TAggregateId>));
+            await _eventsService.PersistAsync(aggregate)
+               .ConfigureAwait(false);
 
-                await _eventsService.PersistAsync(aggregate);
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return true;
         }
 
         #endregion
