@@ -34,8 +34,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
         private IConsumer<TAggregateId, string> _eventConsumer;
 
         public EventConsumer(
-            IEventDeserializer                                                  eventDeserializer,
-            EventConsumerConfig                                                 config,
+            IEventDeserializer                                              eventDeserializer,
+            EventConsumerConfig                                             config,
             ILogger<EventConsumer<TAggregate, TAggregateId, TDeserializer>> logger)
         {
             _eventDeserializer = eventDeserializer;

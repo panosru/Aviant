@@ -15,17 +15,17 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using Microsoft.Extensions.Options;
 
     public abstract class AuthorizationDbContextWrite<TDbContext, TApplicationUser, TApplicationRole>
-        : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>, 
+        : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>,
           IDbContextWrite,
           IAuditableImplementation<TDbContext>
         where TDbContext : class, IDbContextWrite
         where TApplicationUser : ApplicationUser
         where TApplicationRole : ApplicationRole
     {
-        private readonly IAuditableImplementation<TDbContext> _trait;
-        
         // ReSharper disable once StaticMemberInGenericType
         private static readonly HashSet<Assembly> ConfigurationAssemblies = new HashSet<Assembly>();
+
+        private readonly IAuditableImplementation<TDbContext> _trait;
 
         protected AuthorizationDbContextWrite(
             DbContextOptions                  options,
@@ -36,15 +36,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
             TrackerSettings();
         }
-        
-        public static void AddConfigurationAssemblyFromEntity<TEntity, TKey>(
-            EntityConfiguration<TEntity, TKey> entityConfiguration)
-            where TEntity : Entity<TKey>
-        {
-            ConfigurationAssemblies.Add(entityConfiguration.GetType().Assembly);
-        }
 
-        #region IAuthorizationDbContextWrite Members
+        #region IDbContextWrite Members
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
@@ -81,6 +74,13 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         #endregion
 
+        public static void AddConfigurationAssemblyFromEntity<TEntity, TKey>(
+            EntityConfiguration<TEntity, TKey> entityConfiguration)
+            where TEntity : Entity<TKey>
+        {
+            ConfigurationAssemblies.Add(entityConfiguration.GetType().Assembly);
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // By default add the assembly of the dervided DbContext object
@@ -89,11 +89,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             // AddConfigurationAssemblyFromEntity method to specify entity
             // configuration assemblies
             ConfigurationAssemblies.Add(GetType().Assembly);
-            
+
             foreach (var assembly in ConfigurationAssemblies)
-            {
                 modelBuilder.ApplyConfigurationsFromAssembly(assembly);
-            }
 
             base.OnModelCreating(modelBuilder);
 

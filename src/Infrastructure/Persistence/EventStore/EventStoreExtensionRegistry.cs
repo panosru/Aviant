@@ -9,8 +9,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
     public static class EventStoreExtensionRegistry
     {
-        public static IServiceCollection AddEventsRepository<TAggregate, TAggregateId>(
-            this IServiceCollection services)
+        public static IServiceCollection AddEventsRepository<TAggregate, TAggregateId>(this IServiceCollection services)
             where TAggregate : class, IAggregate<TAggregateId>
             where TAggregateId : class, IAggregateId
         {
@@ -24,8 +23,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
                 });
         }
 
-        public static IServiceCollection AddEventsService<TAggregate, TAggregateId>(
-            this IServiceCollection services)
+        public static IServiceCollection AddEventsService<TAggregate, TAggregateId>(this IServiceCollection services)
             where TAggregate : class, IAggregate<TAggregateId>
             where TAggregateId : class, IAggregateId
         {

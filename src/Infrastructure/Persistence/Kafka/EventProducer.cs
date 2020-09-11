@@ -22,8 +22,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
         private IProducer<TAggregateId, string> _producer;
 
         public EventProducer(
-            string                                               topicBaseName,
-            string                                               kafkaConnString,
+            string                                           topicBaseName,
+            string                                           kafkaConnString,
             ILogger<EventProducer<TAggregate, TAggregateId>> logger)
         {
             _logger = logger;

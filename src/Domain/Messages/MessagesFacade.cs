@@ -29,6 +29,7 @@ namespace Aviant.DDD.Domain.Messages
                 throw new DomainException(
                     @"For SetMessagesContainer to work properly SetTestingEnvironment() should be called first. 
                                       This method should be used only for testing purpose");
+
             _mockContainer = mockContainer;
         }
 

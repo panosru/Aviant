@@ -25,7 +25,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             {
                 if (ServiceLocator.ServiceContainer is null)
                     throw new Exception("ServiceContainer is null");
-                
+
                 return ServiceLocator.ServiceContainer.GetService<ICurrentUserService>(
                     typeof(ICurrentUserService));
             }
@@ -37,12 +37,12 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             {
                 if (ServiceLocator.ServiceContainer is null)
                     throw new Exception("ServiceContainer is null");
-                
+
                 return ServiceLocator.ServiceContainer.GetService<IDateTimeService>(
                     typeof(IDateTimeService));
             }
         }
-        
+
         #region Configure Global Filters
 
         private void ConfigureGlobalFilters<TEntity>(ModelBuilder modelBuilder, IMutableEntityType entityType)
@@ -56,10 +56,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         }
 
         protected virtual bool ShouldFilterEntity<TEntity>(IMutableEntityType entityType)
-            where TEntity : class
-        {
-            return typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity));
-        }
+            where TEntity : class => typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity));
 
         protected virtual Expression<Func<TEntity, bool>>? CreateFilterExpression<TEntity>()
             where TEntity : class
@@ -76,8 +73,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         }
 
         #endregion
-        
-        
+
+
         #region Configure Audit Properties
 
         public virtual void SetCreationAuditProperties(EntityEntry entry)

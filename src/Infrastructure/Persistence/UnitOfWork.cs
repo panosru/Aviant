@@ -27,10 +27,7 @@ namespace Aviant.DDD.Infrastructure.Persistence
 
         #region IUnitOfWork<TDbContext> Members
 
-        public Task<int> Commit()
-        {
-            return _context.SaveChangesAsync();
-        }
+        public Task<int> Commit() => _context.SaveChangesAsync();
 
         #endregion
 

@@ -160,9 +160,9 @@ namespace Aviant.DDD.Application.Orchestration
 
         public Orchestrator(
             IUnitOfWork<TAggregate, TAggregateId> unitOfWork,
-            IMessages                                 messages,
-            INotificationDispatcher                   notificationDispatcher,
-            IMediator                                 mediator)
+            IMessages                             messages,
+            INotificationDispatcher               notificationDispatcher,
+            IMediator                             mediator)
             : base(messages, notificationDispatcher, mediator) => _unitOfWork = unitOfWork;
 
         #region IOrchestrator<TAggregate,TAggregateId> Members
@@ -187,7 +187,7 @@ namespace Aviant.DDD.Application.Orchestration
                         exception.Message
                     });
             }
-            
+
             var result = PostUnitOfWork(commandResponse);
 
             return new RequestResult(result);
