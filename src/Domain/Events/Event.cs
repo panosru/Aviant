@@ -1,7 +1,11 @@
 namespace Aviant.DDD.Domain.Events
 {
+    #region
+
     using System;
     using Aggregates;
+
+    #endregion
 
     public abstract class Event<TAggregate, TAggregateId> : IEvent<TAggregateId>
         where TAggregate : IAggregate<TAggregateId>
@@ -21,9 +25,9 @@ namespace Aviant.DDD.Domain.Events
 
         #region IEvent<TAggregateId> Members
 
-        public long AggregateVersion { get; }
+        public long AggregateVersion { get; private set; }
 
-        public TAggregateId AggregateId { get; }
+        public TAggregateId AggregateId { get; private set; }
 
         #endregion
     }
