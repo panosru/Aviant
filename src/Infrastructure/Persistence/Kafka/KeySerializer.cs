@@ -8,7 +8,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     {
         #region ISerializer<TAggregateId> Members
 
-        public byte[] Serialize(TAggregateId data, SerializationContext context) => data.Serialize();
+        public byte[] Serialize(TAggregateId aggregateId, SerializationContext context) => aggregateId.Serialize();
 
         #endregion
     }
