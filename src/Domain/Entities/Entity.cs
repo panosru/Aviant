@@ -13,7 +13,7 @@ namespace Aviant.DDD.Domain.Entities
 
         #region IEntity<TKey> Members
 
-        public TKey Id { get; protected set; }
+        public TKey Id { get; set; }
 
         public virtual Task<bool> Validate() => Task.FromResult(true);
 
