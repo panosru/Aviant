@@ -1,9 +1,13 @@
 namespace Aviant.DDD.Domain.Messages
 {
+    #region
+
     using System;
     using System.Collections.Generic;
     using Exceptions;
     using Services;
+
+    #endregion
 
     public static class MessagesFacade
     {

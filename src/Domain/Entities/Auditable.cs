@@ -1,6 +1,10 @@
 namespace Aviant.DDD.Domain.Entities
 {
+    #region
+
     using System;
+
+    #endregion
 
     public interface IAuditedEntity
     { }

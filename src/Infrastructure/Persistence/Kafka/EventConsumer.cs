@@ -1,5 +1,7 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 {
+    #region
+
     using System;
     using System.Linq;
     using System.Runtime.Serialization;
@@ -12,6 +14,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using Domain.Events;
     using Domain.Services;
     using Microsoft.Extensions.Logging;
+
+    #endregion
 
     public class EventConsumer<TAggregate, TAggregateId, TDeserializer>
         : IDisposable, IEventConsumer<TAggregate, TAggregateId, TDeserializer>

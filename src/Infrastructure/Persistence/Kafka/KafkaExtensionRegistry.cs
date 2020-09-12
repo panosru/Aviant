@@ -1,9 +1,13 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 {
+    #region
+
     using Domain.Aggregates;
     using Domain.EventBus;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+
+    #endregion
 
     public static class KafkaExtensionRegistry
     {

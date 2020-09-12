@@ -1,7 +1,11 @@
 namespace Aviant.DDD.Application.Exceptions
 {
+    #region
+
     using System;
     using Domain.Exceptions;
+
+    #endregion
 
     public class ApplicationException : DomainException
     {

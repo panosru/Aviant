@@ -1,6 +1,10 @@
 namespace Aviant.DDD.Domain.Messages
 {
+    #region
+
     using System.Collections.Generic;
+
+    #endregion
 
     public class Messages : IMessages
     {

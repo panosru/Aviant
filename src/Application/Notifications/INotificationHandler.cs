@@ -1,7 +1,11 @@
 namespace Aviant.DDD.Application.Notifications
 {
+    #region
+
     using System.Threading;
     using System.Threading.Tasks;
+
+    #endregion
 
     public interface INotificationHandler<in TNotification> : MediatR.INotificationHandler<TNotification>
         where TNotification : INotification

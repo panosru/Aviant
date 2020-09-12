@@ -1,7 +1,11 @@
 namespace Aviant.DDD.Infrastructure.Exceptions
 {
+    #region
+
     using System;
     using Domain.Exceptions;
+
+    #endregion
 
     public class InfrastructureException : DomainException
     {

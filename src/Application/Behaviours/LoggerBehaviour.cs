@@ -1,11 +1,15 @@
 namespace Aviant.DDD.Application.Behaviours
 {
+    #region
+
     using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Identity;
     using MediatR.Pipeline;
     using Microsoft.Extensions.Logging;
+
+    #endregion
 
     public class LoggerBehaviour<TRequest> : IRequestPreProcessor<TRequest>
         where TRequest : notnull

@@ -1,7 +1,11 @@
 namespace Aviant.DDD.Infrastructure.Services
 {
+    #region
+
     using System;
     using Application.Services;
+
+    #endregion
 
     public class DateTimeService
         : IDateTimeService

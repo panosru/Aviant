@@ -1,7 +1,11 @@
 namespace Aviant.DDD.Application.Commands
 {
+    #region
+
     using Domain.Aggregates;
     using MediatR;
+
+    #endregion
 
     public interface ICommandHandler<in TCommand, TResponse> : IRequestHandler<TCommand, TResponse>
         where TCommand : ICommand<TResponse>

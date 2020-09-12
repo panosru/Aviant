@@ -1,5 +1,7 @@
 namespace Aviant.DDD.Application.Services
 {
+    #region
+
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -9,6 +11,8 @@ namespace Aviant.DDD.Application.Services
     using Domain.Events;
     using Domain.Services;
     using Newtonsoft.Json;
+
+    #endregion
 
     public class JsonEventDeserializer : IEventDeserializer
     {

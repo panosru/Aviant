@@ -1,8 +1,12 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Configurations
 {
+    #region
+
     using Domain.Entities;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    #endregion
 
     public class EntityConfiguration<TEntity, T> : IEntityTypeConfiguration<TEntity>
         where TEntity : class, IEntity<T>

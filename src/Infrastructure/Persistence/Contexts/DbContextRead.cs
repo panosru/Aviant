@@ -1,11 +1,15 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 {
+    #region
+
     using System;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Persistance;
     using Microsoft.EntityFrameworkCore;
+
+    #endregion
 
     public abstract class DbContextRead
         : DbContext, IDbContextRead

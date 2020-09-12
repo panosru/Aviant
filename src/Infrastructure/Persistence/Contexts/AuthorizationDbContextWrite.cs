@@ -1,5 +1,7 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 {
+    #region
+
     using System;
     using System.Collections.Generic;
     using System.Reflection;
@@ -13,6 +15,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
     using Microsoft.Extensions.Options;
+
+    #endregion
 
     public abstract class AuthorizationDbContextWrite<TDbContext, TApplicationUser, TApplicationRole>
         : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>,

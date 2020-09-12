@@ -1,7 +1,11 @@
 namespace Aviant.DDD.Application.Identity
 {
+    #region
+
     using System.Collections.Generic;
     using System.Linq;
+
+    #endregion
 
     public class IdentityResult
     {

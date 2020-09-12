@@ -1,10 +1,14 @@
 namespace Aviant.DDD.Application.Commands
 {
+    #region
+
     using System.Threading;
     using System.Threading.Tasks;
     using Domain.Aggregates;
     using Domain.Services;
     using MediatR;
+
+    #endregion
 
     public abstract class CommandHandler<TCommand, TResponse> : ICommandHandler<TCommand, TResponse>
         where TCommand : ICommand<TResponse>

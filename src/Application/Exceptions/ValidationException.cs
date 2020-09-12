@@ -1,8 +1,12 @@
 namespace Aviant.DDD.Application.Exceptions
 {
+    #region
+
     using System.Collections.Generic;
     using System.Linq;
     using FluentValidation.Results;
+
+    #endregion
 
     public class ValidationException : ApplicationException
     {

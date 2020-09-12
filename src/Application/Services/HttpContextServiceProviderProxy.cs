@@ -1,8 +1,12 @@
 namespace Aviant.DDD.Application.Services
 {
+    #region
+
     using System;
     using Domain.Services;
     using Microsoft.AspNetCore.Http;
+
+    #endregion
 
     public class HttpContextServiceProviderProxy : IServiceContainer
     {

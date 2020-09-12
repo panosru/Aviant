@@ -1,5 +1,7 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Repository
 {
+    #region
+
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -10,6 +12,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
     using Domain.Entities;
     using Domain.Persistence;
     using Microsoft.EntityFrameworkCore;
+
+    #endregion
 
     public abstract class RepositoryWriteImplementation<TDbContext, TEntity, TPrimaryKey>
         : IRepositoryWrite<TEntity, TPrimaryKey>

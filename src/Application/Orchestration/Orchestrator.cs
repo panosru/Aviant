@@ -1,5 +1,7 @@
 namespace Aviant.DDD.Application.Orchestration
 {
+    #region
+
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -10,6 +12,8 @@ namespace Aviant.DDD.Application.Orchestration
     using Notifications;
     using Persistance;
     using Queries;
+
+    #endregion
 
     public abstract class OrchestratorBase
     {

@@ -1,7 +1,11 @@
 namespace Aviant.DDD.Domain.Validators
 {
+    #region
+
     using System;
     using Messages;
+
+    #endregion
 
     public static class AssertionsConcernValidator
     {

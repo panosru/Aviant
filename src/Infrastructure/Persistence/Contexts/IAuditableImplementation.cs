@@ -1,5 +1,7 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 {
+    #region
+
     using System;
     using System.Linq.Expressions;
     using System.Reflection;
@@ -11,6 +13,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
     using Microsoft.EntityFrameworkCore.Metadata;
+
+    #endregion
 
     public interface IAuditableImplementation<TDbContext>
         where TDbContext : class, IDbContextWrite

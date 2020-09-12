@@ -1,8 +1,12 @@
 namespace Aviant.DDD.Domain.Aggregates
 {
+    #region
+
     using System;
     using System.Text;
     using System.Text.Json;
+
+    #endregion
 
     public abstract class AggregateId<TKey> : IAggregateId<TKey>
         where TKey : notnull

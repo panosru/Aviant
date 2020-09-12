@@ -1,7 +1,11 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 {
+    #region
+
     using System;
     using Confluent.Kafka;
+
+    #endregion
 
     internal class KeyDeserializer : IDeserializer<Guid>
     {

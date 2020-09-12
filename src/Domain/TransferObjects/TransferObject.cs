@@ -1,6 +1,10 @@
 namespace Aviant.DDD.Domain.TransferObjects
 {
+    #region
+
     using Newtonsoft.Json;
+
+    #endregion
 
     public abstract class TransferObject : ITransferObject
     {

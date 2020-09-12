@@ -1,7 +1,7 @@
-// See: https://github.com/dotnet/aspnetcore/issues/9548#issuecomment-488566084
-
 namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 {
+    #region
+
     using System;
     using System.Threading.Tasks;
     using IdentityServer4.EntityFramework.Entities;
@@ -12,6 +12,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
+
+    #endregion
 
     /// <summary>
     ///     Database abstraction for a combined <see cref="DbContext" /> using ASP.NET Identity and Identity Server.

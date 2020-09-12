@@ -1,6 +1,10 @@
 namespace Aviant.DDD.Application.Mappings
 {
+    #region
+
     using AutoMapper;
+
+    #endregion
 
     public interface IMapTo<T>
     {

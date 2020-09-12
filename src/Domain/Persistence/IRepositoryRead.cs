@@ -1,11 +1,15 @@
 namespace Aviant.DDD.Domain.Persistence
 {
+    #region
+
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
     using Entities;
+
+    #endregion
 
     public interface IRepositoryRead<TEntity, in TPrimaryKey> : IDisposable
         where TEntity : Entity<TPrimaryKey>

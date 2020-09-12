@@ -1,11 +1,15 @@
 namespace Aviant.DDD.Application.Behaviours
 {
+    #region
+
     using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Domain.Exceptions;
     using MediatR;
     using Microsoft.Extensions.Logging;
+
+    #endregion
 
     public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : notnull

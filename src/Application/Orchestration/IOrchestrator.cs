@@ -1,10 +1,14 @@
 namespace Aviant.DDD.Application.Orchestration
 {
+    #region
+
     using System.Threading.Tasks;
     using Commands;
     using Domain.Aggregates;
     using Persistance;
     using Queries;
+
+    #endregion
 
     public interface IOrchestrator
     {

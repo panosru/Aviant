@@ -1,5 +1,7 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 {
+    #region
+
     using System;
     using System.Linq;
     using System.Threading;
@@ -9,6 +11,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using IdentityServer4.EntityFramework.Options;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
+
+    #endregion
 
     public abstract class AuthorizationDbContextRead<TApplicationUser, TApplicationRole>
         : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>, IDbContextRead

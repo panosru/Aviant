@@ -1,8 +1,12 @@
 namespace Aviant.DDD.Application.Services
 {
+    #region
+
     using System.Reflection;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
+
+    #endregion
 
     /// <summary>
     ///     https://www.mking.net/blog/working-with-private-setters-in-json-net

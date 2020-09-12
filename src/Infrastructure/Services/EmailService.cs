@@ -1,10 +1,14 @@
 namespace Aviant.DDD.Infrastructure.Services
 {
+    #region
+
     using System.Threading.Tasks;
     using Application.Services;
     using MailKit.Net.Smtp;
     using MimeKit;
     using MimeKit.Text;
+
+    #endregion
 
     public class EmailService : IEmailService
     {

@@ -1,7 +1,11 @@
 namespace Aviant.DDD.Application.Processors
 {
+    #region
+
     using System.Threading;
     using System.Threading.Tasks;
+
+    #endregion
 
     public abstract class RequestPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
         where TRequest : notnull

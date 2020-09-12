@@ -1,5 +1,7 @@
 namespace Aviant.DDD.Application.Behaviours
 {
+    #region
+
     using System;
     using System.Diagnostics;
     using System.Threading;
@@ -7,6 +9,8 @@ namespace Aviant.DDD.Application.Behaviours
     using Identity;
     using MediatR;
     using Microsoft.Extensions.Logging;
+
+    #endregion
 
     public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : notnull

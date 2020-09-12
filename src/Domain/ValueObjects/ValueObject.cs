@@ -1,8 +1,12 @@
 namespace Aviant.DDD.Domain.ValueObjects
 {
+    #region
+
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+
+    #endregion
 
     // Learn more: https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
     // source: https://github.com/jhewlett/ValueObject

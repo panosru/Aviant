@@ -1,8 +1,12 @@
 namespace Aviant.DDD.Domain.Entities
 {
+    #region
+
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
+    #endregion
 
     public abstract class Entity<TKey> : IEntity<TKey>
     {

@@ -1,7 +1,11 @@
 namespace Aviant.DDD.Application.Orchestration
 {
+    #region
+
     using System;
     using System.Collections.Generic;
+
+    #endregion
 
     public class RequestResult
     {
@@ -12,8 +16,8 @@ namespace Aviant.DDD.Application.Orchestration
 
         public RequestResult(object? payload)
         {
-            _payload = payload;
-            Succeeded  = true;
+            _payload  = payload;
+            Succeeded = true;
         }
 
         public RequestResult(object? payload, int? affectedRows)
@@ -21,8 +25,8 @@ namespace Aviant.DDD.Application.Orchestration
 
         public RequestResult(List<string> messages)
         {
-            Messages = messages;
-            Succeeded  = false;
+            Messages  = messages;
+            Succeeded = false;
         }
 
         public bool Succeeded { get; set; }

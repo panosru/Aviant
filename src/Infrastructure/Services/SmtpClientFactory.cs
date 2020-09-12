@@ -1,7 +1,11 @@
 namespace Aviant.DDD.Infrastructure.Services
 {
+    #region
+
     using MailKit.Net.Smtp;
     using MailKit.Security;
+
+    #endregion
 
     public class SmtpClientFactory : ISmtpClientFactory
     {

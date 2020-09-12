@@ -1,7 +1,11 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 {
+    #region
+
     using Confluent.Kafka;
     using Domain.Aggregates;
+
+    #endregion
 
     internal class KeyDeserializerFactory
     {

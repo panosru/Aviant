@@ -1,11 +1,15 @@
 namespace Aviant.DDD.Infrastructure.Services
 {
+    #region
+
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
     using Application.Services;
     using CsvHelper;
     using CsvHelper.Configuration;
+
+    #endregion
 
     public class CsvFileBuilder<TRecrod, TMap> : ICsvFileBuilder<TRecrod>
         where TRecrod : class

@@ -1,7 +1,11 @@
 namespace Aviant.DDD.Application.Identity
 {
+    #region
+
     using System;
     using System.Threading.Tasks;
+
+    #endregion
 
     public interface IIdentityService
     {
