@@ -13,7 +13,7 @@ namespace Aviant.DDD.Application.Orchestration
         public RequestResult(object? payload)
         {
             _payload = payload;
-            Success  = true;
+            Succeeded  = true;
         }
 
         public RequestResult(object? payload, int? affectedRows)
@@ -22,10 +22,10 @@ namespace Aviant.DDD.Application.Orchestration
         public RequestResult(List<string> messages)
         {
             Messages = messages;
-            Success  = false;
+            Succeeded  = false;
         }
 
-        public bool Success { get; set; }
+        public bool Succeeded { get; set; }
 
         public List<string> Messages { get; set; } = new List<string>();
 
