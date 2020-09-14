@@ -9,8 +9,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
     using System.Threading.Tasks;
     using Application.Identity;
     using Contexts;
-    using Domain.Entities;
-    using Domain.Persistence;
+    using Core.Entities;
+    using Core.Persistence;
     using Microsoft.EntityFrameworkCore;
 
     #endregion

@@ -9,10 +9,10 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using System.Threading;
     using System.Threading.Tasks;
     using Confluent.Kafka;
-    using Domain.Aggregates;
-    using Domain.EventBus;
-    using Domain.Events;
-    using Domain.Services;
+    using Core.Aggregates;
+    using Core.EventBus;
+    using Core.Events;
+    using Core.Services;
     using Microsoft.Extensions.Logging;
 
     #endregion

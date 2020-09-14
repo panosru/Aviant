@@ -7,9 +7,9 @@ namespace Aviant.DDD.Application.Services
     using System.Linq;
     using System.Reflection;
     using System.Text;
-    using Domain.Aggregates;
-    using Domain.Events;
-    using Domain.Services;
+    using Core.Aggregates;
+    using Core.Events;
+    using Core.Services;
     using Newtonsoft.Json;
 
     #endregion

@@ -4,7 +4,7 @@ namespace Aviant.DDD.Application.Orchestration
 
     using System.Threading.Tasks;
     using Commands;
-    using Domain.Aggregates;
+    using Core.Aggregates;
     using Persistance;
     using Queries;
 

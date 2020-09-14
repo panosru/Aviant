@@ -5,7 +5,7 @@ namespace Aviant.DDD.Application.Behaviours
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Domain.Exceptions;
+    using Core.Exceptions;
     using MediatR;
     using Microsoft.Extensions.Logging;
 

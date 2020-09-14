@@ -2,8 +2,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 {
     #region
 
-    using Domain.Aggregates;
-    using Domain.EventBus;
+    using Core.Aggregates;
+    using Core.EventBus;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 

@@ -2,7 +2,7 @@ namespace Aviant.DDD.Application.Commands
 {
     #region
 
-    using Domain.Aggregates;
+    using Core.Aggregates;
     using MediatR;
 
     #endregion

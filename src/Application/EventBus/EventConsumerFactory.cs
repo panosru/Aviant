@@ -4,9 +4,9 @@ namespace Aviant.DDD.Application.EventBus
 
     using System.Threading;
     using System.Threading.Tasks;
-    using Domain.Aggregates;
-    using Domain.EventBus;
-    using Domain.Events;
+    using Core.Aggregates;
+    using Core.EventBus;
+    using Core.Events;
     using MediatR;
     using Microsoft.Extensions.DependencyInjection;
 

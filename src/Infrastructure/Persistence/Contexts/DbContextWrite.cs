@@ -9,7 +9,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using System.Threading.Tasks;
     using Application.Persistance;
     using Configurations;
-    using Domain.Entities;
+    using Core.Entities;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
 

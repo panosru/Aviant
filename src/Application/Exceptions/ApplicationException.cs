@@ -3,7 +3,7 @@ namespace Aviant.DDD.Application.Exceptions
     #region
 
     using System;
-    using Domain.Exceptions;
+    using Core.Exceptions;
 
     #endregion
 

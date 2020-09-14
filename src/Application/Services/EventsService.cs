@@ -5,10 +5,10 @@ namespace Aviant.DDD.Application.Services
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using Domain.Aggregates;
-    using Domain.EventBus;
-    using Domain.Persistence;
-    using Domain.Services;
+    using Core.Aggregates;
+    using Core.EventBus;
+    using Core.Persistence;
+    using Core.Services;
 
     #endregion
 

@@ -6,8 +6,8 @@ namespace Aviant.DDD.Application.Orchestration
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Commands;
-    using Domain.Aggregates;
-    using Domain.Messages;
+    using Core.Aggregates;
+    using Core.Messages;
     using MediatR;
     using Notifications;
     using Persistance;

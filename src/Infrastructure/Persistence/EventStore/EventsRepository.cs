@@ -8,10 +8,10 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
     using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
-    using Domain.Aggregates;
-    using Domain.Events;
-    using Domain.Persistence;
-    using Domain.Services;
+    using Core.Aggregates;
+    using Core.Events;
+    using Core.Persistence;
+    using Core.Services;
     using global::EventStore.ClientAPI;
 
     #endregion

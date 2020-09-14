@@ -5,8 +5,8 @@ namespace Aviant.DDD.Infrastructure.Persistence
     using System;
     using System.Threading.Tasks;
     using Application.Persistance;
-    using Domain.Aggregates;
-    using Domain.Services;
+    using Core.Aggregates;
+    using Core.Services;
 
     #endregion
 

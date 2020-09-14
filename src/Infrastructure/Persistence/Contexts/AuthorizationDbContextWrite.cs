@@ -10,7 +10,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using Application.Identity;
     using Application.Persistance;
     using Configurations;
-    using Domain.Entities;
+    using Core.Entities;
     using IdentityServer4.EntityFramework.Options;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;

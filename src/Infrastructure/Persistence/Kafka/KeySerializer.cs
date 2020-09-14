@@ -3,7 +3,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     #region
 
     using Confluent.Kafka;
-    using Domain.Aggregates;
+    using Core.Aggregates;
 
     #endregion
 

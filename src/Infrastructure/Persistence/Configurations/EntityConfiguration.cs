@@ -2,7 +2,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Configurations
 {
     #region
 
-    using Domain.Entities;
+    using Core.Entities;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

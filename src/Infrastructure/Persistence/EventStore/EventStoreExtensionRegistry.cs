@@ -3,10 +3,10 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
     #region
 
     using Application.Services;
-    using Domain.Aggregates;
-    using Domain.EventBus;
-    using Domain.Persistence;
-    using Domain.Services;
+    using Core.Aggregates;
+    using Core.EventBus;
+    using Core.Persistence;
+    using Core.Services;
     using Microsoft.Extensions.DependencyInjection;
 
     #endregion

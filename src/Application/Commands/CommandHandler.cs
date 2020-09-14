@@ -4,8 +4,8 @@ namespace Aviant.DDD.Application.Commands
 
     using System.Threading;
     using System.Threading.Tasks;
-    using Domain.Aggregates;
-    using Domain.Services;
+    using Core.Aggregates;
+    using Core.Services;
     using MediatR;
 
     #endregion

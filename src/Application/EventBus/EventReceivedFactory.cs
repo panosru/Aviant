@@ -2,7 +2,7 @@ namespace Aviant.DDD.Application.EventBus
 {
     #region
 
-    using Domain.EventBus;
+    using Core.EventBus;
 
     #endregion
 

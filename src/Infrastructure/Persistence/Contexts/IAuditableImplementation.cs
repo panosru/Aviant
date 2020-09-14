@@ -8,8 +8,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using Application.Identity;
     using Application.Persistance;
     using Application.Services;
-    using Domain.Entities;
-    using Domain.Services;
+    using Core.Entities;
+    using Core.Services;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
     using Microsoft.EntityFrameworkCore.Metadata;

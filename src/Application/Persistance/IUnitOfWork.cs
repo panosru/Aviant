@@ -3,7 +3,7 @@ namespace Aviant.DDD.Application.Persistance
     #region
 
     using System.Threading.Tasks;
-    using Domain.Aggregates;
+    using Core.Aggregates;
 
     #endregion
 
