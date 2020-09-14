@@ -14,8 +14,8 @@
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.7" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.8" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
         <PackageReference Include="Polly" Version="7.2.1" />
         <PackageReference Include="scrutor" Version="3.2.2" />
     </ItemGroup>

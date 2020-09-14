@@ -141,7 +141,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             IQueryable<TEntity>                            query,
             IEnumerable<Expression<Func<TEntity, object>>> includeProperties)
         {
-            includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+            includeProperties.Aggregate(query, (current, includeProperty) =>
+                                            current.Include(includeProperty));
         }
 
         private static Expression<Func<TEntity, bool>> CreateEqualityExpressionForId(TPrimaryKey id)
