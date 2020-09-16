@@ -1,13 +1,18 @@
 // ReSharper disable MemberCanBePrivate.Global
+
 #pragma warning disable 8618
 namespace Aviant.DDD.Application.UseCases
 {
+    #region
+
     using System.Data;
     using System.Threading.Tasks;
     using Core.Services;
     using Orchestration;
 
-    public abstract class UseCase<TUseCaseOutput> : IUseCase<TUseCaseOutput>
+    #endregion
+
+    public abstract class UseCase<TUseCaseOutput> : IUseCase
         where TUseCaseOutput : class, IUseCaseOutput
     {
         protected TUseCaseOutput Output;
@@ -18,18 +23,17 @@ namespace Aviant.DDD.Application.UseCases
             {
                 if (ServiceLocator.ServiceContainer is null)
                     throw new NoNullAllowedException(typeof(ServiceLocator).FullName);
-                
+
                 return ServiceLocator.ServiceContainer.GetService<IOrchestrator>(typeof(IOrchestrator));
             }
         }
-        
-        public Task Execute<TInputData>(TUseCaseOutput output, TInputData data)
-            where TInputData : class
+
+        public Task Execute(TUseCaseOutput output)
         {
             SetOutput(output);
 
             Execute();
-            
+
             return Task.CompletedTask;
         }
 
@@ -37,21 +41,20 @@ namespace Aviant.DDD.Application.UseCases
 
         protected virtual void SetOutput(TUseCaseOutput output) => Output = output;
     }
-    
+
     public abstract class UseCase<TUseCaseInput, TUseCaseOutput> : UseCase<TUseCaseOutput>
         where TUseCaseInput : class, IUseCaseInput
         where TUseCaseOutput : class, IUseCaseOutput
     {
         protected TUseCaseInput Input;
 
-        public new Task Execute<TInputData>(TUseCaseOutput output, TInputData data)
-            where TInputData : class
+        public Task Execute<TInputData>(TUseCaseOutput output, TInputData data)
         {
             SetInput(data);
             SetOutput(output);
 
             Execute();
-            
+
             return Task.CompletedTask;
         }
 
