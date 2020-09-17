@@ -6,6 +6,7 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Configuration.Json;
+    using Microsoft.Extensions.DependencyInjection;
 
     public static class DependencyInjectionRegistry
     {
@@ -13,7 +14,14 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
         
         public static IConfigurationBuilder? ConfigurationBuilder { get; set; }
 
-        public static IConfiguration DefaultConfiguration { get; set; }
+        private static IConfiguration? _configuration;
+        public static IConfiguration DefaultConfiguration =>
+            _configuration ?? ServiceLocator.ServiceProvider.GetRequiredService<IConfiguration>();
+
+        public static IConfiguration SetConfiguration(IConfiguration configuration)
+        {
+            return _configuration = configuration;
+        }
 
         public static IConfiguration GetDomainConfiguration(string domain)
         {
