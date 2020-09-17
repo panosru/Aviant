@@ -1,25 +1,17 @@
 namespace Aviant.DDD.Core.Services
 {
     using System;
+    using Microsoft.Extensions.DependencyInjection;
 
     public static class ServiceLocator
     {
-        private static IServiceProvider? _serviceProvider;
-
-        public static IServiceProvider ServiceProvider
-        {
-            get
-            {
-                if (_serviceProvider is null)
-                    throw new NullReferenceException(typeof(ServiceLocator).FullName);
-
-                return _serviceProvider;
-            }
-        }
+        private static IServiceContainer? _serviceContainer;
+        public static IServiceContainer ServiceContainer =>
+            _serviceContainer ?? throw new NullReferenceException(typeof(ServiceLocator).FullName);
 
         public static void Initialise(IServiceProvider serviceProvider)
         {
-            _serviceProvider = serviceProvider;
+            _serviceContainer = serviceProvider.GetRequiredService<IServiceContainer>();
         }
     }
 }

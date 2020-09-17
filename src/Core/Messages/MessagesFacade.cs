@@ -36,13 +36,10 @@ namespace Aviant.DDD.Core.Messages
 
         private static IMessages? GetContainer()
         {
-            if (_fromTesting)
-                return _mockContainer;
-
-            if (ServiceLocator.ServiceProvider is null)
-                throw new Exception("ServiceProvider is null");
-
-            return ServiceLocator.ServiceProvider.GetService<IMessages>();
+            return _fromTesting
+                ? _mockContainer
+                : ServiceLocator.ServiceContainer.GetRequiredService<IMessages>(
+                    typeof(IMessages));
         }
 
         public static void AddMessage(string message)

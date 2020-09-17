@@ -10,13 +10,15 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
 
     public static class DependencyInjectionRegistry
     {
+        private static IConfiguration? _configuration;
+
         public static IWebHostEnvironment? CurrentEnvironment { get; set; }
-        
+
         public static IConfigurationBuilder? ConfigurationBuilder { get; set; }
 
-        private static IConfiguration? _configuration;
         public static IConfiguration DefaultConfiguration =>
-            _configuration ?? ServiceLocator.ServiceProvider.GetRequiredService<IConfiguration>();
+            _configuration ?? ServiceLocator.ServiceContainer.GetRequiredService<IConfiguration>(
+                typeof(IConfiguration));
 
         public static IConfiguration SetConfiguration(IConfiguration configuration)
         {
@@ -25,29 +27,28 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
 
         public static IConfiguration GetDomainConfiguration(string domain)
         {
-            if (CurrentEnvironment is null || ConfigurationBuilder is null)
+            if (CurrentEnvironment is null
+             || ConfigurationBuilder is null)
                 throw new NullReferenceException(
                     typeof(DependencyInjectionRegistry).FullName);
 
             var configurationBuilder = new ConfigurationBuilder();
 
-            ((List<IConfigurationSource>)configurationBuilder.Sources).AddRange(ConfigurationBuilder.Sources);
+            ((List<IConfigurationSource>) configurationBuilder.Sources).AddRange(ConfigurationBuilder.Sources);
             configurationBuilder.Sources.Add(GetSource(domain));
             configurationBuilder.Sources.Add(GetSource(domain, CurrentEnvironment.EnvironmentName));
 
             return configurationBuilder.Build();
         }
-        
-        private static JsonConfigurationSource GetSource(string domain, string? environment = null)
-        {
-            return new JsonConfigurationSource
+
+        private static JsonConfigurationSource GetSource(string domain, string? environment = null) =>
+            new JsonConfigurationSource
             {
-                Path = environment is null 
-                    ? $"appsettings.{domain}.json" 
+                Path = environment is null
+                    ? $"appsettings.{domain}.json"
                     : $"appsettings.{domain}.{environment}.json",
                 ReloadOnChange = true,
                 Optional       = true
             };
-        }
     }
 }

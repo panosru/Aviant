@@ -20,27 +20,13 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
            .GetMethod(nameof(ConfigureGlobalFilters), BindingFlags.Instance | BindingFlags.NonPublic);
 
 
-        private static ICurrentUserService CurrentUserService
-        {
-            get
-            {
-                if (ServiceLocator.ServiceProvider is null)
-                    throw new Exception("ServiceProvider is null");
+        private static ICurrentUserService CurrentUserService =>
+            ServiceLocator.ServiceContainer.GetService<ICurrentUserService>(
+                typeof(ICurrentUserService));
 
-                return ServiceLocator.ServiceProvider.GetService<ICurrentUserService>();
-            }
-        }
-
-        private static IDateTimeService DateTimeService
-        {
-            get
-            {
-                if (ServiceLocator.ServiceProvider is null)
-                    throw new Exception("ServiceProvider is null");
-
-                return ServiceLocator.ServiceProvider.GetService<IDateTimeService>();
-            }
-        }
+        private static IDateTimeService DateTimeService =>
+            ServiceLocator.ServiceContainer.GetService<IDateTimeService>(
+                typeof(IDateTimeService));
 
         #region Configure Global Filters
 

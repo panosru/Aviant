@@ -14,16 +14,9 @@ namespace Aviant.DDD.Application.UseCases
     {
         protected TUseCaseOutput Output;
 
-        protected IOrchestrator Orchestrator
-        {
-            get
-            {
-                if (ServiceLocator.ServiceProvider is null)
-                    throw new NoNullAllowedException(typeof(ServiceLocator).FullName);
-
-                return ServiceLocator.ServiceProvider.GetService<IOrchestrator>();
-            }
-        }
+        protected IOrchestrator Orchestrator =>
+            ServiceLocator.ServiceContainer.GetRequiredService<IOrchestrator>(
+                typeof(IOrchestrator));
 
         public Task Execute(TUseCaseOutput output)
         {
