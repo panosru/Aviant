@@ -1,12 +1,25 @@
 namespace Aviant.DDD.Core.Services
 {
+    using System;
+
     public static class ServiceLocator
     {
-        public static IServiceContainer? ServiceContainer { get; private set; }
+        private static IServiceProvider? _serviceProvider;
 
-        public static void Initialise(IServiceContainer serviceContainer)
+        public static IServiceProvider ServiceProvider
         {
-            ServiceContainer = serviceContainer;
+            get
+            {
+                if (_serviceProvider is null)
+                    throw new NullReferenceException(typeof(ServiceLocator).FullName);
+
+                return _serviceProvider;
+            }
+        }
+
+        public static void Initialise(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
         }
     }
 }

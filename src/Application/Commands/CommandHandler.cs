@@ -7,6 +7,7 @@ namespace Aviant.DDD.Application.Commands
     using Core.Aggregates;
     using Core.Services;
     using MediatR;
+    using Microsoft.Extensions.DependencyInjection;
 
     #endregion
 
@@ -36,9 +37,8 @@ namespace Aviant.DDD.Application.Commands
         where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
-        protected IEventsService<TAggregate, TAggregateId> EventsService => ServiceLocator.ServiceContainer
-          ?.GetService<IEventsService<TAggregate, TAggregateId>>(
-                typeof(IEventsService<TAggregate, TAggregateId>));
+        protected IEventsService<TAggregate, TAggregateId> EventsService => ServiceLocator.ServiceProvider
+          ?.GetService<IEventsService<TAggregate, TAggregateId>>();
 
         #region ICommandHandler<TCommand,TAggregate,TAggregateId> Members
 

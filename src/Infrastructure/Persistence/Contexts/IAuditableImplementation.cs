@@ -13,6 +13,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
     using Microsoft.EntityFrameworkCore.Metadata;
+    using Microsoft.Extensions.DependencyInjection;
 
     #endregion
 
@@ -27,11 +28,10 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         {
             get
             {
-                if (ServiceLocator.ServiceContainer is null)
-                    throw new Exception("ServiceContainer is null");
+                if (ServiceLocator.ServiceProvider is null)
+                    throw new Exception("ServiceProvider is null");
 
-                return ServiceLocator.ServiceContainer.GetService<ICurrentUserService>(
-                    typeof(ICurrentUserService));
+                return ServiceLocator.ServiceProvider.GetService<ICurrentUserService>();
             }
         }
 
@@ -39,11 +39,10 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         {
             get
             {
-                if (ServiceLocator.ServiceContainer is null)
-                    throw new Exception("ServiceContainer is null");
+                if (ServiceLocator.ServiceProvider is null)
+                    throw new Exception("ServiceProvider is null");
 
-                return ServiceLocator.ServiceContainer.GetService<IDateTimeService>(
-                    typeof(IDateTimeService));
+                return ServiceLocator.ServiceProvider.GetService<IDateTimeService>();
             }
         }
 

@@ -5,6 +5,7 @@ namespace Aviant.DDD.Core.Messages
     using System;
     using System.Collections.Generic;
     using Exceptions;
+    using Microsoft.Extensions.DependencyInjection;
     using Services;
 
     #endregion
@@ -42,10 +43,10 @@ namespace Aviant.DDD.Core.Messages
             if (_fromTesting)
                 return _mockContainer;
 
-            if (ServiceLocator.ServiceContainer is null)
-                throw new Exception("ServiceContainer is null");
+            if (ServiceLocator.ServiceProvider is null)
+                throw new Exception("ServiceProvider is null");
 
-            return ServiceLocator.ServiceContainer.GetService<IMessages>(typeof(IMessages));
+            return ServiceLocator.ServiceProvider.GetService<IMessages>();
         }
 
         public static void AddMessage(string message)

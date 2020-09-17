@@ -8,6 +8,7 @@ namespace Aviant.DDD.Application.UseCases
     using System.Data;
     using System.Threading.Tasks;
     using Core.Services;
+    using Microsoft.Extensions.DependencyInjection;
     using Orchestration;
 
     #endregion
@@ -21,10 +22,10 @@ namespace Aviant.DDD.Application.UseCases
         {
             get
             {
-                if (ServiceLocator.ServiceContainer is null)
+                if (ServiceLocator.ServiceProvider is null)
                     throw new NoNullAllowedException(typeof(ServiceLocator).FullName);
 
-                return ServiceLocator.ServiceContainer.GetService<IOrchestrator>(typeof(IOrchestrator));
+                return ServiceLocator.ServiceProvider.GetService<IOrchestrator>();
             }
         }
 
