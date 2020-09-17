@@ -1,13 +1,9 @@
 namespace Aviant.DDD.Application.EventBus
 {
-    #region
-
     using System;
     using System.Collections.Generic;
     using Processors;
     using Scrutor;
-
-    #endregion
 
     public static class HandlerExtensionRegistry
     {

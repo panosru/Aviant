@@ -1,11 +1,7 @@
 namespace Aviant.DDD.Core.Services
 {
-    #region
-
     using Aggregates;
     using Events;
-
-    #endregion
 
     public interface IEventDeserializer
     {

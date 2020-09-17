@@ -1,7 +1,5 @@
 namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 {
-    #region
-
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -13,8 +11,6 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
     using Core.Persistence;
     using Core.Services;
     using global::EventStore.ClientAPI;
-
-    #endregion
 
     public class EventsRepository<TAggregate, TAggregateId> : IEventsRepository<TAggregate, TAggregateId>
         where TAggregate : class, IAggregate<TAggregateId>

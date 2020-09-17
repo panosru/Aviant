@@ -1,10 +1,6 @@
 namespace Aviant.DDD.Core.EventBus
 {
-    #region
-
     using Aggregates;
-
-    #endregion
 
     public interface IEventConsumerFactory
     {

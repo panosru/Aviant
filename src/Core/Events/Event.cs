@@ -1,11 +1,7 @@
 namespace Aviant.DDD.Core.Events
 {
-    #region
-
     using System;
     using Aggregates;
-
-    #endregion
 
     public abstract class Event<TAggregate, TAggregateId> : IEvent<TAggregateId>
         where TAggregate : IAggregate<TAggregateId>

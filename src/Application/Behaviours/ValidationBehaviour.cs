@@ -1,7 +1,5 @@
 namespace Aviant.DDD.Application.Behaviours
 {
-    #region
-
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
@@ -10,8 +8,6 @@ namespace Aviant.DDD.Application.Behaviours
     using FluentValidation.Results;
     using MediatR;
     using ValidationException = Exceptions.ValidationException;
-
-    #endregion
 
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>

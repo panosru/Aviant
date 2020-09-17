@@ -1,7 +1,5 @@
 namespace Aviant.DDD.Core.Aggregates
 {
-    #region
-
     using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;
@@ -9,8 +7,6 @@ namespace Aviant.DDD.Core.Aggregates
     using System.Reflection;
     using Entities;
     using Events;
-
-    #endregion
 
     public abstract class Aggregate<TAggregate, TAggregateId>
         : Entity<TAggregateId>, IAggregate<TAggregateId>

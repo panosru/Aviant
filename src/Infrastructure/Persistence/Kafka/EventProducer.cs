@@ -1,7 +1,5 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 {
-    #region
-
     using System;
     using System.Linq;
     using System.Text;
@@ -12,8 +10,6 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using Core.EventBus;
     using Core.Events;
     using Microsoft.Extensions.Logging;
-
-    #endregion
 
     public class EventProducer<TAggregate, TAggregateId> : IEventProducer<TAggregate, TAggregateId>
         where TAggregate : IAggregate<TAggregateId>

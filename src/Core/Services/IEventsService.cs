@@ -1,11 +1,7 @@
 namespace Aviant.DDD.Core.Services
 {
-    #region
-
     using System.Threading.Tasks;
     using Aggregates;
-
-    #endregion
 
     public interface IEventsService<TAggregate, in TAggregateId>
         where TAggregate : class, IAggregate<TAggregateId>

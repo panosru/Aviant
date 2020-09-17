@@ -1,7 +1,5 @@
 namespace Aviant.DDD.Application.Services
 {
-    #region
-
     using System;
     using System.Linq;
     using System.Threading.Tasks;
@@ -9,8 +7,6 @@ namespace Aviant.DDD.Application.Services
     using Core.EventBus;
     using Core.Persistence;
     using Core.Services;
-
-    #endregion
 
     public class EventsService<TAggregate, TAggregateId> : IEventsService<TAggregate, TAggregateId>
         where TAggregate : class, IAggregate<TAggregateId>

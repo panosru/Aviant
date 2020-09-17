@@ -1,10 +1,6 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 {
-    #region
-
     using System;
-
-    #endregion
 
     public class EventConsumerConfig
     {

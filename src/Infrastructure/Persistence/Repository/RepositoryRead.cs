@@ -1,7 +1,5 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Repository
 {
-    #region
-
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -12,8 +10,6 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
     using Core.Entities;
     using Core.Persistence;
     using Microsoft.EntityFrameworkCore;
-
-    #endregion
 
     public abstract class RepositoryReadImplementation<TDbContext, TEntity, TPrimaryKey>
         : IRepositoryRead<TEntity, TPrimaryKey>

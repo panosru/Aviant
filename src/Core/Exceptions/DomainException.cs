@@ -1,10 +1,6 @@
 namespace Aviant.DDD.Core.Exceptions
 {
-    #region
-
     using System;
-
-    #endregion
 
     [Serializable]
     public class DomainException : Exception

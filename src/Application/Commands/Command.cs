@@ -1,11 +1,7 @@
 namespace Aviant.DDD.Application.Commands
 {
-    #region
-
     using Core.Aggregates;
     using MediatR;
-
-    #endregion
 
     public abstract class Command<TResponse> : ICommand<TResponse>
     { }

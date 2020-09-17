@@ -1,10 +1,6 @@
 namespace Aviant.DDD.Application.EventBus
 {
-    #region
-
     using Core.EventBus;
-
-    #endregion
 
     public static class EventReceivedFactory
     {

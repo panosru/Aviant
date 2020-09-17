@@ -1,13 +1,9 @@
 namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 {
-    #region
-
     using System;
     using System.Threading.Tasks;
     using global::EventStore.ClientAPI;
     using Microsoft.Extensions.Logging;
-
-    #endregion
 
     public class EventStoreConnectionWrapper : IEventStoreConnectionWrapper, IDisposable
     {

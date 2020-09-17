@@ -1,10 +1,6 @@
 namespace Aviant.DDD.Application.Exceptions
 {
-    #region
-
     using System;
-
-    #endregion
 
     public class NotFoundException : ApplicationException
     {

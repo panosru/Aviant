@@ -1,12 +1,8 @@
 namespace Aviant.DDD.Core.Events
 {
-    #region
-
     using System.Threading;
     using System.Threading.Tasks;
     using EventBus;
-
-    #endregion
 
     public abstract class EventHandler<TEvent> : IEventHandler<TEvent>
     {

@@ -1,13 +1,9 @@
 namespace Aviant.DDD.Core.EventBus
 {
-    #region
-
     using System.Threading;
     using System.Threading.Tasks;
     using Aggregates;
     using Events;
-
-    #endregion
 
     public interface IEventConsumer
     {

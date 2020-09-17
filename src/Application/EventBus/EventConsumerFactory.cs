@@ -1,7 +1,5 @@
 namespace Aviant.DDD.Application.EventBus
 {
-    #region
-
     using System.Threading;
     using System.Threading.Tasks;
     using Core.Aggregates;
@@ -9,8 +7,6 @@ namespace Aviant.DDD.Application.EventBus
     using Core.Events;
     using MediatR;
     using Microsoft.Extensions.DependencyInjection;
-
-    #endregion
 
     public class EventConsumerFactory : IEventConsumerFactory
     {

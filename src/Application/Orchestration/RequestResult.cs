@@ -1,11 +1,7 @@
 namespace Aviant.DDD.Application.Orchestration
 {
-    #region
-
     using System;
     using System.Collections.Generic;
-
-    #endregion
 
     public class RequestResult
     {

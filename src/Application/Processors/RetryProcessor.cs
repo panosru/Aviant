@@ -1,14 +1,10 @@
 namespace Aviant.DDD.Application.Processors
 {
-    #region
-
     using System;
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
     using Polly;
-
-    #endregion
 
     public class RetryProcessor<TNotification> : INotificationHandler<TNotification>
         where TNotification : INotification

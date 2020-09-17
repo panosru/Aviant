@@ -3,15 +3,11 @@
 #pragma warning disable 8618
 namespace Aviant.DDD.Application.UseCases
 {
-    #region
-
     using System.Data;
     using System.Threading.Tasks;
     using Core.Services;
     using Microsoft.Extensions.DependencyInjection;
     using Orchestration;
-
-    #endregion
 
     public abstract class UseCase<TUseCaseOutput> : IUseCase
         where TUseCaseOutput : class, IUseCaseOutput

@@ -1,10 +1,6 @@
 namespace Aviant.DDD.Application.Services
 {
-    #region
-
     using System.Threading.Tasks;
-
-    #endregion
 
     public interface IEmailService
     {

@@ -1,11 +1,7 @@
 namespace Aviant.DDD.Application.Notifications
 {
-    #region
-
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    #endregion
 
     public interface INotificationDispatcher
     {

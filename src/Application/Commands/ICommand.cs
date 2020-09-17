@@ -1,11 +1,7 @@
 namespace Aviant.DDD.Application.Commands
 {
-    #region
-
     using Core.Aggregates;
     using MediatR;
-
-    #endregion
 
     public interface ICommand<out TAggregate, in TAggregateId> : IRequest<TAggregate>
         where TAggregate : class, IAggregate<TAggregateId>

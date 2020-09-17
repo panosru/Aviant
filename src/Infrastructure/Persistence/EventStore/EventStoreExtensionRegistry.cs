@@ -1,15 +1,11 @@
 namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 {
-    #region
-
     using Application.Services;
     using Core.Aggregates;
     using Core.EventBus;
     using Core.Persistence;
     using Core.Services;
     using Microsoft.Extensions.DependencyInjection;
-
-    #endregion
 
     public static class EventStoreExtensionRegistry
     {

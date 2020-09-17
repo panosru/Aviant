@@ -1,14 +1,10 @@
 namespace Aviant.DDD.Core.Messages
 {
-    #region
-
     using System;
     using System.Collections.Generic;
     using Exceptions;
     using Microsoft.Extensions.DependencyInjection;
     using Services;
-
-    #endregion
 
     public static class MessagesFacade
     {

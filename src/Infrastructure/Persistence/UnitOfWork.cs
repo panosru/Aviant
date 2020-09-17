@@ -1,14 +1,10 @@
 namespace Aviant.DDD.Infrastructure.Persistence
 {
-    #region
-
     using System;
     using System.Threading.Tasks;
     using Application.Persistance;
     using Core.Aggregates;
     using Core.Services;
-
-    #endregion
 
     public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext>, IDisposable
         where TDbContext : IDbContextWrite
