@@ -18,13 +18,11 @@ namespace Aviant.DDD.Application.UseCases
             ServiceLocator.ServiceContainer.GetRequiredService<IOrchestrator>(
                 typeof(IOrchestrator));
 
-        public Task Execute(TUseCaseOutput output)
+        public Task ExecuteAsync(TUseCaseOutput output)
         {
             SetOutput(output);
 
-            Execute();
-
-            return Task.CompletedTask;
+            return Execute();
         }
 
         protected abstract Task Execute();
@@ -38,14 +36,12 @@ namespace Aviant.DDD.Application.UseCases
     {
         protected TUseCaseInput Input;
 
-        public Task Execute<TInputData>(TUseCaseOutput output, TInputData data)
+        public Task ExecuteAsync<TInputData>(TUseCaseOutput output, TInputData data)
         {
             SetInput(data);
             SetOutput(output);
 
-            Execute();
-
-            return Task.CompletedTask;
+            return Execute();
         }
 
         protected abstract void SetInput<TInputData>(TInputData data);
