@@ -37,9 +37,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             // First validate entity's rules
             entity.Validate();
 
-            if (DbContext.GetType() == typeof(DbContextWrite<>))
-
-                DbContext.Entry(entity).State = EntityState.Modified;
+            DbContext.Entry(entity).State = EntityState.Modified;
 
             return Task.CompletedTask;
         }
