@@ -3,10 +3,8 @@
 #pragma warning disable 8618
 namespace Aviant.DDD.Application.UseCases
 {
-    using System.Data;
     using System.Threading.Tasks;
     using Core.Services;
-    using Microsoft.Extensions.DependencyInjection;
     using Orchestration;
 
     public abstract class UseCase<TUseCaseOutput> : IUseCase

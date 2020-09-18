@@ -3,7 +3,6 @@ namespace Aviant.DDD.Core.Messages
     using System;
     using System.Collections.Generic;
     using Exceptions;
-    using Microsoft.Extensions.DependencyInjection;
     using Services;
 
     public static class MessagesFacade
@@ -34,13 +33,10 @@ namespace Aviant.DDD.Core.Messages
             _mockContainer = mockContainer;
         }
 
-        private static IMessages? GetContainer()
-        {
-            return _fromTesting
-                ? _mockContainer
-                : ServiceLocator.ServiceContainer.GetRequiredService<IMessages>(
-                    typeof(IMessages));
-        }
+        private static IMessages? GetContainer() => _fromTesting
+            ? _mockContainer
+            : ServiceLocator.ServiceContainer.GetRequiredService<IMessages>(
+                typeof(IMessages));
 
         public static void AddMessage(string message)
         {

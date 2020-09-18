@@ -6,6 +6,7 @@ namespace Aviant.DDD.Core.Services
     public static class ServiceLocator
     {
         private static IServiceContainer? _serviceContainer;
+
         public static IServiceContainer ServiceContainer =>
             _serviceContainer ?? throw new NullReferenceException(typeof(ServiceLocator).FullName);
 

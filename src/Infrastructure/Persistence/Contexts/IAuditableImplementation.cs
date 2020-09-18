@@ -11,7 +11,6 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
     using Microsoft.EntityFrameworkCore.Metadata;
-    using Microsoft.Extensions.DependencyInjection;
 
     public interface IAuditableImplementation<TDbContext>
         where TDbContext : class, IDbContextWrite
