@@ -15,13 +15,7 @@ namespace Aviant.DDD.Core.Aggregates
 
         public virtual byte[] Serialize()
         {
-            return Key switch
-            {
-                Guid guid      => Encoding.UTF8.GetBytes(guid.ToString()), //guid.ToByteArray(),
-                int @int       => Encoding.UTF8.GetBytes(@int.ToString()), //BitConverter.GetBytes(@int),
-                string @string => Encoding.UTF8.GetBytes(@string),
-                _              => Encoding.UTF8.GetBytes(JsonSerializer.Serialize(Key))
-            };
+            return Encoding.UTF8.GetBytes(ToString());
         }
 
         #endregion
