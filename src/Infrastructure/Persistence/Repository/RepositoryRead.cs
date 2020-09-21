@@ -40,7 +40,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             return query;
         }
 
-        public virtual async Task<List<TEntity>> GetAllList() => await GetAll().ToListAsync();
+        public virtual async Task<List<TEntity>> GetAllList() => await GetAll().ToListAsync()
+           .ConfigureAwait(false);
 
         public virtual Task<List<TEntity>> GetAllListIncluding(
             params Expression<Func<TEntity, object>>[] includeProperties)
@@ -122,7 +123,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
 
         public virtual Task<bool> All(Expression<Func<TEntity, bool>> predicate) => DbSet.AllAsync(predicate);
 
-        public virtual async Task<int> Count() => await DbSet.CountAsync();
+        public virtual async Task<int> Count() => await DbSet.CountAsync()
+           .ConfigureAwait(false);
 
         public virtual Task<int> Count(Expression<Func<TEntity, bool>> predicate) => DbSet.CountAsync(predicate);
 

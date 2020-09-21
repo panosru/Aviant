@@ -5,7 +5,7 @@
         <Nullable>enable</Nullable>
         <RootNamespace>Aviant.DDD.Infrastructure</RootNamespace>
         <AssemblyName>Aviant.DDD.Infrastructure</AssemblyName>
-        <Version>1.0.0-preview.3</Version>
+        <Version>1.0.0-preview.4</Version>
         <Description>Aviant Domain Driven Design Library</Description>
         <PackageTags>ddd, cqrs, event sourcing</PackageTags>
     </PropertyGroup>
@@ -18,6 +18,8 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.8" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.8" />
         <PackageReference Include="MailKit" Version="2.9.0" />
+
+        <PackageReference Include="NetEscapades.Configuration.Yaml" Version="2.0.1" />
 
         <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="3.1.8" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.8">
