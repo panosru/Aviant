@@ -14,6 +14,8 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
     {
         private static IConfiguration? _configuration;
 
+        private static IConfigurationBuilder? _configurationWithDomains;
+
         public static IWebHostEnvironment? CurrentEnvironment { get; set; }
 
         public static IConfigurationBuilder? ConfigurationBuilder { get; set; }
@@ -23,9 +25,15 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
          ?? ServiceLocator.ServiceContainer.GetRequiredService<IConfiguration>(
                 typeof(IConfiguration));
 
-        public static IConfiguration SetConfiguration(IConfiguration configuration)
+        public static IConfiguration ConfigurationWithDomains =>
+            _configurationWithDomains?.Build()
+         ?? throw new NullReferenceException(typeof(DependencyInjectionRegistry).FullName);
+
+        public static IConfiguration SetConfiguration(IConfigurationBuilder configuration)
         {
-            return _configuration = configuration;
+            _configurationWithDomains = configuration;
+            
+            return _configuration = configuration.Build();
         }
 
         public static IConfiguration GetDomainConfiguration(string domain)
@@ -82,11 +90,13 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
                     switch (format)
                     {
                         case ConfigurationFormat.JSON:
+                            _configurationWithDomains?.Sources.Add(GetSource<JsonConfigurationSource>(configFile));
                             configurationBuilder.Sources.Add(GetSource<JsonConfigurationSource>(configFile));
                             break;
                         
                         case ConfigurationFormat.YAML:
                         case ConfigurationFormat.YML:
+                            _configurationWithDomains?.Sources.Add(GetSource<YamlConfigurationSource>(configFile));
                             configurationBuilder.Sources.Add(GetSource<YamlConfigurationSource>(configFile));
                             break;
 
