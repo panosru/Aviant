@@ -49,7 +49,7 @@ namespace Aviant.DDD.Application.Orchestration
         protected dynamic? PostUnitOfWork<TCommandResponse>(TCommandResponse commandResponse)
         {
             // Fire post commit notifications
-            Task.Run(() => _notificationDispatcher.FirePostCommitNotifications());
+            Task.Run(_notificationDispatcher.FirePostCommitNotifications);
 
             var isLazy = false;
 
