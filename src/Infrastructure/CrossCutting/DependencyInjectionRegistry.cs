@@ -14,24 +14,25 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
     {
         private static IConfiguration? _configuration;
 
-        private static IConfigurationBuilder? _configurationWithDomains;
-
-        public static IWebHostEnvironment? CurrentEnvironment { get; set; }
-
-        public static IConfigurationBuilder? ConfigurationBuilder { get; set; }
-
         public static IConfiguration DefaultConfiguration =>
             _configuration
          ?? ServiceLocator.ServiceContainer.GetRequiredService<IConfiguration>(
                 typeof(IConfiguration));
 
+        private static IConfigurationBuilder ConfigurationWithDomainsBuilder { get; } = new ConfigurationBuilder();
+
         public static IConfiguration ConfigurationWithDomains =>
-            _configurationWithDomains?.Build()
+            ConfigurationWithDomainsBuilder.Build()
          ?? throw new NullReferenceException(typeof(DependencyInjectionRegistry).FullName);
+
+        public static IWebHostEnvironment? CurrentEnvironment { get; set; }
+
+        public static IConfigurationBuilder? ConfigurationBuilder { get; set; }
 
         public static IConfiguration SetConfiguration(IConfigurationBuilder configuration)
         {
-            _configurationWithDomains = configuration;
+            ((List<IConfigurationSource>) ConfigurationWithDomainsBuilder.Sources)
+               .AddRange(configuration.Sources);
             
             return _configuration = configuration.Build();
         }
@@ -90,14 +91,20 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
                     switch (format)
                     {
                         case ConfigurationFormat.JSON:
-                            _configurationWithDomains?.Sources.Add(GetSource<JsonConfigurationSource>(configFile));
-                            configurationBuilder.Sources.Add(GetSource<JsonConfigurationSource>(configFile));
+                            ConfigurationWithDomainsBuilder?.Sources
+                               .Add(GetSource<JsonConfigurationSource>(configFile));
+                            
+                            configurationBuilder.Sources
+                               .Add(GetSource<JsonConfigurationSource>(configFile));
                             break;
                         
                         case ConfigurationFormat.YAML:
                         case ConfigurationFormat.YML:
-                            _configurationWithDomains?.Sources.Add(GetSource<YamlConfigurationSource>(configFile));
-                            configurationBuilder.Sources.Add(GetSource<YamlConfigurationSource>(configFile));
+                            ConfigurationWithDomainsBuilder?.Sources
+                               .Add(GetSource<YamlConfigurationSource>(configFile));
+                            
+                            configurationBuilder.Sources
+                               .Add(GetSource<YamlConfigurationSource>(configFile));
                             break;
 
                         default:
@@ -119,12 +126,15 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
         private static TConfigurationSource GetSource<TConfigurationSource>(string configFileName)
             where TConfigurationSource : FileConfigurationSource, new()
         {
-            return new TConfigurationSource
+            var configurationSource = new TConfigurationSource
             {
                 Path           = configFileName,
                 ReloadOnChange = true,
-                Optional       = true
+                Optional       = false
             };
+            configurationSource.ResolveFileProvider();
+
+            return configurationSource;
         }
     }
 }
