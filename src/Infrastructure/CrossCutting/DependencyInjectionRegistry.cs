@@ -41,7 +41,7 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
         {
             if (CurrentEnvironment is null
              || ConfigurationBuilder is null)
-                throw new NullReferenceException(
+                throw new InvalidOperationException(
                     typeof(DependencyInjectionRegistry).FullName);
 
             var configurationBuilder = new ConfigurationBuilder();
