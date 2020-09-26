@@ -11,7 +11,8 @@ namespace Aviant.DDD.Application.UseCases
     using Orchestration;
     using Persistance;
 
-    public abstract class UseCase<TUseCaseOutput> : IUseCase<TUseCaseOutput>
+    public abstract class UseCaseBase<TUseCaseOutput> 
+        : IUseCase<TUseCaseOutput>
         where TUseCaseOutput : class, IUseCaseOutput
     {
         protected TUseCaseOutput Output;
@@ -20,16 +21,24 @@ namespace Aviant.DDD.Application.UseCases
             ServiceLocator.ServiceContainer.GetRequiredService<IOrchestrator>(
                 typeof(IOrchestrator));
         
+        public void SetOutput(TUseCaseOutput output) => Output = output;
+    }
+    
+    public abstract class UseCase<TUseCaseOutput> 
+        : UseCaseBase<TUseCaseOutput>,
+          IUseCaseExecute
+        where TUseCaseOutput : class, IUseCaseOutput
+    {
         public abstract Task Execute();
-
-        public         void SetOutput(TUseCaseOutput output) => Output = output;
     }
 
-    public abstract class UseCase<TUseCaseInput, TUseCaseOutput> : UseCase<TUseCaseOutput>
+    public abstract class UseCase<TUseCaseInput, TUseCaseOutput> 
+        : UseCaseBase<TUseCaseOutput>,
+          IUseCaseExecute<TUseCaseInput>
         where TUseCaseInput : class, IUseCaseInput
         where TUseCaseOutput : class, IUseCaseOutput
     {
-        protected TUseCaseInput Input;
+        public abstract Task Execute(TUseCaseInput input);
     }
     
     public abstract class UseCase<TUseCaseInput, TUseCaseOutput, TDbContext> 
