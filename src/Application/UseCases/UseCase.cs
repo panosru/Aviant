@@ -11,7 +11,7 @@ namespace Aviant.DDD.Application.UseCases
     using Orchestration;
     using Persistance;
 
-    public abstract class UseCase<TUseCaseOutput> : IUseCase
+    public abstract class UseCase<TUseCaseOutput> : IUseCase<TUseCaseOutput>
         where TUseCaseOutput : class, IUseCaseOutput
     {
         protected TUseCaseOutput Output;
@@ -19,17 +19,10 @@ namespace Aviant.DDD.Application.UseCases
         protected IOrchestrator Orchestrator =>
             ServiceLocator.ServiceContainer.GetRequiredService<IOrchestrator>(
                 typeof(IOrchestrator));
+        
+        public abstract Task Execute();
 
-        public Task ExecuteAsync(TUseCaseOutput output)
-        {
-            SetOutput(output);
-
-            return Execute();
-        }
-
-        protected abstract Task Execute();
-
-        protected virtual void SetOutput(TUseCaseOutput output) => Output = output;
+        public         void SetOutput(TUseCaseOutput output) => Output = output;
     }
 
     public abstract class UseCase<TUseCaseInput, TUseCaseOutput> : UseCase<TUseCaseOutput>
@@ -37,28 +30,6 @@ namespace Aviant.DDD.Application.UseCases
         where TUseCaseOutput : class, IUseCaseOutput
     {
         protected TUseCaseInput Input;
-
-        public Task ExecuteAsync<TInputData>(TUseCaseOutput output, TInputData data)
-        {
-            SetInput(data);
-            SetOutput(output);
-
-            return Execute();
-        }
-
-        protected virtual T GetDataByType<T>(dynamic? data)
-        {
-            if (data is null)
-                throw new ArgumentNullException(nameof(data));
-            
-            if (!(data is T dataType))
-                throw new TypeAccessException(
-                    $"Expected type \"{typeof(T).Name}\", but \"{data.GetType().Name}\" found instead.");
-
-            return (T) dataType;
-        }
-        
-        protected abstract void SetInput<TInputData>(TInputData data);
     }
     
     public abstract class UseCase<TUseCaseInput, TUseCaseOutput, TDbContext> 

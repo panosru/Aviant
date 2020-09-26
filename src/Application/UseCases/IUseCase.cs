@@ -1,5 +1,12 @@
 namespace Aviant.DDD.Application.UseCases
 {
-    public interface IUseCase
-    { }
+    using System.Threading.Tasks;
+
+    public interface IUseCase<in TUseCaseOutput>
+        where TUseCaseOutput : class, IUseCaseOutput
+    {
+        public Task Execute();
+        
+        public void SetOutput(TUseCaseOutput output);
+    }
 }
