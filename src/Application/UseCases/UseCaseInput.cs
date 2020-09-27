@@ -13,7 +13,7 @@ namespace Aviant.DDD.Application.UseCases
 
         #region IUseCaseInput Members
 
-        public virtual Task Validate(CancellationToken cancellationToken = default) => Task.CompletedTask;
+        public virtual Task ValidateAsync(CancellationToken cancellationToken = default) => Task.CompletedTask;
 
         #endregion
     }

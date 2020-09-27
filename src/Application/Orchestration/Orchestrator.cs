@@ -40,7 +40,7 @@ namespace Aviant.DDD.Application.Orchestration
                .ConfigureAwait(false);
 
             // Fire pre/post notifications
-            await _notificationDispatcher.FirePreCommitNotifications(cancellationToken)
+            await _notificationDispatcher.FirePreCommitNotificationsAsync(cancellationToken)
                .ConfigureAwait(false);
 
             List<string>? messages = null;
@@ -56,7 +56,7 @@ namespace Aviant.DDD.Application.Orchestration
             CancellationToken cancellationToken)
         {
             // Fire post commit notifications
-            await _notificationDispatcher.FirePostCommitNotifications(cancellationToken)
+            await _notificationDispatcher.FirePostCommitNotificationsAsync(cancellationToken)
                .ConfigureAwait(false);
 
             var isLazy = false;
@@ -75,7 +75,7 @@ namespace Aviant.DDD.Application.Orchestration
                 : commandResponse;
         }
 
-        public async Task<RequestResult> SendQuery<T>(
+        public async Task<RequestResult> SendQueryAsync<T>(
             IQuery<T>         query,
             CancellationToken cancellationToken = default)
         {
@@ -101,7 +101,7 @@ namespace Aviant.DDD.Application.Orchestration
 
         #region IOrchestrator Members
 
-        public async Task<RequestResult> SendCommand<T>(
+        public async Task<RequestResult> SendCommandAsync<T>(
             ICommand<T>       command,
             CancellationToken cancellationToken = default)
         {
@@ -138,7 +138,7 @@ namespace Aviant.DDD.Application.Orchestration
 
         #region IOrchestrator<TDbContext> Members
 
-        public async Task<RequestResult> SendCommand<T>(
+        public async Task<RequestResult> SendCommandAsync<T>(
             ICommand<T>       command,
             CancellationToken cancellationToken = default)
         {
@@ -152,7 +152,7 @@ namespace Aviant.DDD.Application.Orchestration
 
             try
             {
-                var affectedRows = await _unitOfWork.Commit(cancellationToken)
+                var affectedRows = await _unitOfWork.CommitAsync(cancellationToken)
                    .ConfigureAwait(false);
 
                 var result = await PostUnitOfWork(commandResponse, cancellationToken)
@@ -190,7 +190,7 @@ namespace Aviant.DDD.Application.Orchestration
 
         #region IOrchestrator<TAggregate,TAggregateId> Members
 
-        public async Task<RequestResult> SendCommand(
+        public async Task<RequestResult> SendCommandAsync(
             ICommand<TAggregate, TAggregateId> command,
             CancellationToken                  cancellationToken = default)
         {
@@ -203,7 +203,7 @@ namespace Aviant.DDD.Application.Orchestration
 
             try
             {
-                await _unitOfWork.Commit(commandResponse, cancellationToken)
+                await _unitOfWork.CommitAsync(commandResponse, cancellationToken)
                    .ConfigureAwait(false);
             }
             catch (Exception exception)

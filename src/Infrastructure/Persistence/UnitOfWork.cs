@@ -28,7 +28,7 @@ namespace Aviant.DDD.Infrastructure.Persistence
 
         #region IUnitOfWork<TDbContext> Members
 
-        public async Task<int> Commit(CancellationToken cancellationToken = default) =>
+        public async Task<int> CommitAsync(CancellationToken cancellationToken = default) =>
             await _context.SaveChangesAsync(cancellationToken)
                .ConfigureAwait(false);
 
@@ -54,7 +54,7 @@ namespace Aviant.DDD.Infrastructure.Persistence
 
         #region IUnitOfWork<TAggregate,TAggregateId> Members
 
-        public async Task<bool> Commit(
+        public async Task<bool> CommitAsync(
             TAggregate        aggregate,
             CancellationToken cancellationToken = default)
         {

@@ -15,48 +15,48 @@ namespace Aviant.DDD.Core.Persistence
 
         public IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties);
 
-        public Task<List<TEntity>> GetAllList(CancellationToken cancellationToken = default);
+        public Task<List<TEntity>> GetAllListAsync(CancellationToken cancellationToken = default);
 
-        public Task<List<TEntity>> GetAllListIncluding(
+        public Task<List<TEntity>> GetAllListIncludingAsync(
             CancellationToken                          cancellationToken = default,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
-        public ValueTask<TEntity> Find(
+        public ValueTask<TEntity> FindAsync(
             TPrimaryKey       id,
             CancellationToken cancellationToken = default);
 
-        public Task<TEntity> GetFirst(
+        public Task<TEntity> GetFirstAsync(
             TPrimaryKey       id,
             CancellationToken cancellationToken = default);
 
-        public Task<TEntity> GetFirstIncluding(
+        public Task<TEntity> GetFirstIncludingAsync(
             TPrimaryKey                                id,
             CancellationToken                          cancellationToken = default,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
-        public Task<TEntity> GetFirst(
+        public Task<TEntity> GetFirstAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default);
 
-        public Task<TEntity> GetFirstIncluding(
+        public Task<TEntity> GetFirstIncludingAsync(
             Expression<Func<TEntity, bool>>            predicate,
             CancellationToken                          cancellationToken = default,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
-        public Task<TEntity> GetSingle(
+        public Task<TEntity> GetSingleAsync(
             TPrimaryKey       id,
             CancellationToken cancellationToken = default);
 
-        public Task<TEntity> GetSingleIncluding(
+        public Task<TEntity> GetSingleIncludingAsync(
             TPrimaryKey                                id,
             CancellationToken                          cancellationToken = default,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
-        public Task<TEntity> GetSingle(
+        public Task<TEntity> GetSingleAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default);
 
-        public Task<TEntity> GetSingleIncluding(
+        public Task<TEntity> GetSingleIncludingAsync(
             Expression<Func<TEntity, bool>>            predicate,
             CancellationToken                          cancellationToken = default,
             params Expression<Func<TEntity, object>>[] includeProperties);
@@ -67,17 +67,17 @@ namespace Aviant.DDD.Core.Persistence
             Expression<Func<TEntity, bool>>            predicate,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
-        public Task<bool> Any(
+        public Task<bool> AnyAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default);
 
-        public Task<bool> All(
+        public Task<bool> AllAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default);
 
-        public Task<int> Count(CancellationToken cancellationToken = default);
+        public Task<int> CountAsync(CancellationToken cancellationToken = default);
 
-        public Task<int> Count(
+        public Task<int> CountAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default);
     }

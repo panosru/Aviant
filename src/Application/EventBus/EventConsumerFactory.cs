@@ -25,16 +25,19 @@ namespace Aviant.DDD.Application.EventBus
             var consumer = scope.ServiceProvider.GetRequiredService<IEventConsumer<
                 TAggregate, TAggregateId, TDeserializer>>();
 
-            async Task OnEventReceived(object s, IEvent<TAggregateId> @event)
+            async Task OnEventReceivedAsync(
+                object s, 
+                IEvent<TAggregateId> @event,
+                CancellationToken cancellationToken = default)
             {
                 var constructedEvent = EventReceivedFactory.Create((dynamic) @event);
 
                 using var innerScope = _scopeFactory.CreateScope();
                 var       mediator   = innerScope.ServiceProvider.GetRequiredService<IMediator>();
-                await mediator.Publish(constructedEvent, CancellationToken.None);
+                await mediator.Publish(constructedEvent, cancellationToken);
             }
 
-            consumer.EventReceived += OnEventReceived;
+            consumer.EventReceived += OnEventReceivedAsync;
 
             return consumer;
         }

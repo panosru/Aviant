@@ -37,7 +37,7 @@ namespace Aviant.DDD.Application.Notifications
             PostCommitEvents.Add(notification);
         }
 
-        public async Task FirePreCommitNotifications(CancellationToken cancellationToken = default)
+        public async Task FirePreCommitNotificationsAsync(CancellationToken cancellationToken = default)
         {
             foreach (var notification in PreCommitEvents.ToList())
             {
@@ -46,7 +46,7 @@ namespace Aviant.DDD.Application.Notifications
             }
         }
 
-        public async Task FirePostCommitNotifications(CancellationToken cancellationToken = default)
+        public async Task FirePostCommitNotificationsAsync(CancellationToken cancellationToken = default)
         {
             foreach (var notification in PostCommitEvents.ToList())
             {

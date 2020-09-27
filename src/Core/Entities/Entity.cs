@@ -16,7 +16,7 @@ namespace Aviant.DDD.Core.Entities
 
         public TKey Id { get; set; }
 
-        public virtual Task<bool> Validate(CancellationToken cancellationToken = default) =>
+        public virtual Task<bool> ValidateAsync(CancellationToken cancellationToken = default) =>
             Task.FromResult(true);
 
         #endregion

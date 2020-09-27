@@ -103,7 +103,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                                 throw new SerializationException(
                                     $"unable to deserialize notification {eventType} : {cr.Message.Value}");
 
-                            await OnEventReceived(@event, cancellationToken)
+                            await OnEventReceivedAsync(@event, cancellationToken)
                                .ConfigureAwait(false);
                         }
                         catch (OperationCanceledException ex)
@@ -125,17 +125,17 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                 cancellationToken);
         }
 
-        public event EventReceivedHandler<TAggregateId> EventReceived;
+        public event EventReceivedHandlerAsync<TAggregateId> EventReceived;
 
         #endregion
 
-        private Task OnEventReceived(
+        private Task OnEventReceivedAsync(
             IEvent<TAggregateId> e,
             CancellationToken    cancellationToken)
         {
-            EventReceivedHandler<TAggregateId> handler = EventReceived;
+            EventReceivedHandlerAsync<TAggregateId> handlerAsync = EventReceived;
 
-            return handler?.Invoke(this, e)
+            return handlerAsync?.Invoke(this, e, cancellationToken)
                 ?? throw new NullReferenceException(
                        typeof(EventConsumer<TAggregate, TAggregateId, TDeserializer>).FullName);
         }

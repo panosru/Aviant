@@ -45,12 +45,12 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             return query;
         }
 
-        public virtual async Task<List<TEntity>> GetAllList(CancellationToken cancellationToken = default) =>
+        public virtual async Task<List<TEntity>> GetAllListAsync(CancellationToken cancellationToken = default) =>
             await GetAll()
                .ToListAsync(cancellationToken: cancellationToken)
                .ConfigureAwait(false);
 
-        public virtual Task<List<TEntity>> GetAllListIncluding(
+        public virtual Task<List<TEntity>> GetAllListIncludingAsync(
             CancellationToken                          cancellationToken = default,
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
@@ -64,17 +64,17 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             return query.ToListAsync(cancellationToken: cancellationToken);
         }
 
-        public virtual ValueTask<TEntity> Find(
+        public virtual ValueTask<TEntity> FindAsync(
             TPrimaryKey       id,
             CancellationToken cancellationToken = default) =>
             DbSet.FindAsync(new object[] { id! }, cancellationToken);
 
-        public virtual Task<TEntity> GetFirst(
+        public virtual Task<TEntity> GetFirstAsync(
             TPrimaryKey       id,
             CancellationToken cancellationToken = default) =>
             GetAll().FirstOrDefaultAsync(CreateEqualityExpressionForId(id), cancellationToken);
 
-        public virtual Task<TEntity> GetFirstIncluding(
+        public virtual Task<TEntity> GetFirstIncludingAsync(
             TPrimaryKey                                id,
             CancellationToken                          cancellationToken = default,
             params Expression<Func<TEntity, object>>[] includeProperties)
@@ -89,12 +89,12 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             return query.FirstOrDefaultAsync(CreateEqualityExpressionForId(id), cancellationToken);
         }
 
-        public virtual Task<TEntity> GetFirst(
+        public virtual Task<TEntity> GetFirstAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default) =>
             GetAll().FirstOrDefaultAsync(predicate, cancellationToken);
 
-        public virtual Task<TEntity> GetFirstIncluding(
+        public virtual Task<TEntity> GetFirstIncludingAsync(
             Expression<Func<TEntity, bool>>            predicate,
             CancellationToken                          cancellationToken = default,
             params Expression<Func<TEntity, object>>[] includeProperties)
@@ -109,12 +109,12 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             return query.FirstOrDefaultAsync(predicate, cancellationToken);
         }
 
-        public virtual Task<TEntity> GetSingle(
+        public virtual Task<TEntity> GetSingleAsync(
             TPrimaryKey       id,
             CancellationToken cancellationToken = default) =>
             GetAll().SingleOrDefaultAsync(CreateEqualityExpressionForId(id), cancellationToken);
 
-        public virtual Task<TEntity> GetSingleIncluding(
+        public virtual Task<TEntity> GetSingleIncludingAsync(
             TPrimaryKey                                id,
             CancellationToken                          cancellationToken = default,
             params Expression<Func<TEntity, object>>[] includeProperties)
@@ -129,12 +129,12 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             return query.SingleOrDefaultAsync(CreateEqualityExpressionForId(id), cancellationToken);
         }
 
-        public virtual Task<TEntity> GetSingle(
+        public virtual Task<TEntity> GetSingleAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default) =>
             GetAll().SingleOrDefaultAsync(predicate, cancellationToken);
 
-        public virtual Task<TEntity> GetSingleIncluding(
+        public virtual Task<TEntity> GetSingleIncludingAsync(
             Expression<Func<TEntity, bool>>            predicate,
             CancellationToken                          cancellationToken = default,
             params Expression<Func<TEntity, object>>[] includeProperties)
@@ -162,21 +162,21 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             return query.Where(predicate);
         }
 
-        public virtual Task<bool> Any(
+        public virtual Task<bool> AnyAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default) =>
             DbSet.AnyAsync(predicate, cancellationToken);
 
-        public virtual Task<bool> All(
+        public virtual Task<bool> AllAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default) =>
             DbSet.AllAsync(predicate, cancellationToken);
 
-        public virtual async Task<int> Count(CancellationToken cancellationToken = default) =>
+        public virtual async Task<int> CountAsync(CancellationToken cancellationToken = default) =>
             await DbSet.CountAsync(cancellationToken: cancellationToken)
                .ConfigureAwait(false);
 
-        public virtual Task<int> Count(
+        public virtual Task<int> CountAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default) =>
             DbSet.CountAsync(predicate, cancellationToken);

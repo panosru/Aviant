@@ -15,9 +15,12 @@ namespace Aviant.DDD.Core.EventBus
         where TAggregate : IAggregate<TAggregateId>
         where TAggregateId : IAggregateId
     {
-        public event EventReceivedHandler<TAggregateId> EventReceived;
+        public event EventReceivedHandlerAsync<TAggregateId> EventReceived;
     }
 
-    public delegate Task EventReceivedHandler<in TAggregateId>(object sender, IEvent<TAggregateId> @event)
+    public delegate Task EventReceivedHandlerAsync<in TAggregateId>(
+        object sender, 
+        IEvent<TAggregateId> @event,
+        CancellationToken cancellationToken = default)
         where TAggregateId : IAggregateId;
 }

@@ -5,6 +5,6 @@ namespace Aviant.DDD.Application.UseCases
 
     public interface IUseCaseInput
     {
-        public Task Validate(CancellationToken cancellationToken = default);
+        public Task ValidateAsync(CancellationToken cancellationToken = default);
     }
 }

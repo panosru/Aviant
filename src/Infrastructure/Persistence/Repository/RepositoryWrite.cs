@@ -25,43 +25,43 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
 
         #region IRepositoryWrite<TEntity,TPrimaryKey> Members
 
-        public virtual async Task Add(
+        public virtual async Task AddAsync(
             TEntity           entity,
             CancellationToken cancellationToken = default)
         {
             // First validate entity's rules
-            await entity.Validate(cancellationToken)
+            await entity.ValidateAsync(cancellationToken)
                .ConfigureAwait(false);
 
             await DbSet.AddAsync(entity, cancellationToken)
                .ConfigureAwait(false);
         }
 
-        public virtual Task Update(
+        public virtual Task UpdateAsync(
             TEntity           entity,
             CancellationToken cancellationToken = default)
         {
             // First validate entity's rules
-            entity.Validate(cancellationToken);
+            entity.ValidateAsync(cancellationToken);
 
             DbContext.Entry(entity).State = EntityState.Modified;
 
             return Task.CompletedTask;
         }
 
-        public virtual Task Delete(
+        public virtual Task DeleteAsync(
             TEntity           entity,
             CancellationToken cancellationToken = default)
         {
             // First validate entity's rules
-            entity.Validate(cancellationToken);
+            entity.ValidateAsync(cancellationToken);
 
             DbContext.Entry(entity).State = EntityState.Deleted;
 
             return Task.CompletedTask;
         }
 
-        public virtual Task DeleteWhere(
+        public virtual Task DeleteWhereAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default)
         {

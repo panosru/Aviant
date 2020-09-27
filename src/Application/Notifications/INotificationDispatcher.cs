@@ -14,7 +14,7 @@ namespace Aviant.DDD.Application.Notifications
 
         public void RemovePreCommitNotification(INotification notification);
 
-        public Task FirePreCommitNotifications(CancellationToken cancellationToken = default);
+        public Task FirePreCommitNotificationsAsync(CancellationToken cancellationToken = default);
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace Aviant.DDD.Application.Notifications
 
         public void RemovePostCommitNotification(INotification notification);
 
-        public Task FirePostCommitNotifications(CancellationToken cancellationToken = default);
+        public Task FirePostCommitNotificationsAsync(CancellationToken cancellationToken = default);
 
         #endregion
     }

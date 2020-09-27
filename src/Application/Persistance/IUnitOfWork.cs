@@ -14,7 +14,7 @@ namespace Aviant.DDD.Application.Persistance
         ///     Commit changes to database persistence
         /// </summary>
         /// <returns>Integer representing affected rows</returns>
-        public Task<int> Commit(CancellationToken cancellationToken = default);
+        public Task<int> CommitAsync(CancellationToken cancellationToken = default);
     }
 
     public interface IUnitOfWork<in TAggregate, TAggregateId>
@@ -27,6 +27,6 @@ namespace Aviant.DDD.Application.Persistance
         /// <param name="aggregate"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<bool> Commit(TAggregate aggregate, CancellationToken cancellationToken = default);
+        public Task<bool> CommitAsync(TAggregate aggregate, CancellationToken cancellationToken = default);
     }
 }

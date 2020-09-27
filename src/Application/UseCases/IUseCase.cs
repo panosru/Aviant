@@ -11,12 +11,12 @@ namespace Aviant.DDD.Application.UseCases
 
     public interface IUseCaseExecute
     {
-        public Task Execute(CancellationToken cancellationToken = default);
+        public Task ExecuteAsync(CancellationToken cancellationToken = default);
     }
 
     public interface IUseCaseExecute<in TUseCaseInput>
         where TUseCaseInput : class, IUseCaseInput
     {
-        public Task Execute(TUseCaseInput input, CancellationToken cancellationToken = default);
+        public Task ExecuteAsync(TUseCaseInput input, CancellationToken cancellationToken = default);
     }
 }

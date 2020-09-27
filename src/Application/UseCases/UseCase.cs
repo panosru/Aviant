@@ -34,7 +34,7 @@ namespace Aviant.DDD.Application.UseCases
     {
         #region IUseCaseExecute Members
 
-        public abstract Task Execute(CancellationToken cancellationToken = default);
+        public abstract Task ExecuteAsync(CancellationToken cancellationToken = default);
 
         #endregion
     }
@@ -47,7 +47,7 @@ namespace Aviant.DDD.Application.UseCases
     {
         #region IUseCaseExecute<TUseCaseInput> Members
 
-        public abstract Task Execute(TUseCaseInput input, CancellationToken cancellationToken = default);
+        public abstract Task ExecuteAsync(TUseCaseInput input, CancellationToken cancellationToken = default);
 
         #endregion
     }

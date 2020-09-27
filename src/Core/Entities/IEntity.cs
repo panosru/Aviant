@@ -7,6 +7,6 @@ namespace Aviant.DDD.Core.Entities
     {
         public TKey Id { get; }
 
-        public Task<bool> Validate(CancellationToken cancellationToken = default);
+        public Task<bool> ValidateAsync(CancellationToken cancellationToken = default);
     }
 }

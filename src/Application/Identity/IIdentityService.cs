@@ -6,12 +6,12 @@ namespace Aviant.DDD.Application.Identity
 
     public interface IIdentityService
     {
-        public Task<object?> Authenticate(
+        public Task<object?> AuthenticateAsync(
             string            username,
             string            password,
             CancellationToken cancellationToken = default);
 
-        public Task<IdentityResult> ConfirmEmail(
+        public Task<IdentityResult> ConfirmEmailAsync(
             string            toekn,
             string            email,
             CancellationToken cancellationToken = default);
