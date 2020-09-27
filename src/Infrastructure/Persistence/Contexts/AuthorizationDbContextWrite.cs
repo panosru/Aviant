@@ -67,7 +67,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
                         throw new ArgumentOutOfRangeException();
                 }
 
-            var result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            var result = await base.SaveChangesAsync(cancellationToken)
+               .ConfigureAwait(false);
 
             return result;
         }

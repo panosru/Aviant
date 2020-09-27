@@ -1,5 +1,6 @@
 namespace Aviant.DDD.Infrastructure.Services
 {
+    using System.Threading;
     using System.Threading.Tasks;
     using Application.Services;
     using MailKit.Net.Smtp;
@@ -114,7 +115,8 @@ namespace Aviant.DDD.Infrastructure.Services
             return true;
         }
 
-        public Task<bool> SendAsync() => Task.FromResult(Send());
+        public Task<bool> SendAsync(CancellationToken cancellationToken = default) =>
+            Task.FromResult(Send());
 
         #endregion
     }

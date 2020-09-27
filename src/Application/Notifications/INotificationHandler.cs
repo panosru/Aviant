@@ -12,6 +12,6 @@ namespace Aviant.DDD.Application.Notifications
         /// <param name="notification"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        new Task Handle(TNotification notification, CancellationToken cancellationToken);
+        public new Task Handle(TNotification notification, CancellationToken cancellationToken);
     }
 }

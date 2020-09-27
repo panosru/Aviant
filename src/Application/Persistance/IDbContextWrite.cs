@@ -6,6 +6,6 @@ namespace Aviant.DDD.Application.Persistance
 
     public interface IDbContextWrite : IDisposable
     {
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken());
+        public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

@@ -39,7 +39,7 @@ namespace Aviant.DDD.Application.Behaviours
             RequestHandlerDelegate<TResponse> next)
         {
             _timer.Start();
-            var response = await next();
+            var response = await next().ConfigureAwait(false);
             _timer.Stop();
 
             var elapsedMilliseconds = _timer.ElapsedMilliseconds;
@@ -51,7 +51,8 @@ namespace Aviant.DDD.Application.Behaviours
                 var username    = string.Empty;
 
                 if (Guid.Empty != userId)
-                    username = await _identityIdentityService.GetUserNameAsync(userId);
+                    username = await _identityIdentityService.GetUserNameAsync(userId, cancellationToken)
+                       .ConfigureAwait(false);
 
                 _logger.LogWarning(
                     "Long Running Request detected: {Name} ({ElapsedMilliseconds} milliseconds), UserId: {@UserId}, Username: {@username}, Request: {@Request}",

@@ -5,10 +5,10 @@ namespace Aviant.DDD.Core.Services
 
     public interface IEventDeserializer
     {
-        IEvent<TAggregateId> Deserialize<TAggregateId>(string type, byte[] data)
+        public IEvent<TAggregateId> Deserialize<TAggregateId>(string type, byte[] data)
             where TAggregateId : IAggregateId;
 
-        IEvent<TAggregateId> Deserialize<TAggregateId>(string type, string data)
+        public IEvent<TAggregateId> Deserialize<TAggregateId>(string type, string data)
             where TAggregateId : IAggregateId;
     }
 }

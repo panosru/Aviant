@@ -1,7 +1,10 @@
 namespace Aviant.DDD.Application.UseCases
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public interface IUseCaseInput
     {
-        public void Validate();
+        public Task Validate(CancellationToken cancellationToken = default);
     }
 }

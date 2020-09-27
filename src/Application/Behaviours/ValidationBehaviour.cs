@@ -28,7 +28,8 @@ namespace Aviant.DDD.Application.Behaviours
                 var context = new ValidationContext<TRequest>(request);
 
                 ValidationResult[] validationResults = await Task.WhenAll(
-                    _validators.Select(v => v.ValidateAsync(context, cancellationToken)));
+                        _validators.Select(v => v.ValidateAsync(context, cancellationToken)))
+                   .ConfigureAwait(false);
 
                 List<ValidationFailure> failures = validationResults.SelectMany(r => r.Errors)
                    .Where(f => f != null)
@@ -38,7 +39,7 @@ namespace Aviant.DDD.Application.Behaviours
                     throw new ValidationException(failures);
             }
 
-            return await next();
+            return await next().ConfigureAwait(false);
         }
 
         #endregion

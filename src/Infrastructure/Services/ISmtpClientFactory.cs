@@ -4,6 +4,6 @@ namespace Aviant.DDD.Infrastructure.Services
 
     public interface ISmtpClientFactory
     {
-        SmtpClient GetSmtpClient();
+        public SmtpClient GetSmtpClient();
     }
 }

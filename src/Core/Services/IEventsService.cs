@@ -1,5 +1,6 @@
 namespace Aviant.DDD.Core.Services
 {
+    using System.Threading;
     using System.Threading.Tasks;
     using Aggregates;
 
@@ -7,8 +8,12 @@ namespace Aviant.DDD.Core.Services
         where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
-        Task PersistAsync(TAggregate aggregate);
+        public Task PersistAsync(
+            TAggregate        aggregate,
+            CancellationToken cancellationToken = default);
 
-        Task<TAggregate> RehydrateAsync(TAggregateId key);
+        public Task<TAggregate> RehydrateAsync(
+            TAggregateId      key,
+            CancellationToken cancellationToken = default);
     }
 }

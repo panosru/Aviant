@@ -2,6 +2,7 @@ namespace Aviant.DDD.Core.Entities
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading;
     using System.Threading.Tasks;
 
     public abstract class Entity<TKey> : IEntity<TKey>
@@ -15,7 +16,8 @@ namespace Aviant.DDD.Core.Entities
 
         public TKey Id { get; set; }
 
-        public virtual Task<bool> Validate() => Task.FromResult(true);
+        public virtual Task<bool> Validate(CancellationToken cancellationToken = default) =>
+            Task.FromResult(true);
 
         #endregion
 

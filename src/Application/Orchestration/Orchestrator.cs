@@ -2,6 +2,7 @@ namespace Aviant.DDD.Application.Orchestration
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading;
     using System.Threading.Tasks;
     using Commands;
     using Core.Aggregates;
@@ -30,13 +31,17 @@ namespace Aviant.DDD.Application.Orchestration
         }
 
         protected async Task<(TCommandResponse commandResponse, List<string>? _messages)>
-            PreUnitOfWork<TCommand, TCommandResponse>(TCommand command)
+            PreUnitOfWork<TCommand, TCommandResponse>(
+                TCommand          command,
+                CancellationToken cancellationToken = default)
             where TCommand : class, IRequest<TCommandResponse>
         {
-            var commandResponse = await _mediator.Send(command);
+            var commandResponse = await _mediator.Send(command, cancellationToken)
+               .ConfigureAwait(false);
 
             // Fire pre/post notifications
-            await _notificationDispatcher.FirePreCommitNotifications();
+            await _notificationDispatcher.FirePreCommitNotifications(cancellationToken)
+               .ConfigureAwait(false);
 
             List<string>? messages = null;
 
@@ -46,10 +51,13 @@ namespace Aviant.DDD.Application.Orchestration
             return (commandResponse, messages);
         }
 
-        protected dynamic? PostUnitOfWork<TCommandResponse>(TCommandResponse commandResponse)
+        protected async Task<dynamic?> PostUnitOfWork<TCommandResponse>(
+            TCommandResponse  commandResponse,
+            CancellationToken cancellationToken)
         {
             // Fire post commit notifications
-            Task.Run(_notificationDispatcher.FirePostCommitNotifications);
+            await _notificationDispatcher.FirePostCommitNotifications(cancellationToken)
+               .ConfigureAwait(false);
 
             var isLazy = false;
 
@@ -67,9 +75,12 @@ namespace Aviant.DDD.Application.Orchestration
                 : commandResponse;
         }
 
-        public async Task<RequestResult> SendQuery<T>(IQuery<T> query)
+        public async Task<RequestResult> SendQuery<T>(
+            IQuery<T>         query,
+            CancellationToken cancellationToken = default)
         {
-            var commandResponse = await _mediator.Send(query);
+            var commandResponse = await _mediator.Send(query, cancellationToken)
+               .ConfigureAwait(false);
 
             return _messages.HasMessages()
                 ? new RequestResult(_messages.GetAll())
@@ -90,14 +101,20 @@ namespace Aviant.DDD.Application.Orchestration
 
         #region IOrchestrator Members
 
-        public async Task<RequestResult> SendCommand<T>(ICommand<T> command)
+        public async Task<RequestResult> SendCommand<T>(
+            ICommand<T>       command,
+            CancellationToken cancellationToken = default)
         {
-            (var commandResponse, List<string>? messages) = await PreUnitOfWork<ICommand<T>, T>(command);
+            (var commandResponse, List<string>? messages) = await PreUnitOfWork<ICommand<T>, T>(
+                    command,
+                    cancellationToken)
+               .ConfigureAwait(false);
 
             if (!(messages is null))
                 return new RequestResult(messages);
 
-            var result = PostUnitOfWork(commandResponse);
+            var result = await PostUnitOfWork(commandResponse, cancellationToken)
+               .ConfigureAwait(false);
 
             return new RequestResult(result);
         }
@@ -121,19 +138,25 @@ namespace Aviant.DDD.Application.Orchestration
 
         #region IOrchestrator<TDbContext> Members
 
-        public async Task<RequestResult> SendCommand<T>(ICommand<T> command)
+        public async Task<RequestResult> SendCommand<T>(
+            ICommand<T>       command,
+            CancellationToken cancellationToken = default)
         {
-            (var commandResponse, List<string>? messages) = await PreUnitOfWork<ICommand<T>, T>(command);
+            (var commandResponse, List<string>? messages) = await PreUnitOfWork<ICommand<T>, T>(
+                    command,
+                    cancellationToken)
+               .ConfigureAwait(false);
 
             if (!(messages is null))
                 return new RequestResult(messages);
 
             try
             {
-                var affectedRows = await _unitOfWork.Commit()
+                var affectedRows = await _unitOfWork.Commit(cancellationToken)
                    .ConfigureAwait(false);
 
-                var result = PostUnitOfWork(commandResponse);
+                var result = await PostUnitOfWork(commandResponse, cancellationToken)
+                   .ConfigureAwait(false);
 
                 return new RequestResult(result, affectedRows);
             }
@@ -167,17 +190,21 @@ namespace Aviant.DDD.Application.Orchestration
 
         #region IOrchestrator<TAggregate,TAggregateId> Members
 
-        public async Task<RequestResult> SendCommand(ICommand<TAggregate, TAggregateId> command)
+        public async Task<RequestResult> SendCommand(
+            ICommand<TAggregate, TAggregateId> command,
+            CancellationToken                  cancellationToken = default)
         {
             (var commandResponse, List<string>? messages) =
-                await PreUnitOfWork<ICommand<TAggregate, TAggregateId>, TAggregate>(command);
+                await PreUnitOfWork<ICommand<TAggregate, TAggregateId>, TAggregate>(command, cancellationToken)
+                   .ConfigureAwait(false);
 
             if (!(messages is null))
                 return new RequestResult(messages);
 
             try
             {
-                await _unitOfWork.Commit(commandResponse);
+                await _unitOfWork.Commit(commandResponse, cancellationToken)
+                   .ConfigureAwait(false);
             }
             catch (Exception exception)
             {
@@ -188,7 +215,8 @@ namespace Aviant.DDD.Application.Orchestration
                     });
             }
 
-            var result = PostUnitOfWork(commandResponse);
+            var result = await PostUnitOfWork(commandResponse, cancellationToken)
+               .ConfigureAwait(false);
 
             return new RequestResult(result);
         }

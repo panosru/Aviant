@@ -1,6 +1,7 @@
 namespace Aviant.DDD.Infrastructure.Persistence
 {
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
     using Application.Persistance;
     using Core.Aggregates;
@@ -27,7 +28,9 @@ namespace Aviant.DDD.Infrastructure.Persistence
 
         #region IUnitOfWork<TDbContext> Members
 
-        public Task<int> Commit() => _context.SaveChangesAsync();
+        public async Task<int> Commit(CancellationToken cancellationToken = default) =>
+            await _context.SaveChangesAsync(cancellationToken)
+               .ConfigureAwait(false);
 
         #endregion
 
@@ -51,9 +54,11 @@ namespace Aviant.DDD.Infrastructure.Persistence
 
         #region IUnitOfWork<TAggregate,TAggregateId> Members
 
-        public async Task<bool> Commit(TAggregate aggregate)
+        public async Task<bool> Commit(
+            TAggregate        aggregate,
+            CancellationToken cancellationToken = default)
         {
-            await _eventsService.PersistAsync(aggregate)
+            await _eventsService.PersistAsync(aggregate, cancellationToken)
                .ConfigureAwait(false);
 
             return true;

@@ -4,6 +4,6 @@ namespace Aviant.DDD.Application.Identity
 
     public interface ICurrentUserService
     {
-        Guid UserId { get; }
+        public Guid UserId { get; }
     }
 }

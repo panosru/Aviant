@@ -4,6 +4,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using System.Linq;
     using System.Text;
     using System.Text.Json;
+    using System.Threading;
     using System.Threading.Tasks;
     using Confluent.Kafka;
     using Core.Aggregates;
@@ -46,7 +47,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
             _producer = null;
         }
 
-        public async Task DispatchAsync(TAggregate aggregate)
+        public async Task DispatchAsync(
+            TAggregate        aggregate,
+            CancellationToken cancellationToken = default)
         {
             if (null == aggregate)
                 throw new ArgumentNullException(nameof(aggregate));
@@ -66,8 +69,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
                 var headers = new Headers
                 {
-                    { "aggregate", Encoding.UTF8.GetBytes(@event.AggregateId.ToString()) },
-                    { "type", Encoding.UTF8.GetBytes(eventType.AssemblyQualifiedName) }
+                    { "aggregate", Encoding.UTF8.GetBytes(@event.AggregateId.ToString()!) },
+                    { "type", Encoding.UTF8.GetBytes(eventType.AssemblyQualifiedName!) }
                 };
 
                 var message = new Message<TAggregateId, string>
@@ -77,7 +80,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                     Headers = headers
                 };
 
-                await _producer.ProduceAsync(_topicName, message);
+                await _producer.ProduceAsync(_topicName, message, cancellationToken)
+                   .ConfigureAwait(false);
             }
 
             aggregate.ClearEvents();

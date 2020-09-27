@@ -13,7 +13,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using Core.Services;
     using Microsoft.Extensions.Logging;
 
-    public class EventConsumer<TAggregate, TAggregateId, TDeserializer>
+    public sealed class EventConsumer<TAggregate, TAggregateId, TDeserializer>
         : IDisposable, IEventConsumer<TAggregate, TAggregateId, TDeserializer>
         where TAggregate : IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
@@ -53,7 +53,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
             var consumerBuilder        = new ConsumerBuilder<TAggregateId, string>(consumerConfig);
             var keyDeserializerFactory = new KeyDeserializerFactory();
-            consumerBuilder.SetKeyDeserializer(keyDeserializerFactory.Create<TDeserializer, TAggregateId>());
+            consumerBuilder.SetKeyDeserializer(KeyDeserializerFactory.Create<TDeserializer, TAggregateId>());
 
             _eventConsumer = consumerBuilder.Build();
 
@@ -73,7 +73,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
         #region IEventConsumer<TAggregate,TAggregateId,TDeserializer> Members
 
-        public Task ConsumeAsync(CancellationToken stoppingToken)
+        public Task ConsumeAsync(CancellationToken cancellationToken)
         {
             return Task.Run(
                 async () =>
@@ -85,10 +85,10 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                         _eventConsumer.Name,
                         topics);
 
-                    while (!stoppingToken.IsCancellationRequested)
+                    while (!cancellationToken.IsCancellationRequested)
                         try
                         {
-                            ConsumeResult<TAggregateId, string> cr = _eventConsumer.Consume(stoppingToken);
+                            ConsumeResult<TAggregateId, string> cr = _eventConsumer.Consume(cancellationToken);
 
                             if (cr.IsPartitionEOF)
                                 continue;
@@ -103,7 +103,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                                 throw new SerializationException(
                                     $"unable to deserialize notification {eventType} : {cr.Message.Value}");
 
-                            await OnEventReceived(@event);
+                            await OnEventReceived(@event, cancellationToken)
+                               .ConfigureAwait(false);
                         }
                         catch (OperationCanceledException ex)
                         {
@@ -121,23 +122,27 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                             OnExceptionThrown(ex);
                         }
                 },
-                stoppingToken);
+                cancellationToken);
         }
 
         public event EventReceivedHandler<TAggregateId> EventReceived;
 
         #endregion
 
-        protected virtual Task OnEventReceived(IEvent<TAggregateId> e)
+        private Task OnEventReceived(
+            IEvent<TAggregateId> e,
+            CancellationToken    cancellationToken)
         {
             EventReceivedHandler<TAggregateId> handler = EventReceived;
 
-            return handler?.Invoke(this, e);
+            return handler?.Invoke(this, e)
+                ?? throw new NullReferenceException(
+                       typeof(EventConsumer<TAggregate, TAggregateId, TDeserializer>).FullName);
         }
 
         public event ExceptionThrownHandler ExceptionThrown;
 
-        protected virtual void OnExceptionThrown(Exception e)
+        private void OnExceptionThrown(Exception e)
         {
             var handler = ExceptionThrown;
             handler?.Invoke(this, e);
@@ -145,7 +150,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
         public event ConsumerStoppedHandler ConsumerStopped;
 
-        protected virtual void OnConsumerStopped()
+        private void OnConsumerStopped()
         {
             var handler = ConsumerStopped;
             handler?.Invoke(this);

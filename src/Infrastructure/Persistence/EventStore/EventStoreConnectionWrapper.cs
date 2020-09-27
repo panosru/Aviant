@@ -1,6 +1,7 @@
 namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 {
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
     using global::EventStore.ClientAPI;
     using Microsoft.Extensions.Logging;
@@ -26,7 +27,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
                         {
                             var connection = SetupConnection();
 
-                            await connection.ConnectAsync();
+                            await connection.ConnectAsync()
+                               .ConfigureAwait(false);
 
                             return connection;
                         });
@@ -47,7 +49,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
         #region IEventStoreConnectionWrapper Members
 
-        public Task<IEventStoreConnection> GetConnectionAsync() => _lazyConnection.Value;
+        public Task<IEventStoreConnection> GetConnectionAsync(CancellationToken cancellationToken = default) =>
+            _lazyConnection.Value;
 
         #endregion
 
@@ -67,21 +70,27 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
                     e.Exception,
                     $"an error has occurred on the Eventstore connection: {e.Exception.Message} . Trying to reconnect...");
                 connection = SetupConnection();
-                await connection.ConnectAsync();
+
+                await connection.ConnectAsync()
+                   .ConfigureAwait(false);
             };
 
             connection.Disconnected += async (s, e) =>
             {
                 _logger.LogWarning("The Eventstore connection has dropped. Trying to reconnect...");
                 connection = SetupConnection();
-                await connection.ConnectAsync();
+
+                await connection.ConnectAsync()
+                   .ConfigureAwait(false);
             };
 
             connection.Closed += async (s, e) =>
             {
                 _logger.LogWarning($"The Eventstore connection was closed: {e.Reason}. Opening new connection...");
                 connection = SetupConnection();
-                await connection.ConnectAsync();
+
+                await connection.ConnectAsync()
+                   .ConfigureAwait(false);
             };
 
             return connection;

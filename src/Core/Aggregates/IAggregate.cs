@@ -7,10 +7,10 @@ namespace Aviant.DDD.Core.Aggregates
     public interface IAggregate<out TAggregateId> : IEntity<TAggregateId>
         where TAggregateId : IAggregateId
     {
-        long Version { get; }
+        public long Version { get; }
 
-        IReadOnlyCollection<IEvent<TAggregateId>> Events { get; }
+        public IReadOnlyCollection<IEvent<TAggregateId>> Events { get; }
 
-        void ClearEvents();
+        public void ClearEvents();
     }
 }

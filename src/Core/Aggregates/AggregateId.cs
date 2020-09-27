@@ -2,7 +2,6 @@ namespace Aviant.DDD.Core.Aggregates
 {
     using System;
     using System.Text;
-    using System.Text.Json;
 
     public abstract class AggregateId<TKey> : IAggregateId<TKey>
         where TKey : notnull
@@ -13,10 +12,7 @@ namespace Aviant.DDD.Core.Aggregates
 
         public TKey Key { get; }
 
-        public virtual byte[] Serialize()
-        {
-            return Encoding.UTF8.GetBytes(ToString());
-        }
+        public virtual byte[] Serialize() => Encoding.UTF8.GetBytes(ToString());
 
         #endregion
 

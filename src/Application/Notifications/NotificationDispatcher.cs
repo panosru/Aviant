@@ -2,6 +2,7 @@ namespace Aviant.DDD.Application.Notifications
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
     using Services;
@@ -36,20 +37,20 @@ namespace Aviant.DDD.Application.Notifications
             PostCommitEvents.Add(notification);
         }
 
-        public async Task FirePreCommitNotifications()
+        public async Task FirePreCommitNotifications(CancellationToken cancellationToken = default)
         {
             foreach (var notification in PreCommitEvents.ToList())
             {
-                await _mediator.Publish(notification).ConfigureAwait(false);
+                await _mediator.Publish(notification, cancellationToken).ConfigureAwait(false);
                 RemovePreCommitNotification(notification);
             }
         }
 
-        public async Task FirePostCommitNotifications()
+        public async Task FirePostCommitNotifications(CancellationToken cancellationToken = default)
         {
             foreach (var notification in PostCommitEvents.ToList())
             {
-                await _mediator.Publish(notification).ConfigureAwait(false);
+                await _mediator.Publish(notification, cancellationToken).ConfigureAwait(false);
                 RemovePostCommitNotification(notification);
             }
         }

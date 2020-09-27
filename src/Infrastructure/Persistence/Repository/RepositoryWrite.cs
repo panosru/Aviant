@@ -4,6 +4,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Threading;
     using System.Threading.Tasks;
     using Application.Identity;
     using Contexts;
@@ -24,35 +25,45 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
 
         #region IRepositoryWrite<TEntity,TPrimaryKey> Members
 
-        public virtual async Task Add(TEntity entity)
+        public virtual async Task Add(
+            TEntity           entity,
+            CancellationToken cancellationToken = default)
         {
             // First validate entity's rules
-            await entity.Validate();
+            await entity.Validate(cancellationToken)
+               .ConfigureAwait(false);
 
-            await DbSet.AddAsync(entity);
+            await DbSet.AddAsync(entity, cancellationToken)
+               .ConfigureAwait(false);
         }
 
-        public virtual Task Update(TEntity entity)
+        public virtual Task Update(
+            TEntity           entity,
+            CancellationToken cancellationToken = default)
         {
             // First validate entity's rules
-            entity.Validate();
+            entity.Validate(cancellationToken);
 
             DbContext.Entry(entity).State = EntityState.Modified;
 
             return Task.CompletedTask;
         }
 
-        public virtual Task Delete(TEntity entity)
+        public virtual Task Delete(
+            TEntity           entity,
+            CancellationToken cancellationToken = default)
         {
             // First validate entity's rules
-            entity.Validate();
+            entity.Validate(cancellationToken);
 
             DbContext.Entry(entity).State = EntityState.Deleted;
 
             return Task.CompletedTask;
         }
 
-        public virtual Task DeleteWhere(Expression<Func<TEntity, bool>> predicate)
+        public virtual Task DeleteWhere(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default)
         {
             IEnumerable<TEntity> entities = DbSet.Where(predicate);
 

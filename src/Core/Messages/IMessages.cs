@@ -4,12 +4,12 @@ namespace Aviant.DDD.Core.Messages
 
     public interface IMessages
     {
-        void AddMessage(string message);
+        public void AddMessage(string message);
 
-        bool HasMessages();
+        public bool HasMessages();
 
-        List<string> GetAll();
+        public List<string> GetAll();
 
-        void CleanMessages();
+        public void CleanMessages();
     }
 }

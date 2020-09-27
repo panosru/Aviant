@@ -5,6 +5,6 @@ namespace Aviant.DDD.Application.Services
     public interface ICsvFileBuilder<in TRecord>
         where TRecord : class
     {
-        byte[] BuildTodoItemsFile(IEnumerable<TRecord> records);
+        public byte[] BuildTodoItemsFile(IEnumerable<TRecord> records);
     }
 }

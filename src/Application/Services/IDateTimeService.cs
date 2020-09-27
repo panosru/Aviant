@@ -4,6 +4,6 @@ namespace Aviant.DDD.Application.Services
 
     public interface IDateTimeService
     {
-        DateTime Now(bool utc = false);
+        public DateTime Now(bool utc = false);
     }
 }

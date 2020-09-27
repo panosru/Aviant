@@ -2,6 +2,7 @@ namespace Aviant.DDD.Application.Services
 {
     using System;
     using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
     using Core.Aggregates;
     using Core.EventBus;
@@ -27,7 +28,9 @@ namespace Aviant.DDD.Application.Services
 
         #region IEventsService<TAggregate,TAggregateId> Members
 
-        public async Task PersistAsync(TAggregate aggregate)
+        public async Task PersistAsync(
+            TAggregate        aggregate,
+            CancellationToken cancellationToken = default)
         {
             if (aggregate is null)
                 throw new ArgumentNullException(nameof(aggregate));
@@ -35,11 +38,17 @@ namespace Aviant.DDD.Application.Services
             if (!aggregate.Events.Any())
                 return;
 
-            await _eventsRepository.AppendAsync(aggregate);
-            await _eventProducer.DispatchAsync(aggregate);
+            await _eventsRepository.AppendAsync(aggregate, cancellationToken)
+               .ConfigureAwait(false);
+
+            await _eventProducer.DispatchAsync(aggregate, cancellationToken)
+               .ConfigureAwait(false);
         }
 
-        public Task<TAggregate> RehydrateAsync(TAggregateId key) => _eventsRepository.RehydrateAsync(key);
+        public Task<TAggregate> RehydrateAsync(
+            TAggregateId      key,
+            CancellationToken cancellationToken = default) =>
+            _eventsRepository.RehydrateAsync(key, cancellationToken);
 
         #endregion
     }

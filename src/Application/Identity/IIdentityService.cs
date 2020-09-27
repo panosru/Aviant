@@ -1,18 +1,32 @@
 namespace Aviant.DDD.Application.Identity
 {
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
 
     public interface IIdentityService
     {
-        Task<object?> Authenticate(string username, string password);
+        public Task<object?> Authenticate(
+            string            username,
+            string            password,
+            CancellationToken cancellationToken = default);
 
-        Task<IdentityResult> ConfirmEmail(string toekn, string email);
+        public Task<IdentityResult> ConfirmEmail(
+            string            toekn,
+            string            email,
+            CancellationToken cancellationToken = default);
 
-        Task<string> GetUserNameAsync(Guid userId);
+        public Task<string> GetUserNameAsync(
+            Guid              userId,
+            CancellationToken cancellationToken = default);
 
-        Task<(IdentityResult Result, Guid UserId)> CreateUserAsync(string username, string password);
+        public Task<(IdentityResult Result, Guid UserId)> CreateUserAsync(
+            string            username,
+            string            password,
+            CancellationToken cancellationToken = default);
 
-        Task<IdentityResult> DeleteUserAsync(Guid userId);
+        public Task<IdentityResult> DeleteUserAsync(
+            Guid              userId,
+            CancellationToken cancellationToken = default);
     }
 }

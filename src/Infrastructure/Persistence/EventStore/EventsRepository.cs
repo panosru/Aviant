@@ -5,6 +5,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
     using System.Linq;
     using System.Text;
     using System.Text.Json;
+    using System.Threading;
     using System.Threading.Tasks;
     using Core.Aggregates;
     using Core.Events;
@@ -33,7 +34,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
         #region IEventsRepository<TAggregate,TAggregateId> Members
 
-        public async Task AppendAsync(TAggregate aggregate)
+        public async Task AppendAsync(
+            TAggregate        aggregate,
+            CancellationToken cancellationToken = default)
         {
             if (aggregate is null)
                 throw new ArgumentNullException(nameof(aggregate));
@@ -41,7 +44,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             if (!aggregate.Events.Any())
                 return;
 
-            var connection = await _connectionWrapper.GetConnectionAsync();
+            var connection = await _connectionWrapper.GetConnectionAsync(cancellationToken)
+               .ConfigureAwait(false);
 
             var streamName = GetStreamName(aggregate.Id);
 
@@ -49,17 +53,21 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             var version = firstEvent.AggregateVersion - 1;
 
-            using var transaction = await connection.StartTransactionAsync(streamName, version);
+            using var transaction = await connection.StartTransactionAsync(streamName, version)
+               .ConfigureAwait(false);
 
             try
             {
                 foreach (IEvent<TAggregateId> @event in aggregate.Events)
                 {
                     var eventData = Map(@event);
-                    await transaction.WriteAsync(eventData);
+
+                    await transaction.WriteAsync(eventData)
+                       .ConfigureAwait(false);
                 }
 
-                await transaction.CommitAsync();
+                await transaction.CommitAsync()
+                   .ConfigureAwait(false);
             }
             catch
             {
@@ -69,9 +77,12 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             }
         }
 
-        public async Task<TAggregate> RehydrateAsync(TAggregateId aggregateId)
+        public async Task<TAggregate> RehydrateAsync(
+            TAggregateId      aggregateId,
+            CancellationToken cancellationToken = default)
         {
-            var connection = await _connectionWrapper.GetConnectionAsync();
+            var connection = await _connectionWrapper.GetConnectionAsync(cancellationToken)
+               .ConfigureAwait(false);
 
             var streamName = GetStreamName(aggregateId);
 
@@ -83,10 +94,11 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             do
             {
                 currentSlice = await connection.ReadStreamEventsForwardAsync(
-                    streamName,
-                    nextSliceStart,
-                    200,
-                    false);
+                        streamName,
+                        nextSliceStart,
+                        200,
+                        false)
+                   .ConfigureAwait(false);
 
                 nextSliceStart = currentSlice.NextEventNumber;
 

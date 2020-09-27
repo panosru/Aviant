@@ -1,31 +1,32 @@
 namespace Aviant.DDD.Application.Notifications
 {
     using System.Collections.Generic;
+    using System.Threading;
     using System.Threading.Tasks;
 
     public interface INotificationDispatcher
     {
         #region Pre Commit Notifications
 
-        List<INotification> GetPreCommitEvents();
+        public List<INotification> GetPreCommitEvents();
 
-        void AddPreCommitNotification(INotification notification);
+        public void AddPreCommitNotification(INotification notification);
 
-        void RemovePreCommitNotification(INotification notification);
+        public void RemovePreCommitNotification(INotification notification);
 
-        Task FirePreCommitNotifications();
+        public Task FirePreCommitNotifications(CancellationToken cancellationToken = default);
 
         #endregion
 
         #region Post Commit Notifications
 
-        List<INotification> GetPostCommitNotifications();
+        public List<INotification> GetPostCommitNotifications();
 
-        void AddPostCommitNotification(INotification notification);
+        public void AddPostCommitNotification(INotification notification);
 
-        void RemovePostCommitNotification(INotification notification);
+        public void RemovePostCommitNotification(INotification notification);
 
-        Task FirePostCommitNotifications();
+        public Task FirePostCommitNotifications(CancellationToken cancellationToken = default);
 
         #endregion
     }

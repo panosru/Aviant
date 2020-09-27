@@ -1,5 +1,6 @@
 namespace Aviant.DDD.Application.Persistance
 {
+    using System.Threading;
     using System.Threading.Tasks;
     using Core.Aggregates;
 
@@ -13,7 +14,7 @@ namespace Aviant.DDD.Application.Persistance
         ///     Commit changes to database persistence
         /// </summary>
         /// <returns>Integer representing affected rows</returns>
-        Task<int> Commit();
+        public Task<int> Commit(CancellationToken cancellationToken = default);
     }
 
     public interface IUnitOfWork<in TAggregate, TAggregateId>
@@ -24,7 +25,8 @@ namespace Aviant.DDD.Application.Persistance
         ///     Commit changes to event sourcing persistence
         /// </summary>
         /// <param name="aggregate"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<bool> Commit(TAggregate aggregate);
+        public Task<bool> Commit(TAggregate aggregate, CancellationToken cancellationToken = default);
     }
 }

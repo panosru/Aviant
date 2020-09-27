@@ -28,7 +28,7 @@ namespace Aviant.DDD.Application.Behaviours
 
             try
             {
-                return await next();
+                return await next().ConfigureAwait(false);
             }
             catch (DomainException ex)
             {

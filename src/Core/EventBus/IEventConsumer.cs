@@ -7,7 +7,7 @@ namespace Aviant.DDD.Core.EventBus
 
     public interface IEventConsumer
     {
-        Task ConsumeAsync(CancellationToken cancellationToken);
+        public Task ConsumeAsync(CancellationToken cancellationToken);
     }
 
     public interface IEventConsumer<TAggregate, out TAggregateId, TDeserializer>
@@ -15,7 +15,7 @@ namespace Aviant.DDD.Core.EventBus
         where TAggregate : IAggregate<TAggregateId>
         where TAggregateId : IAggregateId
     {
-        event EventReceivedHandler<TAggregateId> EventReceived;
+        public event EventReceivedHandler<TAggregateId> EventReceived;
     }
 
     public delegate Task EventReceivedHandler<in TAggregateId>(object sender, IEvent<TAggregateId> @event)

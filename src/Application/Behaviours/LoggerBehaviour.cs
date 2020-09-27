@@ -35,7 +35,8 @@ namespace Aviant.DDD.Application.Behaviours
             var username    = string.Empty;
 
             if (Guid.Empty != userId)
-                username = await _identityIdentityService.GetUserNameAsync(userId);
+                username = await _identityIdentityService.GetUserNameAsync(userId, cancellationToken)
+                   .ConfigureAwait(false);
 
             _logger.LogInformation(
                 "Request: {Name} {@UserId} {@UserName} {@Request}",
@@ -44,7 +45,7 @@ namespace Aviant.DDD.Application.Behaviours
                 username,
                 request);
 
-            await Task.CompletedTask;
+            await Task.CompletedTask.ConfigureAwait(false);
         }
 
         #endregion

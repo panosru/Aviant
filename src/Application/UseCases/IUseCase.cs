@@ -1,5 +1,6 @@
 namespace Aviant.DDD.Application.UseCases
 {
+    using System.Threading;
     using System.Threading.Tasks;
 
     public interface IUseCase<in TUseCaseOutput>
@@ -10,12 +11,12 @@ namespace Aviant.DDD.Application.UseCases
 
     public interface IUseCaseExecute
     {
-        public Task Execute();
+        public Task Execute(CancellationToken cancellationToken = default);
     }
 
     public interface IUseCaseExecute<in TUseCaseInput>
         where TUseCaseInput : class, IUseCaseInput
     {
-        public Task Execute(TUseCaseInput input);
+        public Task Execute(TUseCaseInput input, CancellationToken cancellationToken = default);
     }
 }

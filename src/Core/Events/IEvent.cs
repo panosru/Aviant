@@ -5,8 +5,8 @@ namespace Aviant.DDD.Core.Events
     public interface IEvent<out TAggregateId>
         where TAggregateId : IAggregateId
     {
-        long AggregateVersion { get; }
+        public long AggregateVersion { get; }
 
-        TAggregateId AggregateId { get; }
+        public TAggregateId AggregateId { get; }
     }
 }

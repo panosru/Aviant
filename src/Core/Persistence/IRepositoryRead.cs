@@ -4,54 +4,81 @@ namespace Aviant.DDD.Core.Persistence
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Threading;
     using System.Threading.Tasks;
     using Entities;
 
     public interface IRepositoryRead<TEntity, in TPrimaryKey> : IDisposable
         where TEntity : Entity<TPrimaryKey>
     {
-        IQueryable<TEntity> GetAll();
+        public IQueryable<TEntity> GetAll();
 
-        IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties);
+        public IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties);
 
-        Task<List<TEntity>> GetAllList();
+        public Task<List<TEntity>> GetAllList(CancellationToken cancellationToken = default);
 
-        Task<List<TEntity>> GetAllListIncluding(params Expression<Func<TEntity, object>>[] includeProperties);
+        public Task<List<TEntity>> GetAllListIncluding(
+            CancellationToken                          cancellationToken = default,
+            params Expression<Func<TEntity, object>>[] includeProperties);
 
-        ValueTask<TEntity> Find(TPrimaryKey id);
+        public ValueTask<TEntity> Find(
+            TPrimaryKey       id,
+            CancellationToken cancellationToken = default);
 
-        Task<TEntity> GetFirst(TPrimaryKey id);
+        public Task<TEntity> GetFirst(
+            TPrimaryKey       id,
+            CancellationToken cancellationToken = default);
 
-        Task<TEntity> GetFirstIncluding(TPrimaryKey id, params Expression<Func<TEntity, object>>[] includeProperties);
+        public Task<TEntity> GetFirstIncluding(
+            TPrimaryKey                                id,
+            CancellationToken                          cancellationToken = default,
+            params Expression<Func<TEntity, object>>[] includeProperties);
 
-        Task<TEntity> GetFirst(Expression<Func<TEntity, bool>> predicate);
+        public Task<TEntity> GetFirst(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default);
 
-        Task<TEntity> GetFirstIncluding(
+        public Task<TEntity> GetFirstIncluding(
+            Expression<Func<TEntity, bool>>            predicate,
+            CancellationToken                          cancellationToken = default,
+            params Expression<Func<TEntity, object>>[] includeProperties);
+
+        public Task<TEntity> GetSingle(
+            TPrimaryKey       id,
+            CancellationToken cancellationToken = default);
+
+        public Task<TEntity> GetSingleIncluding(
+            TPrimaryKey                                id,
+            CancellationToken                          cancellationToken = default,
+            params Expression<Func<TEntity, object>>[] includeProperties);
+
+        public Task<TEntity> GetSingle(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default);
+
+        public Task<TEntity> GetSingleIncluding(
+            Expression<Func<TEntity, bool>>            predicate,
+            CancellationToken                          cancellationToken = default,
+            params Expression<Func<TEntity, object>>[] includeProperties);
+
+        public IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate);
+
+        public IQueryable<TEntity> FindByIncluding(
             Expression<Func<TEntity, bool>>            predicate,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
-        Task<TEntity> GetSingle(TPrimaryKey id);
+        public Task<bool> Any(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default);
 
-        Task<TEntity> GetSingleIncluding(TPrimaryKey id, params Expression<Func<TEntity, object>>[] includeProperties);
+        public Task<bool> All(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default);
 
-        Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> predicate);
+        public Task<int> Count(CancellationToken cancellationToken = default);
 
-        Task<TEntity> GetSingleIncluding(
-            Expression<Func<TEntity, bool>>            predicate,
-            params Expression<Func<TEntity, object>>[] includeProperties);
-
-        IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate);
-
-        IQueryable<TEntity> FindByIncluding(
-            Expression<Func<TEntity, bool>>            predicate,
-            params Expression<Func<TEntity, object>>[] includeProperties);
-
-        Task<bool> Any(Expression<Func<TEntity, bool>> predicate);
-
-        Task<bool> All(Expression<Func<TEntity, bool>> predicate);
-
-        Task<int> Count();
-
-        Task<int> Count(Expression<Func<TEntity, bool>> predicate);
+        public Task<int> Count(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default);
     }
 }

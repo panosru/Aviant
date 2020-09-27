@@ -2,18 +2,27 @@ namespace Aviant.DDD.Core.Persistence
 {
     using System;
     using System.Linq.Expressions;
+    using System.Threading;
     using System.Threading.Tasks;
     using Entities;
 
     public interface IRepositoryWrite<TEntity, in TPrimaryKey> : IDisposable
         where TEntity : Entity<TPrimaryKey>
     {
-        Task Add(TEntity entity);
+        public Task Add(
+            TEntity           entity,
+            CancellationToken cancellationToken = default);
 
-        Task Update(TEntity entity);
+        public Task Update(
+            TEntity           entity,
+            CancellationToken cancellationToken = default);
 
-        Task Delete(TEntity entity);
+        public Task Delete(
+            TEntity           entity,
+            CancellationToken cancellationToken = default);
 
-        Task DeleteWhere(Expression<Func<TEntity, bool>> predicate);
+        public Task DeleteWhere(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default);
     }
 }
