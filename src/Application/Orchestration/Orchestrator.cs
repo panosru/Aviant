@@ -88,7 +88,7 @@ namespace Aviant.DDD.Application.Orchestration
         }
     }
 
-    public class Orchestrator
+    public sealed class Orchestrator
         : OrchestratorBase,
           IOrchestrator
     {
@@ -122,7 +122,7 @@ namespace Aviant.DDD.Application.Orchestration
         #endregion
     }
 
-    public class Orchestrator<TDbContext>
+    public sealed class Orchestrator<TDbContext>
         : OrchestratorBase,
           IOrchestrator<TDbContext>
         where TDbContext : IDbContextWrite
@@ -173,7 +173,7 @@ namespace Aviant.DDD.Application.Orchestration
         #endregion
     }
 
-    public class Orchestrator<TAggregate, TAggregateId>
+    public sealed class Orchestrator<TAggregate, TAggregateId>
         : OrchestratorBase,
           IOrchestrator<TAggregate, TAggregateId>
         where TAggregate : class, IAggregate<TAggregateId>

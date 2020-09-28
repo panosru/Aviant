@@ -3,23 +3,25 @@ namespace Aviant.DDD.Application.Orchestration
     using System;
     using System.Collections.Generic;
 
-    public class RequestResult
+    //TODO: Revisit
+
+    public sealed class RequestResult
     {
         private readonly object? _payload;
 
         public RequestResult()
         { }
 
-        public RequestResult(object? payload)
+        internal RequestResult(object? payload)
         {
             _payload  = payload;
             Succeeded = true;
         }
 
-        public RequestResult(object? payload, int? affectedRows)
+        internal RequestResult(object? payload, int? affectedRows)
             : this(payload) => AffectedRows = affectedRows;
 
-        public RequestResult(List<string> messages)
+        internal RequestResult(List<string> messages)
         {
             Messages  = messages;
             Succeeded = false;
@@ -29,6 +31,7 @@ namespace Aviant.DDD.Application.Orchestration
 
         public List<string> Messages { get; set; } = new List<string>();
 
+        // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private int? AffectedRows { get; }
 
         public object? Payload() => _payload;
@@ -40,10 +43,8 @@ namespace Aviant.DDD.Application.Orchestration
 
             if (typeof(T) != _payload.GetType())
                 throw new Exception(
-                    string.Format(
-                        "Type \"{0}\" does not much payload type \"{1}\"",
-                        typeof(T).FullName,
-                        _payload.GetType().FullName));
+                    $@"Type ""{typeof(T).FullName}"" does not much payload type ""{_payload
+                       .GetType().FullName}""");
 
             return (T) _payload;
         }

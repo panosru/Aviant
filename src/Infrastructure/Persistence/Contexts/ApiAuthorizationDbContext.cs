@@ -11,8 +11,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
 
+    /// <inheritdoc cref="Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext&lt;TUser, TRole, TKey&gt;" />
     /// <summary>
-    ///     Database abstraction for a combined <see cref="DbContext" /> using ASP.NET Identity and Identity Server.
+    ///     Database abstraction for a combined <see cref="T:Microsoft.EntityFrameworkCore.DbContext" /> using ASP.NET Identity and Identity Server.
     /// </summary>
     /// <typeparam name="TUser"></typeparam>
     /// <typeparam name="TRole"></typeparam>
@@ -25,11 +26,12 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     {
         private readonly IOptions<OperationalStoreOptions> _operationalStoreOptions;
 
+        /// <inheritdoc />
         /// <summary>
-        ///     Initializes a new instance of <see cref="ApiAuthorizationDbContext{TUser, TRole, TKey}" />.
+        ///     Initializes a new instance of <see cref="T:Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext`3" />.
         /// </summary>
-        /// <param name="options">The <see cref="DbContextOptions" />.</param>
-        /// <param name="operationalStoreOptions">The <see cref="IOptions{OperationalStoreOptions}" />.</param>
+        /// <param name="options">The <see cref="T:Microsoft.EntityFrameworkCore.DbContextOptions" />.</param>
+        /// <param name="operationalStoreOptions">The <see cref="T:Microsoft.Extensions.Options.IOptions`1" />.</param>
         public ApiAuthorizationDbContext(
             DbContextOptions                  options,
             IOptions<OperationalStoreOptions> operationalStoreOptions)
@@ -37,13 +39,15 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         #region IPersistedGrantDbContext Members
 
+        /// <inheritdoc />
         /// <summary>
-        ///     Gets or sets the <see cref="DbSet{PersistedGrant}" />.
+        ///     Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" />.
         /// </summary>
         public DbSet<PersistedGrant>? PersistedGrants { get; set; }
 
+        /// <inheritdoc />
         /// <summary>
-        ///     Gets or sets the <see cref="DbSet{DeviceFlowCodes}" />.
+        ///     Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" />.
         /// </summary>
         public DbSet<DeviceFlowCodes>? DeviceFlowCodes { get; set; }
 
@@ -59,18 +63,20 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         }
     }
 
+    /// <inheritdoc />
     /// <summary>
-    ///     Database abstraction for a combined <see cref="DbContext" /> using ASP.NET Identity and Identity Server.
+    ///     Database abstraction for a combined <see cref="T:Microsoft.EntityFrameworkCore.DbContext" /> using ASP.NET Identity and Identity Server.
     /// </summary>
     /// <typeparam name="TUser"></typeparam>
     public class ApiAuthorizationDbContext<TUser> : ApiAuthorizationDbContext<TUser, IdentityRole, string>
         where TUser : IdentityUser
     {
+        /// <inheritdoc />
         /// <summary>
-        ///     Initializes a new instance of <see cref="ApiAuthorizationDbContext{TUser}" />.
+        ///     Initializes a new instance of <see cref="T:Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext`1" />.
         /// </summary>
-        /// <param name="options">The <see cref="DbContextOptions" />.</param>
-        /// <param name="operationalStoreOptions">The <see cref="IOptions{OperationalStoreOptions}" />.</param>
+        /// <param name="options">The <see cref="T:Microsoft.EntityFrameworkCore.DbContextOptions" />.</param>
+        /// <param name="operationalStoreOptions">The <see cref="T:Microsoft.Extensions.Options.IOptions`1" />.</param>
         public ApiAuthorizationDbContext(
             DbContextOptions                  options,
             IOptions<OperationalStoreOptions> operationalStoreOptions)

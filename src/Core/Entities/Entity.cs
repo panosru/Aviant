@@ -7,7 +7,9 @@ namespace Aviant.DDD.Core.Entities
 
     public abstract class Entity<TKey> : IEntity<TKey>
     {
+        #pragma warning disable 8618
         protected Entity()
+            #pragma warning restore 8618
         { }
 
         protected Entity(TKey id) => Id = id;
@@ -27,6 +29,7 @@ namespace Aviant.DDD.Core.Entities
                                                  && GetType() == entity.GetType()
                                                  && EqualityComparer<TKey>.Default.Equals(Id, entity.Id);
 
+        // ReSharper disable once NonReadonlyMemberInGetHashCode
         public override int GetHashCode() => HashCode.Combine(GetType(), Id);
 
         public static bool operator ==(Entity<TKey> left, Entity<TKey> right) =>

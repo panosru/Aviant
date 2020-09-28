@@ -5,7 +5,7 @@ namespace Aviant.DDD.Application.Services
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
 
-    public class HttpContextServiceProviderProxy : IServiceContainer
+    public sealed class HttpContextServiceProviderProxy : IServiceContainer
     {
         private readonly IHttpContextAccessor _contextAccessor;
 

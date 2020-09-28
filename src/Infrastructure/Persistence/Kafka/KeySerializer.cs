@@ -3,7 +3,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using Confluent.Kafka;
     using Core.Aggregates;
 
-    internal class KeySerializer<TAggregateId> : ISerializer<TAggregateId>
+    internal sealed class KeySerializer<TAggregateId> : ISerializer<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
         #region ISerializer<TAggregateId> Members

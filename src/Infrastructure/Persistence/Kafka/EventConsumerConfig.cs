@@ -2,7 +2,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 {
     using System;
 
-    public class EventConsumerConfig
+    public sealed class EventConsumerConfig
     {
         public EventConsumerConfig(
             string kafkaConnectionString,
@@ -23,10 +23,10 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
             ConsumerGroup         = consumerGroup;
         }
 
-        public string KafkaConnectionString { get; }
+        internal string KafkaConnectionString { get; }
 
-        public string TopicBaseName { get; }
+        internal string TopicBaseName { get; }
 
-        public string ConsumerGroup { get; }
+        internal string ConsumerGroup { get; }
     }
 }

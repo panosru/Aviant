@@ -9,10 +9,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using Confluent.Kafka;
     using Core.Aggregates;
     using Core.EventBus;
-    using Core.Events;
     using Microsoft.Extensions.Logging;
 
-    public class EventProducer<TAggregate, TAggregateId> : IEventProducer<TAggregate, TAggregateId>
+    internal sealed class EventProducer<TAggregate, TAggregateId> : IEventProducer<TAggregate, TAggregateId>
         where TAggregate : IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
@@ -43,15 +42,15 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
         public void Dispose()
         {
-            _producer?.Dispose();
-            _producer = null;
+            _producer.Dispose();
+            _producer = null!;
         }
 
         public async Task DispatchAsync(
             TAggregate        aggregate,
             CancellationToken cancellationToken = default)
         {
-            if (null == aggregate)
+            if (aggregate is null)
                 throw new ArgumentNullException(nameof(aggregate));
 
             if (!aggregate.Events.Any())
@@ -61,28 +60,23 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                 "publishing " + aggregate.Events.Count + " events for {AggregateId} ...",
                 aggregate.Id);
 
-            foreach (IEvent<TAggregateId> @event in aggregate.Events)
-            {
-                var eventType = @event.GetType();
-
-                var serialized = JsonSerializer.Serialize(@event, eventType);
-
-                var headers = new Headers
+            foreach (Message<TAggregateId, string>? message in
+                from @event in aggregate.Events
+                let eventType = @event.GetType()
+                let serialized = JsonSerializer.Serialize(@event, eventType)
+                let headers = new Headers
                 {
                     { "aggregate", Encoding.UTF8.GetBytes(@event.AggregateId.ToString()!) },
                     { "type", Encoding.UTF8.GetBytes(eventType.AssemblyQualifiedName!) }
-                };
-
-                var message = new Message<TAggregateId, string>
+                }
+                select new Message<TAggregateId, string>
                 {
                     Key     = @event.AggregateId,
                     Value   = serialized,
                     Headers = headers
-                };
-
+                })
                 await _producer.ProduceAsync(_topicName, message, cancellationToken)
                    .ConfigureAwait(false);
-            }
 
             aggregate.ClearEvents();
         }

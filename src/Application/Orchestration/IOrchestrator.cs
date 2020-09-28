@@ -1,5 +1,6 @@
 namespace Aviant.DDD.Application.Orchestration
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Threading;
     using System.Threading.Tasks;
     using Commands;
@@ -18,6 +19,7 @@ namespace Aviant.DDD.Application.Orchestration
             CancellationToken cancellationToken = default);
     }
 
+    [SuppressMessage("ReSharper", "UnusedTypeParameter")]
     public interface IOrchestrator<TDbContext>
         where TDbContext : IDbContextWrite
     {

@@ -1,6 +1,7 @@
 namespace Aviant.DDD.Core.Validators
 {
     using System;
+    using System.Linq;
     using Messages;
 
     public static class AssertionsConcernValidator
@@ -11,9 +12,8 @@ namespace Aviant.DDD.Core.Validators
         {
             var isSatisfied = true;
 
-            foreach (var assert in asserts)
-                if (!assert())
-                    isSatisfied = false;
+            foreach (Func<bool>? unused in asserts.Where(assert => !assert()))
+                isSatisfied = false;
 
             return isSatisfied;
         }

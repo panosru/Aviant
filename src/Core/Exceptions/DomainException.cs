@@ -16,11 +16,12 @@ namespace Aviant.DDD.Core.Exceptions
             : base(message, inner)
         { }
 
+        /// <inheritdoc />
         /// <summary>
         /// </summary>
         /// <param name="message"></param>
         /// <param name="errorCode"></param>
-        /// <param name="familyCode">{ familyCode ∈ R ∣ familyCode >= 0 }</param>
+        /// <param name="familyCode">{ familyCode ∈ R ∣ familyCode &gt;= 0 }</param>
         /// <param name="inner"></param>
         public DomainException(
             string     message,

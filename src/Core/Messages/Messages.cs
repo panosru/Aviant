@@ -2,7 +2,7 @@ namespace Aviant.DDD.Core.Messages
 {
     using System.Collections.Generic;
 
-    public class Messages : IMessages
+    public sealed class Messages : IMessages
     {
         private List<string> _messages = new List<string>();
 

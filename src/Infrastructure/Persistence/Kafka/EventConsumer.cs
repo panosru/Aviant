@@ -1,8 +1,8 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Runtime.Serialization;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -33,7 +33,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
         private IConsumer<TAggregateId, string> _eventConsumer;
 
+        #pragma warning disable 8618
         public EventConsumer(
+            #pragma warning restore 8618
             IEventDeserializer                                              eventDeserializer,
             EventConsumerConfig                                             config,
             ILogger<EventConsumer<TAggregate, TAggregateId, TDeserializer>> logger)
@@ -53,7 +55,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
             var consumerBuilder        = new ConsumerBuilder<TAggregateId, string>(consumerConfig);
             var keyDeserializerFactory = new KeyDeserializerFactory();
-            consumerBuilder.SetKeyDeserializer(KeyDeserializerFactory.Create<TDeserializer, TAggregateId>());
+            consumerBuilder.SetKeyDeserializer(keyDeserializerFactory.Create<TDeserializer, TAggregateId>());
 
             _eventConsumer = consumerBuilder.Build();
 
@@ -65,14 +67,15 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
         public void Dispose()
         {
-            _eventConsumer?.Dispose();
-            _eventConsumer = null;
+            _eventConsumer.Dispose();
+            _eventConsumer = null!;
         }
 
         #endregion
 
         #region IEventConsumer<TAggregate,TAggregateId,TDeserializer> Members
 
+        [SuppressMessage("ReSharper", "CognitiveComplexity")]
         public Task ConsumeAsync(CancellationToken cancellationToken)
         {
             return Task.Run(
@@ -98,10 +101,6 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
                             IEvent<TAggregateId> @event =
                                 _eventDeserializer.Deserialize<TAggregateId>(eventType, cr.Message.Value);
-
-                            if (null == @event)
-                                throw new SerializationException(
-                                    $"unable to deserialize notification {eventType} : {cr.Message.Value}");
 
                             await OnEventReceivedAsync(@event, cancellationToken)
                                .ConfigureAwait(false);
@@ -135,7 +134,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
         {
             EventReceivedHandlerAsync<TAggregateId> handlerAsync = EventReceived;
 
-            return handlerAsync?.Invoke(this, e, cancellationToken)
+            return handlerAsync(this, e, cancellationToken)
                 ?? throw new NullReferenceException(
                        typeof(EventConsumer<TAggregate, TAggregateId, TDeserializer>).FullName);
         }
@@ -145,7 +144,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
         private void OnExceptionThrown(Exception e)
         {
             var handler = ExceptionThrown;
-            handler?.Invoke(this, e);
+            handler(this, e);
         }
 
         public event ConsumerStoppedHandler ConsumerStopped;
@@ -153,7 +152,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
         private void OnConsumerStopped()
         {
             var handler = ConsumerStopped;
-            handler?.Invoke(this);
+            handler(this);
         }
     }
 }

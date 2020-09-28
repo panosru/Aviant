@@ -4,13 +4,14 @@ namespace Aviant.DDD.Application.Services
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Runtime.Serialization;
     using System.Text;
     using Core.Aggregates;
     using Core.Events;
     using Core.Services;
     using Newtonsoft.Json;
 
-    public class JsonEventDeserializer : IEventDeserializer
+    public sealed class JsonEventDeserializer : IEventDeserializer
     {
         private readonly IEnumerable<Assembly> _assemblies;
 
@@ -53,6 +54,9 @@ namespace Aviant.DDD.Application.Services
                     ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
                     ContractResolver    = new PrivateSetterContractResolver()
                 });
+
+            if (result is null)
+                throw new SerializationException($"unable to deserialize event {type} : {data}");
 
             return (IEvent<TAggregateId>) result;
         }

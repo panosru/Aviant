@@ -70,7 +70,7 @@ namespace Aviant.DDD.Core.Aggregates
 
         public static TAggregate Create(IEnumerable<IEvent<TAggregateId>> events)
         {
-            List<IEvent<TAggregateId>>? enumerable = events.ToList();
+            List<IEvent<TAggregateId>> enumerable = events.ToList();
 
             if (null == events
              || !enumerable.Any())

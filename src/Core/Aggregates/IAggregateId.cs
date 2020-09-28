@@ -5,7 +5,7 @@ namespace Aviant.DDD.Core.Aggregates
         public byte[] Serialize();
     }
 
-    public interface IAggregateId<out T> : IAggregateId
+    internal interface IAggregateId<out T> : IAggregateId
         where T : notnull
     {
         public T Key { get; }

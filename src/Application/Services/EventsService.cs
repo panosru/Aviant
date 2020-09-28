@@ -9,7 +9,7 @@ namespace Aviant.DDD.Application.Services
     using Core.Persistence;
     using Core.Services;
 
-    public class EventsService<TAggregate, TAggregateId> : IEventsService<TAggregate, TAggregateId>
+    public sealed class EventsService<TAggregate, TAggregateId> : IEventsService<TAggregate, TAggregateId>
         where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {

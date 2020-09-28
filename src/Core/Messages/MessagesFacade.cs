@@ -5,7 +5,7 @@ namespace Aviant.DDD.Core.Messages
     using Exceptions;
     using Services;
 
-    public static class MessagesFacade
+    internal static class MessagesFacade
     {
         [ThreadStatic]
         private static IMessages? _mockContainer;
@@ -50,7 +50,7 @@ namespace Aviant.DDD.Core.Messages
         {
             var container = GetContainer();
 
-            return container is { } && container.HasMessages();
+            return container?.HasMessages() == true;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Aviant.DDD.Application.Behaviours
     using MediatR;
     using Microsoft.Extensions.Logging;
 
-    public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public sealed class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : notnull
     {
         private readonly ILogger<TRequest> _logger;

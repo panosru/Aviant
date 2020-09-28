@@ -3,7 +3,7 @@ namespace Aviant.DDD.Infrastructure.Services
     using System;
     using Application.Services;
 
-    public class DateTimeService
+    public sealed class DateTimeService
         : IDateTimeService
     {
         #region IDateTimeService Members

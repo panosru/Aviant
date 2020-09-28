@@ -4,6 +4,7 @@ namespace Aviant.DDD.Application.Services
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
 
+    /// <inheritdoc />
     /// <summary>
     ///     https://www.mking.net/blog/working-with-private-setters-in-json-net
     /// </summary>

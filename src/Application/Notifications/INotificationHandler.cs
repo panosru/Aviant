@@ -3,7 +3,7 @@ namespace Aviant.DDD.Application.Notifications
     using System.Threading;
     using System.Threading.Tasks;
 
-    public interface INotificationHandler<in TNotification> : MediatR.INotificationHandler<TNotification>
+    internal interface INotificationHandler<in TNotification> : MediatR.INotificationHandler<TNotification>
         where TNotification : INotification
     {
         /// <summary>

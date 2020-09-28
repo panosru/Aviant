@@ -6,7 +6,7 @@ namespace Aviant.DDD.Application.Mappings
     using System.Reflection;
     using AutoMapper;
 
-    public class MappingProfile : Profile
+    public sealed class MappingProfile : Profile
     {
         public MappingProfile(Assembly assembly)
         {

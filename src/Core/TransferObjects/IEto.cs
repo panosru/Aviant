@@ -1,5 +1,5 @@
 namespace Aviant.DDD.Core.TransferObjects
 {
-    public interface IEto : ITransferObject
+    internal interface IEto : ITransferObject
     { }
 }

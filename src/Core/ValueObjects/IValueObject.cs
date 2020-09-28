@@ -1,6 +1,6 @@
 namespace Aviant.DDD.Core.ValueObjects
 {
-    public interface IValueObject
+    internal interface IValueObject
     {
         public bool Equals(ValueObject obj);
 

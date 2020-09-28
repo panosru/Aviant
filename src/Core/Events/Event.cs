@@ -7,7 +7,9 @@ namespace Aviant.DDD.Core.Events
         where TAggregate : IAggregate<TAggregateId>
         where TAggregateId : IAggregateId
     {
+        #pragma warning disable 8618
         protected Event()
+            #pragma warning restore 8618
         { }
 
         protected Event(TAggregate aggregate)

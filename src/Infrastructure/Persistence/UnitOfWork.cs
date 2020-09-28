@@ -7,7 +7,7 @@ namespace Aviant.DDD.Infrastructure.Persistence
     using Core.Aggregates;
     using Core.Services;
 
-    public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext>, IDisposable
+    public sealed class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext>, IDisposable
         where TDbContext : IDbContextWrite
     {
         private readonly TDbContext _context;
@@ -23,6 +23,8 @@ namespace Aviant.DDD.Infrastructure.Persistence
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        ~UnitOfWork() => Dispose(false);
 
         #endregion
 
@@ -42,7 +44,7 @@ namespace Aviant.DDD.Infrastructure.Persistence
         }
     }
 
-    public class UnitOfWork<TAggregate, TAggregateId>
+    public sealed class UnitOfWork<TAggregate, TAggregateId>
         : IUnitOfWork<TAggregate, TAggregateId>
         where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId

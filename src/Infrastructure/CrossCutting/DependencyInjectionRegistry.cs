@@ -3,6 +3,7 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using Core.Services;
     using Microsoft.AspNetCore.Hosting;
@@ -53,21 +54,21 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
                 configurationBuilder,
                 domain,
                 CurrentEnvironment.EnvironmentName,
-                ConfigurationFormat.JSON);
+                ConfigurationFormat.Json);
 
             // YML overrides JSON
             LoadConfiguration(
                 configurationBuilder,
                 domain,
                 CurrentEnvironment.EnvironmentName,
-                ConfigurationFormat.YML);
+                ConfigurationFormat.Yml);
 
             // YAML overrides both YML and JSON
             LoadConfiguration(
                 configurationBuilder,
                 domain,
                 CurrentEnvironment.EnvironmentName,
-                ConfigurationFormat.YAML);
+                ConfigurationFormat.Yaml);
 
             return configurationBuilder.Build();
         }
@@ -84,37 +85,37 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
                 $"appsettings.{domain}.{environment}.{Enum.GetName(typeof(ConfigurationFormat), format)?.ToLower()}"
             };
 
-            foreach (var configFile in configFiles)
-                if (ConfigurationExists(configFile))
-                    switch (format)
-                    {
-                        case ConfigurationFormat.JSON:
-                            ConfigurationWithDomainsBuilder?.Sources
-                               .Add(GetSource<JsonConfigurationSource>(configFile));
+            foreach (var configFile in configFiles.Where(ConfigurationExists))
+                switch (format)
+                {
+                    case ConfigurationFormat.Json:
+                        ConfigurationWithDomainsBuilder?.Sources
+                           .Add(GetSource<JsonConfigurationSource>(configFile));
 
-                            configurationBuilder.Sources
-                               .Add(GetSource<JsonConfigurationSource>(configFile));
-                            break;
+                        configurationBuilder.Sources
+                           .Add(GetSource<JsonConfigurationSource>(configFile));
+                        break;
 
-                        case ConfigurationFormat.YAML:
-                        case ConfigurationFormat.YML:
-                            ConfigurationWithDomainsBuilder?.Sources
-                               .Add(GetSource<YamlConfigurationSource>(configFile));
+                    case ConfigurationFormat.Yaml:
+                    case ConfigurationFormat.Yml:
+                        ConfigurationWithDomainsBuilder?.Sources
+                           .Add(GetSource<YamlConfigurationSource>(configFile));
 
-                            configurationBuilder.Sources
-                               .Add(GetSource<YamlConfigurationSource>(configFile));
-                            break;
+                        configurationBuilder.Sources
+                           .Add(GetSource<YamlConfigurationSource>(configFile));
+                        break;
 
-                        default:
-                            throw new ArgumentOutOfRangeException(nameof(format), format, null);
-                    }
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(format), format, null);
+                }
         }
 
-        private static bool ConfigurationExists(string configFileName) => File.Exists(
-            Path.Combine(
-                Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)
-             ?? throw new NullReferenceException(Assembly.GetCallingAssembly().FullName),
-                configFileName));
+        private static bool ConfigurationExists(string configFileName) =>
+            File.Exists(
+                Path.Combine(
+                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+                 ?? throw new NullReferenceException(Assembly.GetExecutingAssembly().FullName),
+                    configFileName));
 
         private static TConfigurationSource GetSource<TConfigurationSource>(string configFileName)
             where TConfigurationSource : FileConfigurationSource, new()

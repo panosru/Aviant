@@ -12,7 +12,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using Microsoft.EntityFrameworkCore.ChangeTracking;
     using Microsoft.EntityFrameworkCore.Metadata;
 
-    public interface IAuditableImplementation<TDbContext>
+    internal interface IAuditableImplementation<TDbContext>
         where TDbContext : class, IDbContextWrite
     {
         public MethodInfo? ConfigureGlobalFiltersMethodInfo => typeof(TDbContext)

@@ -1,5 +1,6 @@
 namespace Aviant.DDD.Core.EventBus
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Threading;
     using System.Threading.Tasks;
     using Aggregates;
@@ -10,6 +11,7 @@ namespace Aviant.DDD.Core.EventBus
         public Task ConsumeAsync(CancellationToken cancellationToken);
     }
 
+    [SuppressMessage("ReSharper", "UnusedTypeParameter")]
     public interface IEventConsumer<TAggregate, out TAggregateId, TDeserializer>
         : IEventConsumer
         where TAggregate : IAggregate<TAggregateId>

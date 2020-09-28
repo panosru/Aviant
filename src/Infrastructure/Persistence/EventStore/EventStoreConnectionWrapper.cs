@@ -6,7 +6,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
     using global::EventStore.ClientAPI;
     using Microsoft.Extensions.Logging;
 
-    public class EventStoreConnectionWrapper : IEventStoreConnectionWrapper, IDisposable
+    public sealed class EventStoreConnectionWrapper : IEventStoreConnectionWrapper, IDisposable
     {
         private readonly Uri _connectionString;
 
@@ -20,19 +20,16 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             _logger           = logger;
 
             _lazyConnection = new Lazy<Task<IEventStoreConnection>>(
-                () =>
-                {
-                    return Task.Run(
-                        async () =>
-                        {
-                            var connection = SetupConnection();
+                () => Task.Run(
+                    async () =>
+                    {
+                        var connection = SetupConnection();
 
-                            await connection.ConnectAsync()
-                               .ConfigureAwait(false);
+                        await connection.ConnectAsync()
+                           .ConfigureAwait(false);
 
-                            return connection;
-                        });
-                });
+                        return connection;
+                    }));
         }
 
         #region IDisposable Members
@@ -68,7 +65,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             {
                 _logger.LogWarning(
                     e.Exception,
-                    $"an error has occurred on the Eventstore connection: {e.Exception.Message} . Trying to reconnect...");
+                    $@"an error has occurred on the Eventstore connection: {e
+                       .Exception.Message} . Trying to reconnect...");
                 connection = SetupConnection();
 
                 await connection.ConnectAsync()
@@ -86,7 +84,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             connection.Closed += async (s, e) =>
             {
-                _logger.LogWarning($"The Eventstore connection was closed: {e.Reason}. Opening new connection...");
+                _logger.LogWarning(
+                    $@"The Eventstore connection was closed: {e
+                       .Reason}. Opening new connection...");
                 connection = SetupConnection();
 
                 await connection.ConnectAsync()

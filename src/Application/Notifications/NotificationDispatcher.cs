@@ -7,7 +7,7 @@ namespace Aviant.DDD.Application.Notifications
     using MediatR;
     using Services;
 
-    public class NotificationDispatcher : INotificationDispatcher
+    public sealed class NotificationDispatcher : INotificationDispatcher
     {
         private readonly IDateTimeService _dateTimeService;
 

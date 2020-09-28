@@ -1,11 +1,11 @@
 namespace Aviant.DDD.Infrastructure.CrossCutting
 {
-    public enum ConfigurationFormat
+    internal enum ConfigurationFormat
     {
-        JSON,
+        Json,
 
-        YAML,
+        Yaml,
 
-        YML
+        Yml
     }
 }

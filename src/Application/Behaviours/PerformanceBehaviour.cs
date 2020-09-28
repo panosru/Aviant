@@ -8,7 +8,7 @@ namespace Aviant.DDD.Application.Behaviours
     using MediatR;
     using Microsoft.Extensions.Logging;
 
-    public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public sealed class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : notnull
     {
         private readonly ICurrentUserService _currentUserService;

@@ -6,7 +6,7 @@ namespace Aviant.DDD.Application.Processors
     using MediatR;
     using Polly;
 
-    public class RetryProcessor<TNotification> : INotificationHandler<TNotification>
+    public sealed class RetryProcessor<TNotification> : INotificationHandler<TNotification>
         where TNotification : INotification
     {
         private readonly INotificationHandler<TNotification> _inner;

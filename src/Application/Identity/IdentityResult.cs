@@ -3,7 +3,7 @@ namespace Aviant.DDD.Application.Identity
     using System.Collections.Generic;
     using System.Linq;
 
-    public class IdentityResult
+    public sealed class IdentityResult
     {
         private IdentityResult(bool succeeded, IEnumerable<string> errors)
         {

@@ -13,7 +13,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
     using Core.Services;
     using global::EventStore.ClientAPI;
 
-    public class EventsRepository<TAggregate, TAggregateId> : IEventsRepository<TAggregate, TAggregateId>
+    internal sealed class EventsRepository<TAggregate, TAggregateId> : IEventsRepository<TAggregate, TAggregateId>
         where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
@@ -58,13 +58,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             try
             {
-                foreach (IEvent<TAggregateId> @event in aggregate.Events)
-                {
-                    var eventData = Map(@event);
-
+                foreach (var eventData in aggregate.Events.Select(Map))
                     await transaction.WriteAsync(eventData)
                        .ConfigureAwait(false);
-                }
 
                 await transaction.CommitAsync()
                    .ConfigureAwait(false);
@@ -137,7 +133,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             var meta = new EventMeta
             {
-                EventType = eventType.AssemblyQualifiedName
+                EventType = eventType.AssemblyQualifiedName!
             };
             var    metaJson = JsonSerializer.Serialize(meta);
             byte[] metadata = Encoding.UTF8.GetBytes(metaJson);

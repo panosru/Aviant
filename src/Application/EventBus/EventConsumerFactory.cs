@@ -8,7 +8,7 @@ namespace Aviant.DDD.Application.EventBus
     using MediatR;
     using Microsoft.Extensions.DependencyInjection;
 
-    public class EventConsumerFactory : IEventConsumerFactory
+    public sealed class EventConsumerFactory : IEventConsumerFactory
     {
         private readonly IServiceScopeFactory _scopeFactory;
 
