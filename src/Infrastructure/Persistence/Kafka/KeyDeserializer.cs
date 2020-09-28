@@ -3,7 +3,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using System;
     using Confluent.Kafka;
 
-    internal class KeyDeserializer : IDeserializer<Guid>
+    internal sealed class KeyDeserializer : IDeserializer<Guid>
     {
         #region IDeserializer<Guid> Members
 

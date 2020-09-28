@@ -1,6 +1,5 @@
 namespace Aviant.DDD.Application.Persistance
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Threading;
     using System.Threading.Tasks;
     using Core.Aggregates;
@@ -8,7 +7,7 @@ namespace Aviant.DDD.Application.Persistance
     /// <summary>
     ///     Unit of Work Interface
     /// </summary>
-    [SuppressMessage("ReSharper", "UnusedTypeParameter")]
+    // ReSharper disable once UnusedTypeParameter
     public interface IUnitOfWork<TDbContext>
         where TDbContext : IDbContextWrite
     {

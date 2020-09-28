@@ -8,7 +8,7 @@ namespace Aviant.DDD.Application.Services
     /// <summary>
     ///     https://www.mking.net/blog/working-with-private-setters-in-json-net
     /// </summary>
-    internal class PrivateSetterContractResolver : DefaultContractResolver
+    internal sealed class PrivateSetterContractResolver : DefaultContractResolver
     {
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {

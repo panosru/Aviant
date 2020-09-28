@@ -1,7 +1,6 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Text;
     using System.Threading;
@@ -75,7 +74,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
         #region IEventConsumer<TAggregate,TAggregateId,TDeserializer> Members
 
-        [SuppressMessage("ReSharper", "CognitiveComplexity")]
+        // ReSharper disable once CognitiveComplexity
         public Task ConsumeAsync(CancellationToken cancellationToken)
         {
             return Task.Run(

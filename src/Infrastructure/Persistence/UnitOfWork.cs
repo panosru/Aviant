@@ -24,8 +24,6 @@ namespace Aviant.DDD.Infrastructure.Persistence
             GC.SuppressFinalize(this);
         }
 
-        ~UnitOfWork() => Dispose(false);
-
         #endregion
 
         #region IUnitOfWork<TDbContext> Members
@@ -35,6 +33,8 @@ namespace Aviant.DDD.Infrastructure.Persistence
                .ConfigureAwait(false);
 
         #endregion
+
+        ~UnitOfWork() => Dispose(false);
 
         private void Dispose(bool disposing)
         {

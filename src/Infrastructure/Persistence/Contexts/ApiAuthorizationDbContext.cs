@@ -13,7 +13,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
     /// <inheritdoc cref="Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext&lt;TUser, TRole, TKey&gt;" />
     /// <summary>
-    ///     Database abstraction for a combined <see cref="T:Microsoft.EntityFrameworkCore.DbContext" /> using ASP.NET Identity and Identity Server.
+    ///     Database abstraction for a combined <see cref="T:Microsoft.EntityFrameworkCore.DbContext" /> using ASP.NET Identity
+    ///     and Identity Server.
     /// </summary>
     /// <typeparam name="TUser"></typeparam>
     /// <typeparam name="TRole"></typeparam>
@@ -28,7 +29,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         /// <inheritdoc />
         /// <summary>
-        ///     Initializes a new instance of <see cref="T:Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext`3" />.
+        ///     Initializes a new instance of
+        ///     <see cref="T:Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext`3" />.
         /// </summary>
         /// <param name="options">The <see cref="T:Microsoft.EntityFrameworkCore.DbContextOptions" />.</param>
         /// <param name="operationalStoreOptions">The <see cref="T:Microsoft.Extensions.Options.IOptions`1" />.</param>
@@ -65,7 +67,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
     /// <inheritdoc />
     /// <summary>
-    ///     Database abstraction for a combined <see cref="T:Microsoft.EntityFrameworkCore.DbContext" /> using ASP.NET Identity and Identity Server.
+    ///     Database abstraction for a combined <see cref="T:Microsoft.EntityFrameworkCore.DbContext" /> using ASP.NET Identity
+    ///     and Identity Server.
     /// </summary>
     /// <typeparam name="TUser"></typeparam>
     public class ApiAuthorizationDbContext<TUser> : ApiAuthorizationDbContext<TUser, IdentityRole, string>
@@ -73,7 +76,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Initializes a new instance of <see cref="T:Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext`1" />.
+        ///     Initializes a new instance of
+        ///     <see cref="T:Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext`1" />.
         /// </summary>
         /// <param name="options">The <see cref="T:Microsoft.EntityFrameworkCore.DbContextOptions" />.</param>
         /// <param name="operationalStoreOptions">The <see cref="T:Microsoft.Extensions.Options.IOptions`1" />.</param>

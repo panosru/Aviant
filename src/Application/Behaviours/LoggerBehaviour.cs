@@ -7,7 +7,7 @@ namespace Aviant.DDD.Application.Behaviours
     using MediatR.Pipeline;
     using Microsoft.Extensions.Logging;
 
-    public class LoggerBehaviour<TRequest> : IRequestPreProcessor<TRequest>
+    public sealed class LoggerBehaviour<TRequest> : IRequestPreProcessor<TRequest>
         where TRequest : notnull
     {
         private readonly ICurrentUserService _currentUserService;
