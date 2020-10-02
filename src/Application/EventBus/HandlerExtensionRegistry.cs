@@ -7,16 +7,11 @@ namespace Aviant.DDD.Application.EventBus
 
     public static class HandlerExtensionRegistry
     {
-        private static readonly HashSet<Type> Decorators;
-
-        static HandlerExtensionRegistry()
-        {
-            Decorators = new HashSet<Type>(
-                new[]
-                {
-                    typeof(RetryProcessor<>)
-                });
-        }
+        private static readonly HashSet<Type> Decorators = new HashSet<Type>(
+            new[]
+            {
+                typeof(RetryProcessor<>)
+            });
 
         public static IImplementationTypeSelector RegisterHandlers(this IImplementationTypeSelector selector, Type type)
         {
