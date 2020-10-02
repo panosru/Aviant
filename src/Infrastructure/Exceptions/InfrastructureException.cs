@@ -1,6 +1,7 @@
 namespace Aviant.DDD.Infrastructure.Exceptions
 {
     using System;
+    using System.Runtime.Serialization;
     using Core.Exceptions;
 
     public class InfrastructureException : DomainException
@@ -26,6 +27,10 @@ namespace Aviant.DDD.Infrastructure.Exceptions
                 errorCode,
                 familyCode,
                 inner)
+        { }
+
+        protected InfrastructureException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         { }
     }
 }

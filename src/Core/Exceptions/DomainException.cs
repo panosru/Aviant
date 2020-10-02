@@ -1,6 +1,7 @@
 namespace Aviant.DDD.Core.Exceptions
 {
     using System;
+    using System.Runtime.Serialization;
 
     [Serializable]
     public class DomainException : Exception
@@ -32,6 +33,10 @@ namespace Aviant.DDD.Core.Exceptions
         {
             SetHResult(errorCode, familyCode);
         }
+
+        protected DomainException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        { }
 
         public int ErrorCode => Getcode("ErrorCode");
 

@@ -1,8 +1,10 @@
 namespace Aviant.DDD.Application.Exceptions
 {
     using System;
+    using System.Runtime.Serialization;
     using Core.Exceptions;
 
+    [Serializable]
     public class ApplicationException : DomainException
     {
         public ApplicationException()
@@ -26,6 +28,10 @@ namespace Aviant.DDD.Application.Exceptions
                 errorCode,
                 familyCode,
                 inner)
+        { }
+
+        protected ApplicationException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         { }
     }
 }

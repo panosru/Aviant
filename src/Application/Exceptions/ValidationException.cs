@@ -1,9 +1,12 @@
 namespace Aviant.DDD.Application.Exceptions
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.Serialization;
     using FluentValidation.Results;
 
+    [Serializable]
     public class ValidationException : ApplicationException
     {
         public ValidationException()
@@ -20,10 +23,14 @@ namespace Aviant.DDD.Application.Exceptions
                 var      propertyName     = failureGroup.Key;
                 string[] propertyFailures = failureGroup.ToArray();
 
-                Failures.Add(propertyName, propertyFailures);
+                Failures?.Add(propertyName, propertyFailures);
             }
         }
 
-        public IDictionary<string, string[]> Failures { get; }
+        protected ValidationException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        { }
+
+        public IDictionary<string, string[]>? Failures { get; }
     }
 }
