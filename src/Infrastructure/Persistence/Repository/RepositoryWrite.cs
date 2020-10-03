@@ -74,10 +74,22 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
 
         public void Dispose()
         {
-            DbContext.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         #endregion
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+                DbContext.Dispose();
+        }
+
+        ~RepositoryWriteImplementation()
+        {
+            Dispose(false);
+        }
     }
 
 
