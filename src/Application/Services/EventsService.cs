@@ -28,16 +28,22 @@ namespace Aviant.DDD.Application.Services
 
         #region IEventsService<TAggregate,TAggregateId> Members
 
-        public async Task PersistAsync(
+        public Task PersistAsync(
             TAggregate        aggregate,
             CancellationToken cancellationToken = default)
         {
             if (aggregate is null)
                 throw new ArgumentNullException(nameof(aggregate));
 
-            if (!aggregate.Events.Any())
-                return;
+            return !aggregate.Events.Any()
+                ? Task.CompletedTask
+                : PersistEventsAsync(aggregate, cancellationToken);
+        }
 
+        private async Task PersistEventsAsync(
+            TAggregate        aggregate,
+            CancellationToken cancellationToken = default)
+        {
             await _eventsRepository.AppendAsync(aggregate, cancellationToken)
                .ConfigureAwait(false);
 
