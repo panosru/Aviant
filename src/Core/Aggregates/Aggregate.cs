@@ -48,25 +48,19 @@ namespace Aviant.DDD.Core.Aggregates
 
         #region Factory
 
-        // ReSharper disable once StaticMemberInGenericType
-        private static readonly Lazy<ConstructorInfo> LazyConstructor;
+        private static readonly Lazy<ConstructorInfo> LazyConstructor = new Lazy<ConstructorInfo>(
+            () =>
+            {
+                var aggregateType = typeof(TAggregate);
 
-        static Aggregate()
-        {
-            LazyConstructor = new Lazy<ConstructorInfo>(
-                () =>
-                {
-                    var aggregateType = typeof(TAggregate);
+                var constructor = aggregateType.GetConstructor(
+                    BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
+                    null,
+                    new Type[0],
+                    new ParameterModifier[0]);
 
-                    var constructor = aggregateType.GetConstructor(
-                        BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
-                        null,
-                        new Type[0],
-                        new ParameterModifier[0]);
-
-                    return constructor!;
-                });
-        }
+                return constructor!;
+            });
 
         public static TAggregate Create(IEnumerable<IEvent<TAggregateId>> events)
         {
