@@ -74,6 +74,11 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             CancellationToken cancellationToken = default) =>
             GetAll().FirstOrDefaultAsync(CreateEqualityExpressionForId(id), cancellationToken);
 
+        public virtual Task<TEntity> GetFirstAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default) =>
+            GetAll().FirstOrDefaultAsync(predicate, cancellationToken);
+
         public virtual Task<TEntity> GetFirstIncludingAsync(
             TPrimaryKey                                id,
             CancellationToken                          cancellationToken = default,
@@ -88,11 +93,6 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
 
             return query.FirstOrDefaultAsync(CreateEqualityExpressionForId(id), cancellationToken);
         }
-
-        public virtual Task<TEntity> GetFirstAsync(
-            Expression<Func<TEntity, bool>> predicate,
-            CancellationToken               cancellationToken = default) =>
-            GetAll().FirstOrDefaultAsync(predicate, cancellationToken);
 
         public virtual Task<TEntity> GetFirstIncludingAsync(
             Expression<Func<TEntity, bool>>            predicate,
@@ -114,6 +114,11 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             CancellationToken cancellationToken = default) =>
             GetAll().SingleOrDefaultAsync(CreateEqualityExpressionForId(id), cancellationToken);
 
+        public virtual Task<TEntity> GetSingleAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default) =>
+            GetAll().SingleOrDefaultAsync(predicate, cancellationToken);
+
         public virtual Task<TEntity> GetSingleIncludingAsync(
             TPrimaryKey                                id,
             CancellationToken                          cancellationToken = default,
@@ -128,11 +133,6 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
 
             return query.SingleOrDefaultAsync(CreateEqualityExpressionForId(id), cancellationToken);
         }
-
-        public virtual Task<TEntity> GetSingleAsync(
-            Expression<Func<TEntity, bool>> predicate,
-            CancellationToken               cancellationToken = default) =>
-            GetAll().SingleOrDefaultAsync(predicate, cancellationToken);
 
         public virtual Task<TEntity> GetSingleIncludingAsync(
             Expression<Func<TEntity, bool>>            predicate,
