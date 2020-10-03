@@ -1,7 +1,7 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 {
-    using System;
     using System.Linq;
+    using Exceptions;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -24,7 +24,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         public static void ThrowWriteException()
         {
-            throw new Exception("Read-only context");
+            throw new InfrastructureException("Read-only context");
         }
     }
 }

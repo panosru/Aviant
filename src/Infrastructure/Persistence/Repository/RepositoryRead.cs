@@ -9,177 +9,31 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
     using Application.Identity;
     using Contexts;
     using Core.Entities;
+    using Core.Exceptions;
     using Core.Persistence;
     using Microsoft.EntityFrameworkCore;
 
-    public abstract class RepositoryReadImplementation<TDbContext, TEntity, TPrimaryKey>
-        : IRepositoryRead<TEntity, TPrimaryKey>
+    /// <inheritdoc cref="Aviant.DDD.Core.Persistence.IRepositoryRead&lt;TEntity,TPrimaryKey&gt;" />
+    public abstract class RepositoryReadBase<TDbContext, TEntity, TPrimaryKey>
+        : IRepositoryRead<TEntity, TPrimaryKey>,
+          IRepositoryImplementation<TEntity, TPrimaryKey>
         where TDbContext : DbContext
         where TEntity : Entity<TPrimaryKey>
     {
-        protected RepositoryReadImplementation(TDbContext dbContext) => DbContext = dbContext;
+        private readonly IRepositoryImplementation<TEntity, TPrimaryKey> _repositoryImplementation;
+
+        protected RepositoryReadBase(TDbContext dbContext)
+        {
+            _repositoryImplementation = this;
+
+            DbContext = dbContext;
+        }
 
         private TDbContext DbContext { get; }
 
         private DbSet<TEntity> DbSet => DbContext.Set<TEntity>();
 
         #region IRepositoryRead<TEntity,TPrimaryKey> Members
-
-        public virtual IQueryable<TEntity> GetAll()
-        {
-            IQueryable<TEntity> query = DbSet;
-
-            return query;
-        }
-
-        public virtual IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            IQueryable<TEntity> query = GetAll();
-            BindIncludeProperties(query, includeProperties);
-
-            includeProperties.Aggregate(
-                query,
-                (current, includeProperty) =>
-                    current.Include(includeProperty));
-
-            return query;
-        }
-
-        public virtual async Task<List<TEntity>> GetAllListAsync(CancellationToken cancellationToken = default) =>
-            await GetAll()
-               .ToListAsync(cancellationToken: cancellationToken)
-               .ConfigureAwait(false);
-
-        public virtual Task<List<TEntity>> GetAllListIncludingAsync(
-            CancellationToken                          cancellationToken = default,
-            params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            IQueryable<TEntity> query = GetAll();
-
-            includeProperties.Aggregate(
-                query,
-                (current, includeProperty) =>
-                    current.Include(includeProperty));
-
-            return query.ToListAsync(cancellationToken: cancellationToken);
-        }
-
-        public virtual ValueTask<TEntity> FindAsync(
-            TPrimaryKey       id,
-            CancellationToken cancellationToken = default) =>
-            DbSet.FindAsync(new object[] { id! }, cancellationToken);
-
-        public virtual Task<TEntity> GetFirstAsync(
-            TPrimaryKey       id,
-            CancellationToken cancellationToken = default) =>
-            GetAll().FirstOrDefaultAsync(CreateEqualityExpressionForId(id), cancellationToken);
-
-        public virtual Task<TEntity> GetFirstAsync(
-            Expression<Func<TEntity, bool>> predicate,
-            CancellationToken               cancellationToken = default) =>
-            GetAll().FirstOrDefaultAsync(predicate, cancellationToken);
-
-        public virtual Task<TEntity> GetFirstIncludingAsync(
-            TPrimaryKey                                id,
-            CancellationToken                          cancellationToken = default,
-            params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            IQueryable<TEntity> query = GetAll();
-
-            query = includeProperties.Aggregate(
-                query,
-                (current, includeProperty) =>
-                    current.Include(includeProperty));
-
-            return query.FirstOrDefaultAsync(CreateEqualityExpressionForId(id), cancellationToken);
-        }
-
-        public virtual Task<TEntity> GetFirstIncludingAsync(
-            Expression<Func<TEntity, bool>>            predicate,
-            CancellationToken                          cancellationToken = default,
-            params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            IQueryable<TEntity> query = GetAll();
-
-            query = includeProperties.Aggregate(
-                query,
-                (current, includeProperty) =>
-                    current.Include(includeProperty));
-
-            return query.FirstOrDefaultAsync(predicate, cancellationToken);
-        }
-
-        public virtual Task<TEntity> GetSingleAsync(
-            TPrimaryKey       id,
-            CancellationToken cancellationToken = default) =>
-            GetAll().SingleOrDefaultAsync(CreateEqualityExpressionForId(id), cancellationToken);
-
-        public virtual Task<TEntity> GetSingleAsync(
-            Expression<Func<TEntity, bool>> predicate,
-            CancellationToken               cancellationToken = default) =>
-            GetAll().SingleOrDefaultAsync(predicate, cancellationToken);
-
-        public virtual Task<TEntity> GetSingleIncludingAsync(
-            TPrimaryKey                                id,
-            CancellationToken                          cancellationToken = default,
-            params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            IQueryable<TEntity> query = GetAll();
-
-            query = includeProperties.Aggregate(
-                query,
-                (current, includeProperty) =>
-                    current.Include(includeProperty));
-
-            return query.SingleOrDefaultAsync(CreateEqualityExpressionForId(id), cancellationToken);
-        }
-
-        public virtual Task<TEntity> GetSingleIncludingAsync(
-            Expression<Func<TEntity, bool>>            predicate,
-            CancellationToken                          cancellationToken = default,
-            params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            IQueryable<TEntity> query = GetAll();
-
-            query = includeProperties.Aggregate(
-                query,
-                (current, includeProperty) =>
-                    current.Include(includeProperty));
-
-            return query.SingleOrDefaultAsync(predicate, cancellationToken);
-        }
-
-        public virtual IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate) =>
-            GetAll().Where(predicate);
-
-        public virtual IQueryable<TEntity> FindByIncluding(
-            Expression<Func<TEntity, bool>>            predicate,
-            params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            IQueryable<TEntity> query = GetAll();
-            query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-
-            return query.Where(predicate);
-        }
-
-        public virtual Task<bool> AnyAsync(
-            Expression<Func<TEntity, bool>> predicate,
-            CancellationToken               cancellationToken = default) =>
-            DbSet.AnyAsync(predicate, cancellationToken);
-
-        public virtual Task<bool> AllAsync(
-            Expression<Func<TEntity, bool>> predicate,
-            CancellationToken               cancellationToken = default) =>
-            DbSet.AllAsync(predicate, cancellationToken);
-
-        public virtual async Task<int> CountAsync(CancellationToken cancellationToken = default) =>
-            await DbSet.CountAsync(cancellationToken: cancellationToken)
-               .ConfigureAwait(false);
-
-        public virtual Task<int> CountAsync(
-            Expression<Func<TEntity, bool>> predicate,
-            CancellationToken               cancellationToken = default) =>
-            DbSet.CountAsync(predicate, cancellationToken);
 
         public void Dispose()
         {
@@ -195,37 +49,184 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
                 DbContext.Dispose();
         }
 
-        ~RepositoryReadImplementation()
+        ~RepositoryReadBase()
         {
             Dispose(false);
         }
 
-        private static void BindIncludeProperties(
-            IQueryable<TEntity>                            query,
-            IEnumerable<Expression<Func<TEntity, object>>> includeProperties)
+        #region Select/Get/Query
+
+        public virtual IQueryable<TEntity> GetAll() => DbSet;
+
+        public virtual IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] propertySelectors)
         {
-            includeProperties.Aggregate(
+            IQueryable<TEntity> query = GetAll();
+
+            return propertySelectors.Aggregate(
                 query,
                 (current, includeProperty) =>
                     current.Include(includeProperty));
         }
 
-        private static Expression<Func<TEntity, bool>> CreateEqualityExpressionForId(TPrimaryKey id)
-        {
-            var lambdaParam = Expression.Parameter(typeof(TEntity));
+        public virtual IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate) =>
+            GetAll().Where(predicate);
 
-            var lambdaBody = Expression.Equal(
-                Expression.PropertyOrField(lambdaParam, "Id"),
-                Expression.Constant(id, typeof(TPrimaryKey))
-            );
+        public virtual IQueryable<TEntity> FindByIncluding(
+            Expression<Func<TEntity, bool>>            predicate,
+            params Expression<Func<TEntity, object>>[] propertySelectors) =>
+            GetAllIncluding(propertySelectors).Where(predicate);
 
-            return Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
-        }
+        public virtual List<TEntity> GetAllList() =>
+            GetAll().ToList();
+
+        public virtual List<TEntity> GetAllList(Expression<Func<TEntity, bool>> predicate) =>
+            FindBy(predicate).ToList();
+
+        public virtual ValueTask<List<TEntity>> GetAllListAsync(CancellationToken cancellationToken = default) =>
+            new ValueTask<List<TEntity>>(GetAllList());
+
+        public virtual ValueTask<List<TEntity>> GetAllListAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default) =>
+            new ValueTask<List<TEntity>>(GetAllList(predicate));
+
+
+        public virtual TEntity GetAllListIncluding(
+            Expression<Func<TEntity, bool>>            predicate,
+            params Expression<Func<TEntity, object>>[] propertySelectors) =>
+            FindByIncluding(predicate, propertySelectors)
+               .FirstOrDefault(predicate)
+         ?? throw new EntityNotFoundException(nameof(predicate));
+
+        public virtual ValueTask<TEntity> GetAllListIncludingAsync(
+            Expression<Func<TEntity, bool>>            predicate,
+            CancellationToken                          cancellationToken = default,
+            params Expression<Func<TEntity, object>>[] propertySelectors) =>
+            new ValueTask<TEntity>(GetAllListIncluding(predicate, propertySelectors));
+
+        public virtual TEntity Get(TPrimaryKey id) =>
+            FirstOrDefault(id)
+         ?? throw new EntityNotFoundException(typeof(TEntity), id);
+
+        public virtual ValueTask<TEntity> GetAsync(
+            TPrimaryKey       id,
+            CancellationToken cancellationToken = default) =>
+            new ValueTask<TEntity>(Get(id));
+
+
+        public virtual TEntity Single(Expression<Func<TEntity, bool>> predicate) =>
+            GetAll().Single(predicate);
+
+        public virtual ValueTask<TEntity> GetSingleAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default) =>
+            new ValueTask<TEntity>(Single(predicate));
+
+        public virtual TEntity GetSingleIncluding(
+            Expression<Func<TEntity, bool>>            predicate,
+            params Expression<Func<TEntity, object>>[] propertySelectors) =>
+            GetAllIncluding(propertySelectors)
+               .SingleOrDefault(predicate)
+         ?? throw new EntityNotFoundException(nameof(predicate));
+
+        public virtual ValueTask<TEntity> GetSingleIncludingAsync(
+            Expression<Func<TEntity, bool>>            predicate,
+            CancellationToken                          cancellationToken = default,
+            params Expression<Func<TEntity, object>>[] propertySelectors) =>
+            new ValueTask<TEntity>(GetSingleIncluding(predicate, propertySelectors));
+
+        public virtual TEntity FirstOrDefault(TPrimaryKey id) =>
+            GetAll().FirstOrDefault(_repositoryImplementation.CreateEqualityExpressionForId(id))
+         ?? throw new EntityNotFoundException(nameof(id));
+
+        public virtual TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate) =>
+            GetAll().FirstOrDefault(predicate)
+         ?? throw new EntityNotFoundException(nameof(predicate));
+
+        public virtual ValueTask<TEntity> FirstOrDefaultAsync(
+            TPrimaryKey       id,
+            CancellationToken cancellationToken = default) =>
+            new ValueTask<TEntity>(FirstOrDefault(id));
+
+        public virtual ValueTask<TEntity> FirstOrDefaultAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default) =>
+            new ValueTask<TEntity>(FirstOrDefault(predicate));
+
+        public virtual TEntity FirstOrDefaultIncluding(
+            TPrimaryKey                                id,
+            params Expression<Func<TEntity, object>>[] propertySelectors) =>
+            GetAllIncluding(propertySelectors)
+               .FirstOrDefault(_repositoryImplementation.CreateEqualityExpressionForId(id))
+         ?? throw new EntityNotFoundException(nameof(id));
+
+        public virtual TEntity FirstOrDefaultIncluding(
+            Expression<Func<TEntity, bool>>            predicate,
+            params Expression<Func<TEntity, object>>[] propertySelectors) =>
+            GetAllIncluding(propertySelectors)
+               .FirstOrDefault(predicate)
+         ?? throw new EntityNotFoundException(nameof(predicate));
+
+        public virtual ValueTask<TEntity> FirstOrDefaultIncludingAsync(
+            TPrimaryKey                                id,
+            CancellationToken                          cancellationToken = default,
+            params Expression<Func<TEntity, object>>[] propertySelectors) =>
+            new ValueTask<TEntity>(FirstOrDefaultIncluding(id, propertySelectors));
+
+        public virtual ValueTask<TEntity> FirstOrDefaultIncludingAsync(
+            Expression<Func<TEntity, bool>>            predicate,
+            CancellationToken                          cancellationToken = default,
+            params Expression<Func<TEntity, object>>[] propertySelectors) =>
+            new ValueTask<TEntity>(FirstOrDefaultIncluding(predicate, propertySelectors));
+
+        #endregion
+
+        #region Aggregates
+
+        public virtual ValueTask<bool> AnyAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default) =>
+            new ValueTask<bool>(DbSet.AnyAsync(predicate, cancellationToken));
+
+        public virtual ValueTask<bool> AllAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default) =>
+            new ValueTask<bool>(DbSet.AllAsync(predicate, cancellationToken));
+
+        public virtual int Count() =>
+            GetAll().Count();
+
+        public virtual int Count(Expression<Func<TEntity, bool>> predicate) =>
+            GetAll().Count(predicate);
+
+        public virtual ValueTask<int> CountAsync(CancellationToken cancellationToken = default) =>
+            new ValueTask<int>(Count());
+
+        public virtual ValueTask<int> CountAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default) =>
+            new ValueTask<int>(Count(predicate));
+
+        public virtual long LongCount() =>
+            GetAll().LongCount();
+
+        public virtual long LongCount(Expression<Func<TEntity, bool>> predicate) =>
+            GetAll().LongCount(predicate);
+
+        public virtual ValueTask<long> LongCountAsync(CancellationToken cancellationToken = default) =>
+            new ValueTask<long>(LongCount());
+
+        public virtual ValueTask<long> LongCountAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            CancellationToken               cancellationToken = default) =>
+            new ValueTask<long>(LongCount(predicate));
+
+        #endregion
     }
 
 
     public abstract class RepositoryRead<TDbContext, TEntity, TPrimaryKey>
-        : RepositoryReadImplementation<TDbContext, TEntity, TPrimaryKey>
+        : RepositoryReadBase<TDbContext, TEntity, TPrimaryKey>
         where TEntity : Entity<TPrimaryKey>
         where TDbContext : DbContextRead
     {
@@ -235,7 +236,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
     }
 
     public abstract class RepositoryRead<TDbContext, TApplicationUser, TApplicationRole, TEntity, TPrimaryKey>
-        : RepositoryReadImplementation<TDbContext, TEntity, TPrimaryKey>
+        : RepositoryReadBase<TDbContext, TEntity, TPrimaryKey>
         where TEntity : Entity<TPrimaryKey>
         where TApplicationUser : ApplicationUser
         where TApplicationRole : ApplicationRole
