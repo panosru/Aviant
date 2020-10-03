@@ -1,7 +1,6 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 {
     using System;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Identity;
@@ -11,28 +10,35 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using Microsoft.Extensions.Options;
 
     public abstract class AuthorizationDbContextRead<TApplicationUser, TApplicationRole>
-        : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>, IDbContextRead
+        : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>,
+          IDbContextRead,
+          IDbContextReadImplementation
         where TApplicationUser : ApplicationUser
         where TApplicationRole : ApplicationRole
     {
+        private readonly IDbContextReadImplementation _readImplementation;
+
         protected AuthorizationDbContextRead(
             DbContextOptions                  options,
             IOptions<OperationalStoreOptions> operationalStoreOptions)
             : base(options, operationalStoreOptions)
         {
+            // trait
+            _readImplementation = this;
+
             TrackerSettings();
         }
 
         public override int SaveChanges()
         {
-            ThrowWriteException();
+            IDbContextReadImplementation.ThrowWriteException();
 
             return base.SaveChanges();
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
-            ThrowWriteException();
+            IDbContextReadImplementation.ThrowWriteException();
 
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
@@ -41,38 +47,25 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             bool              acceptAllChangesOnSuccess,
             CancellationToken cancellationToken = new CancellationToken())
         {
-            ThrowWriteException();
+            IDbContextReadImplementation.ThrowWriteException();
 
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            ThrowWriteException();
+            IDbContextReadImplementation.ThrowWriteException();
 
             return base.SaveChangesAsync(cancellationToken);
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            foreach (var foreignKey in builder.Model.GetEntityTypes()
-               .SelectMany(e => e.GetForeignKeys()))
-                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+            _readImplementation.OnPreBaseModelCreating(modelBuilder);
 
-            builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
-
-            base.OnModelCreating(builder);
+            base.OnModelCreating(modelBuilder);
         }
 
-        private void TrackerSettings()
-        {
-            ChangeTracker.LazyLoadingEnabled    = false;
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-        }
-
-        private static void ThrowWriteException()
-        {
-            throw new Exception("Read-only context");
-        }
+        private void TrackerSettings() => IDbContextReadImplementation.TrackerSettings(ChangeTracker);
     }
 }

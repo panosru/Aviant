@@ -58,10 +58,10 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         #endregion
 
         /// <inheritdoc />
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
-            builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value);
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value);
         }
     }
 

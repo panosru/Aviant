@@ -11,13 +11,13 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using Core.Entities;
     using IdentityServer4.EntityFramework.Options;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.ChangeTracking;
     using Microsoft.Extensions.Options;
 
     public abstract class AuthorizationDbContextWrite<TDbContext, TApplicationUser, TApplicationRole>
         : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>,
           IDbContextWrite,
-          IAuditableImplementation<TDbContext>
+          IAuditableImplementation<TDbContext>,
+          IDbContextWriteImplementation<TDbContext>
         where TDbContext : class, IDbContextWrite
         where TApplicationUser : ApplicationUser
         where TApplicationRole : ApplicationRole
@@ -25,55 +25,30 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         // ReSharper disable once StaticMemberInGenericType
         private static readonly HashSet<Assembly> ConfigurationAssemblies = new HashSet<Assembly>();
 
-        private readonly IAuditableImplementation<TDbContext> _trait;
+        private readonly IDbContextWriteImplementation<TDbContext> _writeImplementation;
 
         protected AuthorizationDbContextWrite(
             DbContextOptions                  options,
             IOptions<OperationalStoreOptions> operationalStoreOptions)
             : base(options, operationalStoreOptions)
         {
-            _trait = this;
+            // trait
+            _writeImplementation = this;
 
             TrackerSettings();
         }
 
         #region IDbContextWrite Members
 
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            foreach (EntityEntry<IAuditedEntity> entry in ChangeTracker.Entries<IAuditedEntity>())
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        _trait.SetCreationAuditProperties(entry);
-                        break;
+            _writeImplementation.ChangeTracker(ChangeTracker, this);
 
-                    case EntityState.Modified:
-                        _trait.SetModificationAuditProperties(entry);
-                        break;
-
-                    case EntityState.Deleted:
-                        _trait.CancelDeletionForSoftDelete(entry);
-                        _trait.SetDeletionAuditProperties(entry);
-                        break;
-
-                    case EntityState.Detached:
-                        break;
-
-                    case EntityState.Unchanged:
-                        break;
-
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-            var result = await base.SaveChangesAsync(cancellationToken)
-               .ConfigureAwait(false);
-
-            return result;
+            return base.SaveChangesAsync(cancellationToken);
         }
 
         #endregion
+
 
         public static void AddConfigurationAssemblyFromEntity<TEntity, TKey>(
             EntityConfiguration<TEntity, TKey> entityConfiguration)
@@ -82,24 +57,13 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             ConfigurationAssemblies.Add(entityConfiguration.GetType().Assembly);
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // By default add the assembly of the derided DbContext object
-            // so that if the entity configuration is in the same assembly
-            // as the derived DbContext object, then you don't have to use
-            // AddConfigurationAssemblyFromEntity method to specify entity
-            // configuration assemblies
-            ConfigurationAssemblies.Add(GetType().Assembly);
+            _writeImplementation.OnPreBaseModelCreating(modelBuilder, ConfigurationAssemblies);
 
-            foreach (var assembly in ConfigurationAssemblies)
-                builder.ApplyConfigurationsFromAssembly(assembly);
+            base.OnModelCreating(modelBuilder);
 
-            base.OnModelCreating(builder);
-
-            foreach (var entityType in builder.Model.GetEntityTypes())
-                _trait.ConfigureGlobalFiltersMethodInfo?
-                   .MakeGenericMethod(entityType.ClrType)
-                   .Invoke(this, new object[] { builder, entityType });
+            _writeImplementation.OnPostBaseModelCreating(modelBuilder, this);
         }
 
         private void TrackerSettings()

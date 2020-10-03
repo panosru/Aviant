@@ -1,6 +1,5 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 {
-    using System;
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;
@@ -9,21 +8,24 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using Configurations;
     using Core.Entities;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.ChangeTracking;
 
     public abstract class DbContextWrite<TDbContext>
-        : DbContext, IDbContextWrite, IAuditableImplementation<TDbContext>
+        : DbContext,
+          IDbContextWrite,
+          IAuditableImplementation<TDbContext>,
+          IDbContextWriteImplementation<TDbContext>
         where TDbContext : class, IDbContextWrite
     {
         // ReSharper disable once StaticMemberInGenericType
         private static readonly HashSet<Assembly> ConfigurationAssemblies = new HashSet<Assembly>();
 
-        private readonly IAuditableImplementation<TDbContext> _trait;
+        private readonly IDbContextWriteImplementation<TDbContext> _writeImplementation;
 
         protected DbContextWrite(DbContextOptions options)
             : base(options)
         {
-            _trait = this;
+            // trait
+            _writeImplementation = this;
 
             TrackerSettings();
         }
@@ -32,31 +34,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            foreach (EntityEntry<IAuditedEntity> entry in ChangeTracker.Entries<IAuditedEntity>())
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        _trait.SetCreationAuditProperties(entry);
-                        break;
-
-                    case EntityState.Modified:
-                        _trait.SetModificationAuditProperties(entry);
-                        break;
-
-                    case EntityState.Deleted:
-                        _trait.CancelDeletionForSoftDelete(entry);
-                        _trait.SetDeletionAuditProperties(entry);
-                        break;
-
-                    case EntityState.Detached:
-                        break;
-
-                    case EntityState.Unchanged:
-                        break;
-
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+            _writeImplementation.ChangeTracker(ChangeTracker, this);
 
             return base.SaveChangesAsync(cancellationToken);
         }
@@ -72,22 +50,11 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // By default add the assembly of the dervided DbContext object
-            // so that if the entity configuration is in the same assembly
-            // as the derived DbContext object, then you don't have to use
-            // AddConfigurationAssemblyFromEntity method to specify entity
-            // configuration assemblies
-            ConfigurationAssemblies.Add(GetType().Assembly);
-
-            foreach (var assembly in ConfigurationAssemblies)
-                modelBuilder.ApplyConfigurationsFromAssembly(assembly);
+            _writeImplementation.OnPreBaseModelCreating(modelBuilder, ConfigurationAssemblies);
 
             base.OnModelCreating(modelBuilder);
 
-            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
-                _trait.ConfigureGlobalFiltersMethodInfo?
-                   .MakeGenericMethod(entityType.ClrType)
-                   .Invoke(this, new object[] { modelBuilder, entityType });
+            _writeImplementation.OnPostBaseModelCreating(modelBuilder, this);
         }
 
         private void TrackerSettings()
