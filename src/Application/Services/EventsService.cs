@@ -40,6 +40,13 @@ namespace Aviant.DDD.Application.Services
                 : PersistEventsAsync(aggregate, cancellationToken);
         }
 
+        public Task<TAggregate> RehydrateAsync(
+            TAggregateId      key,
+            CancellationToken cancellationToken = default) =>
+            _eventsRepository.RehydrateAsync(key, cancellationToken);
+
+        #endregion
+
         private async Task PersistEventsAsync(
             TAggregate        aggregate,
             CancellationToken cancellationToken = default)
@@ -50,12 +57,5 @@ namespace Aviant.DDD.Application.Services
             await _eventProducer.DispatchAsync(aggregate, cancellationToken)
                .ConfigureAwait(false);
         }
-
-        public Task<TAggregate> RehydrateAsync(
-            TAggregateId      key,
-            CancellationToken cancellationToken = default) =>
-            _eventsRepository.RehydrateAsync(key, cancellationToken);
-
-        #endregion
     }
 }

@@ -46,16 +46,24 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
             _producer = null!;
         }
 
-        public async Task DispatchAsync(
+        public Task DispatchAsync(
             TAggregate        aggregate,
             CancellationToken cancellationToken = default)
         {
             if (aggregate is null)
                 throw new ArgumentNullException(nameof(aggregate));
 
-            if (!aggregate.Events.Any())
-                return;
+            return !aggregate.Events.Any()
+                ? Task.CompletedTask
+                : DispatchEventsAsync(aggregate, cancellationToken);
+        }
 
+        #endregion
+
+        private async Task DispatchEventsAsync(
+            TAggregate        aggregate,
+            CancellationToken cancellationToken = default)
+        {
             _logger.LogInformation(
                 "publishing " + aggregate.Events.Count + " events for {AggregateId} ...",
                 aggregate.Id);
@@ -80,7 +88,5 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
             aggregate.ClearEvents();
         }
-
-        #endregion
     }
 }
