@@ -34,16 +34,22 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
         #region IEventsRepository<TAggregate,TAggregateId> Members
 
-        public async Task AppendAsync(
+        public Task AppendAsync(
             TAggregate        aggregate,
             CancellationToken cancellationToken = default)
         {
             if (aggregate is null)
                 throw new ArgumentNullException(nameof(aggregate));
 
-            if (!aggregate.Events.Any())
-                return;
+            return !aggregate.Events.Any()
+                ? Task.CompletedTask
+                : AppendAggregateEventsAsync(aggregate, cancellationToken);
+        }
 
+        private async Task AppendAggregateEventsAsync(
+            TAggregate        aggregate,
+            CancellationToken cancellationToken = default)
+        {
             var connection = await _connectionWrapper.GetConnectionAsync(cancellationToken)
                .ConfigureAwait(false);
 
