@@ -6,36 +6,23 @@ namespace Aviant.DDD.Core.ValueObjects
 
     // Learn more: https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
     // source: https://github.com/jhewlett/ValueObject
-    public abstract class ValueObject : IValueObject
+    public abstract class ValueObject : IValueObject<ValueObject>
     {
         private List<FieldInfo>? _fields;
 
         private List<PropertyInfo>? _properties;
 
-        #region IValueObject Members
-
-        public bool Equals(ValueObject? obj) => Equals(obj as object);
+        #region IValueObject<ValueObject> Members
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var hash = 17;
+            var hash = GetProperties()
+               .Select(property => property.GetValue(this, null))
+               .Aggregate(17, HashValue);
 
-                foreach (var property in GetProperties())
-                {
-                    var value = property.GetValue(this, null);
-                    hash = HashValue(hash, value);
-                }
-
-                foreach (var field in GetFields())
-                {
-                    var value = field.GetValue(this);
-                    hash = HashValue(hash, value);
-                }
-
-                return hash;
-            }
+            return GetFields()
+               .Select(field => field.GetValue(this))
+               .Aggregate(hash, HashValue);
         }
 
         public int HashValue(int seed, object? value)
@@ -44,6 +31,8 @@ namespace Aviant.DDD.Core.ValueObjects
 
             return seed * 23 + currentHash;
         }
+
+        public virtual bool Equals(ValueObject? other) => Equals(other as object);
 
         #endregion
 
