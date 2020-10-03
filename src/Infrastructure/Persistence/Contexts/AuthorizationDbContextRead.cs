@@ -53,15 +53,15 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             return base.SaveChangesAsync(cancellationToken);
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            foreach (var foreignKey in modelBuilder.Model.GetEntityTypes()
+            foreach (var foreignKey in builder.Model.GetEntityTypes()
                .SelectMany(e => e.GetForeignKeys()))
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
 
-            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+            builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(builder);
         }
 
         private void TrackerSettings()

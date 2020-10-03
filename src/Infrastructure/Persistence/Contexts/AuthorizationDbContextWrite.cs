@@ -82,9 +82,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             ConfigurationAssemblies.Add(entityConfiguration.GetType().Assembly);
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            // By default add the assembly of the dervided DbContext object
+            // By default add the assembly of the derided DbContext object
             // so that if the entity configuration is in the same assembly
             // as the derived DbContext object, then you don't have to use
             // AddConfigurationAssemblyFromEntity method to specify entity
@@ -92,14 +92,14 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             ConfigurationAssemblies.Add(GetType().Assembly);
 
             foreach (var assembly in ConfigurationAssemblies)
-                modelBuilder.ApplyConfigurationsFromAssembly(assembly);
+                builder.ApplyConfigurationsFromAssembly(assembly);
 
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(builder);
 
-            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            foreach (var entityType in builder.Model.GetEntityTypes())
                 _trait.ConfigureGlobalFiltersMethodInfo?
                    .MakeGenericMethod(entityType.ClrType)
-                   .Invoke(this, new object[] { modelBuilder, entityType });
+                   .Invoke(this, new object[] { builder, entityType });
         }
 
         private void TrackerSettings()
