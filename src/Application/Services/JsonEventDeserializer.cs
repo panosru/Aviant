@@ -11,12 +11,18 @@ namespace Aviant.DDD.Application.Services
     using Core.Services;
     using Newtonsoft.Json;
 
-    public sealed class JsonEventDeserializer : IEventDeserializer
+    public sealed class JsonEventDeserializer
+        : IEventDeserializer,
+          IJsonEventDeserializerCache
     {
         private readonly IEnumerable<Assembly> _assemblies;
 
+        private readonly IJsonEventDeserializerCache _cache;
+
         public JsonEventDeserializer(IEnumerable<Assembly>? assemblies)
         {
+            _cache      = this;
+
             _assemblies = assemblies ?? new[] { Assembly.GetExecutingAssembly() };
         }
 
@@ -33,14 +39,18 @@ namespace Aviant.DDD.Application.Services
         public IEvent<TAggregateId> Deserialize<TAggregateId>(string type, string data)
             where TAggregateId : IAggregateId
         {
-            //TODO: cache types
-            var eventType = _assemblies
-                               .Select(a => a.GetType(type, false))
-                               .FirstOrDefault(t => t != null)
-                         ?? Type.GetType(type);
+            var eventType = _cache.Exists(type)
+                ? _cache.Get(type)
+                : _assemblies
+                     .Select(a => a.GetType(type, false))
+                     .FirstOrDefault(t => t != null)
+               ?? Type.GetType(type);
 
             if (null == eventType)
                 throw new ArgumentOutOfRangeException(nameof(type), $"invalid notification type: {type}");
+
+            if (!_cache.Exists(type))
+                _cache.Add(type, eventType);
 
             // as of 01/10/2020, "Deserialization to reference types without a parameterless constructor isn't supported."
             // https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to
