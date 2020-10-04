@@ -47,11 +47,6 @@ namespace Aviant.DDD.Core.Entities
         // ReSharper disable once NonReadonlyMemberInGetHashCode
         public override int GetHashCode() => HashCode.Combine(GetType(), Id);
 
-        public static bool operator ==(Entity<TKey> left, Entity<TKey> right) =>
-            EqualityComparer<Entity<TKey>>.Default.Equals(left, right);
-
-        public static bool operator !=(Entity<TKey> left, Entity<TKey> right) => !(left == right);
-
         #endregion
     }
 }
