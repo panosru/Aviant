@@ -7,7 +7,7 @@ namespace Aviant.DDD.Application.Exceptions
     using FluentValidation.Results;
 
     [Serializable]
-    public class ValidationException : ApplicationException
+    public sealed class ValidationException : ApplicationException
     {
         public ValidationException()
             : base("One or more validation failures have occurred.") => Failures = new Dictionary<string, string[]>();
@@ -27,7 +27,7 @@ namespace Aviant.DDD.Application.Exceptions
             }
         }
 
-        protected ValidationException(SerializationInfo info, StreamingContext context)
+        private ValidationException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         { }
 

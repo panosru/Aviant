@@ -4,7 +4,8 @@ namespace Aviant.DDD.Infrastructure.Exceptions
     using System.Runtime.Serialization;
     using Core.Exceptions;
 
-    public class InfrastructureException : DomainException
+    [Serializable]
+    public class InfrastructureException : CoreException
     {
         public InfrastructureException()
         { }

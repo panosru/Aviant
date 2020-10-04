@@ -5,7 +5,7 @@ namespace Aviant.DDD.Application.Exceptions
     using Core.Exceptions;
 
     [Serializable]
-    public class ApplicationException : DomainException
+    public class ApplicationException : CoreException
     {
         public ApplicationException()
         { }

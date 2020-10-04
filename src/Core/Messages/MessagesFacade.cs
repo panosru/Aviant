@@ -26,7 +26,7 @@ namespace Aviant.DDD.Core.Messages
         public static void SetMessagesContainer(IMessages mockContainer)
         {
             if (!_fromTesting)
-                throw new DomainException(
+                throw new CoreException(
                     @"For SetMessagesContainer to work properly SetTestingEnvironment() should be called first. 
                                       This method should be used only for testing purpose");
 

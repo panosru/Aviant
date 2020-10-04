@@ -39,10 +39,10 @@ namespace Aviant.DDD.Application.Orchestration
         public T Payload<T>()
         {
             if (_payload is null)
-                throw new Exception("Payload is null");
+                throw new ApplicationException("Payload is null");
 
             if (typeof(T) != _payload.GetType())
-                throw new Exception(
+                throw new ApplicationException(
                     $@"Type ""{typeof(T).FullName}"" does not much payload type ""{_payload
                        .GetType().FullName}""");
 

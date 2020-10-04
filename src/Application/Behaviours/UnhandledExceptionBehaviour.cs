@@ -3,7 +3,6 @@ namespace Aviant.DDD.Application.Behaviours
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Core.Exceptions;
     using MediatR;
     using Microsoft.Extensions.Logging;
 
@@ -30,7 +29,7 @@ namespace Aviant.DDD.Application.Behaviours
             {
                 return await next().ConfigureAwait(false);
             }
-            catch (DomainException ex)
+            catch (Exception ex)
             {
                 var requestName = typeof(TRequest).Name;
 
