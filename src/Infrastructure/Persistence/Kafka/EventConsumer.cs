@@ -34,7 +34,6 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
         #pragma warning disable 8618
         public EventConsumer(
-            #pragma warning restore 8618
             IEventDeserializer                                              eventDeserializer,
             EventConsumerConfig                                             config,
             ILogger<EventConsumer<TAggregate, TAggregateId, TDeserializer>> logger)
@@ -61,6 +60,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
             var topicName = $"{config.TopicBaseName}-{aggregateType.Name}";
             _eventConsumer.Subscribe(topicName);
         }
+        #pragma warning restore 8618
 
         #region IDisposable Members
 

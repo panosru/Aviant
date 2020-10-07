@@ -9,8 +9,8 @@ namespace Aviant.DDD.Core.Events
     {
         #pragma warning disable 8618
         protected Event()
-            #pragma warning restore 8618
         { }
+        #pragma warning restore 8618
 
         protected Event(TAggregate aggregate)
         {

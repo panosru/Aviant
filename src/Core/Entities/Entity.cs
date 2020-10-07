@@ -9,8 +9,8 @@ namespace Aviant.DDD.Core.Entities
     {
         #pragma warning disable 8618
         protected Entity()
-            #pragma warning restore 8618
         { }
+        #pragma warning restore 8618
 
         protected Entity(TKey id) => Id = id;
 
