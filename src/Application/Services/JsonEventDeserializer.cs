@@ -21,7 +21,7 @@ namespace Aviant.DDD.Application.Services
 
         public JsonEventDeserializer(IEnumerable<Assembly>? assemblies)
         {
-            _cache      = this;
+            _cache = this;
 
             _assemblies = assemblies ?? new[] { Assembly.GetExecutingAssembly() };
         }

@@ -46,39 +46,6 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
                 : AppendAggregateEventsAsync(aggregate, cancellationToken);
         }
 
-        private async Task AppendAggregateEventsAsync(
-            TAggregate        aggregate,
-            CancellationToken cancellationToken = default)
-        {
-            var connection = await _connectionWrapper.GetConnectionAsync(cancellationToken)
-               .ConfigureAwait(false);
-
-            var streamName = GetStreamName(aggregate.Id);
-
-            IEvent<TAggregateId> firstEvent = aggregate.Events.First();
-
-            var version = firstEvent.AggregateVersion - 1;
-
-            using var transaction = await connection.StartTransactionAsync(streamName, version)
-               .ConfigureAwait(false);
-
-            try
-            {
-                foreach (var eventData in aggregate.Events.Select(Map))
-                    await transaction.WriteAsync(eventData)
-                       .ConfigureAwait(false);
-
-                await transaction.CommitAsync()
-                   .ConfigureAwait(false);
-            }
-            catch
-            {
-                transaction.Rollback();
-
-                throw;
-            }
-        }
-
         public async Task<TAggregate> RehydrateAsync(
             TAggregateId      aggregateId,
             CancellationToken cancellationToken = default)
@@ -115,6 +82,39 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
         }
 
         #endregion
+
+        private async Task AppendAggregateEventsAsync(
+            TAggregate        aggregate,
+            CancellationToken cancellationToken = default)
+        {
+            var connection = await _connectionWrapper.GetConnectionAsync(cancellationToken)
+               .ConfigureAwait(false);
+
+            var streamName = GetStreamName(aggregate.Id);
+
+            IEvent<TAggregateId> firstEvent = aggregate.Events.First();
+
+            var version = firstEvent.AggregateVersion - 1;
+
+            using var transaction = await connection.StartTransactionAsync(streamName, version)
+               .ConfigureAwait(false);
+
+            try
+            {
+                foreach (var eventData in aggregate.Events.Select(Map))
+                    await transaction.WriteAsync(eventData)
+                       .ConfigureAwait(false);
+
+                await transaction.CommitAsync()
+                   .ConfigureAwait(false);
+            }
+            catch
+            {
+                transaction.Rollback();
+
+                throw;
+            }
+        }
 
         private string GetStreamName(TAggregateId aggregateId)
         {

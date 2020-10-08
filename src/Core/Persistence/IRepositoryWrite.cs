@@ -8,7 +8,7 @@ namespace Aviant.DDD.Core.Persistence
 
     /// <inheritdoc />
     /// <summary>
-    /// This interface is implemented by all write repositories to ensure implementation of fixed methods.
+    ///     This interface is implemented by all write repositories to ensure implementation of fixed methods.
     /// </summary>
     /// <typeparam name="TEntity">Main Entity type this repository works on</typeparam>
     /// <typeparam name="TPrimaryKey">Primary key type of the entity</typeparam>

@@ -109,7 +109,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
                 ? Insert(entity)
                 : Update(entity);
 
-        public virtual async Task<TEntity> InsertOrUpdateAsync(TEntity entity, CancellationToken cancellationToken = default) =>
+        public virtual async Task<TEntity> InsertOrUpdateAsync(
+            TEntity           entity,
+            CancellationToken cancellationToken = default) =>
             entity.IsTransient()
                 ? await InsertAsync(entity, cancellationToken).ConfigureAwait(false)
                 : await UpdateAsync(entity, cancellationToken).ConfigureAwait(false);
