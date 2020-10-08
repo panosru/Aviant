@@ -4,7 +4,7 @@ namespace Aviant.DDD.Core.EventBus
     using System.Threading;
     using System.Threading.Tasks;
     using Aggregates;
-    using Events;
+    using DomainEvents;
 
     public interface IEventConsumer
     {
@@ -22,7 +22,7 @@ namespace Aviant.DDD.Core.EventBus
 
     public delegate Task EventReceivedHandlerAsync<in TAggregateId>(
         object               sender,
-        IEvent<TAggregateId> @event,
+        IDomainEvent<TAggregateId> domainEvent,
         CancellationToken    cancellationToken = default)
         where TAggregateId : IAggregateId;
 }

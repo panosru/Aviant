@@ -3,8 +3,8 @@ namespace Aviant.DDD.Application.EventBus
     using System.Threading;
     using System.Threading.Tasks;
     using Core.Aggregates;
+    using Core.DomainEvents;
     using Core.EventBus;
-    using Core.Events;
     using MediatR;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -27,7 +27,7 @@ namespace Aviant.DDD.Application.EventBus
 
             async Task OnEventReceivedAsync(
                 object               s,
-                IEvent<TAggregateId> @event,
+                IDomainEvent<TAggregateId> @event,
                 CancellationToken    cancellationToken = default)
             {
                 var constructedEvent = EventReceivedFactory.Create((dynamic) @event);

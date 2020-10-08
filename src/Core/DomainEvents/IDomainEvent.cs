@@ -1,8 +1,8 @@
-namespace Aviant.DDD.Core.Events
+namespace Aviant.DDD.Core.DomainEvents
 {
     using Aggregates;
 
-    public interface IEvent<out TAggregateId>
+    public interface IDomainEvent<out TAggregateId>
         where TAggregateId : IAggregateId
     {
         public long AggregateVersion { get; }

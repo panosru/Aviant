@@ -1,10 +1,10 @@
-namespace Aviant.DDD.Core.Events
+namespace Aviant.DDD.Core.DomainEvents
 {
     using EventBus;
     using MediatR;
     using Services;
 
-    internal interface IEventHandler<TEvent>
+    internal interface IDomainEventHandler<TEvent>
         : INotificationHandler<EventReceived<TEvent>>,
           IRetry
     { }

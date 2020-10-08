@@ -8,7 +8,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
     using System.Threading;
     using System.Threading.Tasks;
     using Core.Aggregates;
-    using Core.Events;
+    using Core.DomainEvents;
     using Core.Persistence;
     using Core.Services;
     using global::EventStore.ClientAPI;
@@ -55,7 +55,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             var streamName = GetStreamName(aggregateId);
 
-            var events = new List<IEvent<TAggregateId>>();
+            var events = new List<IDomainEvent<TAggregateId>>();
 
             StreamEventsSlice currentSlice;
             long              nextSliceStart = StreamPosition.Start;
@@ -92,9 +92,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             var streamName = GetStreamName(aggregate.Id);
 
-            IEvent<TAggregateId> firstEvent = aggregate.Events.First();
+            IDomainEvent<TAggregateId> firstDomainEvent = aggregate.Events.First();
 
-            var version = firstEvent.AggregateVersion - 1;
+            var version = firstDomainEvent.AggregateVersion - 1;
 
             using var transaction = await connection.StartTransactionAsync(streamName, version)
                .ConfigureAwait(false);
@@ -123,19 +123,19 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             return streamName;
         }
 
-        private IEvent<TAggregateId> Map(ResolvedEvent resolvedEvent)
+        private IDomainEvent<TAggregateId> Map(ResolvedEvent resolvedEvent)
         {
             var meta = JsonSerializer.Deserialize<EventMeta>(resolvedEvent.Event.Metadata);
 
             return _eventDeserializer.Deserialize<TAggregateId>(meta.EventType, resolvedEvent.Event.Data);
         }
 
-        private static EventData Map(IEvent<TAggregateId> @event)
+        private static EventData Map(IDomainEvent<TAggregateId> domainEvent)
         {
-            var json = JsonSerializer.Serialize((dynamic) @event);
+            var json = JsonSerializer.Serialize((dynamic) domainEvent);
             var data = Encoding.UTF8.GetBytes(json);
 
-            var eventType = @event.GetType();
+            var eventType = domainEvent.GetType();
 
             var meta = new EventMeta
             {

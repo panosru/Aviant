@@ -7,8 +7,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using System.Threading.Tasks;
     using Confluent.Kafka;
     using Core.Aggregates;
+    using Core.DomainEvents;
     using Core.EventBus;
-    using Core.Events;
     using Core.Services;
     using Microsoft.Extensions.Logging;
 
@@ -98,10 +98,10 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                             var messageTypeHeader = cr.Message.Headers.First(h => h.Key == "type");
                             var eventType         = Encoding.UTF8.GetString(messageTypeHeader.GetValueBytes());
 
-                            IEvent<TAggregateId> @event =
+                            IDomainEvent<TAggregateId> domainEvent =
                                 _eventDeserializer.Deserialize<TAggregateId>(eventType, cr.Message.Value);
 
-                            await OnEventReceivedAsync(@event, cancellationToken)
+                            await OnEventReceivedAsync(domainEvent, cancellationToken)
                                .ConfigureAwait(false);
                         }
                         catch (OperationCanceledException ex)
@@ -128,7 +128,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
         #endregion
 
         private Task OnEventReceivedAsync(
-            IEvent<TAggregateId> e,
+            IDomainEvent<TAggregateId> e,
             CancellationToken    cancellationToken)
         {
             EventReceivedHandlerAsync<TAggregateId> handlerAsync = EventReceived;

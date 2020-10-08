@@ -7,7 +7,7 @@ namespace Aviant.DDD.Application.Services
     using System.Runtime.Serialization;
     using System.Text;
     using Core.Aggregates;
-    using Core.Events;
+    using Core.DomainEvents;
     using Core.Services;
     using Newtonsoft.Json;
 
@@ -28,7 +28,7 @@ namespace Aviant.DDD.Application.Services
 
         #region IEventDeserializer Members
 
-        public IEvent<TAggregateId> Deserialize<TAggregateId>(string type, byte[] data)
+        public IDomainEvent<TAggregateId> Deserialize<TAggregateId>(string type, byte[] data)
             where TAggregateId : IAggregateId
         {
             var jsonData = Encoding.UTF8.GetString(data);
@@ -36,7 +36,7 @@ namespace Aviant.DDD.Application.Services
             return Deserialize<TAggregateId>(type, jsonData);
         }
 
-        public IEvent<TAggregateId> Deserialize<TAggregateId>(string type, string data)
+        public IDomainEvent<TAggregateId> Deserialize<TAggregateId>(string type, string data)
             where TAggregateId : IAggregateId
         {
             var eventType = _cache.Exists(type)
@@ -66,9 +66,9 @@ namespace Aviant.DDD.Application.Services
                 });
 
             if (result is null)
-                throw new SerializationException($"unable to deserialize event {type} : {data}");
+                throw new SerializationException($"unable to deserialize domainEvent {type} : {data}");
 
-            return (IEvent<TAggregateId>) result;
+            return (IDomainEvent<TAggregateId>) result;
         }
 
         #endregion

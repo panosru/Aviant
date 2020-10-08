@@ -1,18 +1,18 @@
-namespace Aviant.DDD.Core.Events
+namespace Aviant.DDD.Core.DomainEvents
 {
     using System;
     using Aggregates;
 
-    public abstract class Event<TAggregate, TAggregateId> : IEvent<TAggregateId>
+    public abstract class DomainEvent<TAggregate, TAggregateId> : IDomainEvent<TAggregateId>
         where TAggregate : IAggregate<TAggregateId>
         where TAggregateId : IAggregateId
     {
         #pragma warning disable 8618
-        protected Event()
+        protected DomainEvent()
         { }
         #pragma warning restore 8618
 
-        protected Event(TAggregate aggregate)
+        protected DomainEvent(TAggregate aggregate)
         {
             if (aggregate is null)
                 throw new ArgumentNullException(nameof(aggregate));
@@ -21,7 +21,7 @@ namespace Aviant.DDD.Core.Events
             AggregateId      = aggregate.Id;
         }
 
-        #region IEvent<TAggregateId> Members
+        #region IDomainEvent<TAggregateId> Members
 
         public long AggregateVersion { get; private set; }
 

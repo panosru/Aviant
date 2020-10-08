@@ -1,13 +1,13 @@
-namespace Aviant.DDD.Core.Events
+namespace Aviant.DDD.Core.DomainEvents
 {
     using System.Threading;
     using System.Threading.Tasks;
     using EventBus;
     using Polly;
 
-    public abstract class EventHandler<TEvent> : IEventHandler<TEvent>
+    public abstract class DomainEventHandler<TEvent> : IDomainEventHandler<TEvent>
     {
-        #region IEventHandler<TEvent> Members
+        #region IDomainEventHandler<TEvent> Members
 
         public abstract Task Handle(EventReceived<TEvent> @event, CancellationToken cancellationToken);
 

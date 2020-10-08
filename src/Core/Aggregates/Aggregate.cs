@@ -5,15 +5,15 @@ namespace Aviant.DDD.Core.Aggregates
     using System.Collections.Immutable;
     using System.Linq;
     using System.Reflection;
+    using DomainEvents;
     using Entities;
-    using Events;
 
     public abstract class Aggregate<TAggregate, TAggregateId>
         : Entity<TAggregateId>, IAggregate<TAggregateId>
         where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
-        private readonly Queue<IEvent<TAggregateId>> _events = new Queue<IEvent<TAggregateId>>();
+        private readonly Queue<IDomainEvent<TAggregateId>> _events = new Queue<IDomainEvent<TAggregateId>>();
 
         protected Aggregate()
         { }
@@ -24,7 +24,7 @@ namespace Aviant.DDD.Core.Aggregates
 
         #region IAggregate<TAggregateId> Members
 
-        public IReadOnlyCollection<IEvent<TAggregateId>> Events => _events.ToImmutableArray();
+        public IReadOnlyCollection<IDomainEvent<TAggregateId>> Events => _events.ToImmutableArray();
 
         public long Version { get; private set; }
 
@@ -35,16 +35,16 @@ namespace Aviant.DDD.Core.Aggregates
 
         #endregion
 
-        protected void AddEvent(IEvent<TAggregateId> @event)
+        protected void AddEvent(IDomainEvent<TAggregateId> domainEvent)
         {
-            _events.Enqueue(@event);
+            _events.Enqueue(domainEvent);
 
-            Apply(@event);
+            Apply(domainEvent);
 
             Version++;
         }
 
-        protected abstract void Apply(IEvent<TAggregateId> @event);
+        protected abstract void Apply(IDomainEvent<TAggregateId> domainEvent);
 
         #region Factory
 
@@ -62,9 +62,9 @@ namespace Aviant.DDD.Core.Aggregates
                 return constructor!;
             });
 
-        public static TAggregate Create(IEnumerable<IEvent<TAggregateId>> events)
+        public static TAggregate Create(IEnumerable<IDomainEvent<TAggregateId>> events)
         {
-            List<IEvent<TAggregateId>> enumerable = events.ToList();
+            List<IDomainEvent<TAggregateId>> enumerable = events.ToList();
 
             if (null == events
              || !enumerable.Any())
