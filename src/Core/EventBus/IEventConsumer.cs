@@ -21,8 +21,8 @@ namespace Aviant.DDD.Core.EventBus
     }
 
     public delegate Task EventReceivedHandlerAsync<in TAggregateId>(
-        object               sender,
+        object                     sender,
         IDomainEvent<TAggregateId> domainEvent,
-        CancellationToken    cancellationToken = default)
+        CancellationToken          cancellationToken = default)
         where TAggregateId : IAggregateId;
 }

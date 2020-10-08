@@ -12,7 +12,7 @@ namespace Aviant.DDD.Application.Identity
             CancellationToken cancellationToken = default);
 
         public Task<IdentityResult> ConfirmEmailAsync(
-            string            toekn,
+            string            token,
             string            email,
             CancellationToken cancellationToken = default);
 

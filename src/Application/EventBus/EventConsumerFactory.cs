@@ -26,9 +26,9 @@ namespace Aviant.DDD.Application.EventBus
                 TAggregate, TAggregateId, TDeserializer>>();
 
             async Task OnEventReceivedAsync(
-                object               s,
+                object                     s,
                 IDomainEvent<TAggregateId> @event,
-                CancellationToken    cancellationToken = default)
+                CancellationToken          cancellationToken = default)
             {
                 var constructedEvent = EventReceivedFactory.Create((dynamic) @event);
 

@@ -14,20 +14,20 @@ namespace Aviant.DDD.Application.Orchestration
 
     public abstract class OrchestratorBase
     {
+        private readonly IApplicationEventDispatcher _applicationEventDispatcher;
+
         private readonly IMediator _mediator;
 
         private readonly IMessages _messages;
 
-        private readonly IApplicationEventDispatcher _applicationEventDispatcher;
-
         protected OrchestratorBase(
-            IMessages               messages,
+            IMessages                   messages,
             IApplicationEventDispatcher applicationEventDispatcher,
-            IMediator               mediator)
+            IMediator                   mediator)
         {
-            _messages               = messages;
+            _messages                   = messages;
             _applicationEventDispatcher = applicationEventDispatcher;
-            _mediator               = mediator;
+            _mediator                   = mediator;
         }
 
         protected async Task<(TCommandResponse commandResponse, List<string>? _messages)>
@@ -93,9 +93,9 @@ namespace Aviant.DDD.Application.Orchestration
           IOrchestrator
     {
         public Orchestrator(
-            IMessages               messages,
+            IMessages                   messages,
             IApplicationEventDispatcher applicationEventDispatcher,
-            IMediator               mediator)
+            IMediator                   mediator)
             : base(messages, applicationEventDispatcher, mediator)
         { }
 
@@ -130,10 +130,10 @@ namespace Aviant.DDD.Application.Orchestration
         private readonly IUnitOfWork<TDbContext> _unitOfWork;
 
         public Orchestrator(
-            IUnitOfWork<TDbContext> unitOfWork,
-            IMessages               messages,
+            IUnitOfWork<TDbContext>     unitOfWork,
+            IMessages                   messages,
             IApplicationEventDispatcher applicationEventDispatcher,
-            IMediator               mediator)
+            IMediator                   mediator)
             : base(messages, applicationEventDispatcher, mediator) => _unitOfWork = unitOfWork;
 
         #region IOrchestrator<TDbContext> Members
@@ -184,7 +184,7 @@ namespace Aviant.DDD.Application.Orchestration
         public Orchestrator(
             IUnitOfWork<TAggregate, TAggregateId> unitOfWork,
             IMessages                             messages,
-            IApplicationEventDispatcher               applicationEventDispatcher,
+            IApplicationEventDispatcher           applicationEventDispatcher,
             IMediator                             mediator)
             : base(messages, applicationEventDispatcher, mediator) => _unitOfWork = unitOfWork;
 

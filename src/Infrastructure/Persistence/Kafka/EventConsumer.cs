@@ -129,7 +129,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
         private Task OnEventReceivedAsync(
             IDomainEvent<TAggregateId> e,
-            CancellationToken    cancellationToken)
+            CancellationToken          cancellationToken)
         {
             EventReceivedHandlerAsync<TAggregateId> handlerAsync = EventReceived;
 
