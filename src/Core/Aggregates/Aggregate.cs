@@ -35,16 +35,16 @@ namespace Aviant.DDD.Core.Aggregates
 
         #endregion
 
-        protected void AddEvent(IDomainEvent<TAggregateId> domainEvent)
+        protected void AddEvent(IDomainEvent<TAggregateId> @event)
         {
-            _events.Enqueue(domainEvent);
+            _events.Enqueue(@event);
 
-            Apply(domainEvent);
+            Apply(@event);
 
             Version++;
         }
 
-        protected abstract void Apply(IDomainEvent<TAggregateId> domainEvent);
+        protected abstract void Apply(IDomainEvent<TAggregateId> @event);
 
         #region Factory
 

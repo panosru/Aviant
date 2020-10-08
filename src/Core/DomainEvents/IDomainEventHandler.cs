@@ -4,8 +4,8 @@ namespace Aviant.DDD.Core.DomainEvents
     using MediatR;
     using Services;
 
-    internal interface IDomainEventHandler<TEvent>
-        : INotificationHandler<EventReceived<TEvent>>,
+    internal interface IDomainEventHandler<TDomainEvent>
+        : INotificationHandler<EventReceived<TDomainEvent>>,
           IRetry
     { }
 }

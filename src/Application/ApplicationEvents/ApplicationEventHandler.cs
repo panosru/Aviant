@@ -4,13 +4,13 @@ namespace Aviant.DDD.Application.ApplicationEvents
     using System.Threading.Tasks;
     using Polly;
 
-    public abstract class ApplicationEventHandler<TNotification>
-        : IApplicationEventHandler<TNotification>
-        where TNotification : IApplicationEvent
+    public abstract class ApplicationEventHandler<TApplicationEvent>
+        : IApplicationEventHandler<TApplicationEvent>
+        where TApplicationEvent : IApplicationEvent
     {
-        #region IApplicationEventHandler<TNotification> Members
+        #region IApplicationEventHandler<TApplicationEvent> Members
 
-        public abstract Task Handle(TNotification @event, CancellationToken cancellationToken);
+        public abstract Task Handle(TApplicationEvent @event, CancellationToken cancellationToken);
 
         public virtual IAsyncPolicy RetryPolicy() => Policy.NoOpAsync();
 

@@ -98,10 +98,10 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                             var messageTypeHeader = cr.Message.Headers.First(h => h.Key == "type");
                             var eventType         = Encoding.UTF8.GetString(messageTypeHeader.GetValueBytes());
 
-                            IDomainEvent<TAggregateId> domainEvent =
+                            IDomainEvent<TAggregateId> @event =
                                 _eventDeserializer.Deserialize<TAggregateId>(eventType, cr.Message.Value);
 
-                            await OnEventReceivedAsync(domainEvent, cancellationToken)
+                            await OnEventReceivedAsync(@event, cancellationToken)
                                .ConfigureAwait(false);
                         }
                         catch (OperationCanceledException ex)

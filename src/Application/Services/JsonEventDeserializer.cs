@@ -46,7 +46,7 @@ namespace Aviant.DDD.Application.Services
                      .FirstOrDefault(t => t != null)
                ?? Type.GetType(type);
 
-            if (null == eventType)
+            if (eventType is null)
                 throw new ArgumentOutOfRangeException(nameof(type), $"invalid event type: {type}");
 
             if (!_cache.Exists(type))
@@ -66,7 +66,7 @@ namespace Aviant.DDD.Application.Services
                 });
 
             if (result is null)
-                throw new SerializationException($"unable to deserialize domainEvent {type} : {data}");
+                throw new SerializationException($"unable to deserialize event {type} : {data}");
 
             return (IDomainEvent<TAggregateId>) result;
         }

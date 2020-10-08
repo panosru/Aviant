@@ -22,7 +22,7 @@ namespace Aviant.DDD.Core.EventBus
 
     public delegate Task EventReceivedHandlerAsync<in TAggregateId>(
         object                     sender,
-        IDomainEvent<TAggregateId> domainEvent,
+        IDomainEvent<TAggregateId> @event,
         CancellationToken          cancellationToken = default)
         where TAggregateId : IAggregateId;
 }

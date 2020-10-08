@@ -5,14 +5,14 @@ namespace Aviant.DDD.Core.DomainEvents
     using EventBus;
     using Polly;
 
-    public abstract class DomainEventHandler<TEvent> : IDomainEventHandler<TEvent>
+    public abstract class DomainEventHandler<TDomainEvent> : IDomainEventHandler<TDomainEvent>
     {
-        #region IDomainEventHandler<TEvent> Members
-
-        public abstract Task Handle(EventReceived<TEvent> @event, CancellationToken cancellationToken);
+        #region IDomainEventHandler<TDomainEvent> Members
 
         public virtual IAsyncPolicy RetryPolicy() => Policy.NoOpAsync();
 
         #endregion
+
+        public abstract Task Handle(EventReceived<TDomainEvent> @event, CancellationToken cancellationToken);
     }
 }

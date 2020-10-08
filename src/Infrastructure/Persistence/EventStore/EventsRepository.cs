@@ -92,9 +92,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             var streamName = GetStreamName(aggregate.Id);
 
-            IDomainEvent<TAggregateId> firstDomainEvent = aggregate.Events.First();
+            IDomainEvent<TAggregateId> firstEvent = aggregate.Events.First();
 
-            var version = firstDomainEvent.AggregateVersion - 1;
+            var version = firstEvent.AggregateVersion - 1;
 
             using var transaction = await connection.StartTransactionAsync(streamName, version)
                .ConfigureAwait(false);
@@ -130,12 +130,12 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             return _eventDeserializer.Deserialize<TAggregateId>(meta.EventType, resolvedEvent.Event.Data);
         }
 
-        private static EventData Map(IDomainEvent<TAggregateId> domainEvent)
+        private static EventData Map(IDomainEvent<TAggregateId> @event)
         {
-            var json = JsonSerializer.Serialize((dynamic) domainEvent);
+            var json = JsonSerializer.Serialize((dynamic) @event);
             var data = Encoding.UTF8.GetBytes(json);
 
-            var eventType = domainEvent.GetType();
+            var eventType = @event.GetType();
 
             var meta = new EventMeta
             {

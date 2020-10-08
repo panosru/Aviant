@@ -26,8 +26,6 @@ namespace Aviant.DDD.Application.Behaviours
             _identityIdentityService = identityIdentityService;
         }
 
-        #region IRequestPreProcessor<TRequest> Members
-
         public async Task Process(TRequest request, CancellationToken cancellationToken)
         {
             var requestName = typeof(TRequest).Name;
@@ -47,7 +45,5 @@ namespace Aviant.DDD.Application.Behaviours
 
             await Task.CompletedTask.ConfigureAwait(false);
         }
-
-        #endregion
     }
 }

@@ -5,17 +5,17 @@ namespace Aviant.DDD.Application.ApplicationEvents
     using Core.Services;
     using MediatR;
 
-    internal interface IApplicationEventHandler<in TNotification>
-        : INotificationHandler<TNotification>,
+    internal interface IApplicationEventHandler<in TApplicationEvent>
+        : INotificationHandler<TApplicationEvent>,
           IRetry
-        where TNotification : IApplicationEvent
+        where TApplicationEvent : IApplicationEvent
     {
         /// <summary>
-        ///     Handles an applicationEvent
+        ///     Handles an Application Event
         /// </summary>
         /// <param name="event"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public new Task Handle(TNotification @event, CancellationToken cancellationToken);
+        public Task Handle(TApplicationEvent @event, CancellationToken cancellationToken);
     }
 }
