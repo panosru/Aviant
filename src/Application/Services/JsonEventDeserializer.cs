@@ -47,7 +47,7 @@ namespace Aviant.DDD.Application.Services
                ?? Type.GetType(type);
 
             if (null == eventType)
-                throw new ArgumentOutOfRangeException(nameof(type), $"invalid notification type: {type}");
+                throw new ArgumentOutOfRangeException(nameof(type), $"invalid event type: {type}");
 
             if (!_cache.Exists(type))
                 _cache.Add(type, eventType);

@@ -4,11 +4,11 @@ namespace Aviant.DDD.Application.Orchestration
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+    using ApplicationEvents;
     using Commands;
     using Core.Aggregates;
     using Core.Messages;
     using MediatR;
-    using Notifications;
     using Persistance;
     using Queries;
 
@@ -18,15 +18,15 @@ namespace Aviant.DDD.Application.Orchestration
 
         private readonly IMessages _messages;
 
-        private readonly INotificationDispatcher _notificationDispatcher;
+        private readonly IApplicationEventDispatcher _applicationEventDispatcher;
 
         protected OrchestratorBase(
             IMessages               messages,
-            INotificationDispatcher notificationDispatcher,
+            IApplicationEventDispatcher applicationEventDispatcher,
             IMediator               mediator)
         {
             _messages               = messages;
-            _notificationDispatcher = notificationDispatcher;
+            _applicationEventDispatcher = applicationEventDispatcher;
             _mediator               = mediator;
         }
 
@@ -40,7 +40,7 @@ namespace Aviant.DDD.Application.Orchestration
                .ConfigureAwait(false);
 
             // Fire pre/post notifications
-            await _notificationDispatcher.FirePreCommitNotificationsAsync(cancellationToken)
+            await _applicationEventDispatcher.FirePreCommitNotificationsAsync(cancellationToken)
                .ConfigureAwait(false);
 
             List<string>? messages = null;
@@ -56,7 +56,7 @@ namespace Aviant.DDD.Application.Orchestration
             CancellationToken cancellationToken)
         {
             // Fire post commit notifications
-            await _notificationDispatcher.FirePostCommitNotificationsAsync(cancellationToken)
+            await _applicationEventDispatcher.FirePostCommitNotificationsAsync(cancellationToken)
                .ConfigureAwait(false);
 
             var isLazy = false;
@@ -94,9 +94,9 @@ namespace Aviant.DDD.Application.Orchestration
     {
         public Orchestrator(
             IMessages               messages,
-            INotificationDispatcher notificationDispatcher,
+            IApplicationEventDispatcher applicationEventDispatcher,
             IMediator               mediator)
-            : base(messages, notificationDispatcher, mediator)
+            : base(messages, applicationEventDispatcher, mediator)
         { }
 
         #region IOrchestrator Members
@@ -132,9 +132,9 @@ namespace Aviant.DDD.Application.Orchestration
         public Orchestrator(
             IUnitOfWork<TDbContext> unitOfWork,
             IMessages               messages,
-            INotificationDispatcher notificationDispatcher,
+            IApplicationEventDispatcher applicationEventDispatcher,
             IMediator               mediator)
-            : base(messages, notificationDispatcher, mediator) => _unitOfWork = unitOfWork;
+            : base(messages, applicationEventDispatcher, mediator) => _unitOfWork = unitOfWork;
 
         #region IOrchestrator<TDbContext> Members
 
@@ -184,9 +184,9 @@ namespace Aviant.DDD.Application.Orchestration
         public Orchestrator(
             IUnitOfWork<TAggregate, TAggregateId> unitOfWork,
             IMessages                             messages,
-            INotificationDispatcher               notificationDispatcher,
+            IApplicationEventDispatcher               applicationEventDispatcher,
             IMediator                             mediator)
-            : base(messages, notificationDispatcher, mediator) => _unitOfWork = unitOfWork;
+            : base(messages, applicationEventDispatcher, mediator) => _unitOfWork = unitOfWork;
 
         #region IOrchestrator<TAggregate,TAggregateId> Members
 
