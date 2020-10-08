@@ -9,11 +9,11 @@ namespace Aviant.DDD.Application.Orchestration
 
     public interface IOrchestrator
     {
-        public Task<RequestResult> SendCommandAsync<T>(
+        public Task<OrchestratorResponse> SendCommandAsync<T>(
             ICommand<T>       command,
             CancellationToken cancellationToken = default);
 
-        public Task<RequestResult> SendQueryAsync<T>(
+        public Task<OrchestratorResponse> SendQueryAsync<T>(
             IQuery<T>         query,
             CancellationToken cancellationToken = default);
     }
@@ -22,11 +22,11 @@ namespace Aviant.DDD.Application.Orchestration
     public interface IOrchestrator<TDbContext>
         where TDbContext : IDbContextWrite
     {
-        public Task<RequestResult> SendCommandAsync<T>(
+        public Task<OrchestratorResponse> SendCommandAsync<T>(
             ICommand<T>       command,
             CancellationToken cancellationToken = default);
 
-        public Task<RequestResult> SendQueryAsync<T>(
+        public Task<OrchestratorResponse> SendQueryAsync<T>(
             IQuery<T>         query,
             CancellationToken cancellationToken = default);
     }
@@ -35,11 +35,11 @@ namespace Aviant.DDD.Application.Orchestration
         where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
-        public Task<RequestResult> SendCommandAsync(
+        public Task<OrchestratorResponse> SendCommandAsync(
             ICommand<TAggregate, TAggregateId> command,
             CancellationToken                  cancellationToken = default);
 
-        public Task<RequestResult> SendQueryAsync<T>(
+        public Task<OrchestratorResponse> SendQueryAsync<T>(
             IQuery<T>         query,
             CancellationToken cancellationToken = default);
     }

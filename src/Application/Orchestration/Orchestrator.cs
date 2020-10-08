@@ -75,7 +75,7 @@ namespace Aviant.DDD.Application.Orchestration
                 : commandResponse;
         }
 
-        public async Task<RequestResult> SendQueryAsync<T>(
+        public async Task<OrchestratorResponse> SendQueryAsync<T>(
             IQuery<T>         query,
             CancellationToken cancellationToken = default)
         {
@@ -83,8 +83,8 @@ namespace Aviant.DDD.Application.Orchestration
                .ConfigureAwait(false);
 
             return _messages.HasMessages()
-                ? new RequestResult(_messages.GetAll())
-                : new RequestResult(commandResponse);
+                ? new OrchestratorResponse(_messages.GetAll())
+                : new OrchestratorResponse(commandResponse);
         }
     }
 
@@ -101,7 +101,7 @@ namespace Aviant.DDD.Application.Orchestration
 
         #region IOrchestrator Members
 
-        public async Task<RequestResult> SendCommandAsync<T>(
+        public async Task<OrchestratorResponse> SendCommandAsync<T>(
             ICommand<T>       command,
             CancellationToken cancellationToken = default)
         {
@@ -111,12 +111,12 @@ namespace Aviant.DDD.Application.Orchestration
                .ConfigureAwait(false);
 
             if (!(messages is null))
-                return new RequestResult(messages);
+                return new OrchestratorResponse(messages);
 
             var result = await PostUnitOfWork(commandResponse, cancellationToken)
                .ConfigureAwait(false);
 
-            return new RequestResult(result);
+            return new OrchestratorResponse(result);
         }
 
         #endregion
@@ -138,7 +138,7 @@ namespace Aviant.DDD.Application.Orchestration
 
         #region IOrchestrator<TDbContext> Members
 
-        public async Task<RequestResult> SendCommandAsync<T>(
+        public async Task<OrchestratorResponse> SendCommandAsync<T>(
             ICommand<T>       command,
             CancellationToken cancellationToken = default)
         {
@@ -148,7 +148,7 @@ namespace Aviant.DDD.Application.Orchestration
                .ConfigureAwait(false);
 
             if (!(messages is null))
-                return new RequestResult(messages);
+                return new OrchestratorResponse(messages);
 
             try
             {
@@ -158,11 +158,11 @@ namespace Aviant.DDD.Application.Orchestration
                 var result = await PostUnitOfWork(commandResponse, cancellationToken)
                    .ConfigureAwait(false);
 
-                return new RequestResult(result, affectedRows);
+                return new OrchestratorResponse(result, affectedRows);
             }
             catch (Exception exception)
             {
-                return new RequestResult(
+                return new OrchestratorResponse(
                     new List<string>
                     {
                         exception.Message
@@ -190,7 +190,7 @@ namespace Aviant.DDD.Application.Orchestration
 
         #region IOrchestrator<TAggregate,TAggregateId> Members
 
-        public async Task<RequestResult> SendCommandAsync(
+        public async Task<OrchestratorResponse> SendCommandAsync(
             ICommand<TAggregate, TAggregateId> command,
             CancellationToken                  cancellationToken = default)
         {
@@ -199,7 +199,7 @@ namespace Aviant.DDD.Application.Orchestration
                    .ConfigureAwait(false);
 
             if (!(messages is null))
-                return new RequestResult(messages);
+                return new OrchestratorResponse(messages);
 
             try
             {
@@ -208,7 +208,7 @@ namespace Aviant.DDD.Application.Orchestration
             }
             catch (Exception exception)
             {
-                return new RequestResult(
+                return new OrchestratorResponse(
                     new List<string>
                     {
                         exception.Message
@@ -218,7 +218,7 @@ namespace Aviant.DDD.Application.Orchestration
             var result = await PostUnitOfWork(commandResponse, cancellationToken)
                .ConfigureAwait(false);
 
-            return new RequestResult(result);
+            return new OrchestratorResponse(result);
         }
 
         #endregion

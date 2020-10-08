@@ -3,25 +3,23 @@ namespace Aviant.DDD.Application.Orchestration
     using System;
     using System.Collections.Generic;
 
-    //TODO: Revisit
-
-    public sealed class RequestResult
+    public sealed class OrchestratorResponse
     {
         private readonly object? _payload;
 
-        public RequestResult()
+        public OrchestratorResponse()
         { }
 
-        internal RequestResult(object? payload)
+        internal OrchestratorResponse(object? payload)
         {
             _payload  = payload;
             Succeeded = true;
         }
 
-        internal RequestResult(object? payload, int? affectedRows)
+        internal OrchestratorResponse(object? payload, int? affectedRows)
             : this(payload) => AffectedRows = affectedRows;
 
-        internal RequestResult(List<string> messages)
+        internal OrchestratorResponse(List<string> messages)
         {
             Messages  = messages;
             Succeeded = false;
@@ -39,7 +37,7 @@ namespace Aviant.DDD.Application.Orchestration
         public T Payload<T>()
         {
             if (_payload is null)
-                throw new ApplicationException("Payload is null");
+                throw new NullReferenceException(nameof(_payload));
 
             if (typeof(T) != _payload.GetType())
                 throw new ApplicationException(
