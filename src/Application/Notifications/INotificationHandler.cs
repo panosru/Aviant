@@ -2,8 +2,11 @@ namespace Aviant.DDD.Application.Notifications
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Core.Services;
 
-    internal interface INotificationHandler<in TNotification> : MediatR.INotificationHandler<TNotification>
+    internal interface INotificationHandler<in TNotification>
+        : MediatR.INotificationHandler<TNotification>,
+          IRetry
         where TNotification : INotification
     {
         /// <summary>

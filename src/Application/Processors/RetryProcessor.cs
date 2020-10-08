@@ -3,34 +3,34 @@ namespace Aviant.DDD.Application.Processors
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using Core.Services;
     using MediatR;
     using Polly;
 
-    public sealed class RetryProcessor<TNotification> : INotificationHandler<TNotification>
+    public sealed class RetryProcessor<TNotification>
+        : INotificationHandler<TNotification>
         where TNotification : INotification
     {
         private readonly INotificationHandler<TNotification> _inner;
 
-        private readonly IAsyncPolicy _retryPolicy;
+        private readonly IAsyncPolicy? _retryPolicy;
 
         public RetryProcessor(INotificationHandler<TNotification> inner)
         {
-            _inner = inner; //TODO: check RetryDecorator doesn't get injected twice
+            _inner = inner;
 
-            _retryPolicy = Policy
-               .Handle<ArgumentOutOfRangeException>()
-               .WaitAndRetryAsync(
-                    3,
-                    i => TimeSpan.FromSeconds(i));
+            if (_inner is IRetry handler)
+                _retryPolicy = handler.RetryPolicy();
         }
 
         #region INotificationHandler<TNotification> Members
 
         public Task Handle(TNotification notification, CancellationToken cancellationToken)
         {
-            return _retryPolicy.ExecuteAsync(
-                () =>
-                    _inner.Handle(notification, cancellationToken));
+            return _retryPolicy?.ExecuteAsync(
+                       () =>
+                           _inner.Handle(notification, cancellationToken))
+                ?? throw new NullReferenceException(nameof(_retryPolicy));
         }
 
         #endregion
