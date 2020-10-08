@@ -16,6 +16,6 @@ namespace Aviant.DDD.Application.ApplicationEvents
         /// <param name="event"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task Handle(TApplicationEvent @event, CancellationToken cancellationToken);
+        public new Task Handle(TApplicationEvent @event, CancellationToken cancellationToken);
     }
 }
