@@ -51,14 +51,16 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
         #endregion
 
-        // TODO: I'm not sure this is really the right approach.
         private IEventStoreConnection SetupConnection()
         {
             var settings = ConnectionSettings.Create()
-               .EnableVerboseLogging()
+                // .EnableVerboseLogging()
                .UseConsoleLogger()
                .DisableTls() // https://github.com/EventStore/EventStore/issues/2547
+               .KeepReconnecting()
+               .LimitReconnectionsTo(10)
                .Build();
+
             var connection = EventStoreConnection.Create(settings, _connectionString);
 
             connection.ErrorOccurred += async (s, e) =>
