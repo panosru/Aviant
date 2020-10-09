@@ -23,6 +23,8 @@ namespace Aviant.DDD.Application.Processors
                 _retryPolicy = handler.RetryPolicy();
         }
 
+        #region INotificationHandler<TNotification> Members
+
         public Task Handle(TNotification notification, CancellationToken cancellationToken)
         {
             return _retryPolicy?.ExecuteAsync(
@@ -30,5 +32,7 @@ namespace Aviant.DDD.Application.Processors
                            _inner.Handle(notification, cancellationToken))
                 ?? throw new NullReferenceException(nameof(_retryPolicy));
         }
+
+        #endregion
     }
 }

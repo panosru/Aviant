@@ -11,8 +11,8 @@ namespace Aviant.DDD.Core.DomainEvents
 
         public virtual IAsyncPolicy RetryPolicy() => Policy.NoOpAsync();
 
-        #endregion
-
         public abstract Task Handle(EventReceived<TDomainEvent> @event, CancellationToken cancellationToken);
+
+        #endregion
     }
 }

@@ -9,13 +9,21 @@ namespace Aviant.DDD.Application.Commands
     public abstract class CommandHandler<TCommand, TResponse> : ICommandHandler<TCommand, TResponse>
         where TCommand : ICommand<TResponse>
     {
+        #region ICommandHandler<TCommand,TResponse> Members
+
         public abstract Task<TResponse> Handle(TCommand command, CancellationToken cancellationToken);
+
+        #endregion
     }
 
     public abstract class CommandHandler<TCommand> : ICommandHandler<TCommand>
         where TCommand : ICommand<Unit>
     {
+        #region ICommandHandler<TCommand> Members
+
         public abstract Task<Unit> Handle(TCommand command, CancellationToken cancellationToken);
+
+        #endregion
     }
 
     public abstract class CommandHandler<TCommand, TAggregate, TAggregateId>
@@ -28,6 +36,10 @@ namespace Aviant.DDD.Application.Commands
             ServiceLocator.ServiceContainer.GetRequiredService<IEventsService<TAggregate, TAggregateId>>(
                 typeof(IEventsService<TAggregate, TAggregateId>));
 
+        #region ICommandHandler<TCommand,TAggregate,TAggregateId> Members
+
         public abstract Task<TAggregate> Handle(TCommand command, CancellationToken cancellationToken);
+
+        #endregion
     }
 }
