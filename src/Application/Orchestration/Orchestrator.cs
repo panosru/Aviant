@@ -40,7 +40,7 @@ namespace Aviant.DDD.Application.Orchestration
                .ConfigureAwait(false);
 
             // Fire pre/post notifications
-            await _applicationEventDispatcher.FirePreCommitNotificationsAsync(cancellationToken)
+            await _applicationEventDispatcher.FirePreCommitEventsAsync(cancellationToken)
                .ConfigureAwait(false);
 
             List<string>? messages = null;
@@ -56,7 +56,7 @@ namespace Aviant.DDD.Application.Orchestration
             CancellationToken cancellationToken)
         {
             // Fire post commit notifications
-            await _applicationEventDispatcher.FirePostCommitNotificationsAsync(cancellationToken)
+            await _applicationEventDispatcher.FirePostCommitEventsAsync(cancellationToken)
                .ConfigureAwait(false);
 
             var isLazy = false;

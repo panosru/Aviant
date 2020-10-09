@@ -25,46 +25,46 @@ namespace Aviant.DDD.Application.ApplicationEvents
 
         #region IApplicationEventDispatcher Members
 
-        public void AddPreCommitNotification(IApplicationEvent applicationEvent)
+        public void AddPreCommitEvent(IApplicationEvent applicationEvent)
         {
             applicationEvent.Occured = _dateTimeService.Now(true);
             PreCommitEvents.Add(applicationEvent);
         }
 
-        public void AddPostCommitNotification(IApplicationEvent applicationEvent)
+        public void AddPostCommitEvent(IApplicationEvent applicationEvent)
         {
             applicationEvent.Occured = _dateTimeService.Now(true);
             PostCommitEvents.Add(applicationEvent);
         }
 
-        public async Task FirePreCommitNotificationsAsync(CancellationToken cancellationToken = default)
+        public async Task FirePreCommitEventsAsync(CancellationToken cancellationToken = default)
         {
             foreach (var notification in PreCommitEvents.ToList())
             {
                 await _mediator.Publish(notification, cancellationToken).ConfigureAwait(false);
-                RemovePreCommitNotification(notification);
+                RemovePreCommitEvent(notification);
             }
         }
 
-        public async Task FirePostCommitNotificationsAsync(CancellationToken cancellationToken = default)
+        public async Task FirePostCommitEventsAsync(CancellationToken cancellationToken = default)
         {
             foreach (var notification in PostCommitEvents.ToList())
             {
                 await _mediator.Publish(notification, cancellationToken).ConfigureAwait(false);
-                RemovePostCommitNotification(notification);
+                RemovePostCommitEvent(notification);
             }
         }
 
         public List<IApplicationEvent> GetPreCommitEvents() => PreCommitEvents;
 
-        public List<IApplicationEvent> GetPostCommitNotifications() => PostCommitEvents;
+        public List<IApplicationEvent> GetPostCommitEvents() => PostCommitEvents;
 
-        public void RemovePreCommitNotification(IApplicationEvent applicationEvent)
+        public void RemovePreCommitEvent(IApplicationEvent applicationEvent)
         {
             PreCommitEvents.Remove(applicationEvent);
         }
 
-        public void RemovePostCommitNotification(IApplicationEvent applicationEvent)
+        public void RemovePostCommitEvent(IApplicationEvent applicationEvent)
         {
             PostCommitEvents.Remove(applicationEvent);
         }

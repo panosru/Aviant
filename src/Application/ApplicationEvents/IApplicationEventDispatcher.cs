@@ -10,23 +10,23 @@ namespace Aviant.DDD.Application.ApplicationEvents
 
         public List<IApplicationEvent> GetPreCommitEvents();
 
-        public void AddPreCommitNotification(IApplicationEvent applicationEvent);
+        public void AddPreCommitEvent(IApplicationEvent applicationEvent);
 
-        public void RemovePreCommitNotification(IApplicationEvent applicationEvent);
+        public void RemovePreCommitEvent(IApplicationEvent applicationEvent);
 
-        public Task FirePreCommitNotificationsAsync(CancellationToken cancellationToken = default);
+        public Task FirePreCommitEventsAsync(CancellationToken cancellationToken = default);
 
         #endregion
 
         #region Post Commit Notifications
 
-        public List<IApplicationEvent> GetPostCommitNotifications();
+        public List<IApplicationEvent> GetPostCommitEvents();
 
-        public void AddPostCommitNotification(IApplicationEvent applicationEvent);
+        public void AddPostCommitEvent(IApplicationEvent applicationEvent);
 
-        public void RemovePostCommitNotification(IApplicationEvent applicationEvent);
+        public void RemovePostCommitEvent(IApplicationEvent applicationEvent);
 
-        public Task FirePostCommitNotificationsAsync(CancellationToken cancellationToken = default);
+        public Task FirePostCommitEventsAsync(CancellationToken cancellationToken = default);
 
         #endregion
     }
