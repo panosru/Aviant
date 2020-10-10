@@ -4,12 +4,2100 @@
   "xrefmap": "xrefmap.yml",
   "files": [
     {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.ApplicationEvents.ApplicationEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.ApplicationEvents.ApplicationEvent.html",
+          "hash": "mYihb+qCeeoPTeFC0TXVYw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.ApplicationEvents.ApplicationEventDispatcher.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.ApplicationEvents.ApplicationEventDispatcher.html",
+          "hash": "ir+VFHInAnx2YuafZH7ovQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.ApplicationEvents.ApplicationEventHandler-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.ApplicationEvents.ApplicationEventHandler-1.html",
+          "hash": "EFcv8YHW3k2qX+NXP7Sx1w=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.ApplicationEvents.IApplicationEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.ApplicationEvents.IApplicationEvent.html",
+          "hash": "ZJHTQ7rth7zebIxjUhYjOw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.ApplicationEvents.IApplicationEventDispatcher.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.ApplicationEvents.IApplicationEventDispatcher.html",
+          "hash": "8BZexn5UyaUAITEyjaS3qQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.ApplicationEvents.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.ApplicationEvents.html",
+          "hash": "QD1OjCW/7Xz50WJ7SGxNqQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Behaviours.LoggerBehaviour-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Behaviours.LoggerBehaviour-1.html",
+          "hash": "usg5fQMCkQ1Ws3VqfjD3Gg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Behaviours.PerformanceBehaviour-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Behaviours.PerformanceBehaviour-2.html",
+          "hash": "Tx8zT8BZTGgJW8YBtv3TDg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Behaviours.UnhandledExceptionBehaviour-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Behaviours.UnhandledExceptionBehaviour-2.html",
+          "hash": "PBA0k3tzRG1Eugz0XlnRUw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Behaviours.ValidationBehaviour-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Behaviours.ValidationBehaviour-2.html",
+          "hash": "gOj5d8QNGpeF5zXXNU0HxQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Behaviours.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Behaviours.html",
+          "hash": "zgy720k0A/7Q3AoRWkgHpA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Commands.Command-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Commands.Command-1.html",
+          "hash": "QqmObcLaLabI0mnfI34T/g=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Commands.Command-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Commands.Command-2.html",
+          "hash": "/grD2ws7UN8yhrL2MxgD4w=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Commands.Command.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Commands.Command.html",
+          "hash": "zRKcwiqzhqV5Fa8T+U9hqQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Commands.CommandHandler-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Commands.CommandHandler-1.html",
+          "hash": "vVoq0O/zXWvmSr1neQyvHw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Commands.CommandHandler-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Commands.CommandHandler-2.html",
+          "hash": "dasmPS2KhBq1DXmOtZsjEg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Commands.CommandHandler-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Commands.CommandHandler-3.html",
+          "hash": "yDLAwTqNBL7hKVoSOiuAig=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Commands.CommandValidator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Commands.CommandValidator-1.html",
+          "hash": "vVJILWF0fOliqDb9OXdKrg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Commands.ICommand-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Commands.ICommand-1.html",
+          "hash": "yTTXYDEH+UzBXrKTGyiKCQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Commands.ICommand-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Commands.ICommand-2.html",
+          "hash": "AaFzXtvz2SWA8Pg3vX5spA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Commands.ICommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Commands.ICommand.html",
+          "hash": "/7pMoqdgncuRoVsI3XcRBQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Commands.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Commands.html",
+          "hash": "DJj8qfuJk9Sce8BzYR4jCg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.EventBus.EventConsumerFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.EventBus.EventConsumerFactory.html",
+          "hash": "umhlVSfCI1ydAWFzg9rApg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.EventBus.HandlerExtensionRegistry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.EventBus.HandlerExtensionRegistry.html",
+          "hash": "2E42j9GZ1Tew1k19g9IX/g=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.EventBus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.EventBus.html",
+          "hash": "b0Bx3AbaHQzlssy/gXXBWg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Exceptions.ApplicationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Exceptions.ApplicationException.html",
+          "hash": "UUhFHfH96s7yTSzoZmNtyA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Exceptions.NotFoundException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Exceptions.NotFoundException.html",
+          "hash": "YogRAokwGKRez3/TASie7w=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Exceptions.ValidationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Exceptions.ValidationException.html",
+          "hash": "sxwkI+hNIWoEfrwElFMI+Q=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Exceptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Exceptions.html",
+          "hash": "7ZEYypcImhSp5zZajOYsNA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Identity.ApplicationRole.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Identity.ApplicationRole.html",
+          "hash": "UurUnIOSeGvCko79Y4OZtw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Identity.ApplicationUser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Identity.ApplicationUser.html",
+          "hash": "5ELUYNGYP0UmSQmXwlaU2A=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Identity.ICurrentUserService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Identity.ICurrentUserService.html",
+          "hash": "3Ayb2AdtQOTRy1F370LYAA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Identity.IIdentityService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Identity.IIdentityService.html",
+          "hash": "cCgQw7UXSsloNHcVjmzEBQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Identity.IdentityResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Identity.IdentityResult.html",
+          "hash": "FxXXuX4RKqIXFAnnuXUEjA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Identity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Identity.html",
+          "hash": "ZPg7W+w8pS6lKz4JsyKEhg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Mappings.IMapFrom-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Mappings.IMapFrom-1.html",
+          "hash": "pDlahHsglqkT8lu2d8F2Tw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Mappings.IMapTo-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Mappings.IMapTo-1.html",
+          "hash": "hnNj3+r0ZoIillE5iqkOxw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Mappings.MappingProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Mappings.MappingProfile.html",
+          "hash": "M6E82PapCS/A/lfPWETSjg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Mappings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Mappings.html",
+          "hash": "I3U1TC0trl3mh7TZoA5xxA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Orchestration.IOrchestrator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Orchestration.IOrchestrator-1.html",
+          "hash": "sFY7SjJZqJn8O9Eo3qJPRg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Orchestration.IOrchestrator-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Orchestration.IOrchestrator-2.html",
+          "hash": "FTh2vcdpKl0B8bbAg6i6rQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Orchestration.IOrchestrator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Orchestration.IOrchestrator.html",
+          "hash": "mx3tqxiMddsar129Gdv4VQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Orchestration.Orchestrator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Orchestration.Orchestrator-1.html",
+          "hash": "3QQQF6+CdWX6keeJa//VSQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Orchestration.Orchestrator-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Orchestration.Orchestrator-2.html",
+          "hash": "0SsXLKAi8HvzH2fcbtCkqw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Orchestration.Orchestrator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Orchestration.Orchestrator.html",
+          "hash": "Z1+aq2IUEzUHoS+CefvLFQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Orchestration.OrchestratorBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Orchestration.OrchestratorBase.html",
+          "hash": "aL9vWZEsP5L2jTUeuwszKg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Orchestration.OrchestratorResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Orchestration.OrchestratorResponse.html",
+          "hash": "nzL0/Ak3XmlY10WBzPSiCw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Orchestration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Orchestration.html",
+          "hash": "WwmfFX111VZZkKmfZLhm9Q=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Persistance.IDbContextRead.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Persistance.IDbContextRead.html",
+          "hash": "NUBXznMTAaPDpPgkOhfQrQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Persistance.IDbContextWrite.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Persistance.IDbContextWrite.html",
+          "hash": "q/zWatgPRKqaWAtrnlgR9w=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Persistance.IUnitOfWork-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Persistance.IUnitOfWork-1.html",
+          "hash": "N2N50KuhKcn4VC1c8is6gA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Persistance.IUnitOfWork-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Persistance.IUnitOfWork-2.html",
+          "hash": "+zrHAS6dhmwGAo0Xdgn8mQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Persistance.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Persistance.html",
+          "hash": "clfQvr9CxGCESaWshDZvbQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Processors.RequestPostProcessor-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Processors.RequestPostProcessor-2.html",
+          "hash": "2nNXIcQZ/w5X+BmQ+8h/BA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Processors.RequestPreProcessor-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Processors.RequestPreProcessor-1.html",
+          "hash": "BNbfOQB+elpFCcA6U3nimA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Processors.RetryProcessor-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Processors.RetryProcessor-1.html",
+          "hash": "SVy7ljLQDOlVqRrjg8d4Kg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Processors.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Processors.html",
+          "hash": "6tJ3xAkIMozPnwNczkk+2w=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Queries.IQuery-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Queries.IQuery-1.html",
+          "hash": "BIK+j+21hjVt7gpPdO03fA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Queries.Query-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Queries.Query-1.html",
+          "hash": "5C4uGck/142uwUjk5SFd8w=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Queries.QueryHandler-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Queries.QueryHandler-2.html",
+          "hash": "9VypKFeaMj60qkUX6y7FfQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Queries.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Queries.html",
+          "hash": "Xru8x/R+pUSFcl+9GUDRzQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Services.EventsService-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Services.EventsService-2.html",
+          "hash": "svdFM8ymOrV6SW+pFofqvw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Services.HttpContextServiceProviderProxy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Services.HttpContextServiceProviderProxy.html",
+          "hash": "46YTPuzy9n9DAHT/H0Nd4g=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Services.ICsvFileBuilder-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Services.ICsvFileBuilder-1.html",
+          "hash": "JcUGU2s3LxRhUHVM01ZiIQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Services.IDateTimeService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Services.IDateTimeService.html",
+          "hash": "cRzYO6exhMEjgJOlBZ57EQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Services.IEmailService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Services.IEmailService.html",
+          "hash": "JgEIPcN3AX6hJL0ZYLfY1w=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Services.JsonEventDeserializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Services.JsonEventDeserializer.html",
+          "hash": "ZS+LQMxnT+v3HCGQqQhzJg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.Services.html",
+          "hash": "6UtvD8tbAfvVUhZEMVC0Iw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.UseCases.IUseCase-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.UseCases.IUseCase-1.html",
+          "hash": "uv8glTa/FYgF4M2+sFnVDw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.UseCases.IUseCaseInput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.UseCases.IUseCaseInput.html",
+          "hash": "lrtr4LQ1yV8c3mscnRRT0w=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.UseCases.IUseCaseOutput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.UseCases.IUseCaseOutput.html",
+          "hash": "e//fu3Js+KO0pxJG5a/4vQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.UseCases.UseCase-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.UseCases.UseCase-1.html",
+          "hash": "4FA8kz3INL8AwQXF9QL3Ww=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.UseCases.UseCase-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.UseCases.UseCase-2.html",
+          "hash": "bAGQ2ZmTCpVRgDdkhnAZKw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.UseCases.UseCase-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.UseCases.UseCase-3.html",
+          "hash": "xbysjescyRov4iBAcZ6CrA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.UseCases.UseCase-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.UseCases.UseCase-4.html",
+          "hash": "FNKaHkU7MoCJvNLuBT+3AQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.UseCases.UseCaseBase-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.UseCases.UseCaseBase-1.html",
+          "hash": "2P/xkPwCsm8eanpbKxAe6g=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.UseCases.UseCaseInput-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.UseCases.UseCaseInput-2.html",
+          "hash": "Pa6cZxl4K4Eb+8TI8UW5HQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.UseCases.UseCaseInput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.UseCases.UseCaseInput.html",
+          "hash": "ql31kTYlyoM2VaZ5Bp4vMA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Application.UseCases.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Application.UseCases.html",
+          "hash": "O6XavTv71+NvSPagtVdepQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Aggregates.Aggregate-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Aggregates.Aggregate-2.html",
+          "hash": "JGatoIT+8odat70dkmGDUw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Aggregates.AggregateId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Aggregates.AggregateId-1.html",
+          "hash": "ffsSv6UF3B//onzzuwbpeQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Aggregates.IAggregate-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Aggregates.IAggregate-1.html",
+          "hash": "eoB7J9oLTPKDMZovyd0I9g=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Aggregates.IAggregateId.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Aggregates.IAggregateId.html",
+          "hash": "OOHPrsKPTIRuU9AHKIrlxg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Aggregates.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Aggregates.html",
+          "hash": "4n+m6lzmHXTww30dRuwwKw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.DomainEvents.DomainEvent-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.DomainEvents.DomainEvent-2.html",
+          "hash": "EiyS6z+UNGs5d51skWOhvg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.DomainEvents.DomainEventHandler-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.DomainEvents.DomainEventHandler-1.html",
+          "hash": "1+5h5zqJ6Hkxxb11l3Kbng=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.DomainEvents.IDomainEvent-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.DomainEvents.IDomainEvent-1.html",
+          "hash": "73vVdlVMnHM3p6wP9WweaQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.DomainEvents.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.DomainEvents.html",
+          "hash": "vfFv4z0G1MxkStBK+mUtBA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Entities.Entity-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Entities.Entity-1.html",
+          "hash": "WL0rxxDPId4b5I3LdYWWkw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Entities.IActivationAudited.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Entities.IActivationAudited.html",
+          "hash": "6dh58Uk4k70Cv0oNdphaww=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Entities.IAuditedEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Entities.IAuditedEntity.html",
+          "hash": "v10LvwqpigvWc1xUJxDgcg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Entities.ICreationAudited.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Entities.ICreationAudited.html",
+          "hash": "TKKXLuqshbNiE6h7sQG93g=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Entities.IDeletionAudited.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Entities.IDeletionAudited.html",
+          "hash": "xTMArBGZf6Ex7m9A+/etCQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Entities.IEntity-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Entities.IEntity-1.html",
+          "hash": "r9axtBWWsDleG9xO69UntQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Entities.IHasActivationStatus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Entities.IHasActivationStatus.html",
+          "hash": "pGxB6Exn5gKyxaCAzH7NCg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Entities.IHasCreationTime.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Entities.IHasCreationTime.html",
+          "hash": "8ADhiGGI1UGNEvBjJ30uWw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Entities.IHasDeletionTime.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Entities.IHasDeletionTime.html",
+          "hash": "8MQdNGG4h0SC2vDKZsXtyg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Entities.IHasModificationTime.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Entities.IHasModificationTime.html",
+          "hash": "6ayy4o3BKaVGVppg7cirWQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Entities.IModificationAudited.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Entities.IModificationAudited.html",
+          "hash": "kBiVJ47yWAe19TRDy7orsA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Entities.ISoftDelete.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Entities.ISoftDelete.html",
+          "hash": "U9Z8gThWTRb9nWwbfq+NFg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Entities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Entities.html",
+          "hash": "ttetF9F9nDRhrnGMek8WSg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Enums.PriorityLevel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Enums.PriorityLevel.html",
+          "hash": "yFsN14r2Xy1AE/Sdr0G4bA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Enums.State.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Enums.State.html",
+          "hash": "aHFX4zHPCXvDIegkUNhXTA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Enums.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Enums.html",
+          "hash": "DqOPxc2uS7miotz56BQ72g=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.EventBus.EventReceived-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.EventBus.EventReceived-1.html",
+          "hash": "HOE6YOW5nx4XvGrg4niF0Q=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.EventBus.EventReceivedHandlerAsync-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.EventBus.EventReceivedHandlerAsync-1.html",
+          "hash": "a4bzuUltVNZI7hDyyc/qoQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.EventBus.IEventConsumer-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.EventBus.IEventConsumer-3.html",
+          "hash": "9p+A0DdwfRHqWwxUdjBSXA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.EventBus.IEventConsumer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.EventBus.IEventConsumer.html",
+          "hash": "JYCV1NKOt04A5RYYky6ZtA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.EventBus.IEventConsumerFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.EventBus.IEventConsumerFactory.html",
+          "hash": "A8qQ4afIB06J6rvnFANmOg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.EventBus.IEventProducer-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.EventBus.IEventProducer-2.html",
+          "hash": "CpXNMWGhmBnQCg2rO8m5rA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.EventBus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.EventBus.html",
+          "hash": "MXZFYWhauB1Xm23/fIDFCw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Exceptions.CoreException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Exceptions.CoreException.html",
+          "hash": "6hRXM2992QX39rfGTRiKVw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Exceptions.EntityNotFoundException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Exceptions.EntityNotFoundException.html",
+          "hash": "0ZmAvS4HwHkrxdkE8dF5cA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Exceptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Exceptions.html",
+          "hash": "+QcxMLpWqQrGnnIKbUlUhw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Messages.IMessages.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Messages.IMessages.html",
+          "hash": "B8K7LJeFj3K8gQBqfL9EGQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Messages.Messages.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Messages.Messages.html",
+          "hash": "+6MpzCMb6biaGIc0KiDQJg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Messages.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Messages.html",
+          "hash": "ftyqL8TRF3EMv0RQaQBC+w=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Persistence.IEventsRepository-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Persistence.IEventsRepository-2.html",
+          "hash": "D56YOpvutaxPn+2ByS39Hw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Persistence.IRepositoryRead-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Persistence.IRepositoryRead-2.html",
+          "hash": "uDUlT8lXTMlhCSDQlo7z4A=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Persistence.IRepositoryWrite-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Persistence.IRepositoryWrite-2.html",
+          "hash": "aQT3HWfJ/h6cOyjMne46sQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Persistence.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Persistence.html",
+          "hash": "M66SKD32IQ8dWyhVLMXsUQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Services.IEventDeserializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Services.IEventDeserializer.html",
+          "hash": "VvUNC/avSVN26elNY8kyPw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Services.IEventsService-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Services.IEventsService-2.html",
+          "hash": "pVQ2pune+ifn+ODbmvHn7w=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Services.IRetry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Services.IRetry.html",
+          "hash": "Q0mQRo3doVkFmdkvBq/kCw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Services.IServiceContainer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Services.IServiceContainer.html",
+          "hash": "u+Anu3IaNtqIojEc7Inecg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Services.ServiceLocator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Services.ServiceLocator.html",
+          "hash": "rypNWx2xHWBFxLhYLZ3ZBA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Services.html",
+          "hash": "w1gpx2IyC4rhjT5ZEKSSFA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.TransferObjects.Dto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.TransferObjects.Dto.html",
+          "hash": "CDyNHnvgoYsmNh7P/dGjzA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.TransferObjects.Eto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.TransferObjects.Eto.html",
+          "hash": "68kTSVYcKIoJBKQ/g77+AA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.TransferObjects.TransferObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.TransferObjects.TransferObject.html",
+          "hash": "1f/y7OFyFbbp56+ZEw9tTw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.TransferObjects.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.TransferObjects.html",
+          "hash": "d5699hO9UeTL3obDAUMTPQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Validators.AssertionsConcernValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Validators.AssertionsConcernValidator.html",
+          "hash": "gYTGBl/gcZoVBhdJpriI8g=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.Validators.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.Validators.html",
+          "hash": "hg8t2fcBdweJypbwAqIu4Q=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.ValueObjects.ValueObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.ValueObjects.ValueObject.html",
+          "hash": "PBAggKcBD5Q1LTKX/rizYA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Core.ValueObjects.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Core.ValueObjects.html",
+          "hash": "r1Rjw4Mno0uida8fH3t5Pg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.CrossCutting.DependencyInjectionRegistry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.CrossCutting.DependencyInjectionRegistry.html",
+          "hash": "cuWWd9gy6i0E8Pk40pompg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.CrossCutting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.CrossCutting.html",
+          "hash": "CkFNY6SBgbUQ+C5Ez04uOg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Exceptions.InfrastructureException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Exceptions.InfrastructureException.html",
+          "hash": "okhQhKZt2FoHk9+Fm4uAKg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Exceptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Exceptions.html",
+          "hash": "j2/C+d/G5WDv9i9DYSTAdA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Configurations.EntityConfiguration-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Configurations.EntityConfiguration-2.html",
+          "hash": "gySh3XBhskjvNa61Fkwjjw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Configurations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Configurations.html",
+          "hash": "G7/ut3kHo/BY/AqI8RXkzg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext-1.html",
+          "hash": "vAvjSkWfKJ9M/Nm7VaLX1A=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext-3.html",
+          "hash": "VTHWrgjteJzCr/WfpEKHUw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Contexts.AuthorizationDbContextRead-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Contexts.AuthorizationDbContextRead-2.html",
+          "hash": "/I7AGWBUBwYY7DC94YWx6g=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Contexts.AuthorizationDbContextWrite-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Contexts.AuthorizationDbContextWrite-3.html",
+          "hash": "kSodNmFJWya6IGp+j72WPg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Contexts.DbContextRead.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Contexts.DbContextRead.html",
+          "hash": "hjgrMSH8717VtEuwKMxcVQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Contexts.DbContextWrite-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Contexts.DbContextWrite-1.html",
+          "hash": "0QM+hU1PsLdjTltKmx6cHw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Contexts.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Contexts.html",
+          "hash": "F0PGH18AeNmhNr6o+w47ig=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.EventStore.EventStoreConnectionWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.EventStore.EventStoreConnectionWrapper.html",
+          "hash": "YSJzaQmLvZOrIRn+1lvEtQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.EventStore.EventStoreExtensionRegistry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.EventStore.EventStoreExtensionRegistry.html",
+          "hash": "k2S5r3Wf5UWqM4jG2a7yFA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.EventStore.IEventStoreConnectionWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.EventStore.IEventStoreConnectionWrapper.html",
+          "hash": "AVkWKt6fOkxUdJ4DUNADDA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.EventStore.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.EventStore.html",
+          "hash": "wwwyJoEh9rG8wcqxbN4PyA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Kafka.EventConsumer-3.ConsumerStoppedHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Kafka.EventConsumer-3.ConsumerStoppedHandler.html",
+          "hash": "rZ4lcoLN+WgKgUanUP1yew=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Kafka.EventConsumer-3.ExceptionThrownHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Kafka.EventConsumer-3.ExceptionThrownHandler.html",
+          "hash": "kgEMDM38YR7xiM+oaDePQw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Kafka.EventConsumer-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Kafka.EventConsumer-3.html",
+          "hash": "Q3OhEA6J9+M8JKGAdgZNdg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Kafka.EventConsumerConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Kafka.EventConsumerConfig.html",
+          "hash": "pxP6w5BzdrKpV0KzTNfijg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Kafka.KafkaExtensionRegistry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Kafka.KafkaExtensionRegistry.html",
+          "hash": "nL5qHsGpoo7rlr+LkvMnMQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Kafka.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Kafka.html",
+          "hash": "a2exmIbt8r8+jEMuCd0Yyg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryRead-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryRead-3.html",
+          "hash": "zmwBqiS1OYKTjhHpacyLQw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryRead-5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryRead-5.html",
+          "hash": "Qry0hpXggZMuWJMVh4Y/3A=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryReadBase-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryReadBase-3.html",
+          "hash": "0/MD2xE7AQtNg797EoK7lw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryWrite-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryWrite-3.html",
+          "hash": "Faq6V2FZKcgMYwXSi3owfA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryWrite-5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryWrite-5.html",
+          "hash": "uLMLzv+p43pibLCfvcsBrQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryWriteBase-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryWriteBase-3.html",
+          "hash": "mZ5+XFFVRpT3j69YCjzerA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Repository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.Repository.html",
+          "hash": "y6JTJaUpRx5Blp6+M4b2rw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.UnitOfWork-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.UnitOfWork-1.html",
+          "hash": "d+u3Hu3skbO3roKzzT8itA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.UnitOfWork-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.UnitOfWork-2.html",
+          "hash": "KHnKlMQvn8YVqDWNNmAULQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Persistence.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Persistence.html",
+          "hash": "l2TCAYo/CKyq4DqCpi1ICg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Services.CsvFileBuilder-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Services.CsvFileBuilder-2.html",
+          "hash": "ZnfXwGnxf3M9CZogDJOK0Q=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Services.DateTimeService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Services.DateTimeService.html",
+          "hash": "5K0Ea2zp2gwEVc7AcRzhEQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Services.EmailService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Services.EmailService.html",
+          "hash": "Usy+kijj6Wu4bC+suDy/0w=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Services.ISmtpClientFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Services.ISmtpClientFactory.html",
+          "hash": "a223yki2bsEEXNCjxffbAQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Services.SmtpClientFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Services.SmtpClientFactory.html",
+          "hash": "31SzlYSXJ0UeOr1x8NPJLA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Aviant.DDD.Infrastructure.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Aviant.DDD.Infrastructure.Services.html",
+          "hash": "XZ5PtoHyffho+4XneA+4JQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "api/index.md",
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "yj74cNrmm3buRoCLZfiUMQ=="
+          "hash": "oGfIAknRYH4iispfncwfKA=="
         }
       },
       "is_incremental": true,
@@ -21,22 +2109,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/intro.html",
-          "hash": "LxbVm7Wp8T6/5lj7h/kftw=="
+          "hash": "a1SVwQck4a30SpI3isjdFQ=="
         }
       },
       "is_incremental": true,
-      "version": ""
-    },
-    {
-      "type": "Toc",
-      "source_relative_path": "articles/toc.yml",
-      "output": {
-        ".html": {
-          "relative_path": "articles/toc.html",
-          "hash": "gB8AESyvNru97tzIZofEEg=="
-        }
-      },
-      "is_incremental": false,
       "version": ""
     },
     {
@@ -45,22 +2121,10 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "VvxLSTtI2AzH29aHoJNH1w=="
+          "hash": "mD0uJ7xKVh9UVNg3PnTyEg=="
         }
       },
       "is_incremental": true,
-      "version": ""
-    },
-    {
-      "type": "Toc",
-      "source_relative_path": "toc.yml",
-      "output": {
-        ".html": {
-          "relative_path": "toc.html",
-          "hash": "IGK1ZSYI4NbShXZSeUUd6Q=="
-        }
-      },
-      "is_incremental": false,
       "version": ""
     }
   ],
@@ -78,6 +2142,12 @@
           "incrementalPhase": "build",
           "total_file_count": 3,
           "skipped_file_count": 3
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 174,
+          "skipped_file_count": 174
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

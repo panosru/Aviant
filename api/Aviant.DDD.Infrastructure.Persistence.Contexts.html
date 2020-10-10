@@ -1,0 +1,775 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Namespace Aviant.DDD.Infrastructure.Persistence.Contexts
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Namespace Aviant.DDD.Infrastructure.Persistence.Contexts
+   ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc">
+    <meta property="docfx:tocrel" content="toc">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                
+                <ul class="nav level1 navbar-nav">
+                      <li>
+                          <a href="../articles/intro.html" title="Articles">Articles</a>
+                      </li>
+                      <li>
+                          <a href="../api/index.html" title="Api Documentation">Api Documentation</a>
+                      </li>
+                </ul>    </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidefilter">
+                <form class="toc-filter">
+                  <span class="glyphicon glyphicon-filter filter-icon"></span>
+                  <input type="text" id="toc_filter_input" placeholder="Enter here to filter..." onkeypress="if(event.keyCode==13) {return false;}">
+                </form>
+              </div>
+              <div class="sidetoc">
+                <div class="toc" id="toc">
+                  
+                  <ul class="nav level1">
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Application.ApplicationEvents.html" title="Aviant.DDD.Application.ApplicationEvents" class="">Aviant.DDD.Application.ApplicationEvents</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Application.ApplicationEvents.ApplicationEvent.html" title="ApplicationEvent" class="">ApplicationEvent</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.ApplicationEvents.ApplicationEventDispatcher.html" title="ApplicationEventDispatcher" class="">ApplicationEventDispatcher</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.ApplicationEvents.ApplicationEventHandler-1.html" title="ApplicationEventHandler&lt;TApplicationEvent&gt;" class="">ApplicationEventHandler&lt;TApplicationEvent&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.ApplicationEvents.IApplicationEvent.html" title="IApplicationEvent" class="">IApplicationEvent</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.ApplicationEvents.IApplicationEventDispatcher.html" title="IApplicationEventDispatcher" class="">IApplicationEventDispatcher</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Application.Behaviours.html" title="Aviant.DDD.Application.Behaviours" class="">Aviant.DDD.Application.Behaviours</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Behaviours.LoggerBehaviour-1.html" title="LoggerBehaviour&lt;TRequest&gt;" class="">LoggerBehaviour&lt;TRequest&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Behaviours.PerformanceBehaviour-2.html" title="PerformanceBehaviour&lt;TRequest, TResponse&gt;" class="">PerformanceBehaviour&lt;TRequest, TResponse&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Behaviours.UnhandledExceptionBehaviour-2.html" title="UnhandledExceptionBehaviour&lt;TRequest, TResponse&gt;" class="">UnhandledExceptionBehaviour&lt;TRequest, TResponse&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Behaviours.ValidationBehaviour-2.html" title="ValidationBehaviour&lt;TRequest, TResponse&gt;" class="">ValidationBehaviour&lt;TRequest, TResponse&gt;</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Application.Commands.html" title="Aviant.DDD.Application.Commands" class="">Aviant.DDD.Application.Commands</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Commands.Command.html" title="Command" class="">Command</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Commands.Command-2.html" title="Command&lt;TAggregate, TAggregateId&gt;" class="">Command&lt;TAggregate, TAggregateId&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Commands.Command-1.html" title="Command&lt;TResponse&gt;" class="">Command&lt;TResponse&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Commands.CommandHandler-3.html" title="CommandHandler&lt;TCommand, TAggregate, TAggregateId&gt;" class="">CommandHandler&lt;TCommand, TAggregate, TAggregateId&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Commands.CommandHandler-2.html" title="CommandHandler&lt;TCommand, TResponse&gt;" class="">CommandHandler&lt;TCommand, TResponse&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Commands.CommandHandler-1.html" title="CommandHandler&lt;TCommand&gt;" class="">CommandHandler&lt;TCommand&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Commands.CommandValidator-1.html" title="CommandValidator&lt;TCommand&gt;" class="">CommandValidator&lt;TCommand&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Commands.ICommand.html" title="ICommand" class="">ICommand</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Commands.ICommand-2.html" title="ICommand&lt;TAggregate, TAggregateId&gt;" class="">ICommand&lt;TAggregate, TAggregateId&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Commands.ICommand-1.html" title="ICommand&lt;TResponse&gt;" class="">ICommand&lt;TResponse&gt;</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Application.EventBus.html" title="Aviant.DDD.Application.EventBus" class="">Aviant.DDD.Application.EventBus</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Application.EventBus.EventConsumerFactory.html" title="EventConsumerFactory" class="">EventConsumerFactory</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.EventBus.HandlerExtensionRegistry.html" title="HandlerExtensionRegistry" class="">HandlerExtensionRegistry</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Application.Exceptions.html" title="Aviant.DDD.Application.Exceptions" class="">Aviant.DDD.Application.Exceptions</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Exceptions.ApplicationException.html" title="ApplicationException" class="">ApplicationException</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Exceptions.NotFoundException.html" title="NotFoundException" class="">NotFoundException</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Exceptions.ValidationException.html" title="ValidationException" class="">ValidationException</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Application.Identity.html" title="Aviant.DDD.Application.Identity" class="">Aviant.DDD.Application.Identity</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Identity.ApplicationRole.html" title="ApplicationRole" class="">ApplicationRole</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Identity.ApplicationUser.html" title="ApplicationUser" class="">ApplicationUser</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Identity.ICurrentUserService.html" title="ICurrentUserService" class="">ICurrentUserService</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Identity.IdentityResult.html" title="IdentityResult" class="">IdentityResult</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Identity.IIdentityService.html" title="IIdentityService" class="">IIdentityService</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Application.Mappings.html" title="Aviant.DDD.Application.Mappings" class="">Aviant.DDD.Application.Mappings</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Mappings.IMapFrom-1.html" title="IMapFrom&lt;T&gt;" class="">IMapFrom&lt;T&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Mappings.IMapTo-1.html" title="IMapTo&lt;T&gt;" class="">IMapTo&lt;T&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Mappings.MappingProfile.html" title="MappingProfile" class="">MappingProfile</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Application.Orchestration.html" title="Aviant.DDD.Application.Orchestration" class="">Aviant.DDD.Application.Orchestration</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Orchestration.IOrchestrator.html" title="IOrchestrator" class="">IOrchestrator</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Orchestration.IOrchestrator-2.html" title="IOrchestrator&lt;TAggregate, TAggregateId&gt;" class="">IOrchestrator&lt;TAggregate, TAggregateId&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Orchestration.IOrchestrator-1.html" title="IOrchestrator&lt;TDbContext&gt;" class="">IOrchestrator&lt;TDbContext&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Orchestration.Orchestrator.html" title="Orchestrator" class="">Orchestrator</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Orchestration.Orchestrator-2.html" title="Orchestrator&lt;TAggregate, TAggregateId&gt;" class="">Orchestrator&lt;TAggregate, TAggregateId&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Orchestration.Orchestrator-1.html" title="Orchestrator&lt;TDbContext&gt;" class="">Orchestrator&lt;TDbContext&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Orchestration.OrchestratorBase.html" title="OrchestratorBase" class="">OrchestratorBase</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Orchestration.OrchestratorResponse.html" title="OrchestratorResponse" class="">OrchestratorResponse</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Application.Persistance.html" title="Aviant.DDD.Application.Persistance" class="">Aviant.DDD.Application.Persistance</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Persistance.IDbContextRead.html" title="IDbContextRead" class="">IDbContextRead</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Persistance.IDbContextWrite.html" title="IDbContextWrite" class="">IDbContextWrite</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Persistance.IUnitOfWork-2.html" title="IUnitOfWork&lt;TAggregate, TAggregateId&gt;" class="">IUnitOfWork&lt;TAggregate, TAggregateId&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Persistance.IUnitOfWork-1.html" title="IUnitOfWork&lt;TDbContext&gt;" class="">IUnitOfWork&lt;TDbContext&gt;</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Application.Processors.html" title="Aviant.DDD.Application.Processors" class="">Aviant.DDD.Application.Processors</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Processors.RequestPostProcessor-2.html" title="RequestPostProcessor&lt;TRequest, TResponse&gt;" class="">RequestPostProcessor&lt;TRequest, TResponse&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Processors.RequestPreProcessor-1.html" title="RequestPreProcessor&lt;TRequest&gt;" class="">RequestPreProcessor&lt;TRequest&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Processors.RetryProcessor-1.html" title="RetryProcessor&lt;TNotification&gt;" class="">RetryProcessor&lt;TNotification&gt;</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Application.Queries.html" title="Aviant.DDD.Application.Queries" class="">Aviant.DDD.Application.Queries</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Queries.IQuery-1.html" title="IQuery&lt;TResponse&gt;" class="">IQuery&lt;TResponse&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Queries.Query-1.html" title="Query&lt;TResponse&gt;" class="">Query&lt;TResponse&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Queries.QueryHandler-2.html" title="QueryHandler&lt;TQuery, TResponse&gt;" class="">QueryHandler&lt;TQuery, TResponse&gt;</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Application.Services.html" title="Aviant.DDD.Application.Services" class="">Aviant.DDD.Application.Services</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Services.EventsService-2.html" title="EventsService&lt;TAggregate, TAggregateId&gt;" class="">EventsService&lt;TAggregate, TAggregateId&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Services.HttpContextServiceProviderProxy.html" title="HttpContextServiceProviderProxy" class="">HttpContextServiceProviderProxy</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Services.ICsvFileBuilder-1.html" title="ICsvFileBuilder&lt;TRecord&gt;" class="">ICsvFileBuilder&lt;TRecord&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Services.IDateTimeService.html" title="IDateTimeService" class="">IDateTimeService</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Services.IEmailService.html" title="IEmailService" class="">IEmailService</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.Services.JsonEventDeserializer.html" title="JsonEventDeserializer" class="">JsonEventDeserializer</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Application.UseCases.html" title="Aviant.DDD.Application.UseCases" class="">Aviant.DDD.Application.UseCases</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Application.UseCases.IUseCase-1.html" title="IUseCase&lt;TUseCaseOutput&gt;" class="">IUseCase&lt;TUseCaseOutput&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.UseCases.IUseCaseInput.html" title="IUseCaseInput" class="">IUseCaseInput</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.UseCases.IUseCaseOutput.html" title="IUseCaseOutput" class="">IUseCaseOutput</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.UseCases.UseCase-4.html" title="UseCase&lt;TUseCaseInput, TUseCaseOutput, TAggregate, TAggregateId&gt;" class="">UseCase&lt;TUseCaseInput, TUseCaseOutput, TAggregate, TAggregateId&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.UseCases.UseCase-3.html" title="UseCase&lt;TUseCaseInput, TUseCaseOutput, TDbContext&gt;" class="">UseCase&lt;TUseCaseInput, TUseCaseOutput, TDbContext&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.UseCases.UseCase-2.html" title="UseCase&lt;TUseCaseInput, TUseCaseOutput&gt;" class="">UseCase&lt;TUseCaseInput, TUseCaseOutput&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.UseCases.UseCase-1.html" title="UseCase&lt;TUseCaseOutput&gt;" class="">UseCase&lt;TUseCaseOutput&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.UseCases.UseCaseBase-1.html" title="UseCaseBase&lt;TUseCaseOutput&gt;" class="">UseCaseBase&lt;TUseCaseOutput&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.UseCases.UseCaseInput.html" title="UseCaseInput" class="">UseCaseInput</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Application.UseCases.UseCaseInput-2.html" title="UseCaseInput&lt;TInput, TValidator&gt;" class="">UseCaseInput&lt;TInput, TValidator&gt;</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Core.Aggregates.html" title="Aviant.DDD.Core.Aggregates" class="">Aviant.DDD.Core.Aggregates</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Aggregates.Aggregate-2.html" title="Aggregate&lt;TAggregate, TAggregateId&gt;" class="">Aggregate&lt;TAggregate, TAggregateId&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Aggregates.AggregateId-1.html" title="AggregateId&lt;TKey&gt;" class="">AggregateId&lt;TKey&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Aggregates.IAggregate-1.html" title="IAggregate&lt;TAggregateId&gt;" class="">IAggregate&lt;TAggregateId&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Aggregates.IAggregateId.html" title="IAggregateId" class="">IAggregateId</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Core.DomainEvents.html" title="Aviant.DDD.Core.DomainEvents" class="">Aviant.DDD.Core.DomainEvents</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Core.DomainEvents.DomainEvent-2.html" title="DomainEvent&lt;TAggregate, TAggregateId&gt;" class="">DomainEvent&lt;TAggregate, TAggregateId&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.DomainEvents.DomainEventHandler-1.html" title="DomainEventHandler&lt;TDomainEvent&gt;" class="">DomainEventHandler&lt;TDomainEvent&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.DomainEvents.IDomainEvent-1.html" title="IDomainEvent&lt;TAggregateId&gt;" class="">IDomainEvent&lt;TAggregateId&gt;</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Core.Entities.html" title="Aviant.DDD.Core.Entities" class="">Aviant.DDD.Core.Entities</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Entities.Entity-1.html" title="Entity&lt;TKey&gt;" class="">Entity&lt;TKey&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Entities.IActivationAudited.html" title="IActivationAudited" class="">IActivationAudited</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Entities.IAuditedEntity.html" title="IAuditedEntity" class="">IAuditedEntity</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Entities.ICreationAudited.html" title="ICreationAudited" class="">ICreationAudited</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Entities.IDeletionAudited.html" title="IDeletionAudited" class="">IDeletionAudited</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Entities.IEntity-1.html" title="IEntity&lt;TKey&gt;" class="">IEntity&lt;TKey&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Entities.IHasActivationStatus.html" title="IHasActivationStatus" class="">IHasActivationStatus</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Entities.IHasCreationTime.html" title="IHasCreationTime" class="">IHasCreationTime</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Entities.IHasDeletionTime.html" title="IHasDeletionTime" class="">IHasDeletionTime</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Entities.IHasModificationTime.html" title="IHasModificationTime" class="">IHasModificationTime</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Entities.IModificationAudited.html" title="IModificationAudited" class="">IModificationAudited</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Entities.ISoftDelete.html" title="ISoftDelete" class="">ISoftDelete</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Core.Enums.html" title="Aviant.DDD.Core.Enums" class="">Aviant.DDD.Core.Enums</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Enums.PriorityLevel.html" title="PriorityLevel" class="">PriorityLevel</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Enums.State.html" title="State" class="">State</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Core.EventBus.html" title="Aviant.DDD.Core.EventBus" class="">Aviant.DDD.Core.EventBus</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Core.EventBus.EventReceived-1.html" title="EventReceived&lt;TDomainEvent&gt;" class="">EventReceived&lt;TDomainEvent&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.EventBus.EventReceivedHandlerAsync-1.html" title="EventReceivedHandlerAsync&lt;TAggregateId&gt;" class="">EventReceivedHandlerAsync&lt;TAggregateId&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.EventBus.IEventConsumer.html" title="IEventConsumer" class="">IEventConsumer</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.EventBus.IEventConsumer-3.html" title="IEventConsumer&lt;TAggregate, TAggregateId, TDeserializer&gt;" class="">IEventConsumer&lt;TAggregate, TAggregateId, TDeserializer&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.EventBus.IEventConsumerFactory.html" title="IEventConsumerFactory" class="">IEventConsumerFactory</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.EventBus.IEventProducer-2.html" title="IEventProducer&lt;TAggregate, TAggregateId&gt;" class="">IEventProducer&lt;TAggregate, TAggregateId&gt;</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Core.Exceptions.html" title="Aviant.DDD.Core.Exceptions" class="">Aviant.DDD.Core.Exceptions</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Exceptions.CoreException.html" title="CoreException" class="">CoreException</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Exceptions.EntityNotFoundException.html" title="EntityNotFoundException" class="">EntityNotFoundException</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Core.Messages.html" title="Aviant.DDD.Core.Messages" class="">Aviant.DDD.Core.Messages</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Messages.IMessages.html" title="IMessages" class="">IMessages</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Messages.Messages.html" title="Messages" class="">Messages</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Core.Persistence.html" title="Aviant.DDD.Core.Persistence" class="">Aviant.DDD.Core.Persistence</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Persistence.IEventsRepository-2.html" title="IEventsRepository&lt;TAggregate, TAggregateId&gt;" class="">IEventsRepository&lt;TAggregate, TAggregateId&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Persistence.IRepositoryRead-2.html" title="IRepositoryRead&lt;TEntity, TPrimaryKey&gt;" class="">IRepositoryRead&lt;TEntity, TPrimaryKey&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Persistence.IRepositoryWrite-2.html" title="IRepositoryWrite&lt;TEntity, TPrimaryKey&gt;" class="">IRepositoryWrite&lt;TEntity, TPrimaryKey&gt;</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Core.Services.html" title="Aviant.DDD.Core.Services" class="">Aviant.DDD.Core.Services</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Services.IEventDeserializer.html" title="IEventDeserializer" class="">IEventDeserializer</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Services.IEventsService-2.html" title="IEventsService&lt;TAggregate, TAggregateId&gt;" class="">IEventsService&lt;TAggregate, TAggregateId&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Services.IRetry.html" title="IRetry" class="">IRetry</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Services.IServiceContainer.html" title="IServiceContainer" class="">IServiceContainer</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Services.ServiceLocator.html" title="ServiceLocator" class="">ServiceLocator</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Core.TransferObjects.html" title="Aviant.DDD.Core.TransferObjects" class="">Aviant.DDD.Core.TransferObjects</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Core.TransferObjects.Dto.html" title="Dto" class="">Dto</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.TransferObjects.Eto.html" title="Eto" class="">Eto</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Core.TransferObjects.TransferObject.html" title="TransferObject" class="">TransferObject</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Core.Validators.html" title="Aviant.DDD.Core.Validators" class="">Aviant.DDD.Core.Validators</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Core.Validators.AssertionsConcernValidator.html" title="AssertionsConcernValidator" class="">AssertionsConcernValidator</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Core.ValueObjects.html" title="Aviant.DDD.Core.ValueObjects" class="">Aviant.DDD.Core.ValueObjects</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Core.ValueObjects.ValueObject.html" title="ValueObject" class="">ValueObject</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Infrastructure.CrossCutting.html" title="Aviant.DDD.Infrastructure.CrossCutting" class="">Aviant.DDD.Infrastructure.CrossCutting</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.CrossCutting.DependencyInjectionRegistry.html" title="DependencyInjectionRegistry" class="">DependencyInjectionRegistry</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Infrastructure.Exceptions.html" title="Aviant.DDD.Infrastructure.Exceptions" class="">Aviant.DDD.Infrastructure.Exceptions</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Exceptions.InfrastructureException.html" title="InfrastructureException" class="">InfrastructureException</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Infrastructure.Persistence.html" title="Aviant.DDD.Infrastructure.Persistence" class="">Aviant.DDD.Infrastructure.Persistence</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.UnitOfWork-2.html" title="UnitOfWork&lt;TAggregate, TAggregateId&gt;" class="">UnitOfWork&lt;TAggregate, TAggregateId&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.UnitOfWork-1.html" title="UnitOfWork&lt;TDbContext&gt;" class="">UnitOfWork&lt;TDbContext&gt;</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Infrastructure.Persistence.Configurations.html" title="Aviant.DDD.Infrastructure.Persistence.Configurations" class="">Aviant.DDD.Infrastructure.Persistence.Configurations</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Configurations.EntityConfiguration-2.html" title="EntityConfiguration&lt;TEntity, T&gt;" class="">EntityConfiguration&lt;TEntity, T&gt;</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="active">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Infrastructure.Persistence.Contexts.html" title="Aviant.DDD.Infrastructure.Persistence.Contexts" class="active">Aviant.DDD.Infrastructure.Persistence.Contexts</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext-3.html" title="ApiAuthorizationDbContext&lt;TUser, TRole, TKey&gt;" class="">ApiAuthorizationDbContext&lt;TUser, TRole, TKey&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext-1.html" title="ApiAuthorizationDbContext&lt;TUser&gt;" class="">ApiAuthorizationDbContext&lt;TUser&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Contexts.AuthorizationDbContextRead-2.html" title="AuthorizationDbContextRead&lt;TApplicationUser, TApplicationRole&gt;" class="">AuthorizationDbContextRead&lt;TApplicationUser, TApplicationRole&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Contexts.AuthorizationDbContextWrite-3.html" title="AuthorizationDbContextWrite&lt;TDbContext, TApplicationUser, TApplicationRole&gt;" class="">AuthorizationDbContextWrite&lt;TDbContext, TApplicationUser, TApplicationRole&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Contexts.DbContextRead.html" title="DbContextRead" class="">DbContextRead</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Contexts.DbContextWrite-1.html" title="DbContextWrite&lt;TDbContext&gt;" class="">DbContextWrite&lt;TDbContext&gt;</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Infrastructure.Persistence.EventStore.html" title="Aviant.DDD.Infrastructure.Persistence.EventStore" class="">Aviant.DDD.Infrastructure.Persistence.EventStore</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.EventStore.EventStoreConnectionWrapper.html" title="EventStoreConnectionWrapper" class="">EventStoreConnectionWrapper</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.EventStore.EventStoreExtensionRegistry.html" title="EventStoreExtensionRegistry" class="">EventStoreExtensionRegistry</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.EventStore.IEventStoreConnectionWrapper.html" title="IEventStoreConnectionWrapper" class="">IEventStoreConnectionWrapper</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Infrastructure.Persistence.Kafka.html" title="Aviant.DDD.Infrastructure.Persistence.Kafka" class="">Aviant.DDD.Infrastructure.Persistence.Kafka</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Kafka.EventConsumer-3.html" title="EventConsumer&lt;TAggregate, TAggregateId, TDeserializer&gt;" class="">EventConsumer&lt;TAggregate, TAggregateId, TDeserializer&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Kafka.EventConsumer-3.ConsumerStoppedHandler.html" title="EventConsumer&lt;TAggregate, TAggregateId, TDeserializer&gt;.ConsumerStoppedHandler" class="">EventConsumer&lt;TAggregate, TAggregateId, TDeserializer&gt;.ConsumerStoppedHandler</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Kafka.EventConsumer-3.ExceptionThrownHandler.html" title="EventConsumer&lt;TAggregate, TAggregateId, TDeserializer&gt;.ExceptionThrownHandler" class="">EventConsumer&lt;TAggregate, TAggregateId, TDeserializer&gt;.ExceptionThrownHandler</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Kafka.EventConsumerConfig.html" title="EventConsumerConfig" class="">EventConsumerConfig</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Kafka.KafkaExtensionRegistry.html" title="KafkaExtensionRegistry" class="">KafkaExtensionRegistry</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Infrastructure.Persistence.Repository.html" title="Aviant.DDD.Infrastructure.Persistence.Repository" class="">Aviant.DDD.Infrastructure.Persistence.Repository</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryRead-5.html" title="RepositoryRead&lt;TDbContext, TApplicationUser, TApplicationRole, TEntity, TPrimaryKey&gt;" class="">RepositoryRead&lt;TDbContext, TApplicationUser, TApplicationRole, TEntity, TPrimaryKey&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryRead-3.html" title="RepositoryRead&lt;TDbContext, TEntity, TPrimaryKey&gt;" class="">RepositoryRead&lt;TDbContext, TEntity, TPrimaryKey&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryReadBase-3.html" title="RepositoryReadBase&lt;TDbContext, TEntity, TPrimaryKey&gt;" class="">RepositoryReadBase&lt;TDbContext, TEntity, TPrimaryKey&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryWrite-5.html" title="RepositoryWrite&lt;TDbContext, TApplicationUser, TApplicationRole, TEntity, TPrimaryKey&gt;" class="">RepositoryWrite&lt;TDbContext, TApplicationUser, TApplicationRole, TEntity, TPrimaryKey&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryWrite-3.html" title="RepositoryWrite&lt;TDbContext, TEntity, TPrimaryKey&gt;" class="">RepositoryWrite&lt;TDbContext, TEntity, TPrimaryKey&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Persistence.Repository.RepositoryWriteBase-3.html" title="RepositoryWriteBase&lt;TDbContext, TEntity, TPrimaryKey&gt;" class="">RepositoryWriteBase&lt;TDbContext, TEntity, TPrimaryKey&gt;</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Aviant.DDD.Infrastructure.Services.html" title="Aviant.DDD.Infrastructure.Services" class="">Aviant.DDD.Infrastructure.Services</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Services.CsvFileBuilder-2.html" title="CsvFileBuilder&lt;TRecrod, TMap&gt;" class="">CsvFileBuilder&lt;TRecrod, TMap&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Services.DateTimeService.html" title="DateTimeService" class="">DateTimeService</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Services.EmailService.html" title="EmailService" class="">EmailService</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Services.ISmtpClientFactory.html" title="ISmtpClientFactory" class="">ISmtpClientFactory</a>
+                          </li>
+                          <li class="">
+                            <a href="Aviant.DDD.Infrastructure.Services.SmtpClientFactory.html" title="SmtpClientFactory" class="">SmtpClientFactory</a>
+                          </li>
+                        </ul>  </li>
+                  </ul>        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aviant.DDD.Infrastructure.Persistence.Contexts">
+  
+  <h1 id="Aviant_DDD_Infrastructure_Persistence_Contexts" data-uid="Aviant.DDD.Infrastructure.Persistence.Contexts" class="text-break">Namespace Aviant.DDD.Infrastructure.Persistence.Contexts
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">Classes
+  </h3>
+      <h4><a class="xref" href="Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext-1.html">ApiAuthorizationDbContext&lt;TUser&gt;</a></h4>
+      <section><p>Database abstraction for a combined <span class="xref">Microsoft.EntityFrameworkCore.DbContext</span> using ASP.NET Identity
+and Identity Server.</p>
+</section>
+      <h4><a class="xref" href="Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext-3.html">ApiAuthorizationDbContext&lt;TUser, TRole, TKey&gt;</a></h4>
+      <section><p>Database abstraction for a combined <span class="xref">Microsoft.EntityFrameworkCore.DbContext</span> using ASP.NET Identity
+and Identity Server.</p>
+</section>
+      <h4><a class="xref" href="Aviant.DDD.Infrastructure.Persistence.Contexts.AuthorizationDbContextRead-2.html">AuthorizationDbContextRead&lt;TApplicationUser, TApplicationRole&gt;</a></h4>
+      <section></section>
+      <h4><a class="xref" href="Aviant.DDD.Infrastructure.Persistence.Contexts.AuthorizationDbContextWrite-3.html">AuthorizationDbContextWrite&lt;TDbContext, TApplicationUser, TApplicationRole&gt;</a></h4>
+      <section></section>
+      <h4><a class="xref" href="Aviant.DDD.Infrastructure.Persistence.Contexts.DbContextRead.html">DbContextRead</a></h4>
+      <section></section>
+      <h4><a class="xref" href="Aviant.DDD.Infrastructure.Persistence.Contexts.DbContextWrite-1.html">DbContextWrite&lt;TDbContext&gt;</a></h4>
+      <section></section>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
