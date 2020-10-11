@@ -90,7 +90,6 @@
   <h5 id="Aviant_DDD_Core_EventBus_EventReceivedHandlerAsync_1_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public delegate Task EventReceivedHandlerAsync&lt;in TAggregateId&gt;(object sender, IDomainEvent&lt;TAggregateId&gt; event, CancellationToken cancellationToken = null)
-
     where TAggregateId : IAggregateId;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>

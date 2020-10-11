@@ -7,3 +7,19 @@
     border-bottom-color: #E7E7E7;
     padding: 1rem 0;
 }
+
+.navbar.header a.active {
+    background-color: #eee;
+}
+
+.sidefilter {
+    top: 112px;
+}
+
+.sidetoc {
+    top: 165px;
+}
+
+.sidetoc.shiftup {
+    bottom: 50px;
+}
