@@ -1,0 +1,9 @@
+.logo {
+    width: 16rem;
+    margin-right: 3rem;
+}
+
+.navbar.header {
+    border-bottom-color: #E7E7E7;
+    padding: 1rem 0;
+}
