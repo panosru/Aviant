@@ -5,6 +5,7 @@ namespace Aviant.DDD.Application.Commands
     using Core.Aggregates;
     using Core.Services;
     using MediatR;
+    using Polly;
 
     public abstract class CommandHandler<TCommand, TResponse> : ICommandHandler<TCommand, TResponse>
         where TCommand : ICommand<TResponse>
@@ -12,6 +13,8 @@ namespace Aviant.DDD.Application.Commands
         #region ICommandHandler<TCommand,TResponse> Members
 
         public abstract Task<TResponse> Handle(TCommand command, CancellationToken cancellationToken);
+
+        public virtual IAsyncPolicy RetryPolicy() => Policy.NoOpAsync();
 
         #endregion
     }
@@ -22,6 +25,8 @@ namespace Aviant.DDD.Application.Commands
         #region ICommandHandler<TCommand> Members
 
         public abstract Task<Unit> Handle(TCommand command, CancellationToken cancellationToken);
+
+        public virtual IAsyncPolicy RetryPolicy() => Policy.NoOpAsync();
 
         #endregion
     }
@@ -39,6 +44,8 @@ namespace Aviant.DDD.Application.Commands
         #region ICommandHandler<TCommand,TAggregate,TAggregateId> Members
 
         public abstract Task<TAggregate> Handle(TCommand command, CancellationToken cancellationToken);
+
+        public virtual IAsyncPolicy RetryPolicy() => Policy.NoOpAsync();
 
         #endregion
     }

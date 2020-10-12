@@ -7,7 +7,7 @@ namespace Aviant.DDD.Application.Processors
     using MediatR;
     using Polly;
 
-    public sealed class RetryProcessor<TNotification>
+    public sealed class RetryEventProcessor<TNotification>
         : INotificationHandler<TNotification>
         where TNotification : INotification
     {
@@ -15,7 +15,7 @@ namespace Aviant.DDD.Application.Processors
 
         private readonly IAsyncPolicy? _retryPolicy;
 
-        public RetryProcessor(INotificationHandler<TNotification> inner)
+        public RetryEventProcessor(INotificationHandler<TNotification> inner)
         {
             _inner = inner;
 
