@@ -10,7 +10,7 @@ namespace Aviant.DDD.Application.EventBus
         private static readonly HashSet<Type> Decorators = new HashSet<Type>
         {
             typeof(RetryEventProcessor<>),
-            typeof(RetryCommandProcessor<,>)
+            typeof(RetryRequestProcessor<,>)
         };
 
         public static IImplementationTypeSelector RegisterHandlers(this IImplementationTypeSelector selector, Type type)

@@ -7,7 +7,7 @@ namespace Aviant.DDD.Application.Processors
     using MediatR;
     using Polly;
 
-    public sealed class RetryCommandProcessor<TRequest, TResponse>
+    public sealed class RetryRequestProcessor<TRequest, TResponse>
         : IRequestHandler<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
     {
@@ -15,7 +15,7 @@ namespace Aviant.DDD.Application.Processors
 
         private readonly IAsyncPolicy? _retryPolicy;
 
-        public RetryCommandProcessor(IRequestHandler<TRequest, TResponse> inner)
+        public RetryRequestProcessor(IRequestHandler<TRequest, TResponse> inner)
         {
             _inner = inner;
 
