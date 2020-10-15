@@ -6,14 +6,14 @@ namespace Aviant.DDD.Application.ApplicationEvents
 
     public abstract class ApplicationEvent : IApplicationEvent
     {
-        #region IApplicationEvent Members
-
-        public DateTime Occured { get; set; }
-
         protected ApplicationEvent() =>
             Occured = ServiceLocator.ServiceContainer.GetService<IDateTimeService>(
                     typeof(IDateTimeService))
                .Now(true);
+
+        #region IApplicationEvent Members
+
+        public DateTime Occured { get; set; }
 
         #endregion
     }
