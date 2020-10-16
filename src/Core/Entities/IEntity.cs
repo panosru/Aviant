@@ -24,7 +24,7 @@ namespace Aviant.DDD.Core.Entities
         ///     Run validations against the entity
         /// </summary>
         /// <param name="cancellationToken"></param>
-        /// <returns></returns>
+        /// <returns>Boolean task, depending if the validation pass or fail</returns>
         public Task<bool> ValidateAsync(CancellationToken cancellationToken = default);
     }
 }
