@@ -14,7 +14,7 @@ namespace Aviant.DDD.Core.Entities
     /// <summary>
     ///     Allowing you to set the activation status of the entity.
     /// </summary>
-    public interface IHasActivationStatus
+    public interface IActivationStatus
     {
         /// <summary>
         ///     The activation status of the entity
