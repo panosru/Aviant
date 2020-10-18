@@ -44,24 +44,24 @@ namespace Aviant.DDD.Application.Behaviours
 
             var elapsedMilliseconds = _timer.ElapsedMilliseconds;
 
-            if (500 < elapsedMilliseconds)
-            {
-                var requestName = typeof(TRequest).Name;
-                var userId      = _currentUserService.UserId;
-                var username    = string.Empty;
+            if (500 >= elapsedMilliseconds)
+                return response;
 
-                if (Guid.Empty != userId)
-                    username = await _identityIdentityService.GetUserNameAsync(userId, cancellationToken)
-                       .ConfigureAwait(false);
+            var requestName = typeof(TRequest).Name;
+            var userId      = _currentUserService.UserId;
+            var username    = string.Empty;
 
-                _logger.LogWarning(
-                    "Long Running Request detected: {Name} ({ElapsedMilliseconds} milliseconds), UserId: {@UserId}, Username: {@username}, Request: {@Request}",
-                    requestName,
-                    elapsedMilliseconds,
-                    userId,
-                    username,
-                    request);
-            }
+            if (Guid.Empty != userId)
+                username = await _identityIdentityService.GetUserNameAsync(userId, cancellationToken)
+                   .ConfigureAwait(false);
+
+            _logger.LogWarning(
+                "Long Running Request detected: {Name} ({ElapsedMilliseconds} milliseconds), UserId: {@UserId}, Username: {@username}, Request: {@Request}",
+                requestName,
+                elapsedMilliseconds,
+                userId,
+                username,
+                request);
 
             return response;
         }
