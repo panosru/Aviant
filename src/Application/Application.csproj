@@ -8,11 +8,11 @@
 
     <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.2.0" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.3.0" />
         <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.9" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
-        <PackageReference Include="scrutor" Version="3.2.2" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.1" />
+        <PackageReference Include="scrutor" Version="3.3.0" />
     </ItemGroup>
 
     <ItemGroup>
