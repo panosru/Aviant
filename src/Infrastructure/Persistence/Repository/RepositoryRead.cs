@@ -83,12 +83,12 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             FindBy(predicate).ToList();
 
         public virtual ValueTask<List<TEntity>> GetAllListAsync(CancellationToken cancellationToken = default) =>
-            new ValueTask<List<TEntity>>(GetAllList());
+            new(GetAllList());
 
         public virtual ValueTask<List<TEntity>> GetAllListAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default) =>
-            new ValueTask<List<TEntity>>(GetAllList(predicate));
+            new(GetAllList(predicate));
 
 
         public virtual TEntity GetAllListIncluding(
@@ -102,7 +102,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             Expression<Func<TEntity, bool>>            predicate,
             CancellationToken                          cancellationToken = default,
             params Expression<Func<TEntity, object>>[] propertySelectors) =>
-            new ValueTask<TEntity>(GetAllListIncluding(predicate, propertySelectors));
+            new(GetAllListIncluding(predicate, propertySelectors));
 
         public virtual TEntity Get(TPrimaryKey id) =>
             FirstOrDefault(id)
@@ -111,7 +111,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
         public virtual ValueTask<TEntity> GetAsync(
             TPrimaryKey       id,
             CancellationToken cancellationToken = default) =>
-            new ValueTask<TEntity>(Get(id));
+            new(Get(id));
 
 
         public virtual TEntity Single(Expression<Func<TEntity, bool>> predicate) =>
@@ -120,7 +120,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
         public virtual ValueTask<TEntity> GetSingleAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default) =>
-            new ValueTask<TEntity>(Single(predicate));
+            new(Single(predicate));
 
         public virtual TEntity GetSingleIncluding(
             Expression<Func<TEntity, bool>>            predicate,
@@ -133,7 +133,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             Expression<Func<TEntity, bool>>            predicate,
             CancellationToken                          cancellationToken = default,
             params Expression<Func<TEntity, object>>[] propertySelectors) =>
-            new ValueTask<TEntity>(GetSingleIncluding(predicate, propertySelectors));
+            new(GetSingleIncluding(predicate, propertySelectors));
 
         public virtual TEntity FirstOrDefault(TPrimaryKey id) =>
             GetAll().FirstOrDefault(_repositoryImplementation.CreateEqualityExpressionForId(id))
@@ -146,12 +146,12 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
         public virtual ValueTask<TEntity> FirstOrDefaultAsync(
             TPrimaryKey       id,
             CancellationToken cancellationToken = default) =>
-            new ValueTask<TEntity>(FirstOrDefault(id));
+            new(FirstOrDefault(id));
 
         public virtual ValueTask<TEntity> FirstOrDefaultAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default) =>
-            new ValueTask<TEntity>(FirstOrDefault(predicate));
+            new(FirstOrDefault(predicate));
 
         public virtual TEntity FirstOrDefaultIncluding(
             TPrimaryKey                                id,
@@ -171,13 +171,13 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             TPrimaryKey                                id,
             CancellationToken                          cancellationToken = default,
             params Expression<Func<TEntity, object>>[] propertySelectors) =>
-            new ValueTask<TEntity>(FirstOrDefaultIncluding(id, propertySelectors));
+            new(FirstOrDefaultIncluding(id, propertySelectors));
 
         public virtual ValueTask<TEntity> FirstOrDefaultIncludingAsync(
             Expression<Func<TEntity, bool>>            predicate,
             CancellationToken                          cancellationToken = default,
             params Expression<Func<TEntity, object>>[] propertySelectors) =>
-            new ValueTask<TEntity>(FirstOrDefaultIncluding(predicate, propertySelectors));
+            new(FirstOrDefaultIncluding(predicate, propertySelectors));
 
         #endregion
 
@@ -186,12 +186,12 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
         public virtual ValueTask<bool> AnyAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default) =>
-            new ValueTask<bool>(DbSet.AnyAsync(predicate, cancellationToken));
+            new(DbSet.AnyAsync(predicate, cancellationToken));
 
         public virtual ValueTask<bool> AllAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default) =>
-            new ValueTask<bool>(DbSet.AllAsync(predicate, cancellationToken));
+            new(DbSet.AllAsync(predicate, cancellationToken));
 
         public virtual int Count() =>
             GetAll().Count();
@@ -200,12 +200,12 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             GetAll().Count(predicate);
 
         public virtual ValueTask<int> CountAsync(CancellationToken cancellationToken = default) =>
-            new ValueTask<int>(Count());
+            new(Count());
 
         public virtual ValueTask<int> CountAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default) =>
-            new ValueTask<int>(Count(predicate));
+            new(Count(predicate));
 
         public virtual long LongCount() =>
             GetAll().LongCount();
@@ -214,12 +214,12 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             GetAll().LongCount(predicate);
 
         public virtual ValueTask<long> LongCountAsync(CancellationToken cancellationToken = default) =>
-            new ValueTask<long>(LongCount());
+            new(LongCount());
 
         public virtual ValueTask<long> LongCountAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default) =>
-            new ValueTask<long>(LongCount(predicate));
+            new(LongCount(predicate));
 
         #endregion
     }

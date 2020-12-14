@@ -7,13 +7,13 @@ namespace Aviant.DDD.Infrastructure.Services
     using CsvHelper;
     using CsvHelper.Configuration;
 
-    public sealed class CsvFileBuilder<TRecrod, TMap> : ICsvFileBuilder<TRecrod>
-        where TRecrod : class
-        where TMap : ClassMap<TRecrod>
+    public sealed class CsvFileBuilder<TRecord, TMap> : ICsvFileBuilder<TRecord>
+        where TRecord : class
+        where TMap : ClassMap<TRecord>
     {
         #region ICsvFileBuilder<TRecrod> Members
 
-        public byte[] BuildTodoItemsFile(IEnumerable<TRecrod> records)
+        public byte[] BuildTodoItemsFile(IEnumerable<TRecord> records)
         {
             using var memoryStream = new MemoryStream();
 

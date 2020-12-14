@@ -29,10 +29,7 @@ namespace Aviant.DDD.Core.Exceptions
             int        errorCode,
             int?       familyCode = null,
             Exception? inner      = null)
-            : base(message, inner)
-        {
-            SetHResult(errorCode, familyCode);
-        }
+            : base(message, inner) => SetHResult(errorCode, familyCode);
 
         protected CoreException(SerializationInfo info, StreamingContext context)
             : base(info, context)
@@ -46,7 +43,7 @@ namespace Aviant.DDD.Core.Exceptions
 
         public int ErrorCode
         {
-            get => Getcode("ErrorCode");
+            get => GetCode("ErrorCode");
 
             protected set
             {
@@ -57,7 +54,7 @@ namespace Aviant.DDD.Core.Exceptions
 
         public int FamilyCode
         {
-            get => Getcode("FamilyCode");
+            get => GetCode("FamilyCode");
 
             protected set
             {
@@ -90,13 +87,13 @@ namespace Aviant.DDD.Core.Exceptions
 
             Data.Add("ErrorCode", errorCode);
 
-            if (!(familyCode is null))
+            if (familyCode is not null)
                 Data.Add("FamilyCode", familyCode);
 
             HResult = errorCode + familyCode ?? -1;
         }
 
-        private int Getcode(string key)
+        private int GetCode(string key)
         {
             if (!Data.Contains(key))
                 return -1;

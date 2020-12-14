@@ -110,7 +110,7 @@ namespace Aviant.DDD.Application.Orchestration
                     cancellationToken)
                .ConfigureAwait(false);
 
-            if (!(messages is null))
+            if (messages is not null)
                 return new OrchestratorResponse(messages);
 
             var result = await PostUnitOfWork(commandResponse, cancellationToken)
@@ -147,7 +147,7 @@ namespace Aviant.DDD.Application.Orchestration
                     cancellationToken)
                .ConfigureAwait(false);
 
-            if (!(messages is null))
+            if (messages is not null)
                 return new OrchestratorResponse(messages);
 
             try
@@ -198,7 +198,7 @@ namespace Aviant.DDD.Application.Orchestration
                 await PreUnitOfWork<ICommand<TAggregate, TAggregateId>, TAggregate>(command, cancellationToken)
                    .ConfigureAwait(false);
 
-            if (!(messages is null))
+            if (messages is not null)
                 return new OrchestratorResponse(messages);
 
             try

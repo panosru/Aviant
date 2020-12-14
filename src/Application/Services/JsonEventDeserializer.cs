@@ -52,7 +52,8 @@ namespace Aviant.DDD.Application.Services
             if (!_cache.Exists(type))
                 _cache.Add(type, eventType);
 
-            // as of 01/10/2020, "Deserialization to reference types without a parameterless constructor isn't supported."
+            // as of 01/10/2020, "Deserialization to reference types
+            // without a parameterless constructor isn't supported."
             // https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to
             // apparently it's being worked on: https://github.com/dotnet/runtime/issues/29895
 

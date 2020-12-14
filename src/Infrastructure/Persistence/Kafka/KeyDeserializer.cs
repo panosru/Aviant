@@ -10,7 +10,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
         public Guid Deserialize(
             ReadOnlySpan<byte>   data,
             bool                 isNull,
-            SerializationContext context) => new Guid(data);
+            SerializationContext context) => new(data);
 
         #endregion
     }

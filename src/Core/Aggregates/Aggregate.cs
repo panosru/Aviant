@@ -75,7 +75,7 @@ namespace Aviant.DDD.Core.Aggregates
 
         #region Factory
 
-        private static readonly Lazy<ConstructorInfo> LazyConstructor = new Lazy<ConstructorInfo>(
+        private static readonly Lazy<ConstructorInfo> LazyConstructor = new(
             () =>
             {
                 var aggregateType = typeof(TAggregate);
@@ -104,7 +104,7 @@ namespace Aviant.DDD.Core.Aggregates
                 throw new ArgumentException(nameof(events));
 
             var constructor = LazyConstructor.Value;
-            var result      = (TAggregate) constructor.Invoke(new object[0]);
+            var result      = (TAggregate) constructor.Invoke(Array.Empty<object>());
 
             if (result is Aggregate<TAggregate, TAggregateId> aggregate)
                 foreach (var @event in enumerable)

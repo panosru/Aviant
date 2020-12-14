@@ -19,9 +19,9 @@ namespace Aviant.DDD.Application.ApplicationEvents
             _dateTimeService = dateTimeService;
         }
 
-        private List<IApplicationEvent> PreCommitEvents { get; } = new List<IApplicationEvent>();
+        private List<IApplicationEvent> PreCommitEvents { get; } = new();
 
-        private List<IApplicationEvent> PostCommitEvents { get; } = new List<IApplicationEvent>();
+        private List<IApplicationEvent> PostCommitEvents { get; } = new();
 
         #region IApplicationEventDispatcher Members
 

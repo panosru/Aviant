@@ -22,7 +22,7 @@ namespace Aviant.DDD.Application.Identity
         /// <returns></returns>
         public static IdentityResult Success()
         {
-            return new IdentityResult(true, new string[] { });
+            return new IdentityResult(true, System.Array.Empty<string>());
         }
 
         public static IdentityResult Failure(IEnumerable<string> errors) => new IdentityResult(false, errors);

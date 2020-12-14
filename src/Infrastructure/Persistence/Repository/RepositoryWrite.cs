@@ -60,7 +60,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
          ?? throw new EntityNotFoundException(typeof(TEntity), id);
 
         private ValueTask<TEntity> GetAsync(TPrimaryKey id) =>
-            new ValueTask<TEntity>(Get(id));
+            new(Get(id));
 
         private List<TEntity> GetAllList(Expression<Func<TEntity, bool>> predicate) =>
             DbSet.Where(predicate).ToList();

@@ -27,7 +27,7 @@ namespace Aviant.DDD.Application.Orchestration
 
         public bool Succeeded { get; set; }
 
-        public List<string> Messages { get; set; } = new List<string>();
+        public List<string> Messages { get; set; } = new();
 
         // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private int? AffectedRows { get; }

@@ -21,10 +21,10 @@ namespace Aviant.DDD.Application.Services
             (T) _contextAccessor.HttpContext.RequestServices.GetRequiredService(type);
 
         public object GetService(Type type) =>
-            _contextAccessor.HttpContext.RequestServices.GetService(type);
+            _contextAccessor.HttpContext.RequestServices.GetService(type) ?? throw new InvalidOperationException();
 
         public T GetService<T>(Type type) =>
-            (T) _contextAccessor.HttpContext.RequestServices.GetService(type);
+            (T) (_contextAccessor.HttpContext.RequestServices.GetService(type) ?? throw new InvalidOperationException());
 
         #endregion
     }
