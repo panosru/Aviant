@@ -21,7 +21,7 @@ namespace Aviant.DDD.Infrastructure.Services
             {
                 using var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture);
 
-                csvWriter.Configuration.RegisterClassMap<TMap>();
+                csvWriter.Context.RegisterClassMap<TMap>();
                 csvWriter.WriteRecords(records);
             }
 
