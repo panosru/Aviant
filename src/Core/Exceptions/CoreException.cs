@@ -34,11 +34,11 @@ namespace Aviant.DDD.Core.Exceptions
         protected CoreException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            ErrorCode     = (int) info.GetValue(nameof(ErrorCode),        typeof(int))!;
-            FamilyCode    = (int) info.GetValue(nameof(FamilyCode),       typeof(int))!;
-            Occurred      = (DateTime) info.GetValue(nameof(Occurred),    typeof(DateTime))!;
-            ExceptionId   = (Guid) info.GetValue(nameof(ExceptionId),     typeof(Guid))!;
-            ExceptionName = (string) info.GetValue(nameof(ExceptionName), typeof(string))!;
+            ErrorCode     = (int)info.GetValue(nameof(ErrorCode),        typeof(int))!;
+            FamilyCode    = (int)info.GetValue(nameof(FamilyCode),       typeof(int))!;
+            Occurred      = (DateTime)info.GetValue(nameof(Occurred),    typeof(DateTime))!;
+            ExceptionId   = (Guid)info.GetValue(nameof(ExceptionId),     typeof(Guid))!;
+            ExceptionName = (string)info.GetValue(nameof(ExceptionName), typeof(string))!;
         }
 
         public int ErrorCode
@@ -103,7 +103,7 @@ namespace Aviant.DDD.Core.Exceptions
             if (errorCode is null)
                 return -1;
 
-            return (int) errorCode;
+            return (int)errorCode;
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext context)

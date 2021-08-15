@@ -32,7 +32,7 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
 
         public static IConfiguration SetConfiguration(IConfigurationBuilder configuration)
         {
-            ((List<IConfigurationSource>) ConfigurationWithDomainsBuilder.Sources)
+            ((List<IConfigurationSource>)ConfigurationWithDomainsBuilder.Sources)
                .AddRange(configuration.Sources);
 
             return _configuration = configuration.Build();
@@ -47,7 +47,7 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
 
             var configurationBuilder = new ConfigurationBuilder();
 
-            ((List<IConfigurationSource>) configurationBuilder.Sources).AddRange(ConfigurationBuilder.Sources);
+            ((List<IConfigurationSource>)configurationBuilder.Sources).AddRange(ConfigurationBuilder.Sources);
 
             // JSON does not override any other format
             LoadConfiguration(

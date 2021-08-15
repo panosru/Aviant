@@ -67,7 +67,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             {
                 _logger.LogWarning(
                     e.Exception,
-                    $@"an error has occurred on the Eventstore connection: {e
+                    $@"an error has occurred on the EventStore connection: {e
                        .Exception.Message} . Trying to reconnect...");
                 connection = SetupConnection();
 
@@ -77,7 +77,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             connection.Disconnected += async (s, e) =>
             {
-                _logger.LogWarning("The Eventstore connection has dropped. Trying to reconnect...");
+                _logger.LogWarning("The EventStore connection has dropped. Trying to reconnect...");
                 connection = SetupConnection();
 
                 await connection.ConnectAsync()
@@ -87,7 +87,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             connection.Closed += async (s, e) =>
             {
                 _logger.LogWarning(
-                    $@"The Eventstore connection was closed: {e
+                    $@"The EventStore connection was closed: {e
                        .Reason}. Opening new connection...");
                 connection = SetupConnection();
 

@@ -132,7 +132,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
         private static EventData Map(IDomainEvent<TAggregateId> @event)
         {
-            var json = JsonSerializer.Serialize((dynamic) @event);
+            var json = JsonSerializer.Serialize((dynamic)@event);
             var data = Encoding.UTF8.GetBytes(json);
 
             var eventType = @event.GetType();

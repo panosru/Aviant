@@ -236,7 +236,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Repository
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken               cancellationToken = default)
         {
-            List<TEntity>? entities = await GetAllListAsync(predicate)
+            List<TEntity> entities = await GetAllListAsync(predicate)
                .ConfigureAwait(false);
 
             foreach (var entity in entities)

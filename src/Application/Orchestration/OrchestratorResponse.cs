@@ -44,7 +44,7 @@ namespace Aviant.DDD.Application.Orchestration
                     $@"Type ""{typeof(T).FullName}"" does not much payload type ""{_payload
                        .GetType().FullName}""");
 
-            return (T) _payload;
+            return (T)_payload;
         }
     }
 }

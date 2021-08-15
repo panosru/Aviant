@@ -30,7 +30,7 @@ namespace Aviant.DDD.Application.EventBus
                 IDomainEvent<TAggregateId> @event,
                 CancellationToken          cancellationToken = default)
             {
-                var constructedEvent = EventReceivedFactory.Create((dynamic) @event);
+                var constructedEvent = EventReceivedFactory.Create((dynamic)@event);
 
                 using var innerScope = _scopeFactory.CreateScope();
                 var       mediator   = innerScope.ServiceProvider.GetRequiredService<IMediator>();

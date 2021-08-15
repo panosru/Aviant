@@ -49,7 +49,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
             if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
             {
-                Expression<Func<TEntity, bool>> softDeleteFilter = e => !((ISoftDelete) e).IsDeleted;
+                Expression<Func<TEntity, bool>> softDeleteFilter = e => !((ISoftDelete)e).IsDeleted;
                 expression = softDeleteFilter;
             }
 
@@ -108,8 +108,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
             if (!(entry.Entity is ISoftDelete)) return;
 
             entry.Reload();
-            entry.State                            = EntityState.Modified;
-            ((ISoftDelete) entry.Entity).IsDeleted = true;
+            entry.State                           = EntityState.Modified;
+            ((ISoftDelete)entry.Entity).IsDeleted = true;
         }
 
         #endregion

@@ -69,7 +69,7 @@ namespace Aviant.DDD.Application.Services
             if (result is null)
                 throw new SerializationException($"unable to deserialize event {type} : {data}");
 
-            return (IDomainEvent<TAggregateId>) result;
+            return (IDomainEvent<TAggregateId>)result;
         }
 
         #endregion

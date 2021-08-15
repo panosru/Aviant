@@ -40,7 +40,7 @@ namespace Aviant.DDD.Core.Aggregates
                 Guid guid => guid.ToString(),
                 string id => id,
                 int id    => id.ToString(),
-                _         => (string) (Key as object)
+                _         => (string)(Key as object)
             };
         }
     }

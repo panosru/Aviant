@@ -24,12 +24,14 @@ namespace Aviant.DDD.Core.Aggregates
     {
         private readonly Queue<IDomainEvent<TAggregateId>> _events = new Queue<IDomainEvent<TAggregateId>>();
 
+        /// <inheritdoc />
         /// <summary>
         ///     Aggregate constructor without parameters
         /// </summary>
         protected Aggregate()
         { }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Aggregate constructor
         /// </summary>
@@ -83,8 +85,8 @@ namespace Aviant.DDD.Core.Aggregates
                 var constructor = aggregateType.GetConstructor(
                     BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
                     null,
-                    new Type[0],
-                    new ParameterModifier[0]);
+                    Type.EmptyTypes,
+                    Array.Empty<ParameterModifier>());
 
                 return constructor!;
             });
@@ -99,12 +101,12 @@ namespace Aviant.DDD.Core.Aggregates
         {
             List<IDomainEvent<TAggregateId>> enumerable = events.ToList();
 
-            if (null == events
+            if (events is null
              || !enumerable.Any())
-                throw new ArgumentException(nameof(events));
+                throw new ArgumentException("Aggregate Events are non existent or empty", nameof(events));
 
             var constructor = LazyConstructor.Value;
-            var result      = (TAggregate) constructor.Invoke(Array.Empty<object>());
+            var result      = (TAggregate)constructor.Invoke(Array.Empty<object>());
 
             if (result is Aggregate<TAggregate, TAggregateId> aggregate)
                 foreach (var @event in enumerable)
