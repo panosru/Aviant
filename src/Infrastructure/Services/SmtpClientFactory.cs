@@ -33,7 +33,7 @@ namespace Aviant.DDD.Infrastructure.Services
 
         public SmtpClient GetSmtpClient()
         {
-            var client = new SmtpClient();
+            SmtpClient client = new();
 
             client.Connect(
                 _address,

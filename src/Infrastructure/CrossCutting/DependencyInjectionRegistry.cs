@@ -45,7 +45,7 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
                 throw new InvalidOperationException(
                     typeof(DependencyInjectionRegistry).FullName);
 
-            var configurationBuilder = new ConfigurationBuilder();
+            ConfigurationBuilder configurationBuilder = new();
 
             ((List<IConfigurationSource>)configurationBuilder.Sources).AddRange(ConfigurationBuilder.Sources);
 
@@ -120,7 +120,7 @@ namespace Aviant.DDD.Infrastructure.CrossCutting
         private static TConfigurationSource GetSource<TConfigurationSource>(string configFileName)
             where TConfigurationSource : FileConfigurationSource, new()
         {
-            var configurationSource = new TConfigurationSource
+            TConfigurationSource configurationSource = new()
             {
                 Path           = configFileName,
                 ReloadOnChange = true,
