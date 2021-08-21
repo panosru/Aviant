@@ -43,7 +43,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
             var aggregateType = typeof(TAggregate);
 
-            var consumerConfig = new ConsumerConfig
+            ConsumerConfig consumerConfig = new()
             {
                 GroupId            = config.ConsumerGroup,
                 BootstrapServers   = config.KafkaConnectionString,
@@ -51,8 +51,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                 EnablePartitionEof = true
             };
 
-            var consumerBuilder        = new ConsumerBuilder<TAggregateId, string>(consumerConfig);
-            var keyDeserializerFactory = new KeyDeserializerFactory();
+            ConsumerBuilder<TAggregateId, string> consumerBuilder        = new(consumerConfig);
+            KeyDeserializerFactory                keyDeserializerFactory = new();
             consumerBuilder.SetKeyDeserializer(keyDeserializerFactory.Create<TDeserializer, TAggregateId>());
 
             _eventConsumer = consumerBuilder.Build();

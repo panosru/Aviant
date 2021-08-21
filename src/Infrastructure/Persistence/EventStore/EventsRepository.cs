@@ -55,7 +55,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             var streamName = GetStreamName(aggregateId);
 
-            var events = new List<IDomainEvent<TAggregateId>>();
+            List<IDomainEvent<TAggregateId>> events = new();
 
             StreamEventsSlice currentSlice;
             long              nextSliceStart = StreamPosition.Start;
@@ -137,14 +137,14 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             var eventType = @event.GetType();
 
-            var meta = new EventMeta
+            EventMeta meta = new()
             {
                 EventType = eventType.AssemblyQualifiedName!
             };
             var    metaJson = JsonSerializer.Serialize(meta);
             byte[] metadata = Encoding.UTF8.GetBytes(metaJson);
 
-            var eventPayload = new EventData(
+            EventData eventPayload = new(
                 Guid.NewGuid(),
                 eventType.Name,
                 true,

@@ -32,8 +32,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
             _topicName = $"{topicBaseName}-{aggregateType.Name}";
 
-            var producerConfig  = new ProducerConfig { BootstrapServers = kafkaConnString };
-            var producerBuilder = new ProducerBuilder<TAggregateId, string>(producerConfig);
+            ProducerConfig                        producerConfig  = new() { BootstrapServers = kafkaConnString };
+            ProducerBuilder<TAggregateId, string> producerBuilder = new(producerConfig);
             producerBuilder.SetKeySerializer(new KeySerializer<TAggregateId>());
             _producer = producerBuilder.Build();
         }

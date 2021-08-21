@@ -15,11 +15,11 @@ namespace Aviant.DDD.Infrastructure.Services
 
         public byte[] BuildTodoItemsFile(IEnumerable<TRecord> records)
         {
-            using var memoryStream = new MemoryStream();
+            using MemoryStream memoryStream = new();
 
-            using (var streamWriter = new StreamWriter(memoryStream))
+            using (StreamWriter streamWriter = new(memoryStream))
             {
-                using var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture);
+                using CsvWriter csvWriter = new(streamWriter, CultureInfo.InvariantCulture);
 
                 csvWriter.Context.RegisterClassMap<TMap>();
                 csvWriter.WriteRecords(records);
