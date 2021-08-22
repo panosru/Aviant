@@ -63,7 +63,22 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             var connection = EventStoreConnection.Create(settings, _connectionString);
 
-            connection.ErrorOccurred += async (s, e) =>
+            #region Connection Events
+
+            connection.Connected     += OnConnected;
+            connection.Reconnecting  += OnReconnecting;
+            connection.ErrorOccurred += OnErrorOccurred;
+            connection.Disconnected  += OnDisconnected;
+            connection.Closed        += OnClosed;
+
+
+            void OnConnected(object? s, ClientConnectionEventArgs e) => _logger.LogInformation(
+                $@"Connection established with name '{e.Connection.ConnectionName}' and 
+                    address family '{e.RemoteEndPoint.AddressFamily}'.");
+
+            void OnReconnecting(object? s, ClientReconnectingEventArgs e) => _logger.LogInformation($@"Reconnecting to '{e.Connection.ConnectionName}'");
+
+            async void OnErrorOccurred(object? s, ClientErrorEventArgs e)
             {
                 _logger.LogWarning(
                     e.Exception,
@@ -73,18 +88,18 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
                 await connection.ConnectAsync()
                    .ConfigureAwait(false);
-            };
+            }
 
-            connection.Disconnected += async (s, e) =>
+            async void OnDisconnected(object? s, ClientConnectionEventArgs e)
             {
                 _logger.LogWarning("The EventStore connection has dropped. Trying to reconnect...");
                 connection = SetupConnection();
 
                 await connection.ConnectAsync()
                    .ConfigureAwait(false);
-            };
+            }
 
-            connection.Closed += async (s, e) =>
+            async void OnClosed(object? s, ClientClosedEventArgs e)
             {
                 _logger.LogWarning(
                     $@"The EventStore connection was closed: {e
@@ -93,7 +108,10 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
                 await connection.ConnectAsync()
                    .ConfigureAwait(false);
-            };
+            }
+
+            #endregion
+
 
             return connection;
         }
