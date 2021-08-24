@@ -43,7 +43,7 @@ namespace Aviant.DDD.Application.Services
                 ? _cache.Get(type)
                 : _assemblies
                      .Select(a => a.GetType(type, false))
-                     .FirstOrDefault(t => t != null)
+                     .FirstOrDefault(t => t is not null)
                ?? Type.GetType(type);
 
             if (eventType is null)

@@ -20,6 +20,7 @@ namespace Aviant.DDD.Application.Behaviours
             CancellationToken                 cancellationToken,
             RequestHandlerDelegate<TResponse> next)
         {
+            //TODO: Revisit
             Console.WriteLine("************");
             Console.WriteLine(typeof(TRequest).Name);
             Console.WriteLine(request.ToString());

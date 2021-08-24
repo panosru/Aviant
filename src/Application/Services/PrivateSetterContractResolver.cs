@@ -14,14 +14,11 @@ namespace Aviant.DDD.Application.Services
         {
             var jsonProperty = base.CreateProperty(member, memberSerialization);
 
-            if (jsonProperty.Writable)
+            if (jsonProperty.Writable
+             || member is not PropertyInfo propertyInfo)
                 return jsonProperty;
 
-            if (member is PropertyInfo propertyInfo)
-            {
-                var setter = propertyInfo.GetSetMethod(true);
-                jsonProperty.Writable = setter != null;
-            }
+            jsonProperty.Writable = propertyInfo.GetSetMethod(true) is not null;
 
             return jsonProperty;
         }

@@ -301,7 +301,7 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (guid != null) return true;
+                if (guid is not null) return true;
 
                 MessagesFacade.AddMessage(notification);
 

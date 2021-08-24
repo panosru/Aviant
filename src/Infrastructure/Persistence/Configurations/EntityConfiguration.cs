@@ -9,10 +9,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Configurations
     {
         #region IEntityTypeConfiguration<TEntity> Members
 
-        public virtual void Configure(EntityTypeBuilder<TEntity> builder)
-        {
+        public virtual void Configure(EntityTypeBuilder<TEntity> builder) =>
             builder.HasKey(e => e.Id);
-        }
 
         #endregion
     }

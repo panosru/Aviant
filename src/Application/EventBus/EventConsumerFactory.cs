@@ -25,6 +25,8 @@ namespace Aviant.DDD.Application.EventBus
             var consumer = scope.ServiceProvider.GetRequiredService<IEventConsumer<
                 TAggregate, TAggregateId, TDeserializer>>();
 
+            consumer.EventReceived += OnEventReceivedAsync;
+
             async Task OnEventReceivedAsync(
                 object                     s,
                 IDomainEvent<TAggregateId> @event,
@@ -36,8 +38,6 @@ namespace Aviant.DDD.Application.EventBus
                 var       mediator   = innerScope.ServiceProvider.GetRequiredService<IMediator>();
                 await mediator.Publish(constructedEvent, cancellationToken);
             }
-
-            consumer.EventReceived += OnEventReceivedAsync;
 
             return consumer;
         }

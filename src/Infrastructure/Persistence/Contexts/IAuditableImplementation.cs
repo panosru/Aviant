@@ -32,7 +32,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
                 return;
 
             Expression<Func<TEntity, bool>>? filterExpression = CreateFilterExpression<TEntity>();
-            if (filterExpression != null) modelBuilder.Entity<TEntity>().HasQueryFilter(filterExpression);
+            if (filterExpression is not null) modelBuilder.Entity<TEntity>().HasQueryFilter(filterExpression);
         }
 
         protected virtual bool ShouldFilterEntity<TEntity>(IMutableEntityType entityType)

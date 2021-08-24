@@ -78,7 +78,7 @@ namespace Aviant.DDD.Application.Behaviours
                .ConfigureAwait(false);
 
             List<ValidationFailure> failures = validationResults.SelectMany(r => r.Errors)
-               .Where(f => f != null)
+               .Where(f => f is not null)
                .ToList();
 
             if (0 != failures.Count)
