@@ -5,9 +5,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
     using System.Reflection;
     using Application.Identity;
     using Application.Persistance;
-    using Application.Services;
     using Core.Entities;
     using Core.Services;
+    using Core.Timing;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
     using Microsoft.EntityFrameworkCore.Metadata;
@@ -22,10 +22,6 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         private static ICurrentUserService CurrentUserService =>
             ServiceLocator.ServiceContainer.GetService<ICurrentUserService>(
                 typeof(ICurrentUserService));
-
-        private static IDateTimeService DateTimeService =>
-            ServiceLocator.ServiceContainer.GetService<IDateTimeService>(
-                typeof(IDateTimeService));
 
         #region Configure Global Filters
 
@@ -65,7 +61,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         {
             if (entry.Entity is not IHasCreationTime hasCreationTimeEntity) return;
 
-            if (hasCreationTimeEntity.Created == default) hasCreationTimeEntity.Created = DateTimeService.Now(true);
+            if (hasCreationTimeEntity.Created == default) hasCreationTimeEntity.Created = Clock.Now;
 
             if (entry.Entity is not ICreationAudited creationAuditedEntity) return;
 
@@ -80,7 +76,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         {
             if (entry.Entity is not IHasModificationTime hasModificationTimeEntity) return;
 
-            hasModificationTimeEntity.LastModified = DateTimeService.Now(true);
+            hasModificationTimeEntity.LastModified = Clock.Now;
 
             if (entry.Entity is not IModificationAudited modificationAuditedEntity) return;
 
@@ -95,12 +91,12 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         {
             if (entry.Entity is not IHasDeletionTime hasDeletionTimeEntity) return;
 
-            hasDeletionTimeEntity.Deleted ??= DateTimeService.Now(true);
+            hasDeletionTimeEntity.Deleted ??= Clock.Now;
 
             if (entry.Entity is not IDeletionAudited deletionAuditedEntity) return;
 
             deletionAuditedEntity.DeletedBy = CurrentUserService.UserId;
-            deletionAuditedEntity.Deleted   = DateTimeService.Now(true);
+            deletionAuditedEntity.Deleted   = Clock.Now;
         }
 
         public virtual void CancelDeletionForSoftDelete(EntityEntry entry)

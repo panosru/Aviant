@@ -4,20 +4,14 @@ namespace Aviant.DDD.Application.ApplicationEvents
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Core.Timing;
     using MediatR;
-    using Services;
 
     public sealed class ApplicationEventDispatcher : IApplicationEventDispatcher
     {
-        private readonly IDateTimeService _dateTimeService;
-
         private readonly IMediator _mediator;
 
-        public ApplicationEventDispatcher(IMediator mediator, IDateTimeService dateTimeService)
-        {
-            _mediator        = mediator;
-            _dateTimeService = dateTimeService;
-        }
+        public ApplicationEventDispatcher(IMediator mediator) => _mediator = mediator;
 
         private List<IApplicationEvent> PreCommitEvents { get; } = new();
 
@@ -27,13 +21,13 @@ namespace Aviant.DDD.Application.ApplicationEvents
 
         public void AddPreCommitEvent(IApplicationEvent applicationEvent)
         {
-            applicationEvent.Occured = _dateTimeService.Now(true);
+            applicationEvent.Occured = Clock.Now;
             PreCommitEvents.Add(applicationEvent);
         }
 
         public void AddPostCommitEvent(IApplicationEvent applicationEvent)
         {
-            applicationEvent.Occured = _dateTimeService.Now(true);
+            applicationEvent.Occured = Clock.Now;
             PostCommitEvents.Add(applicationEvent);
         }
 

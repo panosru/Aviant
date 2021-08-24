@@ -1,15 +1,11 @@
 namespace Aviant.DDD.Application.ApplicationEvents
 {
     using System;
-    using Core.Services;
-    using Services;
+    using Core.Timing;
 
     public abstract class ApplicationEvent : IApplicationEvent
     {
-        protected ApplicationEvent() =>
-            Occured = ServiceLocator.ServiceContainer.GetService<IDateTimeService>(
-                    typeof(IDateTimeService))
-               .Now(true);
+        protected ApplicationEvent() => Occured = Clock.Now;
 
         #region IApplicationEvent Members
 
