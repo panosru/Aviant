@@ -2,6 +2,7 @@ namespace Aviant.DDD.Core.Exceptions
 {
     using System;
     using System.Runtime.Serialization;
+    using Timing;
 
     [Serializable]
     public class CoreException : Exception
@@ -63,7 +64,7 @@ namespace Aviant.DDD.Core.Exceptions
             }
         }
 
-        public DateTime Occurred { get; protected set; } = DateTime.UtcNow;
+        public DateTime Occurred { get; protected set; } = Clock.Now;
 
         public Guid ExceptionId { get; protected set; } = Guid.NewGuid();
 
