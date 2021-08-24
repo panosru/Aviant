@@ -22,7 +22,7 @@ namespace Aviant.DDD.Core.Aggregates
         where TAggregate : class, IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
-        private readonly Queue<IDomainEvent<TAggregateId>> _events = new Queue<IDomainEvent<TAggregateId>>();
+        private readonly Queue<IDomainEvent<TAggregateId>> _events = new();
 
         /// <inheritdoc />
         /// <summary>

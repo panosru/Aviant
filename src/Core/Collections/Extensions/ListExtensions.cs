@@ -61,7 +61,7 @@ namespace Aviant.DDD.Core.Collections.Extensions
 
                 IEnumerable<T> dependencies = getDependencies(item);
 
-                foreach (T dependency in dependencies)
+                foreach (var dependency in dependencies)
                     SortByDependenciesVisit(
                         dependency,
                         getDependencies,

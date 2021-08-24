@@ -37,14 +37,14 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         public override Task<int> SaveChangesAsync(
             bool              acceptAllChangesOnSuccess,
-            CancellationToken cancellationToken = new CancellationToken())
+            CancellationToken cancellationToken = new())
         {
             IDbContextReadImplementation.ThrowWriteException();
 
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
         {
             IDbContextReadImplementation.ThrowWriteException();
 

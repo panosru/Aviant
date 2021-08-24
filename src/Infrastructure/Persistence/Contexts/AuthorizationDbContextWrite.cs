@@ -23,7 +23,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         where TApplicationRole : ApplicationRole
     {
         // ReSharper disable once StaticMemberInGenericType
-        private static readonly HashSet<Assembly> ConfigurationAssemblies = new HashSet<Assembly>();
+        private static readonly HashSet<Assembly> ConfigurationAssemblies = new();
 
         private readonly IDbContextWriteImplementation<TDbContext> _writeImplementation;
 
@@ -40,7 +40,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         #region IDbContextWrite Members
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
         {
             _writeImplementation.ChangeTracker(ChangeTracker, this);
 

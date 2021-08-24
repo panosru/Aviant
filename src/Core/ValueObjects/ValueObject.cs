@@ -47,7 +47,7 @@ namespace Aviant.DDD.Core.ValueObjects
 
         public override bool Equals(object? obj)
         {
-            if (obj           == null
+            if (obj is null
              || obj.GetType() != GetType()) return false;
 
             return GetProperties().All(p => PropertiesAreEqual(obj, p))

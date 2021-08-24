@@ -22,7 +22,7 @@ namespace Aviant.DDD.Core.Collections.Extensions
         /// <returns>Returns True if added, returns False if not.</returns>
         public static bool AddIfNotContains<T>(this ICollection<T> source, T item)
         {
-            if (source == null)
+            if (source is null)
                 throw new ArgumentNullException(nameof(source));
 
             if (source.Contains(item))

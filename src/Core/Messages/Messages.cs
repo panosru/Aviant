@@ -4,7 +4,7 @@ namespace Aviant.DDD.Core.Messages
 
     public sealed class Messages : IMessages
     {
-        private List<string> _messages = new List<string>();
+        private List<string> _messages = new();
 
         #region IMessages Members
 

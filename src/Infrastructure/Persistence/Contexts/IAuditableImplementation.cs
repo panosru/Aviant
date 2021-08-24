@@ -63,11 +63,11 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         public virtual void SetCreationAuditProperties(EntityEntry entry)
         {
-            if (!(entry.Entity is IHasCreationTime hasCreationTimeEntity)) return;
+            if (entry.Entity is not IHasCreationTime hasCreationTimeEntity) return;
 
             if (hasCreationTimeEntity.Created == default) hasCreationTimeEntity.Created = DateTimeService.Now(true);
 
-            if (!(entry.Entity is ICreationAudited creationAuditedEntity)) return;
+            if (entry.Entity is not ICreationAudited creationAuditedEntity) return;
 
             if (creationAuditedEntity.CreatedBy != Guid.Empty)
                 //CreatedUserId is already set
@@ -78,11 +78,11 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         public virtual void SetModificationAuditProperties(EntityEntry entry)
         {
-            if (!(entry.Entity is IHasModificationTime hasModificationTimeEntity)) return;
+            if (entry.Entity is not IHasModificationTime hasModificationTimeEntity) return;
 
             hasModificationTimeEntity.LastModified = DateTimeService.Now(true);
 
-            if (!(entry.Entity is IModificationAudited modificationAuditedEntity)) return;
+            if (entry.Entity is not IModificationAudited modificationAuditedEntity) return;
 
             if (modificationAuditedEntity.LastModifiedBy == CurrentUserService.UserId)
                 //LastModifiedUserId is same as current user id
@@ -93,11 +93,11 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         public void SetDeletionAuditProperties(EntityEntry entry)
         {
-            if (!(entry.Entity is IHasDeletionTime hasDeletionTimeEntity)) return;
+            if (entry.Entity is not IHasDeletionTime hasDeletionTimeEntity) return;
 
             hasDeletionTimeEntity.Deleted ??= DateTimeService.Now(true);
 
-            if (!(entry.Entity is IDeletionAudited deletionAuditedEntity)) return;
+            if (entry.Entity is not IDeletionAudited deletionAuditedEntity) return;
 
             deletionAuditedEntity.DeletedBy = CurrentUserService.UserId;
             deletionAuditedEntity.Deleted   = DateTimeService.Now(true);
@@ -105,7 +105,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 
         public virtual void CancelDeletionForSoftDelete(EntityEntry entry)
         {
-            if (!(entry.Entity is ISoftDelete)) return;
+            if (entry.Entity is not ISoftDelete) return;
 
             entry.Reload();
             entry.State                           = EntityState.Modified;
