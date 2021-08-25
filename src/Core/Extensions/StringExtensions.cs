@@ -21,7 +21,7 @@ namespace Aviant.DDD.Core.Extensions
             EnsureEndsWith(str, c, StringComparison.Ordinal);
 
         /// <summary>
-        ///     Adds a char to end of given string if it does not ends with the char.
+        ///     Adds a char to end of given string if it does not ends with the char.RemovePostFix
         /// </summary>
         public static string EnsureEndsWith(
             this string      str,
@@ -168,8 +168,11 @@ namespace Aviant.DDD.Core.Extensions
         /// <param name="str">The string.</param>
         /// <param name="postFixes">one or more postfix.</param>
         /// <returns>Modified string or the same string if it has not any of given postfixes</returns>
-        public static string RemovePostFix(this string str, params string[] postFixes)
+        public static string? RemovePostFix(this string? str, params string[] postFixes)
         {
+            if (str is null)
+                return null;
+
             if (string.IsNullOrEmpty(str))
                 return string.Empty;
 
@@ -189,8 +192,11 @@ namespace Aviant.DDD.Core.Extensions
         /// <param name="str">The string.</param>
         /// <param name="preFixes">one or more prefix.</param>
         /// <returns>Modified string or the same string if it has not any of given prefixes</returns>
-        public static string RemovePreFix(this string str, params string[] preFixes)
+        public static string? RemovePreFix(this string? str, params string[] preFixes)
         {
+            if (str is null)
+                return null;
+
             if (string.IsNullOrEmpty(str))
                 return string.Empty;
 
@@ -416,9 +422,15 @@ namespace Aviant.DDD.Core.Extensions
         ///     Gets a substring of a string from beginning of the string if it exceeds maximum length.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="str" /> is null</exception>
-        public static string Truncate(this string str, int maxLength) => str.Length <= maxLength
-            ? str
-            : str.Left(maxLength);
+        public static string? Truncate(this string? str, int maxLength)
+        {
+            if (str is null)
+                return null;
+
+            return str.Length <= maxLength
+                ? str
+                : str.Left(maxLength);
+        }
 
         /// <summary>
         ///     Gets a substring of a string from beginning of the string if it exceeds maximum length.
@@ -426,7 +438,7 @@ namespace Aviant.DDD.Core.Extensions
         ///     Returning string can not be longer than maxLength.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="str" /> is null</exception>
-        public static string TruncateWithPostfix(this string str, int maxLength) =>
+        public static string? TruncateWithPostfix(this string? str, int maxLength) =>
             TruncateWithPostfix(str, maxLength, "...");
 
         /// <summary>
@@ -435,11 +447,14 @@ namespace Aviant.DDD.Core.Extensions
         ///     Returning string can not be longer than maxLength.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="str" /> is null</exception>
-        public static string TruncateWithPostfix(
-            this string str,
-            int         maxLength,
-            string      postfix)
+        public static string? TruncateWithPostfix(
+            this string? str,
+            int          maxLength,
+            string       postfix)
         {
+            if (str is null)
+                return null;
+
             if (string.IsNullOrEmpty(str)
              || maxLength == 0)
                 return string.Empty;
