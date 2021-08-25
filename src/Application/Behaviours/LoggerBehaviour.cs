@@ -14,10 +14,10 @@ namespace Aviant.DDD.Application.Behaviours
 
         private readonly IIdentityService _identityIdentityService;
 
-        private readonly ILogger _logger;
+        private readonly ILogger<LoggerBehaviour<TRequest>> _logger;
 
         public LoggerBehaviour(
-            ILogger<TRequest>   logger,
+            ILogger<LoggerBehaviour<TRequest>>   logger,
             ICurrentUserService currentUserService,
             IIdentityService    identityIdentityService)
         {
@@ -39,7 +39,7 @@ namespace Aviant.DDD.Application.Behaviours
                    .ConfigureAwait(false);
 
             _logger.LogInformation(
-                "Request: {Name} {@UserId} {@UserName} {@Request}",
+                "Request: {Name} {UserId} {UserName} {Request}",
                 requestName,
                 userId,
                 username,

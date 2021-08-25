@@ -9,9 +9,9 @@ namespace Aviant.DDD.Application.Behaviours
     public sealed class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : notnull
     {
-        private readonly ILogger<TRequest> _logger;
+        private readonly ILogger<UnhandledExceptionBehaviour<TRequest, TResponse>> _logger;
 
-        public UnhandledExceptionBehaviour(ILogger<TRequest> logger) => _logger = logger;
+        public UnhandledExceptionBehaviour(ILogger<UnhandledExceptionBehaviour<TRequest, TResponse>> logger) => _logger = logger;
 
         #region IPipelineBehavior<TRequest,TResponse> Members
 
@@ -36,7 +36,7 @@ namespace Aviant.DDD.Application.Behaviours
 
                 _logger.LogError(
                     ex,
-                    "Unhandled Exception for Request {Name} {@Request}",
+                    "Unhandled Exception for Request {Name} {Request}",
                     requestName,
                     request);
 

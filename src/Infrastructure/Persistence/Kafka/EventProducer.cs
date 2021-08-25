@@ -65,7 +65,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
             CancellationToken cancellationToken = default)
         {
             _logger.LogInformation(
-                "publishing " + aggregate.Events.Count + " events for {AggregateId} ...",
+                "publishing {EventsCount} events for {AggregateId} ...",
+                aggregate.Events.Count,
                 aggregate.Id);
 
             foreach (Message<TAggregateId, string>? message in

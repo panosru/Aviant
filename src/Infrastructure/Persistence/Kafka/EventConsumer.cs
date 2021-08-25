@@ -116,7 +116,10 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                         }
                         catch (Exception ex)
                         {
-                            _logger.LogError(ex, $"an exception has occurred while consuming a message: {ex.Message}");
+                            _logger.LogError(
+                                ex,
+                                "an exception has occurred while consuming a message: {Message}",
+                                ex.Message);
                             OnExceptionThrown(ex);
                         }
                 },

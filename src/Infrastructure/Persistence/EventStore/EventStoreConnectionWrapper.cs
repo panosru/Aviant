@@ -73,17 +73,19 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
 
             void OnConnected(object? s, ClientConnectionEventArgs e) => _logger.LogInformation(
-                $@"Connection established with name '{e.Connection.ConnectionName}' and 
-                    address family '{e.RemoteEndPoint.AddressFamily}'.");
+                "Connection established with name '{ConnectionName}' and address family '{AddressFamily}'",
+                e.Connection.ConnectionName,
+                e.RemoteEndPoint.AddressFamily);
 
-            void OnReconnecting(object? s, ClientReconnectingEventArgs e) => _logger.LogInformation($@"Reconnecting to '{e.Connection.ConnectionName}'");
+            void OnReconnecting(object? s, ClientReconnectingEventArgs e) =>
+                _logger.LogInformation("Reconnecting to '{ConnectionName}'", e.Connection.ConnectionName);
 
             async void OnErrorOccurred(object? s, ClientErrorEventArgs e)
             {
                 _logger.LogWarning(
                     e.Exception,
-                    $@"an error has occurred on the EventStore connection: {e
-                       .Exception.Message} . Trying to reconnect...");
+                    "an error has occurred on the EventStore connection: {Message} . Trying to reconnect...",
+                    e.Exception.Message);
                 connection = SetupConnection();
 
                 await connection.ConnectAsync()
@@ -102,8 +104,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             async void OnClosed(object? s, ClientClosedEventArgs e)
             {
                 _logger.LogWarning(
-                    $@"The EventStore connection was closed: {e
-                       .Reason}. Opening new connection...");
+                    "The EventStore connection was closed: {Reason}. Opening new connection...",
+                    e.Reason);
                 connection = SetupConnection();
 
                 await connection.ConnectAsync()

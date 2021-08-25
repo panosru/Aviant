@@ -15,12 +15,12 @@ namespace Aviant.DDD.Application.Behaviours
 
         private readonly IIdentityService _identityIdentityService;
 
-        private readonly ILogger<TRequest> _logger;
+        private readonly ILogger<PerformanceBehaviour<TRequest, TResponse>> _logger;
 
         private readonly Stopwatch _timer;
 
         public PerformanceBehaviour(
-            ILogger<TRequest>   logger,
+            ILogger<PerformanceBehaviour<TRequest, TResponse>>   logger,
             ICurrentUserService currentUserService,
             IIdentityService    identityIdentityService)
         {
@@ -56,7 +56,7 @@ namespace Aviant.DDD.Application.Behaviours
                    .ConfigureAwait(false);
 
             _logger.LogWarning(
-                "Long Running Request detected: {Name} ({ElapsedMilliseconds} milliseconds), UserId: {@UserId}, Username: {@username}, Request: {@Request}",
+                "Long Running Request detected: {Name} ({ElapsedMilliseconds} milliseconds), UserId: {UserId}, Username: {Username}, Request: {Request}",
                 requestName,
                 elapsedMilliseconds,
                 userId,
