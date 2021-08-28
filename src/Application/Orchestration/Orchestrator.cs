@@ -20,6 +20,7 @@ namespace Aviant.DDD.Application.Orchestration
 
         private readonly IMessages _messages;
 
+
         protected OrchestratorBase(
             IMessages                   messages,
             IApplicationEventDispatcher applicationEventDispatcher,
@@ -79,12 +80,12 @@ namespace Aviant.DDD.Application.Orchestration
             IQuery<T>         query,
             CancellationToken cancellationToken = default)
         {
-            var commandResponse = await _mediator.Send(query, cancellationToken)
+            var queryResponse = await _mediator.Send(query, cancellationToken)
                .ConfigureAwait(false);
 
             return _messages.HasMessages()
                 ? new OrchestratorResponse(_messages.GetAll())
-                : new OrchestratorResponse(commandResponse);
+                : new OrchestratorResponse(queryResponse);
         }
     }
 
