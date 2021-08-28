@@ -41,7 +41,7 @@ namespace Aviant.DDD.Application.Orchestration
 
             if (typeof(T) != _payload.GetType())
                 throw new ApplicationException(
-                    $@"Type ""{typeof(T).FullName}"" does not much payload type ""{_payload
+                    $@"Type ""{typeof(T).FullName}"" does not match payload type ""{_payload
                        .GetType().FullName}""");
 
             return (T)_payload;
