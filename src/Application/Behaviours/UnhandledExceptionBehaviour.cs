@@ -1,10 +1,12 @@
 namespace Aviant.DDD.Application.Behaviours
 {
     using System;
+    using System.Drawing;
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
     using Microsoft.Extensions.Logging;
+    using Console = Colorful.Console;
 
     public sealed class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : notnull
@@ -21,10 +23,10 @@ namespace Aviant.DDD.Application.Behaviours
             RequestHandlerDelegate<TResponse> next)
         {
             //TODO: Revisit
-            Console.WriteLine("************");
-            Console.WriteLine(typeof(TRequest).Name);
-            Console.WriteLine(request.ToString());
-            Console.WriteLine("************");
+            Console.WriteLine("************", Color.Red);
+            Console.WriteLine(typeof(TRequest).Name, Color.Red);
+            Console.WriteLine(request.ToString(), Color.Red);
+            Console.WriteLine("************", Color.Red);
 
             try
             {
