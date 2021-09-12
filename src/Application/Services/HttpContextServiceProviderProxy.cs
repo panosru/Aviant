@@ -15,16 +15,20 @@ namespace Aviant.DDD.Application.Services
         #region IServiceContainer Members
 
         public object GetRequiredService(Type type) =>
-            _contextAccessor.HttpContext.RequestServices.GetRequiredService(type);
+            _contextAccessor.HttpContext?.RequestServices.GetRequiredService(type)
+         ?? throw new NullReferenceException(type.FullName);
 
         public T GetRequiredService<T>(Type type) =>
-            (T)_contextAccessor.HttpContext.RequestServices.GetRequiredService(type);
+            (T)(_contextAccessor.HttpContext?.RequestServices.GetRequiredService(type)
+             ?? throw new NullReferenceException(type.FullName));
 
         public object GetService(Type type) =>
-            _contextAccessor.HttpContext.RequestServices.GetService(type) ?? throw new InvalidOperationException();
+            _contextAccessor.HttpContext?.RequestServices.GetService(type)
+         ?? throw new NullReferenceException(type.FullName);
 
         public T GetService<T>(Type type) =>
-            (T)(_contextAccessor.HttpContext.RequestServices.GetService(type) ?? throw new InvalidOperationException());
+            (T)(_contextAccessor.HttpContext?.RequestServices.GetService(type)
+             ?? throw new NullReferenceException(type.FullName));
 
         #endregion
     }
