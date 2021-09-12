@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Enums
+namespace Aviant.DDD.Core.Configuration
 {
     /// <summary>
     ///     Indicate state
