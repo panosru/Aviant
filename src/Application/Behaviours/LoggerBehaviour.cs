@@ -4,8 +4,8 @@ namespace Aviant.DDD.Application.Behaviours
     using System.Threading;
     using System.Threading.Tasks;
     using Identity;
-    using Microsoft.Extensions.Logging;
     using Processors;
+    using Serilog;
 
     public sealed class LoggerBehaviour<TRequest> : RequestPreProcessor<TRequest>
         where TRequest : notnull
@@ -14,14 +14,10 @@ namespace Aviant.DDD.Application.Behaviours
 
         private readonly IIdentityService _identityIdentityService;
 
-        private readonly ILogger<LoggerBehaviour<TRequest>> _logger;
+        private readonly ILogger _logger = Log.Logger.ForContext<LoggerBehaviour<TRequest>>();
 
-        public LoggerBehaviour(
-            ILogger<LoggerBehaviour<TRequest>>   logger,
-            ICurrentUserService currentUserService,
-            IIdentityService    identityIdentityService)
+        public LoggerBehaviour(ICurrentUserService currentUserService, IIdentityService identityIdentityService)
         {
-            _logger                  = logger;
             _currentUserService      = currentUserService;
             _identityIdentityService = identityIdentityService;
         }
@@ -38,7 +34,7 @@ namespace Aviant.DDD.Application.Behaviours
                 username = await _identityIdentityService.GetUserNameAsync(userId, cancellationToken)
                    .ConfigureAwait(false);
 
-            _logger.LogInformation(
+            _logger.Information(
                 "Request: {Name} {UserId} {UserName} {Request}",
                 requestName,
                 userId,

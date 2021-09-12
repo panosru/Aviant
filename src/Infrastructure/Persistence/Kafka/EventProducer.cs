@@ -9,13 +9,13 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using Confluent.Kafka;
     using Core.Aggregates;
     using Core.EventBus;
-    using Microsoft.Extensions.Logging;
+    using Serilog;
 
     internal sealed class EventProducer<TAggregate, TAggregateId> : IEventProducer<TAggregate, TAggregateId>
         where TAggregate : IAggregate<TAggregateId>
         where TAggregateId : class, IAggregateId
     {
-        private readonly ILogger<EventProducer<TAggregate, TAggregateId>> _logger;
+        private readonly ILogger _logger = Log.Logger.ForContext<EventProducer<TAggregate, TAggregateId>>();
 
         private readonly string _topicName;
 
@@ -23,16 +23,17 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
         public EventProducer(
             string                                           topicBaseName,
-            string                                           kafkaConnString,
-            ILogger<EventProducer<TAggregate, TAggregateId>> logger)
+            string                                           kafkaConnString)
         {
-            _logger = logger;
-
             var aggregateType = typeof(TAggregate);
 
             _topicName = $"{topicBaseName}-{aggregateType.Name}";
 
-            ProducerConfig                        producerConfig  = new() { BootstrapServers = kafkaConnString };
+            ProducerConfig                        producerConfig  = new()
+            {
+                BootstrapServers = kafkaConnString,
+                BrokerAddressFamily = BrokerAddressFamily.V4
+            };
             ProducerBuilder<TAggregateId, string> producerBuilder = new(producerConfig);
             producerBuilder.SetKeySerializer(new KeySerializer<TAggregateId>());
             _producer = producerBuilder.Build();
@@ -64,7 +65,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
             TAggregate        aggregate,
             CancellationToken cancellationToken = default)
         {
-            _logger.LogInformation(
+            _logger.Information(
                 "publishing {EventsCount} events for {AggregateId} ...",
                 aggregate.Events.Count,
                 aggregate.Id);

@@ -6,7 +6,7 @@ namespace Aviant.DDD.Application.Behaviours
     using System.Threading.Tasks;
     using Identity;
     using MediatR;
-    using Microsoft.Extensions.Logging;
+    using Serilog;
 
     public sealed class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : notnull
@@ -15,18 +15,14 @@ namespace Aviant.DDD.Application.Behaviours
 
         private readonly IIdentityService _identityIdentityService;
 
-        private readonly ILogger<PerformanceBehaviour<TRequest, TResponse>> _logger;
+        private readonly ILogger _logger = Log.Logger.ForContext<PerformanceBehaviour<TRequest, TResponse>>();
 
         private readonly Stopwatch _timer;
 
-        public PerformanceBehaviour(
-            ILogger<PerformanceBehaviour<TRequest, TResponse>>   logger,
-            ICurrentUserService currentUserService,
-            IIdentityService    identityIdentityService)
+        public PerformanceBehaviour(ICurrentUserService currentUserService, IIdentityService identityIdentityService)
         {
             _timer = new Stopwatch();
 
-            _logger                  = logger;
             _currentUserService      = currentUserService;
             _identityIdentityService = identityIdentityService;
         }
@@ -55,7 +51,7 @@ namespace Aviant.DDD.Application.Behaviours
                 username = await _identityIdentityService.GetUserNameAsync(userId, cancellationToken)
                    .ConfigureAwait(false);
 
-            _logger.LogWarning(
+            _logger.Warning(
                 "Long Running Request detected: {Name} ({ElapsedMilliseconds} milliseconds), UserId: {UserId}, Username: {Username}, Request: {Request}",
                 requestName,
                 elapsedMilliseconds,

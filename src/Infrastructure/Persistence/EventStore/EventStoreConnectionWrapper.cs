@@ -4,7 +4,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
     using System.Threading;
     using System.Threading.Tasks;
     using global::EventStore.ClientAPI;
-    using Microsoft.Extensions.Logging;
+    using Serilog;
 
     public sealed class EventStoreConnectionWrapper : IEventStoreConnectionWrapper, IDisposable
     {
@@ -12,12 +12,11 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
         private readonly Lazy<Task<IEventStoreConnection>> _lazyConnection;
 
-        private readonly ILogger<EventStoreConnectionWrapper> _logger;
+        private readonly Serilog.ILogger _logger = Log.Logger.ForContext<EventStoreConnectionWrapper>();
 
-        public EventStoreConnectionWrapper(Uri connectionString, ILogger<EventStoreConnectionWrapper> logger)
+        public EventStoreConnectionWrapper(Uri connectionString)
         {
             _connectionString = connectionString;
-            _logger           = logger;
 
             _lazyConnection = new Lazy<Task<IEventStoreConnection>>(
                 () => Task.Run(
@@ -72,17 +71,17 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
             connection.Closed        += OnClosed;
 
 
-            void OnConnected(object? s, ClientConnectionEventArgs e) => _logger.LogInformation(
+            void OnConnected(object? s, ClientConnectionEventArgs e) => _logger.Information(
                 "Connection established with name '{ConnectionName}' and address family '{AddressFamily}'",
                 e.Connection.ConnectionName,
                 e.RemoteEndPoint.AddressFamily);
 
             void OnReconnecting(object? s, ClientReconnectingEventArgs e) =>
-                _logger.LogInformation("Reconnecting to '{ConnectionName}'", e.Connection.ConnectionName);
+                _logger.Information("Reconnecting to '{ConnectionName}'", e.Connection.ConnectionName);
 
             async void OnErrorOccurred(object? s, ClientErrorEventArgs e)
             {
-                _logger.LogWarning(
+                _logger.Warning(
                     e.Exception,
                     "an error has occurred on the EventStore connection: {Message} . Trying to reconnect...",
                     e.Exception.Message);
@@ -94,7 +93,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             async void OnDisconnected(object? s, ClientConnectionEventArgs e)
             {
-                _logger.LogWarning("The EventStore connection has dropped. Trying to reconnect...");
+                _logger.Warning("The EventStore connection has dropped. Trying to reconnect...");
                 connection = SetupConnection();
 
                 await connection.ConnectAsync()
@@ -103,7 +102,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
 
             async void OnClosed(object? s, ClientClosedEventArgs e)
             {
-                _logger.LogWarning(
+                _logger.Warning(
                     "The EventStore connection was closed: {Reason}. Opening new connection...",
                     e.Reason);
                 connection = SetupConnection();

@@ -3,7 +3,6 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using Core.Aggregates;
     using Core.EventBus;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
 
     public static class KafkaExtensionRegistry
     {
@@ -14,15 +13,9 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
             where TAggregateId : class, IAggregateId
         {
             return services.AddSingleton<IEventProducer<TAggregate, TAggregateId>>(
-                ctx =>
-                {
-                    var logger = ctx.GetRequiredService<ILogger<EventProducer<TAggregate, TAggregateId>>>();
-
-                    return new EventProducer<TAggregate, TAggregateId>(
-                        configuration.TopicBaseName,
-                        configuration.KafkaConnectionString,
-                        logger);
-                });
+                _ => new EventProducer<TAggregate, TAggregateId>(
+                    configuration.TopicBaseName,
+                    configuration.KafkaConnectionString));
         }
     }
 }

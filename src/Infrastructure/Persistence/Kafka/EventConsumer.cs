@@ -10,7 +10,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
     using Core.DomainEvents;
     using Core.EventBus;
     using Core.Services;
-    using Microsoft.Extensions.Logging;
+    using Serilog;
 
     public sealed class EventConsumer<TAggregate, TAggregateId, TDeserializer>
         : IDisposable, IEventConsumer<TAggregate, TAggregateId, TDeserializer>
@@ -28,18 +28,16 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
 
         private readonly IEventDeserializer _eventDeserializer;
 
-        private readonly ILogger<EventConsumer<TAggregate, TAggregateId, TDeserializer>> _logger;
+        private readonly ILogger _logger = Log.Logger.ForContext<EventConsumer<TAggregate, TAggregateId, TDeserializer>>();
 
         private IConsumer<TAggregateId, string> _eventConsumer;
 
         #pragma warning disable 8618
         public EventConsumer(
             IEventDeserializer                                              eventDeserializer,
-            EventConsumerConfig                                             config,
-            ILogger<EventConsumer<TAggregate, TAggregateId, TDeserializer>> logger)
+            EventConsumerConfig                                             config)
         {
             _eventDeserializer = eventDeserializer;
-            _logger            = logger;
 
             var aggregateType = typeof(TAggregate);
 
@@ -48,7 +46,8 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                 GroupId            = config.ConsumerGroup,
                 BootstrapServers   = config.KafkaConnectionString,
                 AutoOffsetReset    = AutoOffsetReset.Earliest,
-                EnablePartitionEof = true
+                EnablePartitionEof = true,
+                BrokerAddressFamily = BrokerAddressFamily.V4
             };
 
             ConsumerBuilder<TAggregateId, string> consumerBuilder        = new(consumerConfig);
@@ -82,7 +81,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                 {
                     var topics = string.Join(",", _eventConsumer.Subscription);
 
-                    _logger.LogInformation(
+                    _logger.Information(
                         "started Kafka consumer {ConsumerName} on {ConsumerTopic}",
                         _eventConsumer.Name,
                         topics);
@@ -106,7 +105,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                         }
                         catch (OperationCanceledException ex)
                         {
-                            _logger.LogWarning(
+                            _logger.Warning(
                                 ex,
                                 "consumer {ConsumerName} on {ConsumerTopic} was stopped: {StopReason}",
                                 _eventConsumer.Name,
@@ -116,7 +115,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Kafka
                         }
                         catch (Exception ex)
                         {
-                            _logger.LogError(
+                            _logger.Error(
                                 ex,
                                 "an exception has occurred while consuming a message: {Message}",
                                 ex.Message);

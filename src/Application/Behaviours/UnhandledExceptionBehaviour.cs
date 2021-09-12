@@ -5,15 +5,13 @@ namespace Aviant.DDD.Application.Behaviours
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using Microsoft.Extensions.Logging;
+    using Serilog;
     using Console = Colorful.Console;
 
     public sealed class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : notnull
     {
-        private readonly ILogger<UnhandledExceptionBehaviour<TRequest, TResponse>> _logger;
-
-        public UnhandledExceptionBehaviour(ILogger<UnhandledExceptionBehaviour<TRequest, TResponse>> logger) => _logger = logger;
+        private readonly ILogger _logger = Log.Logger.ForContext<UnhandledExceptionBehaviour<TRequest, TResponse>>();
 
         #region IPipelineBehavior<TRequest,TResponse> Members
 
@@ -36,7 +34,7 @@ namespace Aviant.DDD.Application.Behaviours
             {
                 var requestName = typeof(TRequest).Name;
 
-                _logger.LogError(
+                _logger.Error(
                     ex,
                     "Unhandled Exception for Request {Name} {Request}",
                     requestName,
