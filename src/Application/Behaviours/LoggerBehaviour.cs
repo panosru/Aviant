@@ -35,7 +35,7 @@ namespace Aviant.DDD.Application.Behaviours
                    .ConfigureAwait(false);
 
             _logger.Information(
-                "Request: {Name} {UserId} {UserName} {Request}",
+                "Request: {Name} {@UserId} {@UserName} {@Request}",
                 requestName,
                 userId,
                 username,

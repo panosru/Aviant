@@ -52,7 +52,7 @@ namespace Aviant.DDD.Application.Behaviours
                    .ConfigureAwait(false);
 
             _logger.Warning(
-                "Long Running Request detected: {Name} ({ElapsedMilliseconds} milliseconds), UserId: {UserId}, Username: {Username}, Request: {Request}",
+                "Long Running Request detected: {Name} ({ElapsedMilliseconds} milliseconds), UserId: {@UserId}, Username: {@Username}, Request: {@Request}",
                 requestName,
                 elapsedMilliseconds,
                 userId,

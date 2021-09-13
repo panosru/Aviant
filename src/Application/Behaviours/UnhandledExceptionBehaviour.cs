@@ -1,12 +1,10 @@
 namespace Aviant.DDD.Application.Behaviours
 {
     using System;
-    using System.Drawing;
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
     using Serilog;
-    using Console = Colorful.Console;
 
     public sealed class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : notnull
@@ -20,12 +18,6 @@ namespace Aviant.DDD.Application.Behaviours
             CancellationToken                 cancellationToken,
             RequestHandlerDelegate<TResponse> next)
         {
-            //TODO: Revisit
-            Console.WriteLine("************", Color.Red);
-            Console.WriteLine(typeof(TRequest).Name, Color.Red);
-            Console.WriteLine(request.ToString(), Color.Red);
-            Console.WriteLine("************", Color.Red);
-
             try
             {
                 return await next().ConfigureAwait(false);
@@ -36,7 +28,7 @@ namespace Aviant.DDD.Application.Behaviours
 
                 _logger.Error(
                     ex,
-                    "Unhandled Exception for Request {Name} {Request}",
+                    "Unhandled Exception for Request {Name} {@Request}",
                     requestName,
                     request);
 
