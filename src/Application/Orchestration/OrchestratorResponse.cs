@@ -2,6 +2,7 @@ namespace Aviant.DDD.Application.Orchestration
 {
     using System;
     using System.Collections.Generic;
+    using Ardalis.GuardClauses;
 
     public sealed class OrchestratorResponse
     {
@@ -36,15 +37,14 @@ namespace Aviant.DDD.Application.Orchestration
 
         public T Payload<T>()
         {
-            if (_payload is null)
-                throw new NullReferenceException(nameof(_payload));
+            Guard.Against.Null(_payload, nameof(_payload));
 
-            if (typeof(T) != _payload.GetType())
-                throw new ApplicationException(
+            if (_payload is not T payload)
+                throw new NotSupportedException(
                     $@"Type ""{typeof(T).FullName}"" does not match payload type ""{_payload
                        .GetType().FullName}""");
 
-            return (T)_payload;
+            return payload;
         }
     }
 }

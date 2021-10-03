@@ -2,6 +2,7 @@ namespace Aviant.DDD.Core.Linq.Expressions
 {
     using System;
     using System.Linq.Expressions;
+    using Ardalis.GuardClauses;
 
     internal static class ExpressionCombiner
     {
@@ -29,10 +30,8 @@ namespace Aviant.DDD.Core.Linq.Expressions
             var rightVisitor = new ReplaceExpressionVisitor(expression2.Parameters[0], parameter);
             var right        = rightVisitor.Visit(expression2.Body);
 
-            if (left is null
-             || right is null)
-                throw new NullReferenceException(
-                    $"Expression {nameof(left)} or {nameof(right)} is null");
+            Guard.Against.Null(left, nameof(left));
+            Guard.Against.Null(right, nameof(right));
 
             return Expression.Lambda<Func<T, bool>>(Expression.AndAlso(left, right), parameter);
         }
