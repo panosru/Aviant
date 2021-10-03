@@ -51,23 +51,6 @@ namespace Aviant.DDD.Core.Reflection
         }
 
         /// <summary>
-        ///     Gets a list of attributes defined for a class member and type including inherited attributes.
-        /// </summary>
-        /// <param name="memberInfo">MemberInfo</param>
-        /// <param name="type">Type</param>
-        /// <param name="inherit">Inherit attribute from base classes</param>
-        public static List<object> GetAttributesOfMemberAndType(
-            MemberInfo memberInfo,
-            Type       type,
-            bool       inherit = true)
-        {
-            var attributeList = new List<object>();
-            attributeList.AddRange(memberInfo.GetCustomAttributes(inherit));
-            attributeList.AddRange(type.GetTypeInfo().GetCustomAttributes(inherit));
-            return attributeList;
-        }
-
-        /// <summary>
         ///     Gets a list of attributes defined for a class member and it's declaring type including inherited attributes.
         /// </summary>
         /// <typeparam name="TAttribute">Type of the attribute</typeparam>
@@ -89,6 +72,23 @@ namespace Aviant.DDD.Core.Reflection
                        .GetCustomAttributes(typeof(TAttribute), inherit)
                        .Cast<TAttribute>());
 
+            return attributeList;
+        }
+
+        /// <summary>
+        ///     Gets a list of attributes defined for a class member and type including inherited attributes.
+        /// </summary>
+        /// <param name="memberInfo">MemberInfo</param>
+        /// <param name="type">Type</param>
+        /// <param name="inherit">Inherit attribute from base classes</param>
+        public static List<object> GetAttributesOfMemberAndType(
+            MemberInfo memberInfo,
+            Type       type,
+            bool       inherit = true)
+        {
+            var attributeList = new List<object>();
+            attributeList.AddRange(memberInfo.GetCustomAttributes(inherit));
+            attributeList.AddRange(type.GetTypeInfo().GetCustomAttributes(inherit));
             return attributeList;
         }
 

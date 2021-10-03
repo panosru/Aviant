@@ -36,15 +36,6 @@ namespace Aviant.DDD.Core.ValueObjects
 
         #endregion
 
-        public static bool operator ==(ValueObject? left, ValueObject? right)
-        {
-            if (left is null ^ right is null) return false;
-
-            return left?.Equals(right) != false;
-        }
-
-        public static bool operator !=(ValueObject? left, ValueObject? right) => !(left == right);
-
         public override bool Equals(object? obj)
         {
             if (obj is null
@@ -53,6 +44,15 @@ namespace Aviant.DDD.Core.ValueObjects
             return GetProperties().All(p => PropertiesAreEqual(obj, p))
                 && GetFields().All(f => FieldsAreEqual(obj, f));
         }
+
+        public static bool operator ==(ValueObject? left, ValueObject? right)
+        {
+            if (left is null ^ right is null) return false;
+
+            return left?.Equals(right) != false;
+        }
+
+        public static bool operator !=(ValueObject? left, ValueObject? right) => !(left == right);
 
         private bool PropertiesAreEqual(object obj, PropertyInfo p) =>
             Equals(p.GetValue(this, null), p.GetValue(obj, null));

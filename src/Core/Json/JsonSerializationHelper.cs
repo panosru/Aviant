@@ -12,17 +12,17 @@ namespace Aviant.DDD.Core.Json
         private const char TypeSeparator = '|';
 
         /// <summary>
-        ///     Serializes an object with a type information included.
-        ///     So, it can be deserialized using <see cref="DeserializeWithType" /> method later.
-        /// </summary>
-        public static string SerializeWithType(object obj) => SerializeWithType(obj, obj.GetType());
-
-        /// <summary>
         ///     Serializes the specified object.
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <returns></returns>
         public static string Serialize(object obj) => obj.ToJsonString();
+
+        /// <summary>
+        ///     Serializes an object with a type information included.
+        ///     So, it can be deserialized using <see cref="DeserializeWithType" /> method later.
+        /// </summary>
+        public static string SerializeWithType(object obj) => SerializeWithType(obj, obj.GetType());
 
         /// <summary>
         ///     Serializes an object with a type information included.
