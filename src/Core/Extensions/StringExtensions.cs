@@ -121,7 +121,7 @@ namespace Aviant.DDD.Core.Extensions
             if (str.Length < len)
                 throw new ArgumentException("len argument can not be bigger than given string's length!");
 
-            return str.Substring(0, len);
+            return str[..len];
         }
 
         /// <summary>
@@ -176,13 +176,9 @@ namespace Aviant.DDD.Core.Extensions
             if (string.IsNullOrEmpty(str))
                 return string.Empty;
 
-            if (postFixes.IsNullOrEmpty())
-                return str;
-
-            foreach (var postFix in postFixes.Where(str.EndsWith))
-                return str.Left(str.Length - postFix.Length);
-
-            return str;
+            return postFixes.IsNullOrEmpty()
+                ? str
+                : str.Left(str.Length - (postFixes.FirstOrDefault(str.EndsWith)?.Length ?? 0));
         }
 
         /// <summary>
@@ -200,13 +196,9 @@ namespace Aviant.DDD.Core.Extensions
             if (string.IsNullOrEmpty(str))
                 return string.Empty;
 
-            if (preFixes.IsNullOrEmpty())
-                return str;
-
-            foreach (var preFix in preFixes.Where(str.StartsWith))
-                return str.Right(str.Length - preFix.Length);
-
-            return str;
+            return preFixes.IsNullOrEmpty()
+                ? str
+                : str.Right(str.Length - (preFixes.FirstOrDefault(str.StartsWith)?.Length ?? 0));
         }
 
         /// <summary>

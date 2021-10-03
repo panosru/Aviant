@@ -17,7 +17,7 @@ namespace Aviant.DDD.Core.Reflection.Extensions
             return type
                .GetMethods()
                .Where(m => m.Name == methodName)
-               .ToList()
+               .AsEnumerable()
                .Select(
                     m => new
                     {

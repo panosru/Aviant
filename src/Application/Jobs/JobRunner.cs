@@ -23,7 +23,7 @@ namespace Aviant.DDD.Application.Jobs
         #region IJobRunner Members
 
         /// <inheritdoc />
-        public string Run<TJob, TJobOptions>(Action<TJobOptions>? configureJobOptions)
+        public string Run<TJob, TJobOptions>(Action<TJobOptions>? configureJobOptions = null)
             where TJob : IJob<TJobOptions>
             where TJobOptions : class, IJobOptions
         {
@@ -31,7 +31,7 @@ namespace Aviant.DDD.Application.Jobs
         }
 
         /// <inheritdoc />
-        public string RunInState<TJob, TJobOptions>(IState state, Action<TJobOptions>? configureJobOptions)
+        public string RunInState<TJob, TJobOptions>(IState state, Action<TJobOptions>? configureJobOptions = null)
             where TJob : IJob<TJobOptions>
             where TJobOptions : class, IJobOptions
         {
@@ -42,7 +42,7 @@ namespace Aviant.DDD.Application.Jobs
         }
 
         /// <inheritdoc />
-        public string RunWithDelay<TJob, TJobOptions>(TimeSpan delay, Action<TJobOptions>? configureJobOptions)
+        public string RunWithDelay<TJob, TJobOptions>(TimeSpan delay, Action<TJobOptions>? configureJobOptions = null)
             where TJob : IJob<TJobOptions>
             where TJobOptions : class, IJobOptions
         {
@@ -53,7 +53,7 @@ namespace Aviant.DDD.Application.Jobs
         }
 
         /// <inheritdoc />
-        public string RunAtDateTime<TJob, TJobOptions>(DateTime dateTime, Action<TJobOptions>? configureJobOptions)
+        public string RunAtDateTime<TJob, TJobOptions>(DateTime dateTime, Action<TJobOptions>? configureJobOptions = null)
             where TJob : IJob<TJobOptions>
             where TJobOptions : class, IJobOptions
         {
@@ -64,7 +64,7 @@ namespace Aviant.DDD.Application.Jobs
         }
 
         /// <inheritdoc />
-        public string RunAfter<TJob, TJobOptions>(string previousJobId, Action<TJobOptions>? configureJobOptions)
+        public string RunAfter<TJob, TJobOptions>(string previousJobId, Action<TJobOptions>? configureJobOptions = null)
             where TJob : IJob<TJobOptions>
             where TJobOptions : class, IJobOptions
         {
@@ -77,7 +77,7 @@ namespace Aviant.DDD.Application.Jobs
         public string RunRecurring<TJob, TJobOptions>(
             string               jobId,
             string               cron,
-            Action<TJobOptions>? configureJobOptions)
+            Action<TJobOptions>? configureJobOptions = null)
             where TJob : IJob<TJobOptions>
             where TJobOptions : class, IJobOptions
         {

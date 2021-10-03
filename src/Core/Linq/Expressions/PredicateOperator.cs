@@ -179,7 +179,7 @@ namespace Aviant.DDD.Core.Linq.Expressions
         public Expression<Func<T, bool>> Start(Expression<Func<T, bool>> exp)
         {
             if (IsStarted)
-                throw new Exception("Predicate cannot be started again.");
+                throw new NotSupportedException("Predicate cannot be started again.");
 
             return _predicate = exp;
         }

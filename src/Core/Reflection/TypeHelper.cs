@@ -18,7 +18,7 @@ namespace Aviant.DDD.Core.Reflection
             return type.GetGenericTypeDefinition() == typeof(Func<>);
         }
 
-        public static bool IsFunc<TReturn>(object? obj) => obj is not null && obj.GetType() == typeof(Func<TReturn>);
+        public static bool IsFunc<TReturn>(object? obj) => obj is Func<TReturn>;
 
         public static bool IsPrimitiveExtendedIncludingNullable(Type type, bool includeEnums = false)
         {
