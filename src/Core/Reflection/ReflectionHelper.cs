@@ -158,11 +158,13 @@ namespace Aviant.DDD.Core.Reflection
         /// <param name="obj">Object to get value from</param>
         /// <param name="objectType">Type of given object</param>
         /// <param name="propertyPath">Full path of property</param>
+        /// <param name="comparisonType">StringComparison type</param>
         /// <returns></returns>
         internal static object GetPropertyByPath(
-            object obj,
-            Type   objectType,
-            string propertyPath)
+            object           obj,
+            Type             objectType,
+            string           propertyPath,
+            StringComparison comparisonType = StringComparison.Ordinal)
         {
             var property             = obj;
             var currentType          = objectType;
@@ -171,7 +173,11 @@ namespace Aviant.DDD.Core.Reflection
 
             if (objectPath is not null
              && absolutePropertyPath.StartsWith(objectPath, StringComparison.Ordinal))
-                absolutePropertyPath = absolutePropertyPath.Replace(objectPath + ".", "");
+                absolutePropertyPath = absolutePropertyPath.Replace(
+                    objectPath + ".",
+                    "",
+                    comparisonType
+                );
 
             foreach (var propertyName in absolutePropertyPath.Split('.'))
             {
@@ -190,9 +196,10 @@ namespace Aviant.DDD.Core.Reflection
         /// <param name="propertyPath">Full path of property</param>
         /// <returns></returns>
         internal static object? GetValueByPath(
-            object obj,
-            Type   objectType,
-            string propertyPath)
+            object           obj,
+            Type             objectType,
+            string           propertyPath,
+            StringComparison comparisonType = StringComparison.Ordinal)
         {
             var value                = obj;
             var currentType          = objectType;
@@ -201,7 +208,11 @@ namespace Aviant.DDD.Core.Reflection
 
             if (objectPath is not null
              && absolutePropertyPath.StartsWith(objectPath, StringComparison.Ordinal))
-                absolutePropertyPath = absolutePropertyPath.Replace(objectPath + ".", "");
+                absolutePropertyPath = absolutePropertyPath.Replace(
+                    objectPath + ".",
+                    "",
+                    comparisonType
+                );
 
             foreach (var property in absolutePropertyPath.Split('.')
                .Select(propertyName => currentType.GetProperty(propertyName)))
@@ -221,10 +232,11 @@ namespace Aviant.DDD.Core.Reflection
         /// <param name="propertyPath"></param>
         /// <param name="value"></param>
         internal static void SetValueByPath(
-            object? obj,
-            Type    objectType,
-            string  propertyPath,
-            object  value)
+            object?          obj,
+            Type             objectType,
+            string           propertyPath,
+            object           value,
+            StringComparison comparisonType = StringComparison.Ordinal)
         {
             var           currentType = objectType;
             PropertyInfo? property;
@@ -233,7 +245,11 @@ namespace Aviant.DDD.Core.Reflection
 
             if (objectPath is not null
              && absolutePropertyPath.StartsWith(objectPath, StringComparison.Ordinal))
-                absolutePropertyPath = absolutePropertyPath.Replace(objectPath + ".", "");
+                absolutePropertyPath = absolutePropertyPath.Replace(
+                    objectPath + ".",
+                    "",
+                    comparisonType
+                );
 
             var properties = absolutePropertyPath.Split('.');
 
@@ -275,7 +291,7 @@ namespace Aviant.DDD.Core.Reflection
             params object[] parameters)
         {
             var task = (Task)method.Invoke(obj, parameters)!;
-            await task;
+            await task.ConfigureAwait(false);
             var resultProperty = task.GetType().GetProperty("Result");
             return resultProperty?.GetValue(task);
         }

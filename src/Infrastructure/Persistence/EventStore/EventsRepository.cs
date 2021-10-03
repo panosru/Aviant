@@ -155,8 +155,21 @@ namespace Aviant.DDD.Infrastructure.Persistence.EventStore
         }
     }
 
-    internal struct EventMeta
+    internal struct EventMeta : IEquatable<EventMeta>
     {
         public string EventType { get; set; }
+
+        /// <inheritdoc />
+        public bool Equals(EventMeta other) => EventType == other.EventType;
+
+        /// <inheritdoc />
+        public override bool Equals(object? obj) => obj is EventMeta other && Equals(other);
+
+        /// <inheritdoc />
+        public override int GetHashCode() => EventType.GetHashCode();
+
+        public static bool operator ==(EventMeta left, EventMeta right) => left.Equals(right);
+
+        public static bool operator !=(EventMeta left, EventMeta right) => !left.Equals(right);
     }
 }

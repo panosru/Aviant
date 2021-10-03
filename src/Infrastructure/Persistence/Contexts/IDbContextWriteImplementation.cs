@@ -12,10 +12,10 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         where TDbContext : class, IDbContextWrite
     {
         public void ChangeTracker(
-            ChangeTracker                        changeTracker,
+            ChangeTracker                        trackerChange,
             IAuditableImplementation<TDbContext> auditableImplementation)
         {
-            foreach (EntityEntry<IAuditedEntity> entry in changeTracker.Entries<IAuditedEntity>())
+            foreach (EntityEntry<IAuditedEntity> entry in trackerChange.Entries<IAuditedEntity>())
                 switch (entry.State)
                 {
                     case EntityState.Added:

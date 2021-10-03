@@ -31,16 +31,19 @@ namespace Aviant.DDD.Core.Exceptions
         {
             try
             {
-                await callback();
+                await callback()
+                   .ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                await onException(ex);
+                await onException(ex)
+                   .ConfigureAwait(false);
             }
             finally
             {
                 if (finallyCallback != null)
-                    await finallyCallback();
+                    await finallyCallback()
+                       .ConfigureAwait(false);
             }
         }
     }

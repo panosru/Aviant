@@ -83,7 +83,7 @@ namespace Aviant.DDD.Core.Exceptions
         {
             if (0 > familyCode)
                 throw new CoreException(
-                    $@"FamilyCode must be a positive number {{ familyCode ∈ R ∣ familyCode >= 0 }}. 
+                    $@"FamilyCode must be a positive number {{ {nameof(familyCode)} ∈ R ∣ {nameof(familyCode)} >= 0 }}. 
                                '{familyCode}' received.");
 
             Data.Add("ErrorCode", errorCode);

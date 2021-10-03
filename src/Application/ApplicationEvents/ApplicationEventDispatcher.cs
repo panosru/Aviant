@@ -1,6 +1,6 @@
 namespace Aviant.DDD.Application.ApplicationEvents
 {
-    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -13,9 +13,9 @@ namespace Aviant.DDD.Application.ApplicationEvents
 
         public ApplicationEventDispatcher(IMediator mediator) => _mediator = mediator;
 
-        private List<IApplicationEvent> PreCommitEvents { get; } = new();
+        private Collection<IApplicationEvent> PreCommitEvents { get; } = new();
 
-        private List<IApplicationEvent> PostCommitEvents { get; } = new();
+        private Collection<IApplicationEvent> PostCommitEvents { get; } = new();
 
         #region IApplicationEventDispatcher Members
 
@@ -35,7 +35,9 @@ namespace Aviant.DDD.Application.ApplicationEvents
         {
             foreach (var notification in PreCommitEvents.ToList())
             {
-                await _mediator.Publish(notification, cancellationToken).ConfigureAwait(false);
+                await _mediator.Publish(notification, cancellationToken)
+                   .ConfigureAwait(false);
+
                 RemovePreCommitEvent(notification);
             }
         }
@@ -44,14 +46,16 @@ namespace Aviant.DDD.Application.ApplicationEvents
         {
             foreach (var notification in PostCommitEvents.ToList())
             {
-                await _mediator.Publish(notification, cancellationToken).ConfigureAwait(false);
+                await _mediator.Publish(notification, cancellationToken)
+                   .ConfigureAwait(false);
+
                 RemovePostCommitEvent(notification);
             }
         }
 
-        public List<IApplicationEvent> GetPreCommitEvents() => PreCommitEvents;
+        public Collection<IApplicationEvent> GetPreCommitEvents() => PreCommitEvents;
 
-        public List<IApplicationEvent> GetPostCommitEvents() => PostCommitEvents;
+        public Collection<IApplicationEvent> GetPostCommitEvents() => PostCommitEvents;
 
         public void RemovePreCommitEvent(IApplicationEvent applicationEvent)
         {

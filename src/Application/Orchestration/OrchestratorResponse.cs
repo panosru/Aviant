@@ -41,8 +41,7 @@ namespace Aviant.DDD.Application.Orchestration
 
             if (_payload is not T payload)
                 throw new NotSupportedException(
-                    $@"Type ""{typeof(T).FullName}"" does not match payload type ""{_payload
-                       .GetType().FullName}""");
+                    $@"Type ""{typeof(T).FullName}"" does not match payload type ""{_payload.GetType().FullName}""");
 
             return payload;
         }

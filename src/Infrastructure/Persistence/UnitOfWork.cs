@@ -38,7 +38,8 @@ namespace Aviant.DDD.Infrastructure.Persistence
 
         private void Dispose(bool disposing)
         {
-            if (!_isDisposed && disposing) _context.Dispose();
+            if (!_isDisposed && disposing)
+                _context.Dispose();
 
             _isDisposed = true;
         }

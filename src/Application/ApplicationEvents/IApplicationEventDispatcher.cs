@@ -1,6 +1,6 @@
 namespace Aviant.DDD.Application.ApplicationEvents
 {
-    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -8,7 +8,7 @@ namespace Aviant.DDD.Application.ApplicationEvents
     {
         #region Pre Commit Notifications
 
-        public List<IApplicationEvent> GetPreCommitEvents();
+        public Collection<IApplicationEvent> GetPreCommitEvents();
 
         public void AddPreCommitEvent(IApplicationEvent applicationEvent);
 
@@ -20,7 +20,7 @@ namespace Aviant.DDD.Application.ApplicationEvents
 
         #region Post Commit Notifications
 
-        public List<IApplicationEvent> GetPostCommitEvents();
+        public Collection<IApplicationEvent> GetPostCommitEvents();
 
         public void AddPostCommitEvent(IApplicationEvent applicationEvent);
 

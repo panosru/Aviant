@@ -3,7 +3,7 @@ namespace Aviant.DDD.Core.Configuration
     /// <summary>
     ///     Indicate state
     /// </summary>
-    public enum State : byte
+    public enum State
     {
         /// <summary>
         ///     Active state

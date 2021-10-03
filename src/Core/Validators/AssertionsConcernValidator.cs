@@ -25,7 +25,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (left == right) return true;
+                if (left == right)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -40,7 +41,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (left == right) return true;
+                if (left == right)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -55,7 +57,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (left.Date != right.Date) return true;
+                if (left.Date != right.Date)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -70,7 +73,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (left > right) return true;
+                if (left > right)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -85,7 +89,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (left > right) return true;
+                if (left > right)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -100,7 +105,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (left > right) return true;
+                if (left > right)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -115,7 +121,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (left >= right) return true;
+                if (left >= right)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -130,7 +137,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (left >= right) return true;
+                if (left >= right)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -145,7 +153,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (left >= right) return true;
+                if (left >= right)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -160,7 +169,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (left > right) return true;
+                if (left > right)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -175,7 +185,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (left > right) return true;
+                if (left > right)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -190,7 +201,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (left > right) return true;
+                if (left > right)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -205,7 +217,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (left <= right) return true;
+                if (left <= right)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -220,7 +233,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (left <= right) return true;
+                if (left <= right)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -235,7 +249,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (left <= right) return true;
+                if (left <= right)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -247,7 +262,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (!string.IsNullOrWhiteSpace(value)) return true;
+                if (!string.IsNullOrWhiteSpace(value))
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -262,7 +278,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (value.Length > minLength) return true;
+                if (value.Length > minLength)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -277,7 +294,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (value.Length == length) return true;
+                if (value.Length == length)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -289,7 +307,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (Guid.Empty != guid) return true;
+                if (Guid.Empty != guid)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -301,7 +320,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (guid is not null) return true;
+                if (guid is not null)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -322,7 +342,8 @@ namespace Aviant.DDD.Core.Validators
                         guid,
                         stringIsEmptyMessage));
 
-                if (!isValid) return false;
+                if (!isValid)
+                    return false;
 
                 Guid.TryParse(guid, out var parsed);
 
@@ -338,7 +359,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (obj is not null) return true;
+                if (obj is not null)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 
@@ -350,7 +372,8 @@ namespace Aviant.DDD.Core.Validators
         {
             return delegate
             {
-                if (obj is null) return true;
+                if (obj is null)
+                    return true;
 
                 MessagesFacade.AddMessage(notification);
 

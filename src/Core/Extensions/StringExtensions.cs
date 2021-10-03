@@ -129,9 +129,21 @@ namespace Aviant.DDD.Core.Extensions
         /// </summary>
         public static string NormalizeLineEndings(this string str) =>
             str
-               .Replace("\r\n", "\n")
-               .Replace("\r", "\n")
-               .Replace("\n", Environment.NewLine);
+               .Replace("\r\n", "\n",                StringComparison.Ordinal)
+               .Replace("\r",   "\n",                StringComparison.Ordinal)
+               .Replace("\n",   Environment.NewLine, StringComparison.Ordinal);
+
+        /// <summary>
+        ///     Converts line endings in the string to <see cref="Environment.NewLine" />.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="comparisonType">Comparison Type</param>
+        /// <returns></returns>
+        public static string NormalizeLineEndings(this string str, StringComparison comparisonType) =>
+            str
+               .Replace("\r\n", "\n",                comparisonType)
+               .Replace("\r",   "\n",                comparisonType)
+               .Replace("\n",   Environment.NewLine, comparisonType);
 
         /// <summary>
         ///     Gets index of nth occurence of a char in a string.

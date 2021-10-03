@@ -57,11 +57,11 @@ namespace Aviant.DDD.Core.Extensions
         ///     Gets the First Date of the week for the specified date
         /// </summary>
         /// <param name="dt">this DateTime</param>
-        /// <param name="startOfWeek">The Start Day of the Week (ie, Sunday/Monday)</param>
+        /// <param name="weekStart">The Start Day of the Week (ie, Sunday/Monday)</param>
         /// <returns>The First Date of the week</returns>
-        public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
+        public static DateTime StartOfWeek(this DateTime dt, DayOfWeek weekStart)
         {
-            var diff = dt.DayOfWeek - startOfWeek;
+            var diff = dt.DayOfWeek - weekStart;
 
             if (diff < 0)
                 diff += 7;
