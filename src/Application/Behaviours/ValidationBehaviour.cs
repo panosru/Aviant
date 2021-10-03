@@ -47,7 +47,7 @@ namespace Aviant.DDD.Application.Behaviours
                 return await next().ConfigureAwait(false);
 
             await new ValidationProcessor<TRequest>(_validators, request)
-               .HandleValidation(cancellationToken)
+               .HandleValidationAsync(cancellationToken)
                .ConfigureAwait(false);
 
             return await next().ConfigureAwait(false);
@@ -71,7 +71,7 @@ namespace Aviant.DDD.Application.Behaviours
             _context    = new ValidationContext<TInput>(input);
         }
 
-        public async Task HandleValidation(CancellationToken cancellationToken)
+        public async Task HandleValidationAsync(CancellationToken cancellationToken)
         {
             ValidationResult[] validationResults = await Task.WhenAll(
                     _validators.Select(v => v.ValidateAsync(_context, cancellationToken)))

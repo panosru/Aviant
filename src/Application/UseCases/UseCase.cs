@@ -98,7 +98,7 @@ namespace Aviant.DDD.Application.UseCases
         /// <param name="input">The input object</param>
         /// <param name="cancellationToken">The cancellation token object</param>
         /// <returns></returns>
-        protected virtual Task ValidateInput(
+        protected virtual Task ValidateInputAsync(
             TUseCaseInput     input,
             CancellationToken cancellationToken = default) =>
             new ValidationProcessor<TUseCaseInput>(
@@ -106,7 +106,7 @@ namespace Aviant.DDD.Application.UseCases
                        .GetRequiredService<IEnumerable<IValidator<TUseCaseInput>>>(
                             typeof(IEnumerable<IValidator<TUseCaseInput>>)),
                     input)
-               .HandleValidation(cancellationToken);
+               .HandleValidationAsync(cancellationToken);
     }
 
     /// <inheritdoc />

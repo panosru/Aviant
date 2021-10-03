@@ -27,7 +27,7 @@ namespace Aviant.DDD.Application.Jobs
             where TJob : IJob<TJobOptions>
             where TJobOptions : class, IJobOptions
         {
-            return BackgroundJobClient.Enqueue<TJob>(job => job.Perform(BuildOptions(configureJobOptions)));
+            return BackgroundJobClient.Enqueue<TJob>(job => job.PerformAsync(BuildOptions(configureJobOptions)));
         }
 
         /// <inheritdoc />
@@ -37,7 +37,7 @@ namespace Aviant.DDD.Application.Jobs
         {
             return BackgroundJobClient.Create<TJob>(
                 job =>
-                    job.Perform(BuildOptions(configureJobOptions)),
+                    job.PerformAsync(BuildOptions(configureJobOptions)),
                 state);
         }
 
@@ -48,7 +48,7 @@ namespace Aviant.DDD.Application.Jobs
         {
             return BackgroundJobClient.Schedule<TJob>(
                 job =>
-                    job.Perform(BuildOptions(configureJobOptions)),
+                    job.PerformAsync(BuildOptions(configureJobOptions)),
                 Clock.Now + delay);
         }
 
@@ -59,7 +59,7 @@ namespace Aviant.DDD.Application.Jobs
         {
             return BackgroundJobClient.Schedule<TJob>(
                 job =>
-                    job.Perform(BuildOptions(configureJobOptions)),
+                    job.PerformAsync(BuildOptions(configureJobOptions)),
                 dateTime);
         }
 
@@ -70,7 +70,7 @@ namespace Aviant.DDD.Application.Jobs
         {
             return BackgroundJobClient.ContinueJobWith<TJob>(
                 previousJobId,
-                job => job.Perform(BuildOptions(configureJobOptions)));
+                job => job.PerformAsync(BuildOptions(configureJobOptions)));
         }
 
         /// <inheritdoc />
@@ -83,7 +83,7 @@ namespace Aviant.DDD.Application.Jobs
         {
             RecurringJobManager.AddOrUpdate<TJob>(
                 jobId,
-                job => job.Perform(BuildOptions(configureJobOptions)),
+                job => job.PerformAsync(BuildOptions(configureJobOptions)),
                 cron);
 
             return jobId;

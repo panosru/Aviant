@@ -7,7 +7,7 @@ namespace Aviant.DDD.Application.Jobs
     public interface IJob<in TJobOptions>
         where TJobOptions : class, IJobOptions
     {
-        Task Perform(TJobOptions jobOptions);
+        Task PerformAsync(TJobOptions jobOptions);
     }
 
     public interface IJobRunner

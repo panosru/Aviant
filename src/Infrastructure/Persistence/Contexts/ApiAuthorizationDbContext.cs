@@ -1,6 +1,7 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Contexts
 {
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
     using IdentityServer4.EntityFramework.Entities;
     using IdentityServer4.EntityFramework.Extensions;
@@ -53,7 +54,13 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts
         /// </summary>
         public DbSet<DeviceFlowCodes>? DeviceFlowCodes { get; set; }
 
-        Task<int> IPersistedGrantDbContext.SaveChangesAsync() => base.SaveChangesAsync();
+        Task<int> IPersistedGrantDbContext.SaveChangesAsync() => SaveChangesAsync();
+
+        // ReSharper disable once RedundantOverriddenMember
+        // Fix for pitfall RSPEC-4039
+        /// <inheritdoc />
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new()) =>
+            base.SaveChangesAsync(cancellationToken);
 
         #endregion
 
