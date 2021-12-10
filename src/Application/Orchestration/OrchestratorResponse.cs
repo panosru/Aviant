@@ -25,9 +25,9 @@ public sealed class OrchestratorResponse
         Succeeded = false;
     }
 
-    public bool Succeeded { get; set; }
+    public bool Succeeded { get; }
 
-    public Collection<string> Messages { get; set; } = new();
+    public Collection<string> Messages { get; } = new();
 
     // ReSharper disable once UnusedAutoPropertyAccessor.Local
     private int? AffectedRows { get; }
