@@ -9,6 +9,7 @@ pipeline {
     
     stage('Begin SonarQube Analysis') {
       steps {
+        scmSkip(deleteBuild: true, skipPattern:'.*\\[CI-SKIP\\].*')
         script {
           withSonarQubeEnv() {
             sh "dotnet ${MSBuildScannerHome}/SonarScanner.MSBuild.dll begin /k:\"panosru_Aviant.DDD\""
@@ -19,6 +20,7 @@ pipeline {
     
     stage('Building') {
       steps {
+        scmSkip(deleteBuild: true, skipPattern:'.*\\[CI-SKIP\\].*')
         sh 'dotnet restore Aviant.DDD.sln'
         sh "dotnet build"
       }
@@ -26,6 +28,7 @@ pipeline {
     
     stage('Complete SonarQube Analysis') {
       steps {
+        scmSkip(deleteBuild: true, skipPattern:'.*\\[CI-SKIP\\].*')
         script {
           withSonarQubeEnv() {
             sh "dotnet ${MSBuildScannerHome}/SonarScanner.MSBuild.dll end"
@@ -36,13 +39,10 @@ pipeline {
     
     stage('Quality Gate') {
       steps {
-        timeout(time: 10, unit: 'MINUTES') {
-          script {
-            def qg = waitForQualityGate()
-            if ('OK' != qg.status) {
-              error "Pipeline aborted due to quality gate failure: ${qg.status}"
-            }
-          }
+        scmSkip(deleteBuild: true, skipPattern:'.*\\[CI-SKIP\\].*')
+        echo 'Waiting for quality gate to pass'
+        timeout(time: 20, unit: 'MINUTES') {
+          waitForQualityGate abortPipeline: true
         }
       }
     }
@@ -50,7 +50,10 @@ pipeline {
   
   post {
     cleanup {
-      delete '**/SonarQube.xml'
+      catchError(buildResult: null, stageResult: 'FAILURE', message: 'Cleanup Failure') {
+        echo 'Cleaning up workspace...'
+        delete '**/SonarQube.xml'
+      }
     }
   }
 }
