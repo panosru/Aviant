@@ -47,26 +47,22 @@ public static class ListExtensions
     {
         var alreadyVisited = visited.TryGetValue(item, out var inProcess);
 
-        if (alreadyVisited)
-        {
-            if (inProcess)
-                throw new ArgumentException("Cyclic dependency found! Item: " + item);
-        }
-        else
-        {
-            visited[item] = true;
+        if (alreadyVisited && inProcess)
+            throw new ArgumentException("Cyclic dependency found! Item: " + item);
 
-            IEnumerable<T> dependencies = getDependencies(item);
+        visited[item] = true;
+        IEnumerable<T> dependencies = getDependencies(item);
 
-            foreach (var dependency in dependencies)
-                SortByDependenciesVisit(
-                    dependency,
-                    getDependencies,
-                    sorted,
-                    visited);
+        foreach (var dependency in dependencies)
+            SortByDependenciesVisit(
+                dependency,
+                getDependencies,
+                sorted,
+                visited);
 
+        if (visited[item])
             visited[item] = false;
-            sorted.Add(item);
-        }
+
+        sorted.Add(item);
     }
 }
