@@ -41,7 +41,7 @@ pipeline {
       steps {
         scmSkip(deleteBuild: true, skipPattern:'.*\\[CI-SKIP\\].*')
         echo 'Waiting for quality gate to pass'
-        timeout(time: 20, unit: 'MINUTES') {
+        timeout(time: 2, unit: 'MINUTES') {
           waitForQualityGate abortPipeline: true
         }
       }
