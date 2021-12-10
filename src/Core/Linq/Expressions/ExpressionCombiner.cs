@@ -22,7 +22,7 @@ internal static class ExpressionCombiner
         var parameter = Expression.Parameter(typeof(T));
 
         var leftVisitor = new ReplaceExpressionVisitor(expression1.Parameters[0], parameter);
-        var left        = leftVisitor.Visit(expression1.Body)!!;
+        var left        = leftVisitor.Visit(expression1.Body);
 
         var rightVisitor = new ReplaceExpressionVisitor(expression2.Parameters[0], parameter);
         var right        = rightVisitor.Visit(expression2.Body);
