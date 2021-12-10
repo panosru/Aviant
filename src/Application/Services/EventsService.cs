@@ -1,61 +1,56 @@
-namespace Aviant.DDD.Application.Services
+namespace Aviant.DDD.Application.Services;
+
+using Core.Aggregates;
+using Core.EventBus;
+using Core.Persistence;
+using Core.Services;
+
+public sealed class EventsService<TAggregate, TAggregateId> : IEventsService<TAggregate, TAggregateId>
+    where TAggregate : class, IAggregate<TAggregateId>
+    where TAggregateId : class, IAggregateId
 {
-    using System;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Core.Aggregates;
-    using Core.EventBus;
-    using Core.Persistence;
-    using Core.Services;
+    private readonly IEventProducer<TAggregate, TAggregateId> _eventProducer;
 
-    public sealed class EventsService<TAggregate, TAggregateId> : IEventsService<TAggregate, TAggregateId>
-        where TAggregate : class, IAggregate<TAggregateId>
-        where TAggregateId : class, IAggregateId
+    private readonly IEventsRepository<TAggregate, TAggregateId> _eventsRepository;
+
+    public EventsService(
+        IEventsRepository<TAggregate, TAggregateId> eventsRepository,
+        IEventProducer<TAggregate, TAggregateId>    eventProducer)
     {
-        private readonly IEventProducer<TAggregate, TAggregateId> _eventProducer;
+        _eventsRepository = eventsRepository ?? throw new ArgumentNullException(nameof(eventsRepository));
 
-        private readonly IEventsRepository<TAggregate, TAggregateId> _eventsRepository;
+        _eventProducer = eventProducer ?? throw new ArgumentNullException(nameof(eventProducer));
+    }
 
-        public EventsService(
-            IEventsRepository<TAggregate, TAggregateId> eventsRepository,
-            IEventProducer<TAggregate, TAggregateId>    eventProducer)
-        {
-            _eventsRepository = eventsRepository ?? throw new ArgumentNullException(nameof(eventsRepository));
+    #region IEventsService<TAggregate,TAggregateId> Members
 
-            _eventProducer = eventProducer ?? throw new ArgumentNullException(nameof(eventProducer));
-        }
+    public Task PersistAsync(
+        TAggregate        aggregate,
+        CancellationToken cancellationToken = default)
+    {
+        if (aggregate is null)
+            throw new ArgumentNullException(nameof(aggregate));
 
-        #region IEventsService<TAggregate,TAggregateId> Members
+        return !aggregate.Events.Any()
+            ? Task.CompletedTask
+            : PersistEventsAsync(aggregate, cancellationToken);
+    }
 
-        public Task PersistAsync(
-            TAggregate        aggregate,
-            CancellationToken cancellationToken = default)
-        {
-            if (aggregate is null)
-                throw new ArgumentNullException(nameof(aggregate));
+    public Task<TAggregate> RehydrateAsync(
+        TAggregateId      key,
+        CancellationToken cancellationToken = default) =>
+        _eventsRepository.RehydrateAsync(key, cancellationToken);
 
-            return !aggregate.Events.Any()
-                ? Task.CompletedTask
-                : PersistEventsAsync(aggregate, cancellationToken);
-        }
+    #endregion
 
-        public Task<TAggregate> RehydrateAsync(
-            TAggregateId      key,
-            CancellationToken cancellationToken = default) =>
-            _eventsRepository.RehydrateAsync(key, cancellationToken);
+    private async Task PersistEventsAsync(
+        TAggregate        aggregate,
+        CancellationToken cancellationToken = default)
+    {
+        await _eventsRepository.AppendAsync(aggregate, cancellationToken)
+           .ConfigureAwait(false);
 
-        #endregion
-
-        private async Task PersistEventsAsync(
-            TAggregate        aggregate,
-            CancellationToken cancellationToken = default)
-        {
-            await _eventsRepository.AppendAsync(aggregate, cancellationToken)
-               .ConfigureAwait(false);
-
-            await _eventProducer.DispatchAsync(aggregate, cancellationToken)
-               .ConfigureAwait(false);
-        }
+        await _eventProducer.DispatchAsync(aggregate, cancellationToken)
+           .ConfigureAwait(false);
     }
 }

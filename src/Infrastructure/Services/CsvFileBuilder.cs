@@ -1,33 +1,30 @@
-namespace Aviant.DDD.Infrastructure.Services
+namespace Aviant.DDD.Infrastructure.Services;
+
+using System.Globalization;
+using Application.Services;
+using CsvHelper;
+using CsvHelper.Configuration;
+
+public sealed class CsvFileBuilder<TRecord, TMap> : ICsvFileBuilder<TRecord>
+    where TRecord : class
+    where TMap : ClassMap<TRecord>
 {
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using Application.Services;
-    using CsvHelper;
-    using CsvHelper.Configuration;
+    #region ICsvFileBuilder<TRecrod> Members
 
-    public sealed class CsvFileBuilder<TRecord, TMap> : ICsvFileBuilder<TRecord>
-        where TRecord : class
-        where TMap : ClassMap<TRecord>
+    public byte[] BuildTodoItemsFile(IEnumerable<TRecord> records)
     {
-        #region ICsvFileBuilder<TRecrod> Members
+        using MemoryStream memoryStream = new();
 
-        public byte[] BuildTodoItemsFile(IEnumerable<TRecord> records)
+        using (StreamWriter streamWriter = new(memoryStream))
         {
-            using MemoryStream memoryStream = new();
+            using CsvWriter csvWriter = new(streamWriter, CultureInfo.InvariantCulture);
 
-            using (StreamWriter streamWriter = new(memoryStream))
-            {
-                using CsvWriter csvWriter = new(streamWriter, CultureInfo.InvariantCulture);
-
-                csvWriter.Context.RegisterClassMap<TMap>();
-                csvWriter.WriteRecords(records);
-            }
-
-            return memoryStream.ToArray();
+            csvWriter.Context.RegisterClassMap<TMap>();
+            csvWriter.WriteRecords(records);
         }
 
-        #endregion
+        return memoryStream.ToArray();
     }
+
+    #endregion
 }

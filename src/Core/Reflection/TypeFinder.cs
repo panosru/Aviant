@@ -1,80 +1,76 @@
-namespace Aviant.DDD.Core.Reflection
+namespace Aviant.DDD.Core.Reflection;
+
+using System.Reflection;
+using Castle.Core.Logging;
+using Collections.Extensions;
+
+public class TypeFinder : ITypeFinder
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using Castle.Core.Logging;
-    using Collections.Extensions;
+    private readonly IAssemblyFinder _assemblyFinder;
 
-    public class TypeFinder : ITypeFinder
+    private readonly object _syncObj = new();
+
+    private Type[]? _types;
+
+    public TypeFinder(IAssemblyFinder assemblyFinder)
     {
-        private readonly IAssemblyFinder _assemblyFinder;
+        _assemblyFinder = assemblyFinder;
+        Logger          = NullLogger.Instance;
+    }
 
-        private readonly object _syncObj = new();
+    public ILogger Logger { get; set; }
 
-        private Type[]? _types;
+    #region ITypeFinder Members
 
-        public TypeFinder(IAssemblyFinder assemblyFinder)
-        {
-            _assemblyFinder = assemblyFinder;
-            Logger          = NullLogger.Instance;
-        }
+    public Type[] Find(Func<Type, bool> predicate) => (GetAllTypes() ?? Type.EmptyTypes).Where(predicate).ToArray();
 
-        public ILogger Logger { get; set; }
+    public Type[] FindAll() => (GetAllTypes() ?? Type.EmptyTypes).ToArray();
 
-        #region ITypeFinder Members
+    #endregion
 
-        public Type[] Find(Func<Type, bool> predicate) => (GetAllTypes() ?? Type.EmptyTypes).Where(predicate).ToArray();
-
-        public Type[] FindAll() => (GetAllTypes() ?? Type.EmptyTypes).ToArray();
-
-        #endregion
-
-        private Type[]? GetAllTypes()
-        {
-            if (_types != null)
-                return _types;
-
-            lock (_syncObj)
-            {
-                _types ??= CreateTypeList().ToArray();
-            }
-
+    private Type[]? GetAllTypes()
+    {
+        if (_types is not null)
             return _types;
+
+        lock (_syncObj)
+        {
+            _types ??= CreateTypeList().ToArray();
         }
 
-        private List<Type> CreateTypeList()
-        {
-            var allTypes = new List<Type>();
+        return _types;
+    }
 
-            IEnumerable<Assembly> assemblies = _assemblyFinder.GetAllAssemblies().Distinct();
+    private List<Type> CreateTypeList()
+    {
+        var allTypes = new List<Type>();
 
-            foreach (var assembly in assemblies)
+        IEnumerable<Assembly> assemblies = _assemblyFinder.GetAllAssemblies().Distinct();
+
+        foreach (var assembly in assemblies)
+            try
+            {
+                Type?[] typesInThisAssembly;
+
                 try
                 {
-                    Type?[] typesInThisAssembly;
-
-                    try
-                    {
-                        typesInThisAssembly = assembly.GetTypes();
-                    }
-                    catch (ReflectionTypeLoadException ex)
-                    {
-                        typesInThisAssembly = ex.Types;
-                    }
-
-                    if (typesInThisAssembly.IsNullOrEmpty())
-                        continue;
-
-                    allTypes.AddRange(typesInThisAssembly.Where(type => type is not null)!);
+                    typesInThisAssembly = assembly.GetTypes();
                 }
-                catch (Exception ex)
+                catch (ReflectionTypeLoadException ex)
                 {
-                    Logger.Warn(ex.ToString(), ex);
+                    typesInThisAssembly = ex.Types;
                 }
 
-            return allTypes;
-        }
+                if (typesInThisAssembly.IsNullOrEmpty())
+                    continue;
+
+                allTypes.AddRange(typesInThisAssembly.Where(type => type is not null)!);
+            }
+            catch (Exception ex)
+            {
+                Logger.Warn(ex.ToString(), ex);
+            }
+
+        return allTypes;
     }
 }

@@ -1,56 +1,53 @@
-namespace Aviant.DDD.Core.Messages
+namespace Aviant.DDD.Core.Messages;
+
+using Exceptions;
+using Services;
+
+internal static class MessagesFacade
 {
-    using System;
-    using System.Collections.Generic;
-    using Exceptions;
-    using Services;
+    [ThreadStatic]
+    private static IMessages? _mockContainer;
 
-    internal static class MessagesFacade
+    private static bool _fromTesting;
+
+    public static void SetTestingEnvironment()
     {
-        [ThreadStatic]
-        private static IMessages? _mockContainer;
+        _fromTesting = true;
+    }
 
-        private static bool _fromTesting;
-
-        public static void SetTestingEnvironment()
-        {
-            _fromTesting = true;
-        }
-
-        /// <summary>
-        ///     This method should be used only for testing purpose
-        ///     Under normal use the container is obtained via DI
-        /// </summary>
-        /// <param name="mockContainer"></param>
-        /// <exception cref="Exception"></exception>
-        public static void SetMessagesContainer(IMessages mockContainer)
-        {
-            if (!_fromTesting)
-                throw new CoreException(
-                    @"For SetMessagesContainer to work properly SetTestingEnvironment() should be called first. 
+    /// <summary>
+    ///     This method should be used only for testing purpose
+    ///     Under normal use the container is obtained via DI
+    /// </summary>
+    /// <param name="mockContainer"></param>
+    /// <exception cref="Exception"></exception>
+    public static void SetMessagesContainer(IMessages mockContainer)
+    {
+        if (!_fromTesting)
+            throw new CoreException(
+                @"For SetMessagesContainer to work properly SetTestingEnvironment() should be called first. 
                                       This method should be used only for testing purpose");
 
-            _mockContainer = mockContainer;
-        }
+        _mockContainer = mockContainer;
+    }
 
-        private static IMessages? GetContainer() => _fromTesting
-            ? _mockContainer
-            : ServiceLocator.ServiceContainer.GetRequiredService<IMessages>(
-                typeof(IMessages));
+    private static IMessages? GetContainer() => _fromTesting
+        ? _mockContainer
+        : ServiceLocator.ServiceContainer.GetRequiredService<IMessages>(
+            typeof(IMessages));
 
-        public static void AddMessage(string message)
-        {
-            var container = GetContainer();
-            container?.AddMessage(message);
-        }
+    public static void AddMessage(string message)
+    {
+        var container = GetContainer();
+        container?.AddMessage(message);
+    }
 
-        public static List<string>? GetAll() => GetContainer()?.GetAll();
+    public static List<string>? GetAll() => GetContainer()?.GetAll();
 
-        public static bool HasMessages()
-        {
-            var container = GetContainer();
+    public static bool HasMessages()
+    {
+        var container = GetContainer();
 
-            return container?.HasMessages() == true;
-        }
+        return container?.HasMessages() == true;
     }
 }

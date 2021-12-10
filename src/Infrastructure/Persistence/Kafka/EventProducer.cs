@@ -1,94 +1,89 @@
-namespace Aviant.DDD.Infrastructure.Persistence.Kafka
+namespace Aviant.DDD.Infrastructure.Persistence.Kafka;
+
+using System.Text;
+using System.Text.Json;
+using Confluent.Kafka;
+using Core.Aggregates;
+using Core.EventBus;
+using Serilog;
+
+internal sealed class EventProducer<TAggregate, TAggregateId> : IEventProducer<TAggregate, TAggregateId>
+    where TAggregate : IAggregate<TAggregateId>
+    where TAggregateId : class, IAggregateId
 {
-    using System;
-    using System.Linq;
-    using System.Text;
-    using System.Text.Json;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Confluent.Kafka;
-    using Core.Aggregates;
-    using Core.EventBus;
-    using Serilog;
+    private readonly ILogger _logger = Log.Logger.ForContext<EventProducer<TAggregate, TAggregateId>>();
 
-    internal sealed class EventProducer<TAggregate, TAggregateId> : IEventProducer<TAggregate, TAggregateId>
-        where TAggregate : IAggregate<TAggregateId>
-        where TAggregateId : class, IAggregateId
+    private readonly string _topicName;
+
+    private IProducer<TAggregateId, string> _producer;
+
+    public EventProducer(
+        string topicBaseName,
+        string kafkaConnString)
     {
-        private readonly ILogger _logger = Log.Logger.ForContext<EventProducer<TAggregate, TAggregateId>>();
+        var aggregateType = typeof(TAggregate);
 
-        private readonly string _topicName;
+        _topicName = $"{topicBaseName}-{aggregateType.Name}";
 
-        private IProducer<TAggregateId, string> _producer;
-
-        public EventProducer(
-            string                                           topicBaseName,
-            string                                           kafkaConnString)
+        ProducerConfig producerConfig = new()
         {
-            var aggregateType = typeof(TAggregate);
+            BootstrapServers    = kafkaConnString,
+            BrokerAddressFamily = BrokerAddressFamily.V4
+        };
+        ProducerBuilder<TAggregateId, string> producerBuilder = new(producerConfig);
+        producerBuilder.SetKeySerializer(new KeySerializer<TAggregateId>());
+        _producer = producerBuilder.Build();
+    }
 
-            _topicName = $"{topicBaseName}-{aggregateType.Name}";
+    #region IEventProducer<TAggregate,TAggregateId> Members
 
-            ProducerConfig                        producerConfig  = new()
-            {
-                BootstrapServers = kafkaConnString,
-                BrokerAddressFamily = BrokerAddressFamily.V4
-            };
-            ProducerBuilder<TAggregateId, string> producerBuilder = new(producerConfig);
-            producerBuilder.SetKeySerializer(new KeySerializer<TAggregateId>());
-            _producer = producerBuilder.Build();
-        }
+    public void Dispose()
+    {
+        _producer.Dispose();
+        _producer = null!;
+    }
 
-        #region IEventProducer<TAggregate,TAggregateId> Members
+    public Task DispatchAsync(
+        TAggregate        aggregate,
+        CancellationToken cancellationToken = default)
+    {
+        if (aggregate is null)
+            throw new ArgumentNullException(nameof(aggregate));
 
-        public void Dispose()
-        {
-            _producer.Dispose();
-            _producer = null!;
-        }
+        return !aggregate.Events.Any()
+            ? Task.CompletedTask
+            : DispatchEventsAsync(aggregate, cancellationToken);
+    }
 
-        public Task DispatchAsync(
-            TAggregate        aggregate,
-            CancellationToken cancellationToken = default)
-        {
-            if (aggregate is null)
-                throw new ArgumentNullException(nameof(aggregate));
+    #endregion
 
-            return !aggregate.Events.Any()
-                ? Task.CompletedTask
-                : DispatchEventsAsync(aggregate, cancellationToken);
-        }
+    private async Task DispatchEventsAsync(
+        TAggregate        aggregate,
+        CancellationToken cancellationToken = default)
+    {
+        _logger.Information(
+            "publishing {EventsCount} events for {AggregateId} ...",
+            aggregate.Events.Count,
+            aggregate.Id);
 
-        #endregion
+        foreach (Message<TAggregateId, string>? message in
+                 from @event in aggregate.Events
+                 let eventType = @event.GetType()
+                 let serialized = JsonSerializer.Serialize(@event, eventType)
+                 let headers = new Headers
+                 {
+                     { "aggregate", Encoding.UTF8.GetBytes(@event.AggregateId.ToString()!) },
+                     { "type", Encoding.UTF8.GetBytes(eventType.AssemblyQualifiedName!) }
+                 }
+                 select new Message<TAggregateId, string>
+                 {
+                     Key     = @event.AggregateId,
+                     Value   = serialized,
+                     Headers = headers
+                 })
+            await _producer.ProduceAsync(_topicName, message, cancellationToken)
+               .ConfigureAwait(false);
 
-        private async Task DispatchEventsAsync(
-            TAggregate        aggregate,
-            CancellationToken cancellationToken = default)
-        {
-            _logger.Information(
-                "publishing {EventsCount} events for {AggregateId} ...",
-                aggregate.Events.Count,
-                aggregate.Id);
-
-            foreach (Message<TAggregateId, string>? message in
-                from @event in aggregate.Events
-                let eventType = @event.GetType()
-                let serialized = JsonSerializer.Serialize(@event, eventType)
-                let headers = new Headers
-                {
-                    { "aggregate", Encoding.UTF8.GetBytes(@event.AggregateId.ToString()!) },
-                    { "type", Encoding.UTF8.GetBytes(eventType.AssemblyQualifiedName!) }
-                }
-                select new Message<TAggregateId, string>
-                {
-                    Key     = @event.AggregateId,
-                    Value   = serialized,
-                    Headers = headers
-                })
-                await _producer.ProduceAsync(_topicName, message, cancellationToken)
-                   .ConfigureAwait(false);
-
-            aggregate.ClearEvents();
-        }
+        aggregate.ClearEvents();
     }
 }

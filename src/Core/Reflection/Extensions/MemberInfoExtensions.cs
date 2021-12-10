@@ -1,51 +1,48 @@
-namespace Aviant.DDD.Core.Reflection.Extensions
+namespace Aviant.DDD.Core.Reflection.Extensions;
+
+using System.Reflection;
+
+/// <summary>
+///     Extensions to <see cref="MemberInfo" />.
+/// </summary>
+public static class MemberInfoExtensions
 {
-    using System;
-    using System.Linq;
-    using System.Reflection;
-
     /// <summary>
-    ///     Extensions to <see cref="MemberInfo" />.
+    ///     Gets a single attribute for a member.
     /// </summary>
-    public static class MemberInfoExtensions
+    /// <typeparam name="TAttribute">Type of the attribute</typeparam>
+    /// <param name="memberInfo">The member that will be checked for the attribute</param>
+    /// <param name="inherit">Include inherited attributes</param>
+    /// <returns>Returns the attribute object if found. Returns null if not found.</returns>
+    public static TAttribute? GetSingleAttributeOrNull<TAttribute>(this MemberInfo memberInfo, bool inherit = true)
+        where TAttribute : Attribute
     {
-        /// <summary>
-        ///     Gets a single attribute for a member.
-        /// </summary>
-        /// <typeparam name="TAttribute">Type of the attribute</typeparam>
-        /// <param name="memberInfo">The member that will be checked for the attribute</param>
-        /// <param name="inherit">Include inherited attributes</param>
-        /// <returns>Returns the attribute object if found. Returns null if not found.</returns>
-        public static TAttribute? GetSingleAttributeOrNull<TAttribute>(this MemberInfo memberInfo, bool inherit = true)
-            where TAttribute : Attribute
+        if (memberInfo is null)
+            throw new ArgumentNullException(nameof(memberInfo));
+
+        var attrs = memberInfo.GetCustomAttributes(typeof(TAttribute), inherit).ToArray();
+
+        if (attrs.Length > 0)
+            return (TAttribute)attrs[0];
+
+        return default(TAttribute);
+    }
+
+
+    public static TAttribute? GetSingleAttributeOfTypeOrBaseTypesOrNull<TAttribute>(this Type? type)
+        where TAttribute : Attribute
+    {
+        while (true)
         {
-            if (memberInfo == null)
-                throw new ArgumentNullException(nameof(memberInfo));
+            var attr = type?.GetTypeInfo().GetSingleAttributeOrNull<TAttribute>();
 
-            var attrs = memberInfo.GetCustomAttributes(typeof(TAttribute), inherit).ToArray();
+            if (attr is not null)
+                return attr;
 
-            if (attrs.Length > 0)
-                return (TAttribute)attrs[0];
+            if (type?.GetTypeInfo().BaseType is null)
+                return null;
 
-            return default(TAttribute);
-        }
-
-
-        public static TAttribute? GetSingleAttributeOfTypeOrBaseTypesOrNull<TAttribute>(this Type? type)
-            where TAttribute : Attribute
-        {
-            while (true)
-            {
-                var attr = type?.GetTypeInfo().GetSingleAttributeOrNull<TAttribute>();
-
-                if (attr is not null!)
-                    return attr;
-
-                if (type?.GetTypeInfo().BaseType is null)
-                    return null;
-
-                type = type.GetTypeInfo().BaseType;
-            }
+            type = type.GetTypeInfo().BaseType;
         }
     }
 }

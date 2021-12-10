@@ -1,72 +1,68 @@
-namespace Aviant.DDD.Infrastructure.Persistence
+namespace Aviant.DDD.Infrastructure.Persistence;
+
+using Application.Persistance;
+using Core.Aggregates;
+using Core.Services;
+
+public sealed class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext>, IDisposable
+    where TDbContext : IDbContextWrite
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Application.Persistance;
-    using Core.Aggregates;
-    using Core.Services;
+    private readonly TDbContext _context;
 
-    public sealed class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext>, IDisposable
-        where TDbContext : IDbContextWrite
+    private bool _isDisposed;
+
+    public UnitOfWork(TDbContext context) => _context = context;
+
+    #region IDisposable Members
+
+    public void Dispose()
     {
-        private readonly TDbContext _context;
-
-        private bool _isDisposed;
-
-        public UnitOfWork(TDbContext context) => _context = context;
-
-        #region IDisposable Members
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        #endregion
-
-        #region IUnitOfWork<TDbContext> Members
-
-        public async Task<int> CommitAsync(CancellationToken cancellationToken = default) =>
-            await _context.SaveChangesAsync(cancellationToken)
-               .ConfigureAwait(false);
-
-        #endregion
-
-        ~UnitOfWork() => Dispose(false);
-
-        private void Dispose(bool disposing)
-        {
-            if (!_isDisposed && disposing)
-                _context.Dispose();
-
-            _isDisposed = true;
-        }
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 
-    public sealed class UnitOfWork<TAggregate, TAggregateId>
-        : IUnitOfWork<TAggregate, TAggregateId>
-        where TAggregate : class, IAggregate<TAggregateId>
-        where TAggregateId : class, IAggregateId
+    #endregion
+
+    #region IUnitOfWork<TDbContext> Members
+
+    public async Task<int> CommitAsync(CancellationToken cancellationToken = default) =>
+        await _context.SaveChangesAsync(cancellationToken)
+           .ConfigureAwait(false);
+
+    #endregion
+
+    ~UnitOfWork() => Dispose(false);
+
+    private void Dispose(bool disposing)
     {
-        private readonly IEventsService<TAggregate, TAggregateId> _eventsService;
+        if (!_isDisposed && disposing)
+            _context.Dispose();
 
-        public UnitOfWork(IEventsService<TAggregate, TAggregateId> eventsService) =>
-            _eventsService = eventsService;
-
-        #region IUnitOfWork<TAggregate,TAggregateId> Members
-
-        public async Task<bool> CommitAsync(
-            TAggregate        aggregate,
-            CancellationToken cancellationToken = default)
-        {
-            await _eventsService.PersistAsync(aggregate, cancellationToken)
-               .ConfigureAwait(false);
-
-            return true;
-        }
-
-        #endregion
+        _isDisposed = true;
     }
+}
+
+public sealed class UnitOfWork<TAggregate, TAggregateId>
+    : IUnitOfWork<TAggregate, TAggregateId>
+    where TAggregate : class, IAggregate<TAggregateId>
+    where TAggregateId : class, IAggregateId
+{
+    private readonly IEventsService<TAggregate, TAggregateId> _eventsService;
+
+    public UnitOfWork(IEventsService<TAggregate, TAggregateId> eventsService) =>
+        _eventsService = eventsService;
+
+    #region IUnitOfWork<TAggregate,TAggregateId> Members
+
+    public async Task<bool> CommitAsync(
+        TAggregate        aggregate,
+        CancellationToken cancellationToken = default)
+    {
+        await _eventsService.PersistAsync(aggregate, cancellationToken)
+           .ConfigureAwait(false);
+
+        return true;
+    }
+
+    #endregion
 }

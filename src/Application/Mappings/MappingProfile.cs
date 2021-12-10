@@ -1,45 +1,41 @@
-namespace Aviant.DDD.Application.Mappings
+namespace Aviant.DDD.Application.Mappings;
+
+using System.Reflection;
+using AutoMapper;
+
+public sealed class MappingProfile : Profile
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using AutoMapper;
-
-    public sealed class MappingProfile : Profile
+    public MappingProfile(Assembly assembly)
     {
-        public MappingProfile(Assembly assembly)
+        ApplyMappingsFromAssembly(assembly);
+    }
+
+    private void ApplyMappingsFromAssembly(Assembly assembly)
+    {
+        List<Type> types = assembly
+           .GetExportedTypes()
+           .Where(
+                t => t.GetInterfaces()
+                   .Any(
+                        i =>
+                            i.IsGenericType
+                         && (i.GetGenericTypeDefinition() == typeof(IMapFrom<>)
+                          || i.GetGenericTypeDefinition() == typeof(IMapTo<>))))
+           .ToList();
+
+        foreach (var type in types)
         {
-            ApplyMappingsFromAssembly(assembly);
-        }
+            var instance = Activator.CreateInstance(type);
 
-        private void ApplyMappingsFromAssembly(Assembly assembly)
-        {
-            List<Type> types = assembly
-               .GetExportedTypes()
-               .Where(
-                    t => t.GetInterfaces()
-                       .Any(
-                            i =>
-                                i.IsGenericType
-                             && (i.GetGenericTypeDefinition() == typeof(IMapFrom<>)
-                              || i.GetGenericTypeDefinition() == typeof(IMapTo<>))))
-               .ToList();
+            var methodInfo = type
+                                .GetMethod("Mapping", BindingFlags.Instance | BindingFlags.NonPublic)
+                          ?? (type.GetInterfaces()
+                                .Any(
+                                     i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>))
+                                 ? type.GetInterface("IMapFrom`1")?.GetMethod("Mapping")
+                                 : type.GetInterface("IMapTo`1")?.GetMethod("Mapping"));
 
-            foreach (var type in types)
-            {
-                var instance = Activator.CreateInstance(type);
-
-                var methodInfo = type
-                                    .GetMethod("Mapping", BindingFlags.Instance | BindingFlags.NonPublic)
-                              ?? (type.GetInterfaces()
-                                    .Any(
-                                         i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>))
-                                     ? type.GetInterface("IMapFrom`1")?.GetMethod("Mapping")
-                                     : type.GetInterface("IMapTo`1")?.GetMethod("Mapping"));
-
-                methodInfo?.Invoke(instance, new object?[] { this });
-            }
+            methodInfo?.Invoke(instance, new object?[] { this });
         }
     }
 }

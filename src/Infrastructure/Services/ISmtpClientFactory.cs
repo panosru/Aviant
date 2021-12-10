@@ -1,9 +1,8 @@
-namespace Aviant.DDD.Infrastructure.Services
-{
-    using MailKit.Net.Smtp;
+namespace Aviant.DDD.Infrastructure.Services;
 
-    public interface ISmtpClientFactory
-    {
-        public SmtpClient GetSmtpClient();
-    }
+using MailKit.Net.Smtp;
+
+public interface ISmtpClientFactory
+{
+    public SmtpClient GetSmtpClient();
 }

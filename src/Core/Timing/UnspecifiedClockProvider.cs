@@ -1,18 +1,15 @@
-namespace Aviant.DDD.Core.Timing
+namespace Aviant.DDD.Core.Timing;
+
+public sealed class UnspecifiedClockProvider : IClockProvider
 {
-    using System;
+    public DateTime Now => DateTime.Now;
 
-    public sealed class UnspecifiedClockProvider : IClockProvider
-    {
-        public DateTime Now => DateTime.Now;
+    public DateTimeKind Kind => DateTimeKind.Unspecified;
 
-        public DateTimeKind Kind => DateTimeKind.Unspecified;
+    public bool SupportsMultipleTimezone => false;
 
-        public bool SupportsMultipleTimezone => false;
+    public DateTime Normalize(DateTime dateTime) => dateTime;
 
-        public DateTime Normalize(DateTime dateTime) => dateTime;
-
-        internal UnspecifiedClockProvider()
-        { }
-    }
+    internal UnspecifiedClockProvider()
+    { }
 }

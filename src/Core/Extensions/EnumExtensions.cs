@@ -1,38 +1,37 @@
-namespace Aviant.DDD.Core.Extensions
+namespace Aviant.DDD.Core.Extensions;
+
+using System;
+using System.Collections.Concurrent;
+using System.ComponentModel;
+using System.Reflection;
+
+// Credits: https://gist.github.com/cocowalla
+
+public static class EnumExtensions
 {
-    using System;
-    using System.Collections.Concurrent;
-    using System.ComponentModel;
-    using System.Reflection;
+    // Note that we never need to expire these cache items, so we just use ConcurrentDictionary rather than MemoryCache
+    private static readonly
+        ConcurrentDictionary<string, string> DisplayNameCache = new();
 
-    // Credits: https://gist.github.com/cocowalla
-
-    public static class EnumExtensions
+    public static string DisplayName(this Enum value)
     {
-        // Note that we never need to expire these cache items, so we just use ConcurrentDictionary rather than MemoryCache
-        private static readonly
-            ConcurrentDictionary<string, string> DisplayNameCache = new ConcurrentDictionary<string, string>();
+        var key = $"{value.GetType().FullName}.{value}";
 
-        public static string DisplayName(this Enum value)
-        {
-            var key = $"{value.GetType().FullName}.{value}";
+        var displayName = DisplayNameCache.GetOrAdd(
+            key,
+            _ =>
+            {
+                var name = (DescriptionAttribute[])value
+                   .GetType()
+                   .GetTypeInfo()
+                   .GetField(value.ToString())!
+                   .GetCustomAttributes(typeof(DescriptionAttribute), false);
 
-            var displayName = DisplayNameCache.GetOrAdd(
-                key,
-                _ =>
-                {
-                    var name = (DescriptionAttribute[])value
-                       .GetType()
-                       .GetTypeInfo()
-                       .GetField(value.ToString())!
-                       .GetCustomAttributes(typeof(DescriptionAttribute), false);
+                return name.Length > 0
+                    ? name[0].Description
+                    : value.ToString();
+            });
 
-                    return name.Length > 0
-                        ? name[0].Description
-                        : value.ToString();
-                });
-
-            return displayName;
-        }
+        return displayName;
     }
 }

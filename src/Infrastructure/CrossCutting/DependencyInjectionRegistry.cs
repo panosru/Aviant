@@ -1,134 +1,132 @@
-namespace Aviant.DDD.Infrastructure.CrossCutting
+namespace Aviant.DDD.Infrastructure.CrossCutting;
+
+using System.Globalization;
+using System.Reflection;
+using Core.Services;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
+using NetEscapades.Configuration.Yaml;
+
+public static class DependencyInjectionRegistry
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-    using Core.Services;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.Configuration.Json;
-    using NetEscapades.Configuration.Yaml;
+    private static IConfiguration? _configuration;
 
-    public static class DependencyInjectionRegistry
+    public static IConfiguration DefaultConfiguration =>
+        _configuration
+     ?? ServiceLocator.ServiceContainer.GetRequiredService<IConfiguration>(
+            typeof(IConfiguration));
+
+    private static IConfigurationBuilder ConfigurationWithDomainsBuilder { get; } = new ConfigurationBuilder();
+
+    public static IConfiguration ConfigurationWithDomains =>
+        ConfigurationWithDomainsBuilder.Build()
+     ?? throw new NullReferenceException(typeof(DependencyInjectionRegistry).FullName);
+
+    public static IWebHostEnvironment? CurrentEnvironment { get; set; }
+
+    public static IConfigurationBuilder? ConfigurationBuilder { get; set; }
+
+    public static IConfiguration SetConfiguration(IConfigurationBuilder configuration)
     {
-        private static IConfiguration? _configuration;
+        ((List<IConfigurationSource>)ConfigurationWithDomainsBuilder.Sources)
+           .AddRange(configuration.Sources);
 
-        public static IConfiguration DefaultConfiguration =>
-            _configuration
-         ?? ServiceLocator.ServiceContainer.GetRequiredService<IConfiguration>(
-                typeof(IConfiguration));
+        return _configuration = configuration.Build();
+    }
 
-        private static IConfigurationBuilder ConfigurationWithDomainsBuilder { get; } = new ConfigurationBuilder();
+    public static IConfiguration GetDomainConfiguration(string domain)
+    {
+        if (CurrentEnvironment is null
+         || ConfigurationBuilder is null)
+            throw new InvalidOperationException(
+                typeof(DependencyInjectionRegistry).FullName);
 
-        public static IConfiguration ConfigurationWithDomains =>
-            ConfigurationWithDomainsBuilder.Build()
-         ?? throw new NullReferenceException(typeof(DependencyInjectionRegistry).FullName);
+        ConfigurationBuilder configurationBuilder = new();
 
-        public static IWebHostEnvironment? CurrentEnvironment { get; set; }
+        ((List<IConfigurationSource>)configurationBuilder.Sources).AddRange(ConfigurationBuilder.Sources);
 
-        public static IConfigurationBuilder? ConfigurationBuilder { get; set; }
+        // JSON does not override any other format
+        LoadConfiguration(
+            configurationBuilder,
+            domain,
+            CurrentEnvironment.EnvironmentName,
+            ConfigurationFormat.Json);
 
-        public static IConfiguration SetConfiguration(IConfigurationBuilder configuration)
+        // YML overrides JSON
+        LoadConfiguration(
+            configurationBuilder,
+            domain,
+            CurrentEnvironment.EnvironmentName,
+            ConfigurationFormat.Yml);
+
+        // YAML overrides both YML and JSON
+        LoadConfiguration(
+            configurationBuilder,
+            domain,
+            CurrentEnvironment.EnvironmentName,
+            ConfigurationFormat.Yaml);
+
+        return configurationBuilder.Build();
+    }
+
+    private static void LoadConfiguration(
+        IConfigurationBuilder configurationBuilder,
+        string                domain,
+        string                environment,
+        ConfigurationFormat   format)
+    {
+        string[] configFiles =
         {
-            ((List<IConfigurationSource>)ConfigurationWithDomainsBuilder.Sources)
-               .AddRange(configuration.Sources);
+            @$"appsettings.{domain}.{Enum
+               .GetName(typeof(ConfigurationFormat), format)?.ToLower(CultureInfo.InvariantCulture)}",
+            @$"appsettings.{domain}.{environment}.{Enum
+               .GetName(typeof(ConfigurationFormat), format)?.ToLower(CultureInfo.InvariantCulture)}"
+        };
 
-            return _configuration = configuration.Build();
-        }
-
-        public static IConfiguration GetDomainConfiguration(string domain)
-        {
-            if (CurrentEnvironment is null
-             || ConfigurationBuilder is null)
-                throw new InvalidOperationException(
-                    typeof(DependencyInjectionRegistry).FullName);
-
-            ConfigurationBuilder configurationBuilder = new();
-
-            ((List<IConfigurationSource>)configurationBuilder.Sources).AddRange(ConfigurationBuilder.Sources);
-
-            // JSON does not override any other format
-            LoadConfiguration(
-                configurationBuilder,
-                domain,
-                CurrentEnvironment.EnvironmentName,
-                ConfigurationFormat.Json);
-
-            // YML overrides JSON
-            LoadConfiguration(
-                configurationBuilder,
-                domain,
-                CurrentEnvironment.EnvironmentName,
-                ConfigurationFormat.Yml);
-
-            // YAML overrides both YML and JSON
-            LoadConfiguration(
-                configurationBuilder,
-                domain,
-                CurrentEnvironment.EnvironmentName,
-                ConfigurationFormat.Yaml);
-
-            return configurationBuilder.Build();
-        }
-
-        private static void LoadConfiguration(
-            IConfigurationBuilder configurationBuilder,
-            string                domain,
-            string                environment,
-            ConfigurationFormat   format)
-        {
-            string[] configFiles =
+        foreach (var configFile in configFiles.Where(ConfigurationExists))
+            switch (format)
             {
-                $"appsettings.{domain}.{Enum.GetName(typeof(ConfigurationFormat),               format)?.ToLower()}",
-                $"appsettings.{domain}.{environment}.{Enum.GetName(typeof(ConfigurationFormat), format)?.ToLower()}"
-            };
+                case ConfigurationFormat.Json:
+                    ConfigurationWithDomainsBuilder?.Sources
+                       .Add(GetSource<JsonConfigurationSource>(configFile));
 
-            foreach (var configFile in configFiles.Where(ConfigurationExists))
-                switch (format)
-                {
-                    case ConfigurationFormat.Json:
-                        ConfigurationWithDomainsBuilder?.Sources
-                           .Add(GetSource<JsonConfigurationSource>(configFile));
+                    configurationBuilder.Sources
+                       .Add(GetSource<JsonConfigurationSource>(configFile));
+                    break;
 
-                        configurationBuilder.Sources
-                           .Add(GetSource<JsonConfigurationSource>(configFile));
-                        break;
+                case ConfigurationFormat.Yaml:
+                case ConfigurationFormat.Yml:
+                    ConfigurationWithDomainsBuilder?.Sources
+                       .Add(GetSource<YamlConfigurationSource>(configFile));
 
-                    case ConfigurationFormat.Yaml:
-                    case ConfigurationFormat.Yml:
-                        ConfigurationWithDomainsBuilder?.Sources
-                           .Add(GetSource<YamlConfigurationSource>(configFile));
+                    configurationBuilder.Sources
+                       .Add(GetSource<YamlConfigurationSource>(configFile));
+                    break;
 
-                        configurationBuilder.Sources
-                           .Add(GetSource<YamlConfigurationSource>(configFile));
-                        break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(format), format, null);
+            }
+    }
 
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(format), format, null);
-                }
-        }
+    private static bool ConfigurationExists(string configFileName) =>
+        File.Exists(
+            Path.Combine(
+                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+             ?? throw new NullReferenceException(Assembly.GetExecutingAssembly().FullName),
+                configFileName));
 
-        private static bool ConfigurationExists(string configFileName) =>
-            File.Exists(
-                Path.Combine(
-                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
-                 ?? throw new NullReferenceException(Assembly.GetExecutingAssembly().FullName),
-                    configFileName));
-
-        private static TConfigurationSource GetSource<TConfigurationSource>(string configFileName)
-            where TConfigurationSource : FileConfigurationSource, new()
+    private static TConfigurationSource GetSource<TConfigurationSource>(string configFileName)
+        where TConfigurationSource : FileConfigurationSource, new()
+    {
+        TConfigurationSource configurationSource = new()
         {
-            TConfigurationSource configurationSource = new()
-            {
-                Path           = configFileName,
-                ReloadOnChange = true,
-                Optional       = false
-            };
-            configurationSource.ResolveFileProvider();
+            Path           = configFileName,
+            ReloadOnChange = true,
+            Optional       = false
+        };
+        configurationSource.ResolveFileProvider();
 
-            return configurationSource;
-        }
+        return configurationSource;
     }
 }

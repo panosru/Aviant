@@ -1,7 +1,6 @@
-namespace Aviant.DDD.Application.Queries
-{
-    using MediatR;
+namespace Aviant.DDD.Application.Queries;
 
-    public interface IQuery<out TResponse> : IRequest<TResponse>
-    { }
-}
+using MediatR;
+
+public interface IQuery<out TResponse> : IRequest<TResponse>
+{ }

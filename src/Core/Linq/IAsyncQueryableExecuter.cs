@@ -1,17 +1,12 @@
-namespace Aviant.DDD.Core.Linq
+namespace Aviant.DDD.Core.Linq;
+
+public interface IAsyncQueryableExecutor
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+    Task<int> CountAsync<T>(IQueryable<T> queryable);
 
-    public interface IAsyncQueryableExecutor
-    {
-        Task<int> CountAsync<T>(IQueryable<T> queryable);
+    Task<List<T>> ToListAsync<T>(IQueryable<T> queryable);
 
-        Task<List<T>> ToListAsync<T>(IQueryable<T> queryable);
+    Task<T?> FirstOrDefaultAsync<T>(IQueryable<T> queryable);
 
-        Task<T?> FirstOrDefaultAsync<T>(IQueryable<T> queryable);
-
-        Task<bool> AnyAsync<T>(IQueryable<T> queryable);
-    }
+    Task<bool> AnyAsync<T>(IQueryable<T> queryable);
 }

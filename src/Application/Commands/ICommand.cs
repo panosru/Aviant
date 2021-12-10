@@ -1,16 +1,15 @@
-namespace Aviant.DDD.Application.Commands
-{
-    using Core.Aggregates;
-    using MediatR;
+namespace Aviant.DDD.Application.Commands;
 
-    public interface ICommand<out TAggregate, in TAggregateId> : IRequest<TAggregate>
-        where TAggregate : class, IAggregate<TAggregateId>
-        where TAggregateId : class, IAggregateId
-    { }
+using Core.Aggregates;
+using MediatR;
 
-    public interface ICommand<out TResponse> : IRequest<TResponse>
-    { }
+public interface ICommand<out TAggregate, in TAggregateId> : IRequest<TAggregate>
+    where TAggregate : class, IAggregate<TAggregateId>
+    where TAggregateId : class, IAggregateId
+{ }
 
-    public interface ICommand : ICommand<Unit>
-    { }
-}
+public interface ICommand<out TResponse> : IRequest<TResponse>
+{ }
+
+public interface ICommand : ICommand<Unit>
+{ }

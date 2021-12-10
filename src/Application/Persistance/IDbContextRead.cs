@@ -1,7 +1,4 @@
-namespace Aviant.DDD.Application.Persistance
-{
-    using System;
+namespace Aviant.DDD.Application.Persistance;
 
-    public interface IDbContextRead : IDisposable
-    { }
-}
+public interface IDbContextRead : IDisposable
+{ }

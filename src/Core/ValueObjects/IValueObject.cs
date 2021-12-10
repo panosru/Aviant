@@ -1,12 +1,9 @@
-namespace Aviant.DDD.Core.ValueObjects
+namespace Aviant.DDD.Core.ValueObjects;
+
+internal interface IValueObject<T>
+    : IEquatable<T>
 {
-    using System;
+    public int GetHashCode();
 
-    internal interface IValueObject<T>
-        : IEquatable<T>
-    {
-        public int GetHashCode();
-
-        public int HashValue(int seed, object value);
-    }
+    public int HashValue(int seed, object value);
 }

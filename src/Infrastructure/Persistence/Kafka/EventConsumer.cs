@@ -1,159 +1,154 @@
-namespace Aviant.DDD.Infrastructure.Persistence.Kafka
+namespace Aviant.DDD.Infrastructure.Persistence.Kafka;
+
+using System.Text;
+using Confluent.Kafka;
+using Core.Aggregates;
+using Core.DomainEvents;
+using Core.EventBus;
+using Core.Services;
+using Serilog;
+
+public sealed class EventConsumer<TAggregate, TAggregateId, TDeserializer>
+    : IDisposable, IEventConsumer<TAggregate, TAggregateId, TDeserializer>
+    where TAggregate : IAggregate<TAggregateId>
+    where TAggregateId : class, IAggregateId
+    where TDeserializer : class, IDeserializer<TAggregateId>, new()
 {
-    using System;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Confluent.Kafka;
-    using Core.Aggregates;
-    using Core.DomainEvents;
-    using Core.EventBus;
-    using Core.Services;
-    using Serilog;
+    #region Delegates
 
-    public sealed class EventConsumer<TAggregate, TAggregateId, TDeserializer>
-        : IDisposable, IEventConsumer<TAggregate, TAggregateId, TDeserializer>
-        where TAggregate : IAggregate<TAggregateId>
-        where TAggregateId : class, IAggregateId
-        where TDeserializer : class, IDeserializer<TAggregateId>, new()
+    public delegate void ConsumerStoppedHandler(object sender);
+
+    public delegate void ExceptionThrownHandler(object sender, Exception e);
+
+    #endregion
+
+    private readonly IEventDeserializer _eventDeserializer;
+
+    private readonly ILogger _logger = Log.Logger.ForContext<EventConsumer<TAggregate, TAggregateId, TDeserializer>>();
+
+    private IConsumer<TAggregateId, string> _eventConsumer;
+
+    #pragma warning disable 8618
+    public EventConsumer(
+        IEventDeserializer  eventDeserializer,
+        EventConsumerConfig config)
     {
-        #region Delegates
+        _eventDeserializer = eventDeserializer;
 
-        public delegate void ConsumerStoppedHandler(object sender);
+        var aggregateType = typeof(TAggregate);
 
-        public delegate void ExceptionThrownHandler(object sender, Exception e);
-
-        #endregion
-
-        private readonly IEventDeserializer _eventDeserializer;
-
-        private readonly ILogger _logger = Log.Logger.ForContext<EventConsumer<TAggregate, TAggregateId, TDeserializer>>();
-
-        private IConsumer<TAggregateId, string> _eventConsumer;
-
-        #pragma warning disable 8618
-        public EventConsumer(
-            IEventDeserializer                                              eventDeserializer,
-            EventConsumerConfig                                             config)
+        ConsumerConfig consumerConfig = new()
         {
-            _eventDeserializer = eventDeserializer;
+            GroupId             = config.ConsumerGroup,
+            BootstrapServers    = config.KafkaConnectionString,
+            AutoOffsetReset     = AutoOffsetReset.Earliest,
+            EnablePartitionEof  = true,
+            BrokerAddressFamily = BrokerAddressFamily.V4
+        };
 
-            var aggregateType = typeof(TAggregate);
+        ConsumerBuilder<TAggregateId, string> consumerBuilder        = new(consumerConfig);
+        KeyDeserializerFactory                keyDeserializerFactory = new();
+        consumerBuilder.SetKeyDeserializer(keyDeserializerFactory.Create<TDeserializer, TAggregateId>());
 
-            ConsumerConfig consumerConfig = new()
+        _eventConsumer = consumerBuilder.Build();
+
+        var topicName = $"{config.TopicBaseName}-{aggregateType.Name}";
+        _eventConsumer.Subscribe(topicName);
+    }
+    #pragma warning restore 8618
+
+    #region IDisposable Members
+
+    public void Dispose()
+    {
+        _eventConsumer.Dispose();
+        _eventConsumer = null!;
+    }
+
+    #endregion
+
+    #region IEventConsumer<TAggregate,TAggregateId,TDeserializer> Members
+
+    // ReSharper disable once CognitiveComplexity
+    public Task ConsumeAsync(CancellationToken cancellationToken)
+    {
+        return Task.Run(
+            async () =>
             {
-                GroupId            = config.ConsumerGroup,
-                BootstrapServers   = config.KafkaConnectionString,
-                AutoOffsetReset    = AutoOffsetReset.Earliest,
-                EnablePartitionEof = true,
-                BrokerAddressFamily = BrokerAddressFamily.V4
-            };
+                var topics = string.Join(",", _eventConsumer.Subscription);
 
-            ConsumerBuilder<TAggregateId, string> consumerBuilder        = new(consumerConfig);
-            KeyDeserializerFactory                keyDeserializerFactory = new();
-            consumerBuilder.SetKeyDeserializer(keyDeserializerFactory.Create<TDeserializer, TAggregateId>());
+                _logger.Information(
+                    "started Kafka consumer {ConsumerName} on {ConsumerTopic}",
+                    _eventConsumer.Name,
+                    topics);
 
-            _eventConsumer = consumerBuilder.Build();
+                while (!cancellationToken.IsCancellationRequested)
+                    try
+                    {
+                        ConsumeResult<TAggregateId, string> cr = _eventConsumer.Consume(cancellationToken);
 
-            var topicName = $"{config.TopicBaseName}-{aggregateType.Name}";
-            _eventConsumer.Subscribe(topicName);
-        }
-        #pragma warning restore 8618
+                        if (cr.IsPartitionEOF)
+                            continue;
 
-        #region IDisposable Members
+                        var messageTypeHeader = cr.Message.Headers.First(h => h.Key == "type");
+                        var eventType         = Encoding.UTF8.GetString(messageTypeHeader.GetValueBytes());
 
-        public void Dispose()
-        {
-            _eventConsumer.Dispose();
-            _eventConsumer = null!;
-        }
+                        IDomainEvent<TAggregateId> @event =
+                            _eventDeserializer.Deserialize<TAggregateId>(eventType, cr.Message.Value);
 
-        #endregion
+                        await OnEventReceivedAsync(@event, cancellationToken)
+                           .ConfigureAwait(false);
+                    }
+                    catch (OperationCanceledException ex)
+                    {
+                        _logger.Warning(
+                            ex,
+                            "consumer {ConsumerName} on {ConsumerTopic} was stopped: {StopReason}",
+                            _eventConsumer.Name,
+                            topics,
+                            ex.Message);
+                        OnConsumerStopped();
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Error(
+                            ex,
+                            "an exception has occurred while consuming a message: {Message}",
+                            ex.Message);
+                        OnExceptionThrown(ex);
+                    }
+            },
+            cancellationToken);
+    }
 
-        #region IEventConsumer<TAggregate,TAggregateId,TDeserializer> Members
+    public event EventReceivedHandlerAsync<TAggregateId> EventReceived;
 
-        // ReSharper disable once CognitiveComplexity
-        public Task ConsumeAsync(CancellationToken cancellationToken)
-        {
-            return Task.Run(
-                async () =>
-                {
-                    var topics = string.Join(",", _eventConsumer.Subscription);
+    #endregion
 
-                    _logger.Information(
-                        "started Kafka consumer {ConsumerName} on {ConsumerTopic}",
-                        _eventConsumer.Name,
-                        topics);
+    private Task OnEventReceivedAsync(
+        IDomainEvent<TAggregateId> e,
+        CancellationToken          cancellationToken)
+    {
+        EventReceivedHandlerAsync<TAggregateId> handlerAsync = EventReceived;
 
-                    while (!cancellationToken.IsCancellationRequested)
-                        try
-                        {
-                            ConsumeResult<TAggregateId, string> cr = _eventConsumer.Consume(cancellationToken);
+        return handlerAsync(this, e, cancellationToken)
+            ?? throw new NullReferenceException(
+                   typeof(EventConsumer<TAggregate, TAggregateId, TDeserializer>).FullName);
+    }
 
-                            if (cr.IsPartitionEOF)
-                                continue;
+    public event ExceptionThrownHandler ExceptionThrown;
 
-                            var messageTypeHeader = cr.Message.Headers.First(h => h.Key == "type");
-                            var eventType         = Encoding.UTF8.GetString(messageTypeHeader.GetValueBytes());
+    private void OnExceptionThrown(Exception e)
+    {
+        var handler = ExceptionThrown;
+        handler(this, e);
+    }
 
-                            IDomainEvent<TAggregateId> @event =
-                                _eventDeserializer.Deserialize<TAggregateId>(eventType, cr.Message.Value);
+    public event ConsumerStoppedHandler ConsumerStopped;
 
-                            await OnEventReceivedAsync(@event, cancellationToken)
-                               .ConfigureAwait(false);
-                        }
-                        catch (OperationCanceledException ex)
-                        {
-                            _logger.Warning(
-                                ex,
-                                "consumer {ConsumerName} on {ConsumerTopic} was stopped: {StopReason}",
-                                _eventConsumer.Name,
-                                topics,
-                                ex.Message);
-                            OnConsumerStopped();
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger.Error(
-                                ex,
-                                "an exception has occurred while consuming a message: {Message}",
-                                ex.Message);
-                            OnExceptionThrown(ex);
-                        }
-                },
-                cancellationToken);
-        }
-
-        public event EventReceivedHandlerAsync<TAggregateId> EventReceived;
-
-        #endregion
-
-        private Task OnEventReceivedAsync(
-            IDomainEvent<TAggregateId> e,
-            CancellationToken          cancellationToken)
-        {
-            EventReceivedHandlerAsync<TAggregateId> handlerAsync = EventReceived;
-
-            return handlerAsync(this, e, cancellationToken)
-                ?? throw new NullReferenceException(
-                       typeof(EventConsumer<TAggregate, TAggregateId, TDeserializer>).FullName);
-        }
-
-        public event ExceptionThrownHandler ExceptionThrown;
-
-        private void OnExceptionThrown(Exception e)
-        {
-            var handler = ExceptionThrown;
-            handler(this, e);
-        }
-
-        public event ConsumerStoppedHandler ConsumerStopped;
-
-        private void OnConsumerStopped()
-        {
-            var handler = ConsumerStopped;
-            handler(this);
-        }
+    private void OnConsumerStopped()
+    {
+        var handler = ConsumerStopped;
+        handler(this);
     }
 }

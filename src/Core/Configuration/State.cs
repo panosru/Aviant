@@ -1,23 +1,22 @@
-namespace Aviant.DDD.Core.Configuration
+namespace Aviant.DDD.Core.Configuration;
+
+/// <summary>
+///     Indicate state
+/// </summary>
+public enum State
 {
     /// <summary>
-    ///     Indicate state
+    ///     Active state
     /// </summary>
-    public enum State
-    {
-        /// <summary>
-        ///     Active state
-        /// </summary>
-        Active,
+    Active,
 
-        /// <summary>
-        ///     Passive state
-        /// </summary>
-        Passive,
+    /// <summary>
+    ///     Passive state
+    /// </summary>
+    Passive,
 
-        /// <summary>
-        ///     Paused state
-        /// </summary>
-        Paused
-    }
+    /// <summary>
+    ///     Paused state
+    /// </summary>
+    Paused
 }

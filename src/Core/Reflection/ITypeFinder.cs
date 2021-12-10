@@ -1,11 +1,8 @@
-namespace Aviant.DDD.Core.Reflection
+namespace Aviant.DDD.Core.Reflection;
+
+public interface ITypeFinder
 {
-    using System;
+    Type[] Find(Func<Type, bool> predicate);
 
-    public interface ITypeFinder
-    {
-        Type[] Find(Func<Type, bool> predicate);
-
-        Type[] FindAll();
-    }
+    Type[] FindAll();
 }

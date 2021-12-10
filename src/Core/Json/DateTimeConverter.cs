@@ -1,44 +1,42 @@
-namespace Aviant.DDD.Core.Json
+namespace Aviant.DDD.Core.Json;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Timing;
+
+public sealed class DateTimeConverter : IsoDateTimeConverter
 {
-    using System;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-    using Timing;
+    public override bool CanConvert(Type objectType) =>
+        objectType == typeof(DateTime) || objectType == typeof(DateTime?);
 
-    public sealed class DateTimeConverter : IsoDateTimeConverter
+    public override object? ReadJson(
+        JsonReader     reader,
+        Type           objectType,
+        object?        existingValue,
+        JsonSerializer serializer)
     {
-        public override bool CanConvert(Type objectType) =>
-            objectType == typeof(DateTime) || objectType == typeof(DateTime?);
-
-        public override object? ReadJson(
-            JsonReader     reader,
-            Type           objectType,
-            object?        existingValue,
-            JsonSerializer serializer)
-        {
-            if (base.ReadJson(
+        if (base.ReadJson(
                 reader,
                 objectType,
                 existingValue,
                 serializer) is DateTime date)
-                return Clock.Normalize(date);
+            return Clock.Normalize(date);
 
-            return null;
-        }
+        return null;
+    }
 
-        public override void WriteJson(
-            JsonWriter     writer,
-            object?        value,
-            JsonSerializer serializer)
-        {
-            var date = value as DateTime?;
+    public override void WriteJson(
+        JsonWriter     writer,
+        object?        value,
+        JsonSerializer serializer)
+    {
+        var date = value as DateTime?;
 
-            base.WriteJson(
-                writer,
-                date.HasValue
-                    ? Clock.Normalize(date.Value)
-                    : value,
-                serializer);
-        }
+        base.WriteJson(
+            writer,
+            date.HasValue
+                ? Clock.Normalize(date.Value)
+                : value,
+            serializer);
     }
 }

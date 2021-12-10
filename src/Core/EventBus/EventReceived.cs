@@ -1,11 +1,10 @@
-namespace Aviant.DDD.Core.EventBus
+namespace Aviant.DDD.Core.EventBus;
+
+using MediatR;
+
+public sealed class EventReceived<TDomainEvent> : INotification
 {
-    using MediatR;
+    public EventReceived(TDomainEvent @event) => Event = @event;
 
-    public sealed class EventReceived<TDomainEvent> : INotification
-    {
-        public EventReceived(TDomainEvent @event) => Event = @event;
-
-        public TDomainEvent Event { get; }
-    }
+    public TDomainEvent Event { get; }
 }

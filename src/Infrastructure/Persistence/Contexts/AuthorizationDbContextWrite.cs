@@ -1,74 +1,69 @@
-namespace Aviant.DDD.Infrastructure.Persistence.Contexts
+namespace Aviant.DDD.Infrastructure.Persistence.Contexts;
+
+using System.Reflection;
+using Application.Identity;
+using Application.Persistance;
+using Configurations;
+using Core.Entities;
+using Duende.IdentityServer.EntityFramework.Options;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+
+public abstract class AuthorizationDbContextWrite<TDbContext, TApplicationUser, TApplicationRole>
+    : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>,
+      IDbContextWrite,
+      IAuditableImplementation<TDbContext>,
+      IDbContextWriteImplementation<TDbContext>
+    where TDbContext : class, IDbContextWrite
+    where TApplicationUser : ApplicationUser
+    where TApplicationRole : ApplicationRole
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Application.Identity;
-    using Application.Persistance;
-    using Configurations;
-    using Core.Entities;
-    using IdentityServer4.EntityFramework.Options;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Options;
+    // ReSharper disable once StaticMemberInGenericType
+    private static readonly HashSet<Assembly> ConfigurationAssemblies = new();
 
-    public abstract class AuthorizationDbContextWrite<TDbContext, TApplicationUser, TApplicationRole>
-        : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>,
-          IDbContextWrite,
-          IAuditableImplementation<TDbContext>,
-          IDbContextWriteImplementation<TDbContext>
-        where TDbContext : class, IDbContextWrite
-        where TApplicationUser : ApplicationUser
-        where TApplicationRole : ApplicationRole
+    private readonly IDbContextWriteImplementation<TDbContext> _writeImplementation;
+
+    protected AuthorizationDbContextWrite(
+        DbContextOptions                  options,
+        IOptions<OperationalStoreOptions> operationalStoreOptions)
+        : base(options, operationalStoreOptions)
     {
-        // ReSharper disable once StaticMemberInGenericType
-        private static readonly HashSet<Assembly> ConfigurationAssemblies = new();
+        // trait
+        _writeImplementation = this;
 
-        private readonly IDbContextWriteImplementation<TDbContext> _writeImplementation;
+        TrackerSettings();
+    }
 
-        protected AuthorizationDbContextWrite(
-            DbContextOptions                  options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions)
-            : base(options, operationalStoreOptions)
-        {
-            // trait
-            _writeImplementation = this;
+    #region IDbContextWrite Members
 
-            TrackerSettings();
-        }
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
+    {
+        _writeImplementation.ChangeTracker(ChangeTracker, this);
 
-        #region IDbContextWrite Members
+        return base.SaveChangesAsync(cancellationToken);
+    }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
-        {
-            _writeImplementation.ChangeTracker(ChangeTracker, this);
-
-            return base.SaveChangesAsync(cancellationToken);
-        }
-
-        #endregion
+    #endregion
 
 
-        public static void AddConfigurationAssemblyFromEntity<TEntity, TKey>(
-            EntityConfiguration<TEntity, TKey> entityConfiguration)
-            where TEntity : Entity<TKey>
-        {
-            ConfigurationAssemblies.Add(entityConfiguration.GetType().Assembly);
-        }
+    public static void AddConfigurationAssemblyFromEntity<TEntity, TKey>(
+        EntityConfiguration<TEntity, TKey> entityConfiguration)
+        where TEntity : Entity<TKey>
+    {
+        ConfigurationAssemblies.Add(entityConfiguration.GetType().Assembly);
+    }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            _writeImplementation.OnPreBaseModelCreating(modelBuilder, ConfigurationAssemblies);
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        _writeImplementation.OnPreBaseModelCreating(modelBuilder, ConfigurationAssemblies);
 
-            base.OnModelCreating(modelBuilder);
+        base.OnModelCreating(modelBuilder);
 
-            _writeImplementation.OnPostBaseModelCreating(modelBuilder, this);
-        }
+        _writeImplementation.OnPostBaseModelCreating(modelBuilder, this);
+    }
 
-        private void TrackerSettings()
-        {
-            ChangeTracker.LazyLoadingEnabled = false;
-        }
+    private void TrackerSettings()
+    {
+        ChangeTracker.LazyLoadingEnabled = false;
     }
 }

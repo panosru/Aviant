@@ -1,28 +1,24 @@
-namespace Aviant.DDD.Application.Services
+namespace Aviant.DDD.Application.Services;
+
+public interface IEmailService
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    public IEmailService From(string name, string address);
 
-    public interface IEmailService
-    {
-        public IEmailService From(string name, string address);
+    public IEmailService FromServer();
 
-        public IEmailService FromServer();
+    public IEmailService To(string name, string address);
 
-        public IEmailService To(string name, string address);
+    public IEmailService ToServer();
 
-        public IEmailService ToServer();
+    public IEmailService WithSubject(string subject);
 
-        public IEmailService WithSubject(string subject);
+    public IEmailService Message();
 
-        public IEmailService Message();
+    public IEmailService WithBodyHtml(string body);
 
-        public IEmailService WithBodyHtml(string body);
+    public IEmailService WithBodyPlain(string body);
 
-        public IEmailService WithBodyPlain(string body);
+    public bool Send();
 
-        public bool Send();
-
-        public Task<bool> SendAsync(CancellationToken cancellationToken = default);
-    }
+    public Task<bool> SendAsync(CancellationToken cancellationToken = default);
 }

@@ -1,38 +1,34 @@
-namespace Aviant.DDD.Application.Processors
+namespace Aviant.DDD.Application.Processors;
+
+using Core.Services;
+using MediatR;
+using Polly;
+
+public sealed class RetryEventProcessor<TNotification>
+    : INotificationHandler<TNotification>
+    where TNotification : INotification
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Core.Services;
-    using MediatR;
-    using Polly;
+    private readonly INotificationHandler<TNotification> _inner;
 
-    public sealed class RetryEventProcessor<TNotification>
-        : INotificationHandler<TNotification>
-        where TNotification : INotification
+    private readonly IAsyncPolicy? _retryPolicy;
+
+    public RetryEventProcessor(INotificationHandler<TNotification> inner)
     {
-        private readonly INotificationHandler<TNotification> _inner;
+        _inner = inner;
 
-        private readonly IAsyncPolicy? _retryPolicy;
-
-        public RetryEventProcessor(INotificationHandler<TNotification> inner)
-        {
-            _inner = inner;
-
-            if (_inner is IRetry handler)
-                _retryPolicy = handler.RetryPolicy();
-        }
-
-        #region INotificationHandler<TNotification> Members
-
-        public Task Handle(TNotification notification, CancellationToken cancellationToken)
-        {
-            return _retryPolicy?.ExecuteAsync(
-                       () =>
-                           _inner.Handle(notification, cancellationToken))
-                ?? throw new NullReferenceException(nameof(_retryPolicy));
-        }
-
-        #endregion
+        if (_inner is IRetry handler)
+            _retryPolicy = handler.RetryPolicy();
     }
+
+    #region INotificationHandler<TNotification> Members
+
+    public Task Handle(TNotification notification, CancellationToken cancellationToken)
+    {
+        return _retryPolicy?.ExecuteAsync(
+                   () =>
+                       _inner.Handle(notification, cancellationToken))
+            ?? throw new NullReferenceException(nameof(_retryPolicy));
+    }
+
+    #endregion
 }

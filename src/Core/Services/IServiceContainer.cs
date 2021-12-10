@@ -1,15 +1,12 @@
-namespace Aviant.DDD.Core.Services
+namespace Aviant.DDD.Core.Services;
+
+public interface IServiceContainer
 {
-    using System;
+    public object GetRequiredService(Type type);
 
-    public interface IServiceContainer
-    {
-        public object GetRequiredService(Type type);
+    public T GetRequiredService<T>(Type type);
 
-        public T GetRequiredService<T>(Type type);
+    public object GetService(Type type);
 
-        public object GetService(Type type);
-
-        public T GetService<T>(Type type);
-    }
+    public T GetService<T>(Type type);
 }

@@ -1,27 +1,24 @@
-namespace Aviant.DDD.Core.Messages
+namespace Aviant.DDD.Core.Messages;
+
+public sealed class Messages : IMessages
 {
-    using System.Collections.Generic;
+    private List<string> _messages = new();
 
-    public sealed class Messages : IMessages
+    #region IMessages Members
+
+    public void AddMessage(string message)
     {
-        private List<string> _messages = new();
-
-        #region IMessages Members
-
-        public void AddMessage(string message)
-        {
-            _messages.Add(message);
-        }
-
-        public void CleanMessages()
-        {
-            _messages = new List<string>();
-        }
-
-        public List<string> GetAll() => _messages;
-
-        public bool HasMessages() => 0 < _messages.Count;
-
-        #endregion
+        _messages.Add(message);
     }
+
+    public void CleanMessages()
+    {
+        _messages = new List<string>();
+    }
+
+    public List<string> GetAll() => _messages;
+
+    public bool HasMessages() => 0 < _messages.Count;
+
+    #endregion
 }

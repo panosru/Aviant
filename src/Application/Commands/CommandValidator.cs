@@ -1,9 +1,8 @@
-namespace Aviant.DDD.Application.Commands
-{
-    using FluentValidation;
+namespace Aviant.DDD.Application.Commands;
 
-    public abstract class CommandValidator<TCommand> : AbstractValidator<TCommand>
-    {
-        protected CommandValidator(CascadeMode cascadeMode = CascadeMode.Stop) => CascadeMode = cascadeMode;
-    }
+using FluentValidation;
+
+public abstract class CommandValidator<TCommand> : AbstractValidator<TCommand>
+{
+    protected CommandValidator(CascadeMode cascadeMode = CascadeMode.Stop) => CascadeMode = cascadeMode;
 }

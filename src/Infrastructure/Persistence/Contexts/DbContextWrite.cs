@@ -1,65 +1,61 @@
-namespace Aviant.DDD.Infrastructure.Persistence.Contexts
+namespace Aviant.DDD.Infrastructure.Persistence.Contexts;
+
+using System.Reflection;
+using Application.Persistance;
+using Configurations;
+using Core.Entities;
+using Microsoft.EntityFrameworkCore;
+
+public abstract class DbContextWrite<TDbContext>
+    : DbContext,
+      IDbContextWrite,
+      IAuditableImplementation<TDbContext>,
+      IDbContextWriteImplementation<TDbContext>
+    where TDbContext : class, IDbContextWrite
 {
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Application.Persistance;
-    using Configurations;
-    using Core.Entities;
-    using Microsoft.EntityFrameworkCore;
+    // ReSharper disable once StaticMemberInGenericType
+    private static readonly HashSet<Assembly> ConfigurationAssemblies = new();
 
-    public abstract class DbContextWrite<TDbContext>
-        : DbContext,
-          IDbContextWrite,
-          IAuditableImplementation<TDbContext>,
-          IDbContextWriteImplementation<TDbContext>
-        where TDbContext : class, IDbContextWrite
+    private readonly IDbContextWriteImplementation<TDbContext> _writeImplementation;
+
+    protected DbContextWrite(DbContextOptions options)
+        : base(options)
     {
-        // ReSharper disable once StaticMemberInGenericType
-        private static readonly HashSet<Assembly> ConfigurationAssemblies = new();
+        // trait
+        _writeImplementation = this;
 
-        private readonly IDbContextWriteImplementation<TDbContext> _writeImplementation;
+        TrackerSettings();
+    }
 
-        protected DbContextWrite(DbContextOptions options)
-            : base(options)
-        {
-            // trait
-            _writeImplementation = this;
+    #region IDbContextWrite Members
 
-            TrackerSettings();
-        }
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
+    {
+        _writeImplementation.ChangeTracker(ChangeTracker, this);
 
-        #region IDbContextWrite Members
+        return base.SaveChangesAsync(cancellationToken);
+    }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
-        {
-            _writeImplementation.ChangeTracker(ChangeTracker, this);
+    #endregion
 
-            return base.SaveChangesAsync(cancellationToken);
-        }
+    public static void AddConfigurationAssemblyFromEntity<TEntity, TKey>(
+        EntityConfiguration<TEntity, TKey> entityConfiguration)
+        where TEntity : Entity<TKey>
+    {
+        ConfigurationAssemblies.Add(entityConfiguration.GetType().Assembly);
+    }
 
-        #endregion
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        _writeImplementation.OnPreBaseModelCreating(modelBuilder, ConfigurationAssemblies);
 
-        public static void AddConfigurationAssemblyFromEntity<TEntity, TKey>(
-            EntityConfiguration<TEntity, TKey> entityConfiguration)
-            where TEntity : Entity<TKey>
-        {
-            ConfigurationAssemblies.Add(entityConfiguration.GetType().Assembly);
-        }
+        base.OnModelCreating(modelBuilder);
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            _writeImplementation.OnPreBaseModelCreating(modelBuilder, ConfigurationAssemblies);
+        _writeImplementation.OnPostBaseModelCreating(modelBuilder, this);
+    }
 
-            base.OnModelCreating(modelBuilder);
-
-            _writeImplementation.OnPostBaseModelCreating(modelBuilder, this);
-        }
-
-        private void TrackerSettings()
-        {
-            ChangeTracker.LazyLoadingEnabled = false;
-        }
+    private void TrackerSettings()
+    {
+        ChangeTracker.LazyLoadingEnabled = false;
     }
 }

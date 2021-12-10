@@ -1,71 +1,69 @@
-namespace Aviant.DDD.Core.Json
+namespace Aviant.DDD.Core.Json;
+
+using System.Data;
+using Newtonsoft.Json;
+
+/// <summary>
+///     Defines helper methods to work with JSON.
+/// </summary>
+public static class JsonSerializationHelper
 {
-    using System;
-    using System.Data;
-    using Newtonsoft.Json;
+    private const char TypeSeparator = '|';
 
     /// <summary>
-    ///     Defines helper methods to work with JSON.
+    ///     Serializes the specified object.
     /// </summary>
-    public static class JsonSerializationHelper
+    /// <param name="obj">The object.</param>
+    /// <returns></returns>
+    public static string Serialize(object obj) => obj.ToJsonString();
+
+    /// <summary>
+    ///     Serializes an object with a type information included.
+    ///     So, it can be deserialized using <see cref="DeserializeWithType" /> method later.
+    /// </summary>
+    public static string SerializeWithType(object obj) => SerializeWithType(obj, obj.GetType());
+
+    /// <summary>
+    ///     Serializes an object with a type information included.
+    ///     So, it can be deserialized using <see cref="DeserializeWithType" /> method later.
+    /// </summary>
+    public static string SerializeWithType(object obj, Type type)
     {
-        private const char TypeSeparator = '|';
+        string serialized = obj.ToJsonString();
 
-        /// <summary>
-        ///     Serializes the specified object.
-        /// </summary>
-        /// <param name="obj">The object.</param>
-        /// <returns></returns>
-        public static string Serialize(object obj) => obj.ToJsonString();
+        return $"{type.AssemblyQualifiedName}{TypeSeparator}{serialized}";
+    }
 
-        /// <summary>
-        ///     Serializes an object with a type information included.
-        ///     So, it can be deserialized using <see cref="DeserializeWithType" /> method later.
-        /// </summary>
-        public static string SerializeWithType(object obj) => SerializeWithType(obj, obj.GetType());
+    /// <summary>
+    ///     Deserializes an object serialized with <see cref="SerializeWithType(object)" /> methods.
+    /// </summary>
+    public static T DeserializeWithType<T>(string serializedObj) => (T)DeserializeWithType(serializedObj);
 
-        /// <summary>
-        ///     Serializes an object with a type information included.
-        ///     So, it can be deserialized using <see cref="DeserializeWithType" /> method later.
-        /// </summary>
-        public static string SerializeWithType(object obj, Type type)
-        {
-            string serialized = obj.ToJsonString();
+    /// <summary>
+    ///     Deserializes an object serialized with <see cref="SerializeWithType(object)" /> methods.
+    /// </summary>
+    public static object DeserializeWithType(string serializedObj)
+    {
+        var    typeSeparatorIndex = serializedObj.IndexOf(TypeSeparator);
+        Type   type = Type.GetType(serializedObj[..typeSeparatorIndex]) ?? throw new NoNullAllowedException();
+        string serialized = serializedObj[(typeSeparatorIndex + 1)..];
 
-            return $"{type.AssemblyQualifiedName}{TypeSeparator}{serialized}";
-        }
+        var options = new JsonSerializerSettings();
+        options.Converters.Insert(0, new DateTimeConverter());
 
-        /// <summary>
-        ///     Deserializes an object serialized with <see cref="SerializeWithType(object)" /> methods.
-        /// </summary>
-        public static T DeserializeWithType<T>(string serializedObj) => (T)DeserializeWithType(serializedObj);
+        return JsonConvert.DeserializeObject(serialized, type, options) ?? throw new NoNullAllowedException();
+    }
 
-        /// <summary>
-        ///     Deserializes an object serialized with <see cref="SerializeWithType(object)" /> methods.
-        /// </summary>
-        public static object DeserializeWithType(string serializedObj)
-        {
-            var    typeSeparatorIndex = serializedObj.IndexOf(TypeSeparator);
-            Type   type = Type.GetType(serializedObj[..typeSeparatorIndex]) ?? throw new NoNullAllowedException();
-            string serialized = serializedObj[(typeSeparatorIndex + 1)..];
+    /// <summary>
+    ///     Deserializes the specified serialized object.
+    /// </summary>
+    /// <param name="serializedObj">The serialized object.</param>
+    /// <returns></returns>
+    public static object Deserialize(string serializedObj)
+    {
+        var options = new JsonSerializerSettings();
+        options.Converters.Insert(0, new DateTimeConverter());
 
-            var options = new JsonSerializerSettings();
-            options.Converters.Insert(0, new DateTimeConverter());
-
-            return JsonConvert.DeserializeObject(serialized, type, options) ?? throw new NoNullAllowedException();
-        }
-
-        /// <summary>
-        ///     Deserializes the specified serialized object.
-        /// </summary>
-        /// <param name="serializedObj">The serialized object.</param>
-        /// <returns></returns>
-        public static object Deserialize(string serializedObj)
-        {
-            var options = new JsonSerializerSettings();
-            options.Converters.Insert(0, new DateTimeConverter());
-
-            return JsonConvert.DeserializeObject(serializedObj, options) ?? throw new NoNullAllowedException();
-        }
+        return JsonConvert.DeserializeObject(serializedObj, options) ?? throw new NoNullAllowedException();
     }
 }

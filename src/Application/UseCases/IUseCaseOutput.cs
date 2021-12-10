@@ -1,5 +1,4 @@
-namespace Aviant.DDD.Application.UseCases
-{
-    public interface IUseCaseOutput
-    { }
-}
+namespace Aviant.DDD.Application.UseCases;
+
+public interface IUseCaseOutput
+{ }

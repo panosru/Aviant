@@ -1,36 +1,32 @@
-namespace Aviant.DDD.Application.Exceptions
+namespace Aviant.DDD.Application.Exceptions;
+
+using System.Runtime.Serialization;
+using FluentValidation.Results;
+
+[Serializable]
+public sealed class ValidationException : ApplicationException
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Runtime.Serialization;
-    using FluentValidation.Results;
+    public ValidationException()
+        : base("One or more validation failures have occurred.") => Failures = new Dictionary<string, string[]>();
 
-    [Serializable]
-    public sealed class ValidationException : ApplicationException
+    public ValidationException(IEnumerable<ValidationFailure> failures)
+        : this()
     {
-        public ValidationException()
-            : base("One or more validation failures have occurred.") => Failures = new Dictionary<string, string[]>();
+        IEnumerable<IGrouping<string, string>> failureGroups = failures
+           .GroupBy(e => e.PropertyName, e => e.ErrorMessage);
 
-        public ValidationException(IEnumerable<ValidationFailure> failures)
-            : this()
+        foreach (IGrouping<string, string> failureGroup in failureGroups)
         {
-            IEnumerable<IGrouping<string, string>> failureGroups = failures
-               .GroupBy(e => e.PropertyName, e => e.ErrorMessage);
+            var      propertyName     = failureGroup.Key;
+            string[] propertyFailures = failureGroup.ToArray();
 
-            foreach (IGrouping<string, string> failureGroup in failureGroups)
-            {
-                var      propertyName     = failureGroup.Key;
-                string[] propertyFailures = failureGroup.ToArray();
-
-                Failures?.Add(propertyName, propertyFailures);
-            }
+            Failures?.Add(propertyName, propertyFailures);
         }
-
-        private ValidationException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        { }
-
-        public IDictionary<string, string[]>? Failures { get; }
     }
+
+    private ValidationException(SerializationInfo info, StreamingContext context)
+        : base(info, context)
+    { }
+
+    public IDictionary<string, string[]>? Failures { get; }
 }

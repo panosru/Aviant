@@ -1,18 +1,14 @@
-namespace Aviant.DDD.Application.Processors
+namespace Aviant.DDD.Application.Processors;
+
+public abstract class RequestPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
+    where TRequest : notnull
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    #region IRequestPostProcessor<TRequest,TResponse> Members
 
-    public abstract class RequestPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
-        where TRequest : notnull
-    {
-        #region IRequestPostProcessor<TRequest,TResponse> Members
+    public abstract Task Process(
+        TRequest          request,
+        TResponse         response,
+        CancellationToken cancellationToken);
 
-        public abstract Task Process(
-            TRequest          request,
-            TResponse         response,
-            CancellationToken cancellationToken);
-
-        #endregion
-    }
+    #endregion
 }

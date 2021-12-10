@@ -1,47 +1,44 @@
-namespace Aviant.DDD.Application.EventBus
+namespace Aviant.DDD.Application.EventBus;
+
+using Core.Aggregates;
+using Core.DomainEvents;
+using Core.EventBus;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+
+public sealed class EventConsumerFactory : IEventConsumerFactory
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Core.Aggregates;
-    using Core.DomainEvents;
-    using Core.EventBus;
-    using MediatR;
-    using Microsoft.Extensions.DependencyInjection;
+    private readonly IServiceScopeFactory _scopeFactory;
 
-    public sealed class EventConsumerFactory : IEventConsumerFactory
+    public EventConsumerFactory(IServiceScopeFactory scopeFactory) => _scopeFactory = scopeFactory;
+
+    #region IEventConsumerFactory Members
+
+    public IEventConsumer Build<TAggregate, TAggregateId, TDeserializer>()
+        where TAggregate : IAggregate<TAggregateId>
+        where TAggregateId : IAggregateId
     {
-        private readonly IServiceScopeFactory _scopeFactory;
+        using var scope = _scopeFactory.CreateScope();
 
-        public EventConsumerFactory(IServiceScopeFactory scopeFactory) => _scopeFactory = scopeFactory;
+        var consumer = scope.ServiceProvider.GetRequiredService<IEventConsumer<
+            TAggregate, TAggregateId, TDeserializer>>();
 
-        #region IEventConsumerFactory Members
+        consumer.EventReceived += OnEventReceivedAsync;
 
-        public IEventConsumer Build<TAggregate, TAggregateId, TDeserializer>()
-            where TAggregate : IAggregate<TAggregateId>
-            where TAggregateId : IAggregateId
+        async Task OnEventReceivedAsync(
+            object                     s,
+            IDomainEvent<TAggregateId> @event,
+            CancellationToken          cancellationToken = default)
         {
-            using var scope = _scopeFactory.CreateScope();
+            var constructedEvent = EventReceivedFactory.Create((dynamic)@event);
 
-            var consumer = scope.ServiceProvider.GetRequiredService<IEventConsumer<
-                TAggregate, TAggregateId, TDeserializer>>();
-
-            consumer.EventReceived += OnEventReceivedAsync;
-
-            async Task OnEventReceivedAsync(
-                object                     s,
-                IDomainEvent<TAggregateId> @event,
-                CancellationToken          cancellationToken = default)
-            {
-                var constructedEvent = EventReceivedFactory.Create((dynamic)@event);
-
-                using var innerScope = _scopeFactory.CreateScope();
-                var       mediator   = innerScope.ServiceProvider.GetRequiredService<IMediator>();
-                await mediator.Publish(constructedEvent, cancellationToken);
-            }
-
-            return consumer;
+            using var innerScope = _scopeFactory.CreateScope();
+            var       mediator   = innerScope.ServiceProvider.GetRequiredService<IMediator>();
+            await mediator.Publish(constructedEvent, cancellationToken);
         }
 
-        #endregion
+        return consumer;
     }
+
+    #endregion
 }

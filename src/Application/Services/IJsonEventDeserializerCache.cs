@@ -1,22 +1,18 @@
-namespace Aviant.DDD.Application.Services
+namespace Aviant.DDD.Application.Services;
+
+internal interface IJsonEventDeserializerCache
 {
-    using System;
-    using System.Collections.Generic;
+    private static readonly IDictionary<string, Type> Cache = new Dictionary<string, Type>();
 
-    internal interface IJsonEventDeserializerCache
-    {
-        private static readonly IDictionary<string, Type> Cache = new Dictionary<string, Type>();
+    public void Add(string key, Type type) =>
+        Cache.Add(new KeyValuePair<string, Type>(key, type));
 
-        public void Add(string key, Type type) =>
-            Cache.Add(new KeyValuePair<string, Type>(key, type));
+    public bool Exists(string key) =>
+        Cache.ContainsKey(key);
 
-        public bool Exists(string key) =>
-            Cache.ContainsKey(key);
+    public void Remove(string key) =>
+        Cache.Remove(key);
 
-        public void Remove(string key) =>
-            Cache.Remove(key);
-
-        public Type Get(string key) =>
-            Cache[key];
-    }
+    public Type Get(string key) =>
+        Cache[key];
 }

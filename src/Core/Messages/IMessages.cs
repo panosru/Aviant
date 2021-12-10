@@ -1,15 +1,12 @@
-namespace Aviant.DDD.Core.Messages
+namespace Aviant.DDD.Core.Messages;
+
+public interface IMessages
 {
-    using System.Collections.Generic;
+    public void AddMessage(string message);
 
-    public interface IMessages
-    {
-        public void AddMessage(string message);
+    public bool HasMessages();
 
-        public bool HasMessages();
+    public List<string> GetAll();
 
-        public List<string> GetAll();
-
-        public void CleanMessages();
-    }
+    public void CleanMessages();
 }

@@ -1,35 +1,31 @@
-namespace Aviant.DDD.Core.Collections.Extensions
+namespace Aviant.DDD.Core.Collections.Extensions;
+
+/// <summary>
+///     Extension methods for Collections.
+/// </summary>
+public static class CollectionExtensions
 {
-    using System;
-    using System.Collections.Generic;
+    /// <summary>
+    ///     Checks whatever given collection object is null or has no item.
+    /// </summary>
+    public static bool IsNullOrEmpty<T>(this ICollection<T> source) => source is not { Count: > 0 };
 
     /// <summary>
-    ///     Extension methods for Collections.
+    ///     Adds an item to the collection if it's not already in the collection.
     /// </summary>
-    public static class CollectionExtensions
+    /// <param name="source">Collection</param>
+    /// <param name="item">Item to check and add</param>
+    /// <typeparam name="T">Type of the items in the collection</typeparam>
+    /// <returns>Returns True if added, returns False if not.</returns>
+    public static bool AddIfNotContains<T>(this ICollection<T> source, T item)
     {
-        /// <summary>
-        ///     Checks whatever given collection object is null or has no item.
-        /// </summary>
-        public static bool IsNullOrEmpty<T>(this ICollection<T> source) => source is not { Count: > 0 };
+        if (source is null)
+            throw new ArgumentNullException(nameof(source));
 
-        /// <summary>
-        ///     Adds an item to the collection if it's not already in the collection.
-        /// </summary>
-        /// <param name="source">Collection</param>
-        /// <param name="item">Item to check and add</param>
-        /// <typeparam name="T">Type of the items in the collection</typeparam>
-        /// <returns>Returns True if added, returns False if not.</returns>
-        public static bool AddIfNotContains<T>(this ICollection<T> source, T item)
-        {
-            if (source is null)
-                throw new ArgumentNullException(nameof(source));
+        if (source.Contains(item))
+            return false;
 
-            if (source.Contains(item))
-                return false;
-
-            source.Add(item);
-            return true;
-        }
+        source.Add(item);
+        return true;
     }
 }

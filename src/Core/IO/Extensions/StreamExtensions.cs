@@ -1,15 +1,12 @@
-namespace Aviant.DDD.Core.IO.Extensions
+namespace Aviant.DDD.Core.IO.Extensions;
+
+public static class StreamExtensions
 {
-    using System.IO;
-
-    public static class StreamExtensions
+    public static byte[] GetAllBytes(this Stream stream)
     {
-        public static byte[] GetAllBytes(this Stream stream)
-        {
-            using var memoryStream = new MemoryStream();
+        using var memoryStream = new MemoryStream();
 
-            stream.CopyTo(memoryStream);
-            return memoryStream.ToArray();
-        }
+        stream.CopyTo(memoryStream);
+        return memoryStream.ToArray();
     }
 }

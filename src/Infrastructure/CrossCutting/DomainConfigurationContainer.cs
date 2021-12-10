@@ -1,16 +1,15 @@
-namespace Aviant.DDD.Infrastructure.CrossCutting
+namespace Aviant.DDD.Infrastructure.CrossCutting;
+
+using Core.Domain;
+using Microsoft.Extensions.Configuration;
+
+public class DomainConfigurationContainer : IDomainConfigurationContainer
 {
-    using Core.Domain;
-    using Microsoft.Extensions.Configuration;
+    private readonly IConfiguration _configuration;
 
-    public class DomainConfigurationContainer : IDomainConfigurationContainer
-    {
-        private readonly IConfiguration _configuration;
+    protected DomainConfigurationContainer(IConfiguration configuration) => _configuration = configuration;
 
-        protected DomainConfigurationContainer(IConfiguration configuration) => _configuration = configuration;
+    public IConfiguration Configuration() => _configuration;
 
-        public IConfiguration Configuration() => _configuration;
-
-        public string GetValue(string path) => _configuration[path];
-    }
+    public string GetValue(string path) => _configuration[path];
 }

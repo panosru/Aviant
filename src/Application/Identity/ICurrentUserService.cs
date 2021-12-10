@@ -1,9 +1,6 @@
-namespace Aviant.DDD.Application.Identity
-{
-    using System;
+namespace Aviant.DDD.Application.Identity;
 
-    public interface ICurrentUserService
-    {
-        public Guid UserId { get; }
-    }
+public interface ICurrentUserService
+{
+    public Guid UserId { get; }
 }

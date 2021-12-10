@@ -1,21 +1,18 @@
-namespace Aviant.DDD.Application.ApplicationEvents
-{
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Core.Services;
-    using MediatR;
+namespace Aviant.DDD.Application.ApplicationEvents;
 
-    internal interface IApplicationEventHandler<in TApplicationEvent>
-        : INotificationHandler<TApplicationEvent>,
-          IRetry
-        where TApplicationEvent : IApplicationEvent
-    {
-        /// <summary>
-        ///     Handles an Application Event
-        /// </summary>
-        /// <param name="event"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public new Task Handle(TApplicationEvent @event, CancellationToken cancellationToken);
-    }
+using Core.Services;
+using MediatR;
+
+internal interface IApplicationEventHandler<in TApplicationEvent>
+    : INotificationHandler<TApplicationEvent>,
+      IRetry
+    where TApplicationEvent : IApplicationEvent
+{
+    /// <summary>
+    ///     Handles an Application Event
+    /// </summary>
+    /// <param name="event"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public new Task Handle(TApplicationEvent @event, CancellationToken cancellationToken);
 }

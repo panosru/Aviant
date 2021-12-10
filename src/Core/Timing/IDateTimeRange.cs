@@ -1,25 +1,22 @@
-namespace Aviant.DDD.Core.Timing
+namespace Aviant.DDD.Core.Timing;
+
+/// <summary>
+/// Defines interface for a DateTime range.
+/// </summary>
+public interface IDateTimeRange
 {
-    using System;
+    /// <summary>
+    /// Start time of the datetime range.
+    /// </summary>
+    DateTime StartTime { get; set; }
 
     /// <summary>
-    /// Defines interface for a DateTime range.
+    /// End time of the datetime range.
     /// </summary>
-    public interface IDateTimeRange
-    {
-        /// <summary>
-        /// Start time of the datetime range.
-        /// </summary>
-        DateTime StartTime { get; set; }
+    DateTime EndTime { get; set; }
 
-        /// <summary>
-        /// End time of the datetime range.
-        /// </summary>
-        DateTime EndTime { get; set; }
-
-        /// <summary>
-        /// The time difference between the start and end times.
-        /// </summary>
-        TimeSpan TimeSpan { get; set; }
-    }
+    /// <summary>
+    /// The time difference between the start and end times.
+    /// </summary>
+    TimeSpan TimeSpan { get; set; }
 }

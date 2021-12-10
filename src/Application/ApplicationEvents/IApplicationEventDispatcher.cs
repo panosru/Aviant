@@ -1,33 +1,30 @@
-namespace Aviant.DDD.Application.ApplicationEvents
+namespace Aviant.DDD.Application.ApplicationEvents;
+
+using System.Collections.ObjectModel;
+
+public interface IApplicationEventDispatcher
 {
-    using System.Collections.ObjectModel;
-    using System.Threading;
-    using System.Threading.Tasks;
+    #region Pre Commit Notifications
 
-    public interface IApplicationEventDispatcher
-    {
-        #region Pre Commit Notifications
+    public Collection<IApplicationEvent> GetPreCommitEvents();
 
-        public Collection<IApplicationEvent> GetPreCommitEvents();
+    public void AddPreCommitEvent(IApplicationEvent applicationEvent);
 
-        public void AddPreCommitEvent(IApplicationEvent applicationEvent);
+    public void RemovePreCommitEvent(IApplicationEvent applicationEvent);
 
-        public void RemovePreCommitEvent(IApplicationEvent applicationEvent);
+    public Task FirePreCommitEventsAsync(CancellationToken cancellationToken = default);
 
-        public Task FirePreCommitEventsAsync(CancellationToken cancellationToken = default);
+    #endregion
 
-        #endregion
+    #region Post Commit Notifications
 
-        #region Post Commit Notifications
+    public Collection<IApplicationEvent> GetPostCommitEvents();
 
-        public Collection<IApplicationEvent> GetPostCommitEvents();
+    public void AddPostCommitEvent(IApplicationEvent applicationEvent);
 
-        public void AddPostCommitEvent(IApplicationEvent applicationEvent);
+    public void RemovePostCommitEvent(IApplicationEvent applicationEvent);
 
-        public void RemovePostCommitEvent(IApplicationEvent applicationEvent);
+    public Task FirePostCommitEventsAsync(CancellationToken cancellationToken = default);
 
-        public Task FirePostCommitEventsAsync(CancellationToken cancellationToken = default);
-
-        #endregion
-    }
+    #endregion
 }

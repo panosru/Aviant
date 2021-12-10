@@ -1,15 +1,14 @@
-namespace Aviant.DDD.Infrastructure.Persistence.Kafka
+namespace Aviant.DDD.Infrastructure.Persistence.Kafka;
+
+using Confluent.Kafka;
+using Core.Aggregates;
+
+internal sealed class KeySerializer<TAggregateId> : ISerializer<TAggregateId>
+    where TAggregateId : class, IAggregateId
 {
-    using Confluent.Kafka;
-    using Core.Aggregates;
+    #region ISerializer<TAggregateId> Members
 
-    internal sealed class KeySerializer<TAggregateId> : ISerializer<TAggregateId>
-        where TAggregateId : class, IAggregateId
-    {
-        #region ISerializer<TAggregateId> Members
+    public byte[] Serialize(TAggregateId aggregateId, SerializationContext context) => aggregateId.Serialize();
 
-        public byte[] Serialize(TAggregateId aggregateId, SerializationContext context) => aggregateId.Serialize();
-
-        #endregion
-    }
+    #endregion
 }

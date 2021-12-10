@@ -1,12 +1,11 @@
-namespace Aviant.DDD.Application.Mappings
-{
-    using AutoMapper;
+namespace Aviant.DDD.Application.Mappings;
 
-    public interface IMapTo<T>
+using AutoMapper;
+
+public interface IMapTo<T>
+{
+    public void Mapping(Profile profile)
     {
-        public void Mapping(Profile profile)
-        {
-            profile.CreateMap(GetType(), typeof(T));
-        }
+        profile.CreateMap(GetType(), typeof(T));
     }
 }

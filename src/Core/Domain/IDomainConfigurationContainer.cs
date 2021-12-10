@@ -1,11 +1,10 @@
-namespace Aviant.DDD.Core.Domain
+namespace Aviant.DDD.Core.Domain;
+
+using Microsoft.Extensions.Configuration;
+
+public interface IDomainConfigurationContainer
 {
-    using Microsoft.Extensions.Configuration;
+    public IConfiguration Configuration();
 
-    public interface IDomainConfigurationContainer
-    {
-        public IConfiguration Configuration();
-
-        public string GetValue(string path);
-    }
+    public string GetValue(string path);
 }

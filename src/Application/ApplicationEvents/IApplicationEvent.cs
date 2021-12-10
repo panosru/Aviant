@@ -1,17 +1,15 @@
-namespace Aviant.DDD.Application.ApplicationEvents
-{
-    using System;
-    using MediatR;
+namespace Aviant.DDD.Application.ApplicationEvents;
 
-    /// <inheritdoc />
+using MediatR;
+
+/// <inheritdoc />
+/// <summary>
+///     Application Event Interface
+/// </summary>
+public interface IApplicationEvent : INotification
+{
     /// <summary>
-    ///     Application Event Interface
+    ///     The DateTime that the Application Event occurred.
     /// </summary>
-    public interface IApplicationEvent : INotification
-    {
-        /// <summary>
-        ///     The DateTime that the Application Event occurred.
-        /// </summary>
-        public DateTime Occured { get; set; }
-    }
+    public DateTime Occured { get; set; }
 }

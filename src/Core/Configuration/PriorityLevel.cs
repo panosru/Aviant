@@ -1,28 +1,27 @@
-﻿namespace Aviant.DDD.Core.Configuration
+﻿namespace Aviant.DDD.Core.Configuration;
+
+/// <summary>
+///     Indicate the priority level
+/// </summary>
+public enum PriorityLevel
 {
     /// <summary>
-    ///     Indicate the priority level
+    ///     Zero priority
     /// </summary>
-    public enum PriorityLevel : byte
-    {
-        /// <summary>
-        ///     Zero priority
-        /// </summary>
-        None,
+    None,
 
-        /// <summary>
-        ///     Low priority
-        /// </summary>
-        Low,
+    /// <summary>
+    ///     Low priority
+    /// </summary>
+    Low,
 
-        /// <summary>
-        ///     Medium priority
-        /// </summary>
-        Medium,
+    /// <summary>
+    ///     Medium priority
+    /// </summary>
+    Medium,
 
-        /// <summary>
-        ///     High priority
-        /// </summary>
-        High
-    }
+    /// <summary>
+    ///     High priority
+    /// </summary>
+    High
 }

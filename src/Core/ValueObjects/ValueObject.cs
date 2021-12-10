@@ -1,79 +1,76 @@
-namespace Aviant.DDD.Core.ValueObjects
+namespace Aviant.DDD.Core.ValueObjects;
+
+using System.Reflection;
+
+// Learn more: https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
+// source: https://github.com/jhewlett/ValueObject
+public abstract class ValueObject : IValueObject<ValueObject>
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
+    private List<FieldInfo>? _fields;
 
-    // Learn more: https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
-    // source: https://github.com/jhewlett/ValueObject
-    public abstract class ValueObject : IValueObject<ValueObject>
+    private List<PropertyInfo>? _properties;
+
+    #region IValueObject<ValueObject> Members
+
+    public override int GetHashCode()
     {
-        private List<FieldInfo>? _fields;
+        var hash = GetProperties()
+           .Select(property => property.GetValue(this, null))
+           .Aggregate(17, HashValue);
 
-        private List<PropertyInfo>? _properties;
+        return GetFields()
+           .Select(field => field.GetValue(this))
+           .Aggregate(hash, HashValue);
+    }
 
-        #region IValueObject<ValueObject> Members
+    public int HashValue(int seed, object? value)
+    {
+        var currentHash = value?.GetHashCode() ?? 0;
 
-        public override int GetHashCode()
-        {
-            var hash = GetProperties()
-               .Select(property => property.GetValue(this, null))
-               .Aggregate(17, HashValue);
+        return seed * 23 + currentHash;
+    }
 
-            return GetFields()
-               .Select(field => field.GetValue(this))
-               .Aggregate(hash, HashValue);
-        }
+    public virtual bool Equals(ValueObject? other) => Equals(other as object);
 
-        public int HashValue(int seed, object? value)
-        {
-            var currentHash = value?.GetHashCode() ?? 0;
+    #endregion
 
-            return seed * 23 + currentHash;
-        }
+    public override bool Equals(object? obj)
+    {
+        if (obj is null
+         || obj.GetType() != GetType()) return false;
 
-        public virtual bool Equals(ValueObject? other) => Equals(other as object);
+        return GetProperties().All(p => PropertiesAreEqual(obj, p))
+            && GetFields().All(f => FieldsAreEqual(obj, f));
+    }
 
-        #endregion
+    public static bool operator ==(ValueObject? left, ValueObject? right)
+    {
+        if (left is null ^ right is null)
+            return false;
 
-        public override bool Equals(object? obj)
-        {
-            if (obj is null
-             || obj.GetType() != GetType()) return false;
+        return left?.Equals(right) != false;
+    }
 
-            return GetProperties().All(p => PropertiesAreEqual(obj, p))
-                && GetFields().All(f => FieldsAreEqual(obj, f));
-        }
+    public static bool operator !=(ValueObject? left, ValueObject? right) => !(left == right);
 
-        public static bool operator ==(ValueObject? left, ValueObject? right)
-        {
-            if (left is null ^ right is null)
-                return false;
+    private bool PropertiesAreEqual(object obj, PropertyInfo p) =>
+        Equals(p.GetValue(this, null), p.GetValue(obj, null));
 
-            return left?.Equals(right) != false;
-        }
+    private bool FieldsAreEqual(object obj, FieldInfo f) => Equals(f.GetValue(this), f.GetValue(obj));
 
-        public static bool operator !=(ValueObject? left, ValueObject? right) => !(left == right);
+    private IEnumerable<PropertyInfo> GetProperties()
+    {
+        return _properties ??= GetType()
+           .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+           .Where(p => p.GetCustomAttribute(typeof(IgnoreMemberAttribute)) is null)
+           .ToList();
+    }
 
-        private bool PropertiesAreEqual(object obj, PropertyInfo p) =>
-            Equals(p.GetValue(this, null), p.GetValue(obj, null));
-
-        private bool FieldsAreEqual(object obj, FieldInfo f) => Equals(f.GetValue(this), f.GetValue(obj));
-
-        private IEnumerable<PropertyInfo> GetProperties()
-        {
-            return _properties ??= GetType()
-               .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-               .Where(p => p.GetCustomAttribute(typeof(IgnoreMemberAttribute)) is null)
-               .ToList();
-        }
-
-        private IEnumerable<FieldInfo> GetFields()
-        {
-            return _fields ??= GetType()
-               .GetFields(BindingFlags.Instance | BindingFlags.Public)
-               .Where(f => f.GetCustomAttribute(typeof(IgnoreMemberAttribute)) is null)
-               .ToList();
-        }
+    private IEnumerable<FieldInfo> GetFields()
+    {
+        return _fields ??= GetType()
+           .GetFields(BindingFlags.Instance | BindingFlags.Public)
+           .Where(f => f.GetCustomAttribute(typeof(IgnoreMemberAttribute)) is null)
+           .ToList();
     }
 }

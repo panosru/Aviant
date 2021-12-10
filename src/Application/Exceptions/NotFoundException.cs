@@ -1,25 +1,23 @@
-namespace Aviant.DDD.Application.Exceptions
+namespace Aviant.DDD.Application.Exceptions;
+
+using System.Runtime.Serialization;
+
+[Serializable]
+public sealed class NotFoundException : ApplicationException
 {
-    using System;
-    using System.Runtime.Serialization;
+    public NotFoundException(string message)
+        : base(message)
+    { }
 
-    [Serializable]
-    public sealed class NotFoundException : ApplicationException
-    {
-        public NotFoundException(string message)
-            : base(message)
-        { }
+    public NotFoundException(string message, Exception innerInner)
+        : base(message, innerInner)
+    { }
 
-        public NotFoundException(string message, Exception innerInner)
-            : base(message, innerInner)
-        { }
+    public NotFoundException(string name, object key)
+        : base($"Entity \"{name}\" ({key}) was not found.")
+    { }
 
-        public NotFoundException(string name, object key)
-            : base($"Entity \"{name}\" ({key}) was not found.")
-        { }
-
-        private NotFoundException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        { }
-    }
+    private NotFoundException(SerializationInfo info, StreamingContext context)
+        : base(info, context)
+    { }
 }

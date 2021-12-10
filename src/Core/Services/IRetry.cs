@@ -1,9 +1,8 @@
-namespace Aviant.DDD.Core.Services
-{
-    using Polly;
+namespace Aviant.DDD.Core.Services;
 
-    public interface IRetry
-    {
-        public IAsyncPolicy RetryPolicy();
-    }
+using Polly;
+
+public interface IRetry
+{
+    public IAsyncPolicy RetryPolicy();
 }

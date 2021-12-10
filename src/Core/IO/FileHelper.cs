@@ -1,20 +1,17 @@
-namespace Aviant.DDD.Core.IO
-{
-    using System.IO;
+namespace Aviant.DDD.Core.IO;
 
+/// <summary>
+/// A helper class for File operations.
+/// </summary>
+public static class FileHelper
+{
     /// <summary>
-    /// A helper class for File operations.
+    /// Checks and deletes given file if it does exists.
     /// </summary>
-    public static class FileHelper
+    /// <param name="filePath">Path of the file</param>
+    public static void DeleteIfExists(string filePath)
     {
-        /// <summary>
-        /// Checks and deletes given file if it does exists.
-        /// </summary>
-        /// <param name="filePath">Path of the file</param>
-        public static void DeleteIfExists(string filePath)
-        {
-            if (File.Exists(filePath))
-                File.Delete(filePath);
-        }
+        if (File.Exists(filePath))
+            File.Delete(filePath);
     }
 }
