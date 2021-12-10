@@ -52,7 +52,7 @@ pipeline {
     cleanup {
       catchError(buildResult: null, stageResult: 'FAILURE', message: 'Cleanup Failure') {
         echo 'Cleaning up workspace...'
-        delete '**/SonarQube.xml'
+        cleanWs()
       }
     }
   }
