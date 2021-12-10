@@ -1,22 +1,61 @@
 pipeline {
   agent any
+  
+  environment {
+    MSBuildScannerHome = tool 'SonarScanner for MSBuild v5'
+  }
+  
   stages {
-    stage('Restore NuGet Packages') {
-      steps {
-        sh 'dotnet restore Aviant.DDD.sln'
-      }
-    }
-    stage('SonarQube Analysis') {
+    
+    stage('Begin SonarQube Analysis') {
       steps {
         script {
-          def scannerHome = tool 'SonarScanner for MSBuild v5.3.2'
           withSonarQubeEnv() {
-            sh "dotnet ${scannerHome}/SonarScanner.MSBuild.dll begin /k:\"panosru_Aviant.DDD\""
-            sh "dotnet build"
-            sh "dotnet ${scannerHome}/SonarScanner.MSBuild.dll end"
+            sh "dotnet ${MSBuildScannerHome}/SonarScanner.MSBuild.dll begin /k:\"panosru_Aviant.DDD\""
           }
         }
       }
+    }
+    
+    stage('Building') {
+      steps {
+        sh 'dotnet restore Aviant.DDD.sln'
+        sh "dotnet build"
+      }
+    }
+    
+    stage('Complete SonarQube Analysis') {
+      steps {
+        script {
+          withSonarQubeEnv() {
+            sh "dotnet ${MSBuildScannerHome}/SonarScanner.MSBuild.dll end"
+          }
+        }
+      }
+    }
+    
+    stage('Quality Gate') {
+      steps {
+        timeout(time: 1, unit: 'MINUTES') {
+          script {
+            def qg = waitForQualityGate()
+            if ('OK' != qg.status) {
+              error "Pipeline aborted due to quality gate failure: ${qg.status}"
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  post {
+    cleanup {
+      script {
+        withSonarQubeEnv() {
+          sh "dotnet ${MSBuildScannerHome}/SonarScanner.MSBuild.dll gc"
+        }
+      }
+      delete '**/SonarQube.xml'
     }
   }
 }
