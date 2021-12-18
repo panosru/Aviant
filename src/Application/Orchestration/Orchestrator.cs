@@ -60,7 +60,9 @@ public abstract class OrchestratorBase
 
         try
         {
-            isLazy = typeof(Lazy<>) == commandResponse?.GetType().GetGenericTypeDefinition();
+            isLazy = commandResponse is not null
+                  && commandResponse.GetType().IsGenericType //TODO: Revisit this check, maybe it shouldn't be here
+                  && typeof(Lazy<>) == commandResponse.GetType().GetGenericTypeDefinition();
         }
         catch (Exception)
         {
