@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Infrastructure.Persistence.Kafka;
+namespace Aviant.DDD.Infrastructure.Transport.Kafka;
 
 using Core.Aggregates;
 using Core.EventBus;
