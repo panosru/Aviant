@@ -8,13 +8,13 @@ public sealed class EventConsumerConfig
         string consumerGroup)
     {
         if (string.IsNullOrWhiteSpace(kafkaConnectionString))
-            throw new ArgumentException("Value cannot be null or whitespace.", nameof(kafkaConnectionString));
+            throw new ArgumentNullException(nameof(kafkaConnectionString));
 
         if (string.IsNullOrWhiteSpace(topicBaseName))
-            throw new ArgumentException("Value cannot be null or whitespace.", nameof(topicBaseName));
+            throw new ArgumentNullException(nameof(topicBaseName));
 
         if (string.IsNullOrWhiteSpace(consumerGroup))
-            throw new ArgumentException("Value cannot be null or whitespace.", nameof(consumerGroup));
+            throw new ArgumentNullException(nameof(consumerGroup));
 
         KafkaConnectionString = kafkaConnectionString;
         TopicBaseName         = topicBaseName;
