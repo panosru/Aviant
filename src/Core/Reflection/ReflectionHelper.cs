@@ -190,6 +190,7 @@ internal static class ReflectionHelper
     /// <param name="obj">Object to get value from</param>
     /// <param name="objectType">Type of given object</param>
     /// <param name="propertyPath">Full path of property</param>
+    /// <param name="comparisonType"></param>
     /// <returns></returns>
     internal static object? GetValueByPath(
         object           obj,
@@ -227,6 +228,7 @@ internal static class ReflectionHelper
     /// <param name="objectType"></param>
     /// <param name="propertyPath"></param>
     /// <param name="value"></param>
+    /// <param name="comparisonType"></param>
     internal static void SetValueByPath(
         object?          obj,
         Type             objectType,
@@ -276,8 +278,8 @@ internal static class ReflectionHelper
             return false;
 
         return type.GetProperty(
-                   method.Name[4..],
-                   BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                method.Name[4..],
+                BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
             is not null;
     }
 

@@ -106,7 +106,7 @@ public abstract class Aggregate<TAggregate, TAggregateId>
         var result      = (TAggregate)constructor.Invoke(Array.Empty<object>());
 
         if (result is Aggregate<TAggregate, TAggregateId> aggregate)
-            foreach (var @event in enumerable)
+            foreach (IDomainEvent<TAggregateId> @event in enumerable)
                 aggregate.AddEvent(@event);
 
         result.ClearEvents();

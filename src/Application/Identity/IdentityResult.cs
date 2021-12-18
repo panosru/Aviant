@@ -17,7 +17,7 @@ public sealed class IdentityResult
     ///     something like this: public new static IdentityResult Success() { ... }
     /// </summary>
     /// <returns></returns>
-    public static IdentityResult Success() => new(true, System.Array.Empty<string>());
+    public static IdentityResult Success() => new(true, Array.Empty<string>());
 
     public static IdentityResult Failure(IEnumerable<string> errors) => new(false, errors);
 }
