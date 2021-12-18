@@ -1,7 +1,7 @@
 namespace Aviant.DDD.Infrastructure.Persistence.Contexts;
 
 using System.Reflection;
-using Application.Persistance;
+using Application.Persistence;
 using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;

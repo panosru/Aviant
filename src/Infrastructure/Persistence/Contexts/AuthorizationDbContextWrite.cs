@@ -2,7 +2,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts;
 
 using System.Reflection;
 using Application.Identity;
-using Application.Persistance;
+using Application.Persistence;
 using Configurations;
 using Core.Entities;
 using Duende.IdentityServer.EntityFramework.Options;

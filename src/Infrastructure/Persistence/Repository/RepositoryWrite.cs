@@ -242,7 +242,6 @@ public abstract class RepositoryWriteBase<TDbContext, TEntity, TPrimaryKey>
     #endregion
 }
 
-
 public abstract class RepositoryWrite<TDbContext, TEntity, TPrimaryKey>
     : RepositoryWriteBase<TDbContext, TEntity, TPrimaryKey>
     where TEntity : Entity<TPrimaryKey>

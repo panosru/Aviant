@@ -5,7 +5,7 @@ using Commands;
 using Core.Aggregates;
 using Core.Messages;
 using MediatR;
-using Persistance;
+using Persistence;
 using Queries;
 
 public abstract class OrchestratorBase

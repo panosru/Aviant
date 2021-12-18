@@ -1,6 +1,6 @@
 namespace Aviant.DDD.Infrastructure.Persistence;
 
-using Application.Persistance;
+using Application.Persistence;
 using Core.Aggregates;
 using Core.Services;
 

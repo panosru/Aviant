@@ -3,7 +3,7 @@ namespace Aviant.DDD.Infrastructure.Persistence.Contexts;
 using System.Linq.Expressions;
 using System.Reflection;
 using Application.Identity;
-using Application.Persistance;
+using Application.Persistence;
 using Core.Entities;
 using Core.Services;
 using Core.Timing;

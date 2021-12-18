@@ -219,7 +219,6 @@ public abstract class RepositoryReadBase<TDbContext, TEntity, TPrimaryKey>
     #endregion
 }
 
-
 public abstract class RepositoryRead<TDbContext, TEntity, TPrimaryKey>
     : RepositoryReadBase<TDbContext, TEntity, TPrimaryKey>
     where TEntity : Entity<TPrimaryKey>

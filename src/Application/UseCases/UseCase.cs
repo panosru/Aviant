@@ -8,7 +8,7 @@ using Core.Aggregates;
 using Core.Services;
 using FluentValidation;
 using Orchestration;
-using Persistance;
+using Persistence;
 
 /// <summary>
 ///     The Use Case Abstract Base class

@@ -2,7 +2,7 @@ namespace Aviant.DDD.Application.Orchestration;
 
 using Commands;
 using Core.Aggregates;
-using Persistance;
+using Persistence;
 using Queries;
 
 public interface IOrchestrator
