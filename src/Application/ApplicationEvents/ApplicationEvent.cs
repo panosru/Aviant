@@ -2,7 +2,7 @@ namespace Aviant.DDD.Application.ApplicationEvents;
 
 using Core.Timing;
 
-public abstract class ApplicationEvent : IApplicationEvent
+public abstract record ApplicationEvent : IApplicationEvent
 {
     protected ApplicationEvent() => Occured = Clock.Now;
 

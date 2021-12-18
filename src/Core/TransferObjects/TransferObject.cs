@@ -2,7 +2,7 @@ namespace Aviant.DDD.Core.TransferObjects;
 
 using Newtonsoft.Json;
 
-public abstract class TransferObject : ITransferObject
+public abstract record TransferObject : ITransferObject
 {
     #region ITransferObject Members
 

@@ -1,10 +1,7 @@
 namespace Aviant.DDD.Application.UseCases;
 
-/// <inheritdoc />
+/// <inheritdoc cref="Aviant.DDD.Application.UseCases.IUseCaseInput" />
 /// <summary>
 ///     UseCase Abstract Class
 /// </summary>
-public abstract class UseCaseInput : IUseCaseInput
-{
-
-}
+public abstract record UseCaseInput : IUseCaseInput;

@@ -1,4 +1,3 @@
 namespace Aviant.DDD.Core.TransferObjects;
 
-public abstract class Dto : TransferObject, IDto
-{ }
+public abstract record Dto : TransferObject, IDto;
