@@ -106,7 +106,7 @@ public static class PredicateBuilder
     /// <param name="second">The second Predicate.</param>
     /// <param name="operator">The Operator (can be "And" or "Or").</param>
     /// <returns>Expression{Func{T, bool}}</returns>
-    public static Expression<Func<T, bool>> Extend<T>(
+    public static Expression<Func<T, bool>>? Extend<T>(
         this ExpressionStarter<T> first,
         Expression<Func<T, bool>> second,
         PredicateOperator         @operator = PredicateOperator.Or) => @operator == PredicateOperator.Or
@@ -141,7 +141,7 @@ public static class PredicateBuilder
 /// <typeparam name="T">The type</typeparam>
 public sealed class ExpressionStarter<T>
 {
-    private Expression<Func<T, bool>> _predicate = null!;
+    private Expression<Func<T, bool>>? _predicate;
 
     internal ExpressionStarter()
         : this(false)
@@ -159,7 +159,7 @@ public sealed class ExpressionStarter<T>
         : this(false) => _predicate = exp;
 
     /// <summary>The actual Predicate. It can only be set by calling Start.</summary>
-    private Expression<Func<T, bool>> Predicate => IsStarted || !UseDefaultExpression
+    private Expression<Func<T, bool>>? Predicate => IsStarted || !UseDefaultExpression
         ? _predicate
         : DefaultExpression;
 
@@ -170,7 +170,7 @@ public sealed class ExpressionStarter<T>
     public bool UseDefaultExpression => DefaultExpression is not null;
 
     /// <summary>The default expression</summary>
-    public Expression<Func<T, bool>> DefaultExpression { get; set; }
+    public Expression<Func<T, bool>>? DefaultExpression { get; set; }
 
     /// <summary>Set the Expression predicate</summary>
     /// <param name="exp">The first expression</param>
@@ -183,29 +183,27 @@ public sealed class ExpressionStarter<T>
     }
 
     /// <summary>Or</summary>
-    public Expression<Func<T, bool>> Or(Expression<Func<T, bool>> expr2) => IsStarted
-        ? _predicate = Predicate.Or(expr2)
+    public Expression<Func<T, bool>>? Or(Expression<Func<T, bool>> expr2) => IsStarted
+        ? _predicate = Predicate?.Or(expr2)
         : Start(expr2);
 
     /// <summary>And</summary>
-    public Expression<Func<T, bool>> And(Expression<Func<T, bool>> expr2) => IsStarted
-        ? _predicate = Predicate.And(expr2)
+    public Expression<Func<T, bool>>? And(Expression<Func<T, bool>> expr2) => IsStarted
+        ? _predicate = Predicate?.And(expr2)
         : Start(expr2);
 
     /// <summary>Not</summary>
-    public Expression<Func<T, bool>> Not()
+    public Expression<Func<T, bool>>? Not()
     {
         if (IsStarted)
-            _predicate = Predicate.Not();
+            _predicate = Predicate?.Not();
         else
             Start(x => false);
         return _predicate;
     }
 
     /// <summary> Show predicate string </summary>
-    public override string? ToString() => Predicate is null
-        ? null
-        : Predicate.ToString();
+    public override string? ToString() => Predicate?.ToString();
 
     #region Implicit Operators
 
@@ -213,7 +211,7 @@ public sealed class ExpressionStarter<T>
     ///     Allows this object to be implicitly converted to an Expression{Func{T, bool}}.
     /// </summary>
     /// <param name="right"></param>
-    public static implicit operator Expression<Func<T, bool>>(ExpressionStarter<T> right) => right.Predicate;
+    public static implicit operator Expression<Func<T, bool>>?(ExpressionStarter<T> right) => right.Predicate;
 
     /// <summary>
     ///     Allows this object to be implicitly converted to an Expression{Func{T, bool}}.
@@ -221,7 +219,7 @@ public sealed class ExpressionStarter<T>
     /// <param name="right"></param>
     public static implicit operator Func<T, bool>?(ExpressionStarter<T> right) =>
         right.IsStarted || right.UseDefaultExpression
-            ? right.Predicate.Compile()
+            ? right.Predicate?.Compile()
             : null;
 
     /// <summary>
@@ -237,17 +235,17 @@ public sealed class ExpressionStarter<T>
     #region Implement LamdaExpression methods and properties
 
     /// <summary></summary>
-    public Expression Body => Predicate.Body;
+    public Expression? Body => Predicate?.Body;
 
 
     /// <summary></summary>
-    public ExpressionType NodeType => Predicate.NodeType;
+    public ExpressionType? NodeType => Predicate?.NodeType;
 
     /// <summary></summary>
-    public ReadOnlyCollection<ParameterExpression> Parameters => Predicate.Parameters;
+    public ReadOnlyCollection<ParameterExpression>? Parameters => Predicate?.Parameters;
 
     /// <summary></summary>
-    public Type Type => Predicate.Type;
+    public Type? Type => Predicate?.Type;
 
     #endregion
 }

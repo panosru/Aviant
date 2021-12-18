@@ -10,7 +10,7 @@ public interface IEventsService<TAggregate, in TAggregateId>
         TAggregate        aggregate,
         CancellationToken cancellationToken = default);
 
-    public Task<TAggregate> RehydrateAsync(
+    public Task<TAggregate?> RehydrateAsync(
         TAggregateId      key,
         CancellationToken cancellationToken = default);
 }

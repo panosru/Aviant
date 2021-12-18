@@ -36,7 +36,7 @@ public sealed class EventsService<TAggregate, TAggregateId> : IEventsService<TAg
             : PersistEventsAsync(aggregate, cancellationToken);
     }
 
-    public Task<TAggregate> RehydrateAsync(
+    public Task<TAggregate?> RehydrateAsync(
         TAggregateId      key,
         CancellationToken cancellationToken = default) =>
         _eventsRepository.RehydrateAsync(key, cancellationToken);
