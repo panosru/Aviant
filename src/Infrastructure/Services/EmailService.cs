@@ -5,7 +5,7 @@ using MailKit.Net.Smtp;
 using MimeKit;
 using MimeKit.Text;
 
-public class EmailService : IEmailService
+public class EmailService : IEmailService, IDisposable
 {
     private readonly string _receiverEmail;
 
@@ -117,4 +117,11 @@ public class EmailService : IEmailService
         Task.FromResult(Send());
 
     #endregion
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        _message.Dispose();
+        _smtpClient.Dispose();
+    }
 }
