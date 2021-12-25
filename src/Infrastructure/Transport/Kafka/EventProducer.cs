@@ -18,12 +18,18 @@ internal sealed class EventProducer<TAggregate, TAggregateId> : IEventProducer<T
     private IProducer<TAggregateId, string> _producer;
 
     public EventProducer(
-        string topicBaseName,
+        string topicName,
         string kafkaConnString)
     {
+        if (string.IsNullOrWhiteSpace(topicName))
+            throw new ArgumentNullException(nameof(topicName));
+
+        if (string.IsNullOrWhiteSpace(kafkaConnString))
+            throw new ArgumentNullException(nameof(kafkaConnString));
+
         var aggregateType = typeof(TAggregate);
 
-        _topicName = $"{topicBaseName}-{aggregateType.Name}";
+        _topicName = $"{topicName}-{aggregateType.Name}";
 
         ProducerConfig producerConfig = new()
         {

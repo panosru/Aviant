@@ -18,11 +18,9 @@ public sealed class EventConsumer<TAggregate, TAggregateId, TDeserializer>
 
     public delegate void ConsumerStoppedHandler(object sender);
 
-    public delegate void ExceptionThrownHandler(object sender, Exception e);
-
     #endregion
 
-    private readonly IEventDeserializer _eventDeserializer;
+    private readonly IEventSerializer _eventSerializer;
 
     private readonly ILogger _logger = Log.Logger.ForContext<EventConsumer<TAggregate, TAggregateId, TDeserializer>>();
 
@@ -30,10 +28,10 @@ public sealed class EventConsumer<TAggregate, TAggregateId, TDeserializer>
 
     #pragma warning disable 8618
     public EventConsumer(
-        IEventDeserializer  eventDeserializer,
-        EventConsumerConfig config)
+        IEventSerializer  eventSerializer,
+        EventsConsumerConfig config)
     {
-        _eventDeserializer = eventDeserializer;
+        _eventSerializer = eventSerializer;
 
         var aggregateType = typeof(TAggregate);
 
@@ -52,7 +50,7 @@ public sealed class EventConsumer<TAggregate, TAggregateId, TDeserializer>
 
         _eventConsumer = consumerBuilder.Build();
 
-        var topicName = $"{config.TopicBaseName}-{aggregateType.Name}";
+        var topicName = $"{config.TopicName}-{aggregateType.Name}";
         _eventConsumer.Subscribe(topicName);
     }
     #pragma warning restore 8618
@@ -94,7 +92,7 @@ public sealed class EventConsumer<TAggregate, TAggregateId, TDeserializer>
                         var eventType         = Encoding.UTF8.GetString(messageTypeHeader.GetValueBytes());
 
                         IDomainEvent<TAggregateId> @event =
-                            _eventDeserializer.Deserialize<TAggregateId>(eventType, cr.Message.Value);
+                            _eventSerializer.Deserialize<TAggregateId>(eventType, cr.Message.Value);
 
                         await OnEventReceivedAsync(@event, cancellationToken)
                            .ConfigureAwait(false);
@@ -131,7 +129,7 @@ public sealed class EventConsumer<TAggregate, TAggregateId, TDeserializer>
     {
         EventReceivedHandlerAsync<TAggregateId> handlerAsync = EventReceived;
 
-        return handlerAsync(this, e, cancellationToken)
+        return handlerAsync.Invoke(this, e, cancellationToken)
             ?? throw new NullReferenceException(
                    typeof(EventConsumer<TAggregate, TAggregateId, TDeserializer>).FullName);
     }
@@ -141,7 +139,7 @@ public sealed class EventConsumer<TAggregate, TAggregateId, TDeserializer>
     private void OnExceptionThrown(Exception e)
     {
         var handler = ExceptionThrown;
-        handler(this, e);
+        handler.Invoke(this, e);
     }
 
     public event ConsumerStoppedHandler ConsumerStopped;
@@ -149,6 +147,6 @@ public sealed class EventConsumer<TAggregate, TAggregateId, TDeserializer>
     private void OnConsumerStopped()
     {
         var handler = ConsumerStopped;
-        handler(this);
+        handler.Invoke(this);
     }
 }

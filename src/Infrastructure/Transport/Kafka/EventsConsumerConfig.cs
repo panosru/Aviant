@@ -1,29 +1,29 @@
 namespace Aviant.DDD.Infrastructure.Transport.Kafka;
 
-public sealed class EventConsumerConfig
+public sealed record EventsConsumerConfig
 {
-    public EventConsumerConfig(
+    public EventsConsumerConfig(
         string kafkaConnectionString,
-        string topicBaseName,
+        string topicName,
         string consumerGroup)
     {
         if (string.IsNullOrWhiteSpace(kafkaConnectionString))
             throw new ArgumentNullException(nameof(kafkaConnectionString));
 
-        if (string.IsNullOrWhiteSpace(topicBaseName))
-            throw new ArgumentNullException(nameof(topicBaseName));
+        if (string.IsNullOrWhiteSpace(topicName))
+            throw new ArgumentNullException(nameof(topicName));
 
         if (string.IsNullOrWhiteSpace(consumerGroup))
             throw new ArgumentNullException(nameof(consumerGroup));
 
         KafkaConnectionString = kafkaConnectionString;
-        TopicBaseName         = topicBaseName;
+        TopicName         = topicName;
         ConsumerGroup         = consumerGroup;
     }
 
     internal string KafkaConnectionString { get; }
 
-    internal string TopicBaseName { get; }
+    internal string TopicName { get; }
 
     internal string ConsumerGroup { get; }
 }
