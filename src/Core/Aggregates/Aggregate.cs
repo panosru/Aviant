@@ -98,8 +98,7 @@ public abstract class Aggregate<TAggregate, TAggregateId>
     {
         List<IDomainEvent<TAggregateId>> enumerable = events.ToList();
 
-        if (events is null
-         || !enumerable.Any())
+        if (!enumerable.Any())
             throw new ArgumentException("Aggregate Events are non existent or empty", nameof(events));
 
         var constructor = LazyConstructor.Value;
