@@ -18,4 +18,9 @@ public interface IDomainEvent<out TAggregateId>
     ///     The current aggregate id
     /// </summary>
     public TAggregateId AggregateId { get; }
+
+    /// <summary>
+    ///     When the event was occurred
+    /// </summary>
+    public DateTime Occurred { get; }
 }

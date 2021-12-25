@@ -1,6 +1,7 @@
 namespace Aviant.DDD.Core.DomainEvents;
 
 using Aggregates;
+using Timing;
 
 /// <inheritdoc cref="Aviant.DDD.Core.DomainEvents.IDomainEvent&lt;TAggregateId&gt;" />
 public abstract record DomainEvent<TAggregate, TAggregateId> : IDomainEvent<TAggregateId>
@@ -27,6 +28,7 @@ public abstract record DomainEvent<TAggregate, TAggregateId> : IDomainEvent<TAgg
 
         AggregateVersion = aggregate.Version;
         AggregateId      = aggregate.Id;
+        Occurred         = Clock.Now;
     }
 
     #region IDomainEvent<TAggregateId> Members
@@ -36,6 +38,9 @@ public abstract record DomainEvent<TAggregate, TAggregateId> : IDomainEvent<TAgg
 
     /// <inheritdoc />
     public TAggregateId AggregateId { get; private set; }
+
+    /// <inheritdoc />
+    public DateTime Occurred { get; private set; }
 
     #endregion
 }
