@@ -16,6 +16,8 @@ public interface IEventConsumer<TAggregate, out TAggregateId, TDeserializer>
     where TAggregateId : IAggregateId
 {
     public event EventReceivedHandlerAsync<TAggregateId> EventReceived;
+
+    public event ExceptionThrownHandler ExceptionThrown;
 }
 
 public delegate Task EventReceivedHandlerAsync<in TAggregateId>(
@@ -23,3 +25,5 @@ public delegate Task EventReceivedHandlerAsync<in TAggregateId>(
     IDomainEvent<TAggregateId> @event,
     CancellationToken          cancellationToken = default)
     where TAggregateId : IAggregateId;
+
+public delegate void ExceptionThrownHandler(object sender, Exception exception);
