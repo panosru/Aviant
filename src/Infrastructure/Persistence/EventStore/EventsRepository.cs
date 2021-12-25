@@ -14,14 +14,14 @@ internal sealed class EventsRepository<TAggregate, TAggregateId> : IEventsReposi
 {
     private readonly IEventStoreConnectionWrapper _connectionWrapper;
 
-    private readonly IEventDeserializer _eventDeserializer;
+    private readonly IEventSerializer _eventSerializer;
 
     private readonly string _streamBaseName;
 
-    public EventsRepository(IEventStoreConnectionWrapper connectionWrapper, IEventDeserializer eventDeserializer)
+    public EventsRepository(IEventStoreConnectionWrapper connectionWrapper, IEventSerializer eventSerializer)
     {
         _connectionWrapper = connectionWrapper;
-        _eventDeserializer = eventDeserializer;
+        _eventSerializer = eventSerializer;
 
         var aggregateType = typeof(TAggregate);
         _streamBaseName = aggregateType.Name;
@@ -116,7 +116,7 @@ internal sealed class EventsRepository<TAggregate, TAggregateId> : IEventsReposi
     {
         var meta = JsonSerializer.Deserialize<EventMeta>(resolvedEvent.Event.Metadata);
 
-        return _eventDeserializer.Deserialize<TAggregateId>(meta.EventType, resolvedEvent.Event.Data);
+        return _eventSerializer.Deserialize<TAggregateId>(meta.EventType, resolvedEvent.Event.Data);
     }
 
     private static EventData Map(IDomainEvent<TAggregateId> @event)

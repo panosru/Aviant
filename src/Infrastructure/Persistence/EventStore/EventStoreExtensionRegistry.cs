@@ -17,7 +17,7 @@ public static class EventStoreExtensionRegistry
             ctx =>
             {
                 var connectionWrapper = ctx.GetRequiredService<IEventStoreConnectionWrapper>();
-                var eventDeserializer = ctx.GetRequiredService<IEventDeserializer>();
+                var eventDeserializer = ctx.GetRequiredService<IEventSerializer>();
 
                 return new EventsRepository<TAggregate, TAggregateId>(connectionWrapper, eventDeserializer);
             });

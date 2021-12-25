@@ -1,5 +1,6 @@
 namespace Aviant.DDD.Application.Services;
 
+using System.Collections.Concurrent;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
@@ -8,22 +9,25 @@ using Core.DomainEvents;
 using Core.Services;
 using Newtonsoft.Json;
 
-public sealed class JsonEventDeserializer
-    : IEventDeserializer,
-      IJsonEventDeserializerCache
+public sealed class JsonEventSerializer
+    : IEventSerializer
 {
     private readonly IEnumerable<Assembly> _assemblies;
 
-    private readonly IJsonEventDeserializerCache _cache;
+    private readonly ConcurrentDictionary<string, Type?> _cache = new();
 
-    public JsonEventDeserializer(IEnumerable<Assembly>? assemblies)
+    private static readonly JsonSerializerSettings JsonSerializerSettings = new()
     {
-        _cache = this;
+        ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
+        ContractResolver    = new PrivateSetterContractResolver()
+    };
 
+    public JsonEventSerializer(IEnumerable<Assembly>? assemblies)
+    {
         _assemblies = assemblies ?? new[] { Assembly.GetExecutingAssembly() };
     }
 
-    #region IEventDeserializer Members
+    #region IEventSerializer Members
 
     public IDomainEvent<TAggregateId> Deserialize<TAggregateId>(string type, byte[] data)
         where TAggregateId : IAggregateId
@@ -36,38 +40,33 @@ public sealed class JsonEventDeserializer
     public IDomainEvent<TAggregateId> Deserialize<TAggregateId>(string type, string data)
         where TAggregateId : IAggregateId
     {
-        var eventType = _cache.Exists(type)
-            ? _cache.Get(type)
-            : _assemblies
-                 .Select(a => a.GetType(type, false))
-                 .FirstOrDefault(t => t is not null)
-           ?? Type.GetType(type);
+        var eventType = _cache.GetOrAdd(
+            type,
+            _ => _assemblies.Select(
+                         a => a.GetType(type, false))
+                    .FirstOrDefault(
+                         t => t is not null)
+              ?? Type.GetType(type));
 
         if (eventType is null)
             throw new ArgumentOutOfRangeException(nameof(type), $"invalid event type: {type}");
-
-        if (!_cache.Exists(type))
-            _cache.Add(type, eventType);
 
         // as of 01/10/2020, "Deserialization to reference types
         // without a parameterless constructor isn't supported."
         // https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to
         // apparently it's being worked on: https://github.com/dotnet/runtime/issues/29895
 
-        var result = JsonConvert.DeserializeObject(
-            data,
-            eventType,
-            new JsonSerializerSettings
-            {
-                ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-                ContractResolver    = new PrivateSetterContractResolver()
-            });
+        var result = JsonConvert.DeserializeObject(data, eventType, JsonSerializerSettings);
 
         if (result is null)
             throw new SerializationException($"unable to deserialize event {type} : {data}");
 
         return (IDomainEvent<TAggregateId>)result;
     }
+
+    public byte[] Serialize<TAggregateId>(IDomainEvent<TAggregateId> @event)
+        where TAggregateId : IAggregateId =>
+        Encoding.UTF8.GetBytes(System.Text.Json.JsonSerializer.Serialize((dynamic)@event));
 
     #endregion
 }
