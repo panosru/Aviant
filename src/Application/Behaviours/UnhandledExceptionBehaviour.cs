@@ -4,7 +4,7 @@ using MediatR;
 using Serilog;
 
 public sealed class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : notnull
+    where TRequest : IRequest<TResponse>
 {
     private readonly ILogger _logger = Log.Logger.ForContext<UnhandledExceptionBehaviour<TRequest, TResponse>>();
 

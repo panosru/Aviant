@@ -66,4 +66,16 @@ public static class EnumerableExtensions
         Func<T, int, bool>  predicate) => condition
         ? source.Where(predicate)
         : source;
+
+    /// <summary>
+    ///     Iterates through the collection and executes the given action for each element.
+    /// </summary>
+    /// <param name="enumerable"></param>
+    /// <param name="action"></param>
+    /// <typeparam name="T"></typeparam>
+    public static void ForAll<T>(this IEnumerable<T> enumerable, Action<T> action)
+    {
+        foreach (var feature in enumerable)
+            action(feature);
+    }
 }

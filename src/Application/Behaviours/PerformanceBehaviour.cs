@@ -6,7 +6,7 @@ using MediatR;
 using Serilog;
 
 public sealed class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : notnull
+    where TRequest : IRequest<TResponse>
 {
     private readonly ICurrentUserService _currentUserService;
 

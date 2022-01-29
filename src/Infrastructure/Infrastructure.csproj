@@ -9,9 +9,9 @@
     <ItemGroup>
         <PackageReference Include="CsvHelper" Version="27.2.1" />
         <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="6.0.1" />
-        <PackageReference Include="EventStore.Client" Version="21.2.1" />
+        <PackageReference Include="EventStore.Client" Version="21.2.2" />
         <PackageReference Include="Confluent.Kafka" Version="1.8.2" />
-        <PackageReference Include="MailKit" Version="3.0.0" />
+        <PackageReference Include="MailKit" Version="3.1.0" />
 
         <PackageReference Include="NetEscapades.Configuration.Yaml" Version="2.1.0" />
 
