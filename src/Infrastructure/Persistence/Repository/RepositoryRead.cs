@@ -8,7 +8,7 @@ using Core.Exceptions;
 using Core.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-/// <inheritdoc cref="Aviant.DDD.Core.Persistence.IRepositoryRead&lt;TEntity,TPrimaryKey&gt;" />
+/// <inheritdoc cref="Aviant.DDD.Core.Persistence.IRepositoryRead{TEntity,TPrimaryKey}" />
 public abstract class RepositoryReadBase<TDbContext, TEntity, TPrimaryKey>
     : IRepositoryRead<TEntity, TPrimaryKey>,
       IRepositoryImplementation<TEntity, TPrimaryKey>

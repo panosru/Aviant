@@ -41,7 +41,7 @@ public abstract class UseCaseBase<TUseCaseOutput>
     #endregion
 }
 
-/// <inheritdoc cref="Aviant.DDD.Application.UseCases.UseCaseBase&lt;TUseCaseOutput&gt;" />
+/// <inheritdoc cref="Aviant.DDD.Application.UseCases.UseCaseBase{TUseCaseOutput}" />
 /// <inheritdoc cref="Aviant.DDD.Application.UseCases.IUseCaseExecute" />
 /// <summary>
 ///     UseCase abstract class (without input data)
@@ -64,8 +64,8 @@ public abstract class UseCase<TUseCaseOutput>
     #endregion
 }
 
-/// <inheritdoc cref="Aviant.DDD.Application.UseCases.UseCaseBase&lt;TUseCaseOutput&gt;" />
-/// <inheritdoc cref="Aviant.DDD.Application.UseCases.IUseCaseExecute&lt;TUseCaseInput&gt;" />
+/// <inheritdoc cref="Aviant.DDD.Application.UseCases.UseCaseBase{TUseCaseOutput}" />
+/// <inheritdoc cref="Aviant.DDD.Application.UseCases.IUseCaseExecute{TUseCaseInput}" />
 /// <summary>
 ///     UseCase abstract class with input and output
 /// </summary>

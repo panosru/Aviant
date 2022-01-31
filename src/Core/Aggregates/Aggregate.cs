@@ -7,8 +7,8 @@ using System.Reflection;
 using DomainEvents;
 using Entities;
 
-/// <inheritdoc cref="Aviant.DDD.Core.Entities.Entity&lt;TKey&gt;" />
-/// <inheritdoc cref="Aviant.DDD.Core.Aggregates.IAggregate&lt;out TAggregateId&gt;" />
+/// <inheritdoc cref="Aviant.DDD.Core.Entities.Entity{TKey}" />
+/// <inheritdoc cref="Aviant.DDD.Core.Aggregates.IAggregate{out TAggregateId}" />
 /// <summary>
 ///     The aggregate object
 /// </summary>
