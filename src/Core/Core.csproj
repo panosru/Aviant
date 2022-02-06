@@ -8,7 +8,6 @@
 
     <ItemGroup>
         <PackageReference Include="Ardalis.GuardClauses" Version="4.0.0" />
-        <PackageReference Include="AspectInjector" Version="2.7.2" />
         <PackageReference Include="Castle.Core" Version="4.4.1" />
         <PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.0.0" />
         <PackageReference Include="Colorful.Console" Version="1.2.15" />
