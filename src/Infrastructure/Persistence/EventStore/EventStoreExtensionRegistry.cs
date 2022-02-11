@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Infrastructure.Persistence.EventStore;
+namespace Aviant.Infrastructure.Persistence.EventStore;
 
 using Application.Services;
 using Core.Aggregates;

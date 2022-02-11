@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.TransferObjects;
+namespace Aviant.Core.TransferObjects;
 
 using Newtonsoft.Json;
 

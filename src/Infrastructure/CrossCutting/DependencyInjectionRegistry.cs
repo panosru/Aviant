@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Infrastructure.CrossCutting;
+namespace Aviant.Infrastructure.CrossCutting;
 
 using System.Globalization;
 using System.Reflection;

@@ -1,3 +1,3 @@
-namespace Aviant.DDD.Application.Queries;
+namespace Aviant.Application.Queries;
 
 public abstract record Query<TResponse> : IQuery<TResponse>;

@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Infrastructure.Persistence.Contexts;
+namespace Aviant.Infrastructure.Persistence.Contexts;
 
 using Duende.IdentityServer.EntityFramework.Entities;
 using Duende.IdentityServer.EntityFramework.Extensions;
@@ -28,7 +28,7 @@ public class ApiAuthorizationDbContext<TUser, TRole, TKey>
     /// <inheritdoc />
     /// <summary>
     ///     Initializes a new instance of
-    ///     <see cref="T:Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext`3" />.
+    ///     <see cref="T:Aviant.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext`3" />.
     /// </summary>
     /// <param name="options">The <see cref="T:Microsoft.EntityFrameworkCore.DbContextOptions" />.</param>
     /// <param name="operationalStoreOptions">The <see cref="T:Microsoft.Extensions.Options.IOptions`1" />.</param>
@@ -84,7 +84,7 @@ public class ApiAuthorizationDbContext<TUser> : ApiAuthorizationDbContext<TUser,
     /// <inheritdoc />
     /// <summary>
     ///     Initializes a new instance of
-    ///     <see cref="T:Aviant.DDD.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext`1" />.
+    ///     <see cref="T:Aviant.Infrastructure.Persistence.Contexts.ApiAuthorizationDbContext`1" />.
     /// </summary>
     /// <param name="options">The <see cref="T:Microsoft.EntityFrameworkCore.DbContextOptions" />.</param>
     /// <param name="operationalStoreOptions">The <see cref="T:Microsoft.Extensions.Options.IOptions`1" />.</param>

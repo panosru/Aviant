@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Messages;
+namespace Aviant.Core.Messages;
 
 using Exceptions;
 using Services;

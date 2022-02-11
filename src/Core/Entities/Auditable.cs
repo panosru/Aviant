@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Entities;
+namespace Aviant.Core.Entities;
 
 /// <summary>
 ///     Enables the auditability for the entity (db record)
@@ -70,7 +70,7 @@ public interface IHasDeletionTime : IAuditedEntity
 /// <inheritdoc />
 /// <summary>
 ///     Adds the user id who deleted the entity.
-///     Works when the entity implements <see cref="T:Aviant.DDD.Core.Entities.ISoftDelete" />
+///     Works when the entity implements <see cref="T:Aviant.Core.Entities.ISoftDelete" />
 /// </summary>
 public interface IDeletionAudited : IHasDeletionTime
 {

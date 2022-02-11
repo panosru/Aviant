@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.Services;
+namespace Aviant.Application.Services;
 
 using System.Collections.Concurrent;
 using System.Reflection;

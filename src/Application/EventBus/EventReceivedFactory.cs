@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.EventBus;
+namespace Aviant.Application.EventBus;
 
 using Core.EventBus;
 

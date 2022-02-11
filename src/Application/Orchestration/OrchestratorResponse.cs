@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.Orchestration;
+namespace Aviant.Application.Orchestration;
 
 using System.Collections.ObjectModel;
 using Ardalis.GuardClauses;

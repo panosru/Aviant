@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.Queries;
+namespace Aviant.Application.Queries;
 
 using Core.Services;
 using MediatR;

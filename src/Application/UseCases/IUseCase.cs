@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.UseCases;
+namespace Aviant.Application.UseCases;
 
 public interface IUseCase<in TUseCaseOutput>
     where TUseCaseOutput : class, IUseCaseOutput

@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Aggregates;
+namespace Aviant.Core.Aggregates;
 
 /// <summary>
 ///     The interface to define the AggregateId object

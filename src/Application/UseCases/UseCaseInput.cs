@@ -1,6 +1,6 @@
-namespace Aviant.DDD.Application.UseCases;
+namespace Aviant.Application.UseCases;
 
-/// <inheritdoc cref="Aviant.DDD.Application.UseCases.IUseCaseInput" />
+/// <inheritdoc cref="Aviant.Application.UseCases.IUseCaseInput" />
 /// <summary>
 ///     UseCase Abstract Class
 /// </summary>

@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Entities;
+namespace Aviant.Core.Entities;
 
 /// <summary>
 ///     Enables the entity to not be hard deleted from the database

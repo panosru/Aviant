@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Infrastructure.Persistence.Repository;
+namespace Aviant.Infrastructure.Persistence.Repository;
 
 using System.Linq.Expressions;
 using Core.Entities;

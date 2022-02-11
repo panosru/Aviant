@@ -1,8 +1,8 @@
-namespace Aviant.DDD.Core.Timing;
+namespace Aviant.Core.Timing;
 
 /// <inheritdoc />
 /// <summary>
-///     A basic implementation of <see cref="T:Aviant.DDD.Core.Timing.IDateTimeRange" /> to store a date range.
+///     A basic implementation of <see cref="T:Aviant.Core.Timing.IDateTimeRange" /> to store a date range.
 /// </summary>
 [Serializable]
 public sealed class DateTimeRange : IDateTimeRange

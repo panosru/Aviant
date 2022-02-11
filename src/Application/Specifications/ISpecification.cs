@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.Specifications;
+namespace Aviant.Application.Specifications;
 
 using System.Linq.Expressions;
 
@@ -24,15 +24,15 @@ public interface ISpecification<T>
 
     ISpecification<T> None(params ISpecification<T>[] specification);
 
-    ISpecification<T>     And(ISpecification<T>  specification);
+    ISpecification<T> And(ISpecification<T> specification);
 
-    ISpecification<T>     Or(ISpecification<T>   specification);
+    ISpecification<T> Or(ISpecification<T> specification);
 
-    ISpecification<T>     Not(ISpecification<T>  specification);
+    ISpecification<T> Not(ISpecification<T> specification);
 
-    ISpecification<T>     AndNot(ISpecification<T> specification);
+    ISpecification<T> AndNot(ISpecification<T> specification);
 
-    ISpecification<T>     OrNot(ISpecification<T> specification);
+    ISpecification<T> OrNot(ISpecification<T> specification);
 
     /// <summary>
     /// Gets the LINQ expression which represents the current specification.

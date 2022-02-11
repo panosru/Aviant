@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.Specifications;
+namespace Aviant.Application.Specifications;
 
 /// <summary>
 /// Represents that the implemented classes are composite specifications.

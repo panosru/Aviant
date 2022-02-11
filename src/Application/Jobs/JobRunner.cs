@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.Jobs;
+namespace Aviant.Application.Jobs;
 
 using Core.Timing;
 using Hangfire;

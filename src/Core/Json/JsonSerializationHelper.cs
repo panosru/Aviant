@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Json;
+namespace Aviant.Core.Json;
 
 using System.Data;
 using Newtonsoft.Json;

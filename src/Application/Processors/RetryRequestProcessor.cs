@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.Processors;
+namespace Aviant.Application.Processors;
 
 using Core.Services;
 using MediatR;

@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Services;
+namespace Aviant.Core.Services;
 
 using Aggregates;
 

@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.Services;
+namespace Aviant.Application.Services;
 
 using System.Reflection;
 using Newtonsoft.Json;

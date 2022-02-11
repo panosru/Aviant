@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.Services;
+namespace Aviant.Application.Services;
 
 public interface ICsvFileBuilder<in TRecord>
     where TRecord : class

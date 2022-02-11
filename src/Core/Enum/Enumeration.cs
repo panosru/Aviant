@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Enum;
+namespace Aviant.Core.Enum;
 
 using System.Reflection;
 

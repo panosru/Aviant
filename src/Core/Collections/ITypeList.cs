@@ -1,8 +1,8 @@
-namespace Aviant.DDD.Core.Collections;
+namespace Aviant.Core.Collections;
 
 /// <inheritdoc />
 /// <summary>
-/// A shortcut for <see cref="T:Aviant.DDD.Core.Collections.ITypeList`1" /> to use object as base type.
+/// A shortcut for <see cref="T:Aviant.Core.Collections.ITypeList`1" /> to use object as base type.
 /// </summary>
 public interface ITypeList : ITypeList<object>
 { }

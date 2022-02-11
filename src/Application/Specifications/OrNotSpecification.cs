@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.Specifications;
+namespace Aviant.Application.Specifications;
 
 using System.Linq.Expressions;
 
@@ -12,7 +12,7 @@ public class OrNotSpecification<T> : CompositeSpecification<T>
 {
     /// <inheritdoc />
     /// <summary>
-    /// Constructs a new instance of <see cref="T:Aviant.DDD.Application.Specifications.OrNotSpecification`1" /> class.
+    /// Constructs a new instance of <see cref="T:Aviant.Application.Specifications.OrNotSpecification`1" /> class.
     /// </summary>
     /// <param name="left">The first specification.</param>
     /// <param name="right">The second specification.</param>

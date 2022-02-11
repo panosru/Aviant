@@ -12,7 +12,7 @@ pipeline {
         scmSkip(deleteBuild: true, skipPattern:'.*\\[CI-SKIP\\].*')
         script {
           withSonarQubeEnv() {
-            sh "dotnet ${MSBuildScannerHome}/SonarScanner.MSBuild.dll begin /k:\"panosru_Aviant.DDD\""
+            sh "dotnet ${MSBuildScannerHome}/SonarScanner.MSBuild.dll begin /k:\"panosru_Aviant\""
           }
         }
       }
@@ -21,7 +21,7 @@ pipeline {
     stage('Building') {
       steps {
         scmSkip(deleteBuild: true, skipPattern:'.*\\[CI-SKIP\\].*')
-        sh 'dotnet restore Aviant.DDD.sln'
+        sh 'dotnet restore Aviant.sln'
         sh "dotnet build"
       }
     }

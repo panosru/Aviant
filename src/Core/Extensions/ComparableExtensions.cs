@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Extensions;
+namespace Aviant.Core.Extensions;
 
 /// <summary>
 ///     Extension methods for <see cref="IComparable" />.

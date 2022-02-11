@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.EventBus;
+namespace Aviant.Core.EventBus;
 
 using System.Diagnostics.CodeAnalysis;
 using Aggregates;

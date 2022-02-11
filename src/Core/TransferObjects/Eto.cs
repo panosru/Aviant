@@ -1,3 +1,3 @@
-namespace Aviant.DDD.Core.TransferObjects;
+namespace Aviant.Core.TransferObjects;
 
 public abstract record Eto : TransferObject, IEto;

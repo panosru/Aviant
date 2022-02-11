@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Entities;
+namespace Aviant.Core.Entities;
 
 using System.Globalization;
 

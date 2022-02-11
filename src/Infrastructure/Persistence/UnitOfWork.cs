@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Infrastructure.Persistence;
+namespace Aviant.Infrastructure.Persistence;
 
 using Application.Persistence;
 using Core.Aggregates;

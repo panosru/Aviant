@@ -1,11 +1,11 @@
-namespace Aviant.DDD.Core.Collections;
+namespace Aviant.Core.Collections;
 
 using System.Collections;
 using System.Reflection;
 
-/// <inheritdoc cref="Aviant.DDD.Core.Collections.ITypeList" />
+/// <inheritdoc cref="Aviant.Core.Collections.ITypeList" />
 /// <summary>
-/// A shortcut for <see cref="T:Aviant.DDD.Core.Collections.TypeList`1" /> to use object as base type.
+/// A shortcut for <see cref="T:Aviant.Core.Collections.TypeList`1" /> to use object as base type.
 /// </summary>
 public class TypeList : TypeList<object>, ITypeList
 { }
@@ -55,10 +55,8 @@ public class TypeList<TBaseType> : ITypeList<TBaseType>
 
     /// <inheritdoc/>
     public void Add<T>()
-        where T : TBaseType
-    {
+        where T : TBaseType =>
         _typeList.Add(typeof(T));
-    }
 
     /// <inheritdoc/>
     public void Add(Type item)
@@ -68,10 +66,8 @@ public class TypeList<TBaseType> : ITypeList<TBaseType>
     }
 
     /// <inheritdoc/>
-    public void Insert(int index, Type item)
-    {
+    public void Insert(int index, Type item) =>
         _typeList.Insert(index, item);
-    }
 
     /// <inheritdoc/>
     public int IndexOf(Type item) => _typeList.IndexOf(item);
@@ -85,31 +81,22 @@ public class TypeList<TBaseType> : ITypeList<TBaseType>
 
     /// <inheritdoc/>
     public void Remove<T>()
-        where T : TBaseType
-    {
+        where T : TBaseType =>
         _typeList.Remove(typeof(T));
-    }
 
     /// <inheritdoc/>
     public bool Remove(Type item) => _typeList.Remove(item);
 
     /// <inheritdoc/>
-    public void RemoveAt(int index)
-    {
+    public void RemoveAt(int index) =>
         _typeList.RemoveAt(index);
-    }
 
     /// <inheritdoc/>
-    public void Clear()
-    {
-        _typeList.Clear();
-    }
+    public void Clear() => _typeList.Clear();
 
     /// <inheritdoc/>
-    public void CopyTo(Type[] array, int arrayIndex)
-    {
+    public void CopyTo(Type[] array, int arrayIndex) =>
         _typeList.CopyTo(array, arrayIndex);
-    }
 
     /// <inheritdoc/>
     public IEnumerator<Type> GetEnumerator() => _typeList.GetEnumerator();

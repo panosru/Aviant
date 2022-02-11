@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.Behaviours;
+namespace Aviant.Application.Behaviours;
 
 using Identity;
 using Processors;

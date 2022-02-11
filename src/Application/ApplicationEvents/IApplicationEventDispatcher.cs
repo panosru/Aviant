@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.ApplicationEvents;
+namespace Aviant.Application.ApplicationEvents;
 
 using System.Collections.ObjectModel;
 

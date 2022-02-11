@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Timing;
+namespace Aviant.Core.Timing;
 
 /// <summary>
 /// Defines interface for a DateTime range.

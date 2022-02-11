@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Reflection;
+namespace Aviant.Core.Reflection;
 
 public interface ITypeFinder
 {

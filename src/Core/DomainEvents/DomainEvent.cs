@@ -1,9 +1,9 @@
-namespace Aviant.DDD.Core.DomainEvents;
+namespace Aviant.Core.DomainEvents;
 
 using Aggregates;
 using Timing;
 
-/// <inheritdoc cref="Aviant.DDD.Core.DomainEvents.IDomainEvent{TAggregateId}" />
+/// <inheritdoc cref="Aviant.Core.DomainEvents.IDomainEvent{TAggregateId}" />
 public abstract record DomainEvent<TAggregate, TAggregateId> : IDomainEvent<TAggregateId>
     where TAggregate : IAggregate<TAggregateId>
     where TAggregateId : IAggregateId

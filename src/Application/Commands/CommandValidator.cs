@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.Commands;
+namespace Aviant.Application.Commands;
 
 using FluentValidation;
 

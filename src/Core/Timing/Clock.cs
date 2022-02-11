@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Timing;
+namespace Aviant.Core.Timing;
 
 /// <summary>
 ///     Used to perform some common date-time operations.

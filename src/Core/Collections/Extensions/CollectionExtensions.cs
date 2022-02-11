@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Collections.Extensions;
+namespace Aviant.Core.Collections.Extensions;
 
 /// <summary>
 ///     Extension methods for Collections.

@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Aggregates;
+namespace Aviant.Core.Aggregates;
 
 using DomainEvents;
 using Entities;

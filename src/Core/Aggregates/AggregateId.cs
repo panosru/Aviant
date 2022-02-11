@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Aggregates;
+namespace Aviant.Core.Aggregates;
 
 using System.Globalization;
 using System.Text;

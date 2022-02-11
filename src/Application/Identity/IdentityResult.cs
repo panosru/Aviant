@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.Identity;
+namespace Aviant.Application.Identity;
 
 public sealed class IdentityResult
 {

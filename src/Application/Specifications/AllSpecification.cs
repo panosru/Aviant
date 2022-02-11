@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Application.Specifications;
+namespace Aviant.Application.Specifications;
 
 using System.Linq.Expressions;
 
@@ -21,4 +21,4 @@ public sealed class AllSpecification<T> : Specification<T>
     /// <returns>The LINQ expression.</returns>
     public override Expression<Func<T, bool>> ToExpression() => candidate =>
         _specifications.All(specification => specification.IsSatisfiedBy(candidate));
-} 
+}

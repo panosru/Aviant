@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.DomainEvents;
+namespace Aviant.Core.DomainEvents;
 
 using EventBus;
 using MediatR;

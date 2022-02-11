@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Infrastructure.Persistence.Contexts;
+namespace Aviant.Infrastructure.Persistence.Contexts;
 
 using System.Linq.Expressions;
 using System.Reflection;

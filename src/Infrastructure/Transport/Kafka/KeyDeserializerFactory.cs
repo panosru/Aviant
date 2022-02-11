@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Infrastructure.Transport.Kafka;
+namespace Aviant.Infrastructure.Transport.Kafka;
 
 using Confluent.Kafka;
 using Core.Aggregates;

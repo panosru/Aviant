@@ -1,4 +1,4 @@
-namespace Aviant.DDD.Core.Domain;
+namespace Aviant.Core.Domain;
 
 using Microsoft.Extensions.Configuration;
 
