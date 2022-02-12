@@ -1,4 +1,4 @@
-namespace Aviant.Core.Timing;
+namespace Aviant.Foundation.Core.Timing;
 
 /// <summary>
 /// Defines interface to perform some common date-time operations.

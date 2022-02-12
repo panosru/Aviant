@@ -1,7 +1,7 @@
-namespace Aviant.Application.Specifications;
+namespace Aviant.Foundation.Application.Specifications;
 
-/// <inheritdoc cref="Aviant.Application.Specifications.Specification{T}" />
-/// <inheritdoc cref="Aviant.Application.Specifications.ICompositeSpecification{T}" />
+/// <inheritdoc cref="Aviant.Foundation.Application.Specifications.Specification{T}" />
+/// <inheritdoc cref="Aviant.Foundation.Application.Specifications.ICompositeSpecification{T}" />
 /// <summary>
 /// Represents the base class for composite specifications.
 /// </summary>

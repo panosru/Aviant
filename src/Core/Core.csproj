@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <RootNamespace>Aviant.Core</RootNamespace>
-        <AssemblyName>Aviant.Core</AssemblyName>
+        <RootNamespace>Aviant.Foundation.Core</RootNamespace>
+        <AssemblyName>Aviant.Foundation.Core</AssemblyName>
         <Version>1.0.0-preview.7</Version>
     </PropertyGroup>
 

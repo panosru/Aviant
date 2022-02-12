@@ -1,4 +1,4 @@
-namespace Aviant.Core.Exceptions;
+namespace Aviant.Foundation.Core.Exceptions;
 
 using System.Runtime.Serialization;
 using Timing;

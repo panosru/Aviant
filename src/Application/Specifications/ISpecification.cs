@@ -1,4 +1,4 @@
-namespace Aviant.Application.Specifications;
+namespace Aviant.Foundation.Application.Specifications;
 
 using System.Linq.Expressions;
 

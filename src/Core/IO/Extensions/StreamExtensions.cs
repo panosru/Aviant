@@ -1,4 +1,4 @@
-namespace Aviant.Core.IO.Extensions;
+namespace Aviant.Foundation.Core.IO.Extensions;
 
 public static class StreamExtensions
 {

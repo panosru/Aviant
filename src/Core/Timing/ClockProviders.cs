@@ -1,4 +1,4 @@
-namespace Aviant.Core.Timing;
+namespace Aviant.Foundation.Core.Timing;
 
 public static class ClockProviders
 {

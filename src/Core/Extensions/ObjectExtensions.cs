@@ -1,4 +1,4 @@
-namespace Aviant.Core.Extensions;
+namespace Aviant.Foundation.Core.Extensions;
 
 using System;
 using System.ComponentModel;

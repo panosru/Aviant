@@ -1,7 +1,7 @@
 namespace Aviant.EventSourcing.Core.DomainEvents;
 
 using Aggregates;
-using Aviant.Core.Timing;
+using Aviant.Foundation.Core.Timing;
 
 /// <inheritdoc cref="IDomainEvent{TAggregateId}" />
 public abstract record DomainEvent<TAggregate, TAggregateId> : IDomainEvent<TAggregateId>

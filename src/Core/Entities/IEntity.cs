@@ -1,4 +1,4 @@
-namespace Aviant.Core.Entities;
+namespace Aviant.Foundation.Core.Entities;
 
 /// <summary>
 ///     Defines interface for base entity type. All entities in the system must implement this interface.

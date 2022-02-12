@@ -4,10 +4,10 @@ namespace Aviant.EventSourcing.Core.Aggregates;
 
 using System.Collections.Immutable;
 using System.Reflection;
-using Aviant.Core.Entities;
+using Aviant.Foundation.Core.Entities;
 using DomainEvents;
 
-/// <inheritdoc cref="Aviant.Core.Entities.Entity{TKey}" />
+/// <inheritdoc cref="Aviant.Foundation.Core.Entities.Entity{TKey}" />
 /// <inheritdoc cref="IAggregate{TAggregateId}" />
 /// <summary>
 ///     The aggregate object

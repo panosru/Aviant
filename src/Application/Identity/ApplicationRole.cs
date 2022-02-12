@@ -1,4 +1,4 @@
-namespace Aviant.Application.Identity;
+namespace Aviant.Foundation.Application.Identity;
 
 using Microsoft.AspNetCore.Identity;
 

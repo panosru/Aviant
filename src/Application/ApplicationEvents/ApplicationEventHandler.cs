@@ -1,4 +1,4 @@
-namespace Aviant.Application.ApplicationEvents;
+namespace Aviant.Foundation.Application.ApplicationEvents;
 
 using Polly;
 

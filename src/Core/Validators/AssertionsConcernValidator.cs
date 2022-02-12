@@ -1,4 +1,4 @@
-namespace Aviant.Core.Validators;
+namespace Aviant.Foundation.Core.Validators;
 
 using Messages;
 

@@ -1,4 +1,4 @@
-namespace Aviant.Application.Commands;
+namespace Aviant.Foundation.Application.Commands;
 
 using MediatR;
 using Polly;

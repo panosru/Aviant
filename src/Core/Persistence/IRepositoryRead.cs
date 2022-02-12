@@ -1,4 +1,4 @@
-namespace Aviant.Core.Persistence;
+namespace Aviant.Foundation.Core.Persistence;
 
 using System.Linq.Expressions;
 using Entities;

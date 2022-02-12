@@ -1,6 +1,6 @@
 namespace Aviant.EventSourcing.Core.DomainEvents;
 
-using Aviant.Core.Services;
+using Aviant.Foundation.Core.Services;
 using EventBus;
 using MediatR;
 

@@ -1,4 +1,4 @@
-namespace Aviant.Core.Reflection.Extensions;
+namespace Aviant.Foundation.Core.Reflection.Extensions;
 
 using System.Reflection;
 

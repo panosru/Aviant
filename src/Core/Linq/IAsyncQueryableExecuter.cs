@@ -1,4 +1,4 @@
-namespace Aviant.Core.Linq;
+namespace Aviant.Foundation.Core.Linq;
 
 public interface IAsyncQueryableExecutor
 {

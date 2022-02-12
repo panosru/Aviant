@@ -1,6 +1,6 @@
 namespace Aviant.EventSourcing.Application.Commands;
 
-using Aviant.Core.Services;
+using Aviant.Foundation.Core.Services;
 using Core.Aggregates;
 using MediatR;
 

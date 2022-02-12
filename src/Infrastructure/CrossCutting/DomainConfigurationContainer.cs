@@ -1,4 +1,4 @@
-namespace Aviant.Infrastructure.CrossCutting;
+namespace Aviant.Foundation.Infrastructure.CrossCutting;
 
 using Core.Domain;
 using Microsoft.Extensions.Configuration;

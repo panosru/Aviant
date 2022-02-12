@@ -1,4 +1,4 @@
-namespace Aviant.Core.Services;
+namespace Aviant.Foundation.Core.Services;
 
 public interface IServiceContainer
 {

@@ -1,4 +1,4 @@
-namespace Aviant.Core.Extensions;
+namespace Aviant.Foundation.Core.Extensions;
 
 /// <summary>
 ///     Extension methods for <see cref="DateTime" />.

@@ -1,6 +1,6 @@
 namespace Aviant.EventSourcing.Application.EventBus;
 
-using Aviant.Application.Processors;
+using Aviant.Foundation.Application.Processors;
 using Scrutor;
 
 public static class HandlerExtensionRegistry

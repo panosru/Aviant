@@ -1,4 +1,4 @@
-namespace Aviant.Infrastructure.Persistence.Configurations;
+namespace Aviant.Foundation.Infrastructure.Persistence.Configurations;
 
 using Core.Entities;
 using Microsoft.EntityFrameworkCore;

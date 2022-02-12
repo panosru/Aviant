@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
-using Aviant.Application.Services;
+using Aviant.Foundation.Application.Services;
 using Core.Aggregates;
 using Core.DomainEvents;
 using Core.Services;

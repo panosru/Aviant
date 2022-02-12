@@ -1,8 +1,8 @@
-namespace Aviant.Core.Timing;
+namespace Aviant.Foundation.Core.Timing;
 
 /// <inheritdoc />
 /// <summary>
-///     Implements <see cref="T:Aviant.Core.Timing.IClockProvider" /> to work with UTC times.
+///     Implements <see cref="T:Aviant.Foundation.Core.Timing.IClockProvider" /> to work with UTC times.
 /// </summary>
 public sealed class UtcClockProvider : IClockProvider
 {

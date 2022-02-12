@@ -1,4 +1,4 @@
-namespace Aviant.Infrastructure.Persistence.Contexts;
+namespace Aviant.Foundation.Infrastructure.Persistence.Contexts;
 
 using Application.Identity;
 using Application.Persistence;

@@ -1,4 +1,4 @@
-namespace Aviant.Application.Services;
+namespace Aviant.Foundation.Application.Services;
 
 using Core.Services;
 using Microsoft.AspNetCore.Http;

@@ -1,4 +1,4 @@
-namespace Aviant.Infrastructure.Persistence;
+namespace Aviant.Foundation.Infrastructure.Persistence;
 
 using Application.Persistence;
 

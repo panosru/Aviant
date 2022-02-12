@@ -1,4 +1,4 @@
-namespace Aviant.Application.Behaviours;
+namespace Aviant.Foundation.Application.Behaviours;
 
 using Identity;
 using Processors;

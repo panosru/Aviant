@@ -1,4 +1,4 @@
-namespace Aviant.Application.Processors;
+namespace Aviant.Foundation.Application.Processors;
 
 public abstract class RequestPreProcessor<TRequest> : IRequestPreProcessor<TRequest>
     where TRequest : notnull

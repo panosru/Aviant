@@ -1,4 +1,4 @@
-namespace Aviant.Core.IO;
+namespace Aviant.Foundation.Core.IO;
 
 /// <summary>
 /// A helper class for File operations.

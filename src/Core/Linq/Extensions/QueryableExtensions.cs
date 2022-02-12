@@ -1,4 +1,4 @@
-namespace Aviant.Core.Linq.Extensions;
+namespace Aviant.Foundation.Core.Linq.Extensions;
 
 using System.Linq.Expressions;
 

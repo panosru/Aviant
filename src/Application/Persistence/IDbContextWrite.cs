@@ -1,4 +1,4 @@
-namespace Aviant.Application.Persistence;
+namespace Aviant.Foundation.Application.Persistence;
 
 public interface IDbContextWrite : IDisposable
 {

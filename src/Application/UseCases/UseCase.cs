@@ -1,7 +1,7 @@
 // ReSharper disable MemberCanBePrivate.Global
 
 #pragma warning disable 8618
-namespace Aviant.Application.UseCases;
+namespace Aviant.Foundation.Application.UseCases;
 
 using Behaviours;
 using Core.Services;
@@ -40,8 +40,8 @@ public abstract class UseCaseBase<TUseCaseOutput>
     #endregion
 }
 
-/// <inheritdoc cref="Aviant.Application.UseCases.UseCaseBase{TUseCaseOutput}" />
-/// <inheritdoc cref="Aviant.Application.UseCases.IUseCaseExecute" />
+/// <inheritdoc cref="Aviant.Foundation.Application.UseCases.UseCaseBase{TUseCaseOutput}" />
+/// <inheritdoc cref="Aviant.Foundation.Application.UseCases.IUseCaseExecute" />
 /// <summary>
 ///     UseCase abstract class (without input data)
 /// </summary>
@@ -63,8 +63,8 @@ public abstract class UseCase<TUseCaseOutput>
     #endregion
 }
 
-/// <inheritdoc cref="Aviant.Application.UseCases.UseCaseBase{TUseCaseOutput}" />
-/// <inheritdoc cref="Aviant.Application.UseCases.IUseCaseExecute{TUseCaseInput}" />
+/// <inheritdoc cref="Aviant.Foundation.Application.UseCases.UseCaseBase{TUseCaseOutput}" />
+/// <inheritdoc cref="Aviant.Foundation.Application.UseCases.IUseCaseExecute{TUseCaseInput}" />
 /// <summary>
 ///     UseCase abstract class with input and output
 /// </summary>

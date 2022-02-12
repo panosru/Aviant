@@ -1,4 +1,4 @@
-namespace Aviant.Application.UseCases;
+namespace Aviant.Foundation.Application.UseCases;
 
 /// <summary>
 ///     UseCase Input object Interface

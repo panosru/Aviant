@@ -1,4 +1,4 @@
-namespace Aviant.Application.Mappings;
+namespace Aviant.Foundation.Application.Mappings;
 
 using AutoMapper;
 

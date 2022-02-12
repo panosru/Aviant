@@ -1,4 +1,4 @@
-namespace Aviant.Infrastructure.Persistence.Repository;
+namespace Aviant.Foundation.Infrastructure.Persistence.Repository;
 
 using System.Linq.Expressions;
 using Application.Identity;
@@ -8,7 +8,7 @@ using Core.Exceptions;
 using Core.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-/// <inheritdoc cref="Aviant.Core.Persistence.IRepositoryWrite{TEntity,TPrimaryKey}" />
+/// <inheritdoc cref="Aviant.Foundation.Core.Persistence.IRepositoryWrite{TEntity,TPrimaryKey}" />
 public abstract class RepositoryWriteBase<TDbContext, TEntity, TPrimaryKey>
     : IRepositoryWrite<TEntity, TPrimaryKey>,
       IRepositoryImplementation<TEntity, TPrimaryKey>

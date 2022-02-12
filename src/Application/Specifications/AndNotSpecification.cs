@@ -1,4 +1,4 @@
-namespace Aviant.Application.Specifications;
+namespace Aviant.Foundation.Application.Specifications;
 
 using System.Linq.Expressions;
 
@@ -12,7 +12,7 @@ public class AndNotSpecification<T> : CompositeSpecification<T>
 {
     /// <inheritdoc />
     /// <summary>
-    /// Constructs a new instance of <see cref="T:Aviant.Application.Specifications.AndNotSpecification`1" /> class.
+    /// Constructs a new instance of <see cref="T:Aviant.Foundation.Application.Specifications.AndNotSpecification`1" /> class.
     /// </summary>
     /// <param name="left">The first specification.</param>
     /// <param name="right">The second specification.</param>

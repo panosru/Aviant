@@ -1,4 +1,4 @@
-namespace Aviant.Core.Linq.Expressions;
+namespace Aviant.Foundation.Core.Linq.Expressions;
 
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;

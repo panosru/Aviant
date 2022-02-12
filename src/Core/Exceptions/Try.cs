@@ -1,4 +1,4 @@
-namespace Aviant.Core.Exceptions;
+namespace Aviant.Foundation.Core.Exceptions;
 
 public static class Try
 {

@@ -1,4 +1,4 @@
-namespace Aviant.Core.Utilities;
+namespace Aviant.Foundation.Core.Utilities;
 
 using Collections.Extensions;
 

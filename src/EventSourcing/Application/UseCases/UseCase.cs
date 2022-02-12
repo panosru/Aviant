@@ -3,8 +3,8 @@
 #pragma warning disable 8618
 namespace Aviant.EventSourcing.Application.UseCases;
 
-using Aviant.Application.UseCases;
-using Aviant.Core.Services;
+using Aviant.Foundation.Application.UseCases;
+using Aviant.Foundation.Core.Services;
 using Core.Aggregates;
 using Orchestration;
 

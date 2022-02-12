@@ -1,4 +1,4 @@
-namespace Aviant.Core.Configuration;
+namespace Aviant.Foundation.Core.Configuration;
 
 /// <summary>
 ///     Indicate state

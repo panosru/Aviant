@@ -1,7 +1,7 @@
 namespace Aviant.EventSourcing.Application.Orchestration;
 
-using Aviant.Application.Orchestration;
-using Aviant.Application.Queries;
+using Aviant.Foundation.Application.Orchestration;
+using Aviant.Foundation.Application.Queries;
 using Commands;
 using Core.Aggregates;
 

@@ -1,4 +1,4 @@
-namespace Aviant.Core.Extensions;
+namespace Aviant.Foundation.Core.Extensions;
 
 using System.Runtime.ExceptionServices;
 using System.Text.RegularExpressions;

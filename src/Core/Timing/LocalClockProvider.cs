@@ -1,8 +1,8 @@
-namespace Aviant.Core.Timing;
+namespace Aviant.Foundation.Core.Timing;
 
 /// <inheritdoc />
 /// <summary>
-/// Implements <see cref="T:Aviant.Core.Timing.IClockProvider" /> to work with local times.
+/// Implements <see cref="T:Aviant.Foundation.Core.Timing.IClockProvider" /> to work with local times.
 /// </summary>
 public sealed class LocalClockProvider : IClockProvider
 {

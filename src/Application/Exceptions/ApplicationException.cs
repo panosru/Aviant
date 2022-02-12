@@ -1,4 +1,4 @@
-namespace Aviant.Application.Exceptions;
+namespace Aviant.Foundation.Application.Exceptions;
 
 using System.Runtime.Serialization;
 using Core.Exceptions;

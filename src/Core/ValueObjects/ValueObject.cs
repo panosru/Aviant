@@ -1,4 +1,4 @@
-namespace Aviant.Core.ValueObjects;
+namespace Aviant.Foundation.Core.ValueObjects;
 
 using System.Reflection;
 
