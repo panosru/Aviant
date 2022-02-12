@@ -8,7 +8,7 @@ using Newtonsoft.Json.Serialization;
 /// <summary>
 ///     https://www.mking.net/blog/working-with-private-setters-in-json-net
 /// </summary>
-internal sealed class PrivateSetterContractResolver : DefaultContractResolver
+public sealed class PrivateSetterContractResolver : DefaultContractResolver
 {
     protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
     {

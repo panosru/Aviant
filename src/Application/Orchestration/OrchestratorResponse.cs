@@ -10,16 +10,16 @@ public sealed class OrchestratorResponse
     public OrchestratorResponse()
     { }
 
-    internal OrchestratorResponse(object? payload)
+    public OrchestratorResponse(object? payload)
     {
         _payload  = payload;
         Succeeded = true;
     }
 
-    internal OrchestratorResponse(object? payload, int? affectedRows)
+    public OrchestratorResponse(object? payload, int? affectedRows)
         : this(payload) => AffectedRows = affectedRows;
 
-    internal OrchestratorResponse(Collection<string> messages)
+    public OrchestratorResponse(Collection<string> messages)
     {
         Messages  = messages;
         Succeeded = false;

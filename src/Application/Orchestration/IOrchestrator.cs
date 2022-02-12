@@ -1,7 +1,6 @@
 namespace Aviant.Application.Orchestration;
 
 using Commands;
-using Core.Aggregates;
 using Persistence;
 using Queries;
 
@@ -23,19 +22,6 @@ public interface IOrchestrator<TDbContext>
     public Task<OrchestratorResponse> SendCommandAsync<T>(
         ICommand<T>       command,
         CancellationToken cancellationToken = default);
-
-    public Task<OrchestratorResponse> SendQueryAsync<T>(
-        IQuery<T>         query,
-        CancellationToken cancellationToken = default);
-}
-
-public interface IOrchestrator<in TAggregate, out TAggregateId>
-    where TAggregate : class, IAggregate<TAggregateId>
-    where TAggregateId : class, IAggregateId
-{
-    public Task<OrchestratorResponse> SendCommandAsync(
-        ICommand<TAggregate, TAggregateId> command,
-        CancellationToken                  cancellationToken = default);
 
     public Task<OrchestratorResponse> SendQueryAsync<T>(
         IQuery<T>         query,

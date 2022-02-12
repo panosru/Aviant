@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>Aviant.EventSourcing.Core</RootNamespace>
+        <AssemblyName>Aviant.EventSourcing.Core</AssemblyName>
+        <Version>1.0.0-preview.7</Version>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Core\Core.csproj" />
+    </ItemGroup>
+
+</Project>
