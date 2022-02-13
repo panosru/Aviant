@@ -1,11 +1,11 @@
 // ReSharper disable MemberCanBePrivate.Global
 
 #pragma warning disable 8618
-namespace Aviant.EventSourcing.Application.UseCases;
+namespace Aviant.Application.EventSourcing.UseCases;
 
-using Aviant.Foundation.Application.UseCases;
-using Aviant.Foundation.Core.Services;
-using Core.Aggregates;
+using Aviant.Application.UseCases;
+using Aviant.Core.Services;
+using Core.EventSourcing.Aggregates;
 using Orchestration;
 
 /// <inheritdoc />

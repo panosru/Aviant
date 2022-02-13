@@ -1,4 +1,4 @@
-namespace Aviant.EventSourcing.Core.Aggregates;
+namespace Aviant.Core.EventSourcing.Aggregates;
 
 using System.Globalization;
 using System.Text;

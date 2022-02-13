@@ -1,9 +1,9 @@
-namespace Aviant.EventSourcing.Application.Services;
+namespace Aviant.Application.EventSourcing.Services;
 
-using Core.Aggregates;
-using Core.EventBus;
-using Core.Persistence;
-using Core.Services;
+using Core.EventSourcing.Aggregates;
+using Core.EventSourcing.EventBus;
+using Core.EventSourcing.Persistence;
+using Core.EventSourcing.Services;
 
 public sealed class EventsService<TAggregate, TAggregateId> : IEventsService<TAggregate, TAggregateId>
     where TAggregate : class, IAggregate<TAggregateId>

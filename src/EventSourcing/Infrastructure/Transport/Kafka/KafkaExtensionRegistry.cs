@@ -1,7 +1,7 @@
-namespace Aviant.EventSourcing.Infrastructure.Transport.Kafka;
+namespace Aviant.Infrastructure.EventSourcing.Transport.Kafka;
 
-using Core.Aggregates;
-using Core.EventBus;
+using Core.EventSourcing.Aggregates;
+using Core.EventSourcing.EventBus;
 using Microsoft.Extensions.DependencyInjection;
 
 public static class KafkaExtensionRegistry

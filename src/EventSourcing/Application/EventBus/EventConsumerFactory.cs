@@ -1,8 +1,8 @@
-namespace Aviant.EventSourcing.Application.EventBus;
+namespace Aviant.Application.EventSourcing.EventBus;
 
-using Core.Aggregates;
-using Core.DomainEvents;
-using Core.EventBus;
+using Core.EventSourcing.Aggregates;
+using Core.EventSourcing.DomainEvents;
+using Core.EventSourcing.EventBus;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 

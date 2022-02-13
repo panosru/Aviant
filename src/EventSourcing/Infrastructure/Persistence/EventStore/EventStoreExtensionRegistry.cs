@@ -1,10 +1,10 @@
-namespace Aviant.EventSourcing.Infrastructure.Persistence.EventStore;
+namespace Aviant.Infrastructure.EventSourcing.Persistence.EventStore;
 
-using Application.Services;
-using Core.Aggregates;
-using Core.EventBus;
-using Core.Persistence;
-using Core.Services;
+using Application.EventSourcing.Services;
+using Core.EventSourcing.Aggregates;
+using Core.EventSourcing.EventBus;
+using Core.EventSourcing.Persistence;
+using Core.EventSourcing.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 public static class EventStoreExtensionRegistry

@@ -1,10 +1,10 @@
-namespace Aviant.EventSourcing.Infrastructure.Transport.Kafka;
+namespace Aviant.Infrastructure.EventSourcing.Transport.Kafka;
 
 using System.Text;
 using System.Text.Json;
 using Confluent.Kafka;
-using Core.Aggregates;
-using Core.EventBus;
+using Core.EventSourcing.Aggregates;
+using Core.EventSourcing.EventBus;
 using Serilog;
 
 internal sealed class EventProducer<TAggregate, TAggregateId> : IEventProducer<TAggregate, TAggregateId>

@@ -1,4 +1,4 @@
-namespace Aviant.EventSourcing.Infrastructure.Persistence.EventStore;
+namespace Aviant.Infrastructure.EventSourcing.Persistence.EventStore;
 
 using global::EventStore.ClientAPI;
 

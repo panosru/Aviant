@@ -1,4 +1,4 @@
-namespace Aviant.EventSourcing.Core.Services;
+namespace Aviant.Core.EventSourcing.Services;
 
 using Aggregates;
 

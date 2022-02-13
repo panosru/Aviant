@@ -1,8 +1,8 @@
-namespace Aviant.EventSourcing.Application.Commands;
+namespace Aviant.Application.EventSourcing.Commands;
 
-using Aviant.Foundation.Core.Services;
-using Core.Aggregates;
-using Core.Services;
+using Aviant.Core.Services;
+using Core.EventSourcing.Aggregates;
+using Core.EventSourcing.Services;
 using Polly;
 
 public abstract class CommandHandler<TCommand, TAggregate, TAggregateId>

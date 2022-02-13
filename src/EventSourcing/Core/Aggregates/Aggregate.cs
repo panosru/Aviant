@@ -1,13 +1,13 @@
 // ReSharper disable InvalidXmlDocComment
 
-namespace Aviant.EventSourcing.Core.Aggregates;
+namespace Aviant.Core.EventSourcing.Aggregates;
 
 using System.Collections.Immutable;
 using System.Reflection;
-using Aviant.Foundation.Core.Entities;
+using Entities;
 using DomainEvents;
 
-/// <inheritdoc cref="Aviant.Foundation.Core.Entities.Entity{TKey}" />
+/// <inheritdoc cref="Aviant.Core.Entities.Entity{TKey}" />
 /// <inheritdoc cref="IAggregate{TAggregateId}" />
 /// <summary>
 ///     The aggregate object

@@ -1,10 +1,10 @@
-namespace Aviant.EventSourcing.Application.Orchestration;
+namespace Aviant.Application.EventSourcing.Orchestration;
 
-using Aviant.Foundation.Application.ApplicationEvents;
-using Aviant.Foundation.Application.Orchestration;
-using Aviant.Foundation.Core.Messages;
+using ApplicationEvents;
+using Aviant.Application.Orchestration;
+using Core.Messages;
 using Commands;
-using Core.Aggregates;
+using Core.EventSourcing.Aggregates;
 using MediatR;
 using Persistence;
 

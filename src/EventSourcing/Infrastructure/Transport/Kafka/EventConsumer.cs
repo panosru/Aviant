@@ -1,11 +1,11 @@
-namespace Aviant.EventSourcing.Infrastructure.Transport.Kafka;
+namespace Aviant.Infrastructure.EventSourcing.Transport.Kafka;
 
 using System.Text;
 using Confluent.Kafka;
-using Core.Aggregates;
-using Core.DomainEvents;
-using Core.EventBus;
-using Core.Services;
+using Core.EventSourcing.Aggregates;
+using Core.EventSourcing.DomainEvents;
+using Core.EventSourcing.EventBus;
+using Core.EventSourcing.Services;
 using Serilog;
 
 public sealed class EventConsumer<TAggregate, TAggregateId, TDeserializer>

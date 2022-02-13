@@ -1,4 +1,4 @@
-namespace Aviant.EventSourcing.Core.Aggregates;
+namespace Aviant.Core.EventSourcing.Aggregates;
 
 /// <summary>
 ///     The interface to define the AggregateId object

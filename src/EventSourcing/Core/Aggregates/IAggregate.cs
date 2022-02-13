@@ -1,6 +1,6 @@
-namespace Aviant.EventSourcing.Core.Aggregates;
+namespace Aviant.Core.EventSourcing.Aggregates;
 
-using Aviant.Foundation.Core.Entities;
+using Entities;
 using DomainEvents;
 
 /// <inheritdoc />

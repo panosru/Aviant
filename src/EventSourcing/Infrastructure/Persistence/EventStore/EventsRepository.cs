@@ -1,11 +1,11 @@
-namespace Aviant.EventSourcing.Infrastructure.Persistence.EventStore;
+namespace Aviant.Infrastructure.EventSourcing.Persistence.EventStore;
 
 using System.Text;
 using System.Text.Json;
-using Core.Aggregates;
-using Core.DomainEvents;
-using Core.Persistence;
-using Core.Services;
+using Core.EventSourcing.Aggregates;
+using Core.EventSourcing.DomainEvents;
+using Core.EventSourcing.Persistence;
+using Core.EventSourcing.Services;
 using global::EventStore.ClientAPI;
 
 internal sealed class EventsRepository<TAggregate, TAggregateId> : IEventsRepository<TAggregate, TAggregateId>

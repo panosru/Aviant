@@ -1,4 +1,4 @@
-namespace Aviant.EventSourcing.Infrastructure.Transport.Kafka;
+namespace Aviant.Infrastructure.EventSourcing.Transport.Kafka;
 
 using Confluent.Kafka;
 

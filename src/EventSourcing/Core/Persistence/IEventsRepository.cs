@@ -1,4 +1,4 @@
-namespace Aviant.EventSourcing.Core.Persistence;
+namespace Aviant.Core.EventSourcing.Persistence;
 
 using Aggregates;
 

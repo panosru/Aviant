@@ -1,4 +1,4 @@
-namespace Aviant.EventSourcing.Core.DomainEvents;
+namespace Aviant.Core.EventSourcing.DomainEvents;
 
 using Aggregates;
 

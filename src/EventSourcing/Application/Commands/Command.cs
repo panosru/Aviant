@@ -1,6 +1,6 @@
-namespace Aviant.EventSourcing.Application.Commands;
+namespace Aviant.Application.EventSourcing.Commands;
 
-using Core.Aggregates;
+using Core.EventSourcing.Aggregates;
 
 public abstract record Command<TAggregate, TAggregateId> : ICommand<TAggregate, TAggregateId>
     where TAggregate : class, IAggregate<TAggregateId>

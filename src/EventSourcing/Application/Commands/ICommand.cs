@@ -1,6 +1,6 @@
-namespace Aviant.EventSourcing.Application.Commands;
+namespace Aviant.Application.EventSourcing.Commands;
 
-using Core.Aggregates;
+using Core.EventSourcing.Aggregates;
 using MediatR;
 
 public interface ICommand<out TAggregate, in TAggregateId> : IRequest<TAggregate>

@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <RootNamespace>Aviant.EventSourcing.Application</RootNamespace>
-        <AssemblyName>Aviant.EventSourcing.Application</AssemblyName>
+        <RootNamespace>Aviant.Application.EventSourcing</RootNamespace>
+        <AssemblyName>Aviant.Application.EventSourcing</AssemblyName>
         <Version>1.0.0-preview.7</Version>
     </PropertyGroup>
 
