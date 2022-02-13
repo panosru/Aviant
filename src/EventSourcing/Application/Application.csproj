@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Foundation\Application\Application.csproj" />
+        <ProjectReference Include="..\..\Kernel\Application\Application.csproj" />
         <ProjectReference Include="..\Core\Core.csproj" />
     </ItemGroup>
 
