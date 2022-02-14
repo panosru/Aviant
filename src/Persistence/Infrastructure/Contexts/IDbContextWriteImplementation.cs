@@ -6,7 +6,7 @@ using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-internal interface IDbContextWriteImplementation<TDbContext>
+public interface IDbContextWriteImplementation<TDbContext>
     where TDbContext : class, IDbContextWrite
 {
     public void ChangeTracker(

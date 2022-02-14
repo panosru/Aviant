@@ -4,7 +4,7 @@ using Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-internal interface IDbContextReadImplementation
+public interface IDbContextReadImplementation
 {
     public void OnPreBaseModelCreating(ModelBuilder modelBuilder)
     {
@@ -21,8 +21,6 @@ internal interface IDbContextReadImplementation
         changeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
     }
 
-    public static void ThrowWriteException()
-    {
+    public static void ThrowWriteException() =>
         throw new InfrastructureException("Read-only context");
-    }
 }

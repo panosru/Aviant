@@ -1,7 +1,6 @@
 namespace Aviant.Infrastructure.Persistence.Repository;
 
 using System.Linq.Expressions;
-using Application.Identity;
 using Contexts;
 using Core.Entities;
 using Core.Exceptions;
@@ -223,18 +222,6 @@ public abstract class RepositoryRead<TDbContext, TEntity, TPrimaryKey>
     : RepositoryReadBase<TDbContext, TEntity, TPrimaryKey>
     where TEntity : Entity<TPrimaryKey>
     where TDbContext : DbContextRead
-{
-    protected RepositoryRead(TDbContext context)
-        : base(context)
-    { }
-}
-
-public abstract class RepositoryRead<TDbContext, TApplicationUser, TApplicationRole, TEntity, TPrimaryKey>
-    : RepositoryReadBase<TDbContext, TEntity, TPrimaryKey>
-    where TEntity : Entity<TPrimaryKey>
-    where TApplicationUser : ApplicationUser
-    where TApplicationRole : ApplicationRole
-    where TDbContext : AuthorizationDbContextRead<TApplicationUser, TApplicationRole>
 {
     protected RepositoryRead(TDbContext context)
         : base(context)
