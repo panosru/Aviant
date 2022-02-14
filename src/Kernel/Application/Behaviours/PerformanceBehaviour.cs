@@ -1,28 +1,17 @@
 namespace Aviant.Application.Behaviours;
 
 using System.Diagnostics;
-using Identity;
 using MediatR;
 using Serilog;
 
-public sealed class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {
-    private readonly ICurrentUserService _currentUserService;
+    protected readonly ILogger Logger = Log.Logger.ForContext<PerformanceBehaviour<TRequest, TResponse>>();
 
-    private readonly IIdentityService _identityIdentityService;
+    protected readonly Stopwatch Timer;
 
-    private readonly ILogger _logger = Log.Logger.ForContext<PerformanceBehaviour<TRequest, TResponse>>();
-
-    private readonly Stopwatch _timer;
-
-    public PerformanceBehaviour(ICurrentUserService currentUserService, IIdentityService identityIdentityService)
-    {
-        _timer = new Stopwatch();
-
-        _currentUserService      = currentUserService;
-        _identityIdentityService = identityIdentityService;
-    }
+    public PerformanceBehaviour() => Timer = new Stopwatch();
 
     #region IPipelineBehavior<TRequest,TResponse> Members
 
@@ -31,29 +20,21 @@ public sealed class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavio
         CancellationToken                 cancellationToken,
         RequestHandlerDelegate<TResponse> next)
     {
-        _timer.Start();
+        Timer.Start();
         var response = await next().ConfigureAwait(false);
-        _timer.Stop();
+        Timer.Stop();
 
-        var elapsedMilliseconds = _timer.ElapsedMilliseconds;
+        var elapsedMilliseconds = Timer.ElapsedMilliseconds;
 
         if (500 >= elapsedMilliseconds)
             return response;
 
         var requestName = typeof(TRequest).Name;
-        var userId      = _currentUserService.UserId;
-        var username    = string.Empty;
 
-        if (Guid.Empty != userId)
-            username = await _identityIdentityService.GetUserNameAsync(userId, cancellationToken)
-               .ConfigureAwait(false);
-
-        _logger.Warning(
-            "Long Running Request detected: {Name} ({ElapsedMilliseconds} milliseconds), UserId: {@UserId}, Username: {@Username}, Request: {@Request}",
+        Logger.Warning(
+            "Long Running Request detected: {Name} ({ElapsedMilliseconds} milliseconds), Request: {@Request}",
             requestName,
             elapsedMilliseconds,
-            userId,
-            username,
             request);
 
         return response;

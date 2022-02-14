@@ -7,7 +7,6 @@ using Behaviours;
 using Core.Services;
 using FluentValidation;
 using Orchestration;
-using Persistence;
 
 /// <summary>
 ///     The Use Case Abstract Base class
@@ -103,25 +102,4 @@ public abstract class UseCase<TUseCaseInput, TUseCaseOutput>
                         typeof(IEnumerable<IValidator<TUseCaseInput>>)),
                 input)
            .HandleValidationAsync(cancellationToken);
-}
-
-/// <inheritdoc />
-/// <summary>
-///     UseCase abstract class with input, output and DbContext
-/// </summary>
-/// <typeparam name="TUseCaseInput">The expected input type</typeparam>
-/// <typeparam name="TUseCaseOutput">The expected output type</typeparam>
-/// <typeparam name="TDbContext">The expected DbContext type</typeparam>
-public abstract class UseCase<TUseCaseInput, TUseCaseOutput, TDbContext>
-    : UseCase<TUseCaseInput, TUseCaseOutput>
-    where TUseCaseInput : class, IUseCaseInput
-    where TUseCaseOutput : class, IUseCaseOutput
-    where TDbContext : IDbContextWrite
-{
-    /// <summary>
-    ///     The orchestrator object
-    /// </summary>
-    protected new IOrchestrator<TDbContext> Orchestrator =>
-        ServiceLocator.ServiceContainer.GetRequiredService<IOrchestrator<TDbContext>>(
-            typeof(IOrchestrator<TDbContext>));
 }

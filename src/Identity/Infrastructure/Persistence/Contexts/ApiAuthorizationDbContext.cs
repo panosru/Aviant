@@ -1,4 +1,4 @@
-namespace Aviant.Infrastructure.Persistence.Contexts;
+namespace Aviant.Infrastructure.Identity.Persistence.Contexts;
 
 using Duende.IdentityServer.EntityFramework.Entities;
 using Duende.IdentityServer.EntityFramework.Extensions;
