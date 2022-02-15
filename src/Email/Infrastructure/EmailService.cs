@@ -1,6 +1,6 @@
-namespace Aviant.Infrastructure.Services;
+namespace Aviant.Infrastructure.Email;
 
-using Application.Services;
+using Application.Email;
 using MailKit.Net.Smtp;
 using MimeKit;
 using MimeKit.Text;

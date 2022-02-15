@@ -1,4 +1,4 @@
-namespace Aviant.Application.Services;
+namespace Aviant.Application.Email;
 
 public interface IEmailService
 {
