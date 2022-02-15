@@ -1,11 +1,9 @@
-namespace Aviant.Application.Jobs;
+namespace Aviant.Infrastructure.Jobs;
 
+using Application.Jobs;
 using Core.Timing;
 using Hangfire;
 using Hangfire.States;
-
-public interface IJobOptions
-{ }
 
 public class JobRunner : IJobRunner
 {

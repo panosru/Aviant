@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>Aviant.Application.Jobs</RootNamespace>
+        <AssemblyName>Aviant.Application.Jobs</AssemblyName>
+        <Version>1.0.0-preview.7</Version>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Kernel\Application\Application.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Hangfire.Core" Version="1.7.28" />
+    </ItemGroup>
+
+</Project>

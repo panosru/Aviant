@@ -2,12 +2,6 @@ namespace Aviant.Application.Jobs;
 
 using Hangfire.States;
 
-public interface IJob<in TJobOptions>
-    where TJobOptions : class, IJobOptions
-{
-    Task PerformAsync(TJobOptions jobOptions);
-}
-
 public interface IJobRunner
 {
     string Run<TJob, TJobOptions>(Action<TJobOptions>? configureJobOptions = null)
