@@ -1,13 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <RootNamespace>Aviant.Application.EventSourcing</RootNamespace>
-        <AssemblyName>Aviant.Application.EventSourcing</AssemblyName>
+        <RootNamespace>Aviant.Application.DDD</RootNamespace>
+        <AssemblyName>Aviant.Application.DDD</AssemblyName>
         <Version>1.0.0-preview.7</Version>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\DDD\Application\Application.csproj" />
         <ProjectReference Include="..\..\Kernel\Application\Application.csproj" />
         <ProjectReference Include="..\Core\Core.csproj" />
     </ItemGroup>

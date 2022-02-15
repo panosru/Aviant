@@ -1,4 +1,4 @@
-namespace Aviant.Core.ValueObjects;
+namespace Aviant.Core.DDD.ValueObjects;
 
 // source: https://github.com/jhewlett/ValueObject
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]

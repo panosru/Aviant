@@ -7,7 +7,7 @@ using System.Reflection;
 using Entities;
 using DomainEvents;
 
-/// <inheritdoc cref="Aviant.Core.Entities.Entity{TKey}" />
+/// <inheritdoc cref="Entity{TKey}" />
 /// <inheritdoc cref="IAggregate{TAggregateId}" />
 /// <summary>
 ///     The aggregate object

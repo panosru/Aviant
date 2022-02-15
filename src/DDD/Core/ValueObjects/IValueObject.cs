@@ -1,4 +1,4 @@
-namespace Aviant.Core.ValueObjects;
+namespace Aviant.Core.DDD.ValueObjects;
 
 internal interface IValueObject<T>
     : IEquatable<T>
