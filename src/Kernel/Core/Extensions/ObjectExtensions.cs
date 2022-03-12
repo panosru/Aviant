@@ -54,4 +54,13 @@ public static class ObjectExtensions
     /// <param name="list">List of items</param>
     /// <typeparam name="T">Type of the items</typeparam>
     public static bool IsIn<T>(this T item, params T[] list) => list.Contains(item);
+
+    /// <summary>
+    ///     Check if an object has a certain property
+    /// </summary>
+    /// <param name="obj">The object to check</param>
+    /// <param name="propertyName">The property name</param>
+    /// <returns>True if it has the property, false otherwise</returns>
+    public static bool HasProperty(this object obj, string propertyName) =>
+        obj.GetType().GetProperty(propertyName) is not null;
 }
