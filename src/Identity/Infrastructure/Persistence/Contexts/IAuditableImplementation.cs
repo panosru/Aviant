@@ -2,9 +2,10 @@ namespace Aviant.Infrastructure.Identity.Persistence.Contexts;
 
 using Application.Identity;
 using Application.Persistence;
+using Core.Entities;
 using Core.Identity.Entities;
 using Core.Services;
-using Core.Timing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 public interface IAuditableImplementation<TDbContext>
@@ -15,15 +16,10 @@ public interface IAuditableImplementation<TDbContext>
         ServiceLocator.ServiceContainer.GetService<ICurrentUserService>(
             typeof(ICurrentUserService));
 
-    private Infrastructure.Persistence.Contexts.IAuditableImplementation<TDbContext> AuditableImplementation =>
-        this;
-
     #region Configure Audit Properties
 
     public new virtual void SetCreationAuditProperties(EntityEntry entry)
     {
-        AuditableImplementation.SetCreationAuditProperties(entry);
-
         if (entry.Entity is not ICreationAudited creationAuditedEntity)
             return;
 
@@ -36,8 +32,6 @@ public interface IAuditableImplementation<TDbContext>
 
     public new virtual void SetModificationAuditProperties(EntityEntry entry)
     {
-        AuditableImplementation.SetModificationAuditProperties(entry);
-
         if (entry.Entity is not IModificationAudited modificationAuditedEntity)
             return;
 
@@ -50,13 +44,10 @@ public interface IAuditableImplementation<TDbContext>
 
     public new void SetDeletionAuditProperties(EntityEntry entry)
     {
-        AuditableImplementation.SetDeletionAuditProperties(entry);
-
         if (entry.Entity is not IDeletionAudited deletionAuditedEntity)
             return;
 
         deletionAuditedEntity.DeletedBy = CurrentUserService.UserId;
-        deletionAuditedEntity.Deleted   = Clock.Now;
     }
 
     #endregion

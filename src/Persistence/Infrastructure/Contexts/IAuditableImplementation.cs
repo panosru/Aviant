@@ -68,7 +68,7 @@ public interface IAuditableImplementation<TDbContext>
         hasModificationTimeEntity.LastModified = Clock.Now;
     }
 
-    public void SetDeletionAuditProperties(EntityEntry entry)
+    public virtual void SetDeletionAuditProperties(EntityEntry entry)
     {
         if (entry.Entity is not IHasDeletionTime hasDeletionTimeEntity)
             return;
@@ -78,12 +78,11 @@ public interface IAuditableImplementation<TDbContext>
 
     public virtual void CancelDeletionForSoftDelete(EntityEntry entry)
     {
-        if (entry.Entity is not ISoftDelete)
+        if (entry.Entity is not ISoftDelete entity)
             return;
 
-        entry.Reload();
-        entry.State                           = EntityState.Modified;
-        ((ISoftDelete)entry.Entity).IsDeleted = true;
+        entry.State      = EntityState.Unchanged;
+        entity.IsDeleted = true;
     }
 
     #endregion

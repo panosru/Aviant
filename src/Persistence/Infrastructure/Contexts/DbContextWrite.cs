@@ -16,25 +16,22 @@ public abstract class DbContextWrite<TDbContext>
     // ReSharper disable once StaticMemberInGenericType
     private static readonly HashSet<Assembly> ConfigurationAssemblies = new();
 
-    private readonly IDbContextWriteImplementation<TDbContext> _writeImplementation;
+    protected IDbContextWriteImplementation<TDbContext> WriteImplementation => this;
 
     protected DbContextWrite(DbContextOptions options)
-        : base(options)
-    {
-        // trait
-        _writeImplementation = this;
-
-        TrackerSettings();
-    }
+        : base(options) => TrackerSettings();
 
     #region IDbContextWrite Members
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
     {
-        _writeImplementation.ChangeTracker(ChangeTracker, this);
+        WriteImplementation.ChangeTracker(ChangeTracker, this);
 
-        return base.SaveChangesAsync(cancellationToken);
+        return CommitAsync(cancellationToken);
     }
+
+    protected Task<int> CommitAsync(CancellationToken cancellationToken = new()) =>
+        base.SaveChangesAsync(cancellationToken);
 
     #endregion
 
@@ -47,11 +44,11 @@ public abstract class DbContextWrite<TDbContext>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        _writeImplementation.OnPreBaseModelCreating(modelBuilder, ConfigurationAssemblies);
+        WriteImplementation.OnPreBaseModelCreating(modelBuilder, ConfigurationAssemblies);
 
         base.OnModelCreating(modelBuilder);
 
-        _writeImplementation.OnPostBaseModelCreating(modelBuilder, this);
+        WriteImplementation.OnPostBaseModelCreating(modelBuilder, this);
     }
 
     private void TrackerSettings()

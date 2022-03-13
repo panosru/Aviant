@@ -6,7 +6,6 @@ using Application.Persistence;
 using Core.Entities;
 using Duende.IdentityServer.EntityFramework.Options;
 using Infrastructure.Persistence.Configurations;
-using Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
