@@ -7,12 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Ardalis.GuardClauses" Version="4.0.0" />
+        <PackageReference Include="Ardalis.GuardClauses" Version="4.0.1" />
         <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="2.2.0" />
         <PackageReference Include="Castle.Core" Version="4.4.1" />
-        <PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.0.0" />
+        <PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.1.0" />
         <PackageReference Include="Colorful.Console" Version="1.2.15" />
-        <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
+        <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
