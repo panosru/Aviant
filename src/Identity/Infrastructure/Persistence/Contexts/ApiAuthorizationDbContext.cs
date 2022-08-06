@@ -54,14 +54,11 @@ public class ApiAuthorizationDbContext<TUser, TRole, TKey>
     /// <inheritdoc />
     public DbSet<Key>? Keys { get; set; }
 
-    /// <inheritdoc />
-    public DbSet<ServerSideSession> ServerSideSessions { get; set; }
-
     Task<int> IPersistedGrantDbContext.SaveChangesAsync() => SaveChangesAsync();
 
     // ReSharper disable once RedundantOverriddenMember
     // Fix for pitfall RSPEC-4039
-    /// <inheritdoc />
+    /// <inheritdoc cref="DbContext.SaveChangesAsync(System.Threading.CancellationToken)" />
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new()) =>
         base.SaveChangesAsync(cancellationToken);
 

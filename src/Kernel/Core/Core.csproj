@@ -14,10 +14,11 @@
         <PackageReference Include="Colorful.Console" Version="1.2.15" />
         <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0-preview.6.22324.4" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
         <PackageReference Include="Polly" Version="7.2.3" />
+        <PackageReference Include="StronglyTypedId" Version="0.2.1" />
     </ItemGroup>
 
 </Project>

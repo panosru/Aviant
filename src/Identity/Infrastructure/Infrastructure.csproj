@@ -12,9 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Duende.IdentityServer.AspNetIdentity" Version="6.1.2" />
-        <PackageReference Include="Duende.IdentityServer.EntityFramework" Version="6.1.2" />
-        <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="6.0.7" />
+        <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.0-preview.6.22330.3" />
     </ItemGroup>
 
 </Project>
