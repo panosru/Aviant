@@ -2,10 +2,8 @@ namespace Aviant.Infrastructure.Identity.Persistence.Contexts;
 
 using Application.Identity;
 using Application.Persistence;
-using Core.Entities;
 using Core.Identity.Entities;
 using Core.Services;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 public interface IAuditableImplementation<TDbContext>
@@ -30,16 +28,16 @@ public interface IAuditableImplementation<TDbContext>
         creationAuditedEntity.CreatedBy = CurrentUserService.UserId;
     }
 
-    public new virtual void SetModificationAuditProperties(EntityEntry entry)
+    public new virtual void SetUpdateAuditProperties(EntityEntry entry)
     {
-        if (entry.Entity is not IModificationAudited modificationAuditedEntity)
+        if (entry.Entity is not IUpdatedAudited updateAuditedEntity)
             return;
 
-        if (modificationAuditedEntity.LastModifiedBy == CurrentUserService.UserId)
+        if (updateAuditedEntity.UpdatedBy == CurrentUserService.UserId)
             //LastModifiedUserId is same as current user id
             return;
 
-        modificationAuditedEntity.LastModifiedBy = CurrentUserService.UserId;
+        updateAuditedEntity.UpdatedBy = CurrentUserService.UserId;
     }
 
     public new void SetDeletionAuditProperties(EntityEntry entry)

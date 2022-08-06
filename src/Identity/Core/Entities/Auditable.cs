@@ -18,12 +18,12 @@ public interface ICreationAudited : IHasCreationTime
 /// <summary>
 ///     Adds the user id who last modified the entity
 /// </summary>
-public interface IModificationAudited : IHasModificationTime
+public interface IUpdatedAudited : IHasUpdatedTime
 {
     /// <summary>
     ///     The id of the user who last modified the entity
     /// </summary>
-    public Guid? LastModifiedBy { get; set; }
+    public Guid? UpdatedBy { get; set; }
 }
 
 /// <inheritdoc />

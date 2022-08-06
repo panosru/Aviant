@@ -9,7 +9,7 @@ public abstract class DbContextWrite<TDbContext>
       IDbContextWriteImplementation<TDbContext>
     where TDbContext : class, IDbContextWrite
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="WriteImplementation" />
     protected new IDbContextWriteImplementation<TDbContext> WriteImplementation => this;
 
     /// <inheritdoc />

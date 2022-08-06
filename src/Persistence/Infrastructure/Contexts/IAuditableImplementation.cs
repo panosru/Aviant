@@ -60,12 +60,12 @@ public interface IAuditableImplementation<TDbContext>
             hasCreationTimeEntity.Created = Clock.Now;
     }
 
-    public virtual void SetModificationAuditProperties(EntityEntry entry)
+    public virtual void SetUpdateAuditProperties(EntityEntry entry)
     {
-        if (entry.Entity is not IHasModificationTime hasModificationTimeEntity)
+        if (entry.Entity is not IHasUpdatedTime hasUpdateTimeEntity)
             return;
 
-        hasModificationTimeEntity.LastModified = Clock.Now;
+        hasUpdateTimeEntity.Updated = Clock.Now;
     }
 
     public virtual void SetDeletionAuditProperties(EntityEntry entry)

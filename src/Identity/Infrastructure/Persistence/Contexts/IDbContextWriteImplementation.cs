@@ -23,7 +23,7 @@ public interface IDbContextWriteImplementation<TDbContext>
                     break;
 
                 case EntityState.Modified:
-                    auditableImplementation.SetModificationAuditProperties(entry);
+                    auditableImplementation.SetUpdateAuditProperties(entry);
                     break;
 
                 case EntityState.Deleted:
@@ -31,11 +31,7 @@ public interface IDbContextWriteImplementation<TDbContext>
                     break;
 
                 case EntityState.Detached:
-                    break;
-
                 case EntityState.Unchanged:
-                    break;
-
                 default:
                     throw new ArgumentOutOfRangeException(typeof(EntityState).FullName);
             }

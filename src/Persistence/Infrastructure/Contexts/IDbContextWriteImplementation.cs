@@ -21,7 +21,11 @@ public interface IDbContextWriteImplementation<TDbContext>
                     break;
 
                 case EntityState.Modified:
-                    auditableImplementation.SetModificationAuditProperties(entry);
+                    // Prevent update if the entity is read only
+                    if (entry.Entity is IReadOnly)
+                        throw new DbUpdateException("Entity is read only");
+
+                    auditableImplementation.SetUpdateAuditProperties(entry);
                     break;
 
                 case EntityState.Deleted:
@@ -30,11 +34,7 @@ public interface IDbContextWriteImplementation<TDbContext>
                     break;
 
                 case EntityState.Detached:
-                    break;
-
                 case EntityState.Unchanged:
-                    break;
-
                 default:
                     throw new ArgumentOutOfRangeException(typeof(EntityState).FullName);
             }

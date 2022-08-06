@@ -20,14 +20,14 @@ public interface IHasCreationTime : IAuditedEntity
 
 /// <inheritdoc />
 /// <summary>
-///     Adds last modification time information to the entity
+///     Adds last update time information to the entity
 /// </summary>
-public interface IHasModificationTime : IAuditedEntity
+public interface IHasUpdatedTime : IAuditedEntity
 {
     /// <summary>
     ///     The time the entity was last modified
     /// </summary>
-    public DateTime? LastModified { get; set; }
+    public DateTime? Updated { get; set; }
 }
 
 /// <inheritdoc />
@@ -42,3 +42,10 @@ public interface IHasDeletionTime : IAuditedEntity
     /// </summary>
     public DateTime? Deleted { get; set; }
 }
+
+/// <inheritdoc />
+/// <summary>
+///     Prohibits the entity from being edited
+/// </summary>
+public interface IReadOnly : IAuditedEntity
+{ }
