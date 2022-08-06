@@ -11,5 +11,5 @@ public class DomainConfigurationContainer : IDomainConfigurationContainer
 
     public IConfiguration Configuration() => _configuration;
 
-    public string GetValue(string path) => _configuration[path];
+    public string GetValue(string path) => _configuration[path] ?? throw new NullReferenceException();
 }
