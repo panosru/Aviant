@@ -108,7 +108,6 @@ public class EmailService : IEmailService, IDisposable
     {
         _smtpClient.Send(_message);
         _smtpClient.Disconnect(true);
-        _smtpClient.Dispose();
 
         return true;
     }
@@ -121,7 +120,21 @@ public class EmailService : IEmailService, IDisposable
     /// <inheritdoc />
     public void Dispose()
     {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposing)
+            return;
+
         _message.Dispose();
         _smtpClient.Dispose();
+    }
+
+    ~EmailService()
+    {
+        Dispose(false);
     }
 }
