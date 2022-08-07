@@ -372,7 +372,7 @@ public static class StringExtensions
         using var md5 = MD5.Create();
 
         var inputBytes = Encoding.UTF8.GetBytes(str);
-        var hashBytes  = md5.ComputeHash(inputBytes);
+        var hashBytes = MD5.HashData(inputBytes);
 
         var sb = new StringBuilder();
 
