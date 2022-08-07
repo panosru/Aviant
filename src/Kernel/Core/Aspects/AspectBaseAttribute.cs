@@ -2,6 +2,11 @@ namespace Aviant.Core.Aspects;
 
 using AspectCore.DynamicProxy;
 
+[AttributeUsage(
+    AttributeTargets.Class
+  | AttributeTargets.Enum
+  | AttributeTargets.Interface
+  | AttributeTargets.Delegate)]
 public abstract class AspectBaseAttribute : AbstractInterceptorAttribute
 {
     /// <inheritdoc />
