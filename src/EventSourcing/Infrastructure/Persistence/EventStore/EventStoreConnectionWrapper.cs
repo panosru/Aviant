@@ -3,7 +3,7 @@ namespace Aviant.Infrastructure.EventSourcing.Persistence.EventStore;
 using global::EventStore.ClientAPI;
 using Serilog;
 
-public sealed class EventStoreConnectionWrapper : IEventStoreConnectionWrapper, IDisposable
+public sealed class EventStoreConnectionWrapper : IEventStoreConnectionWrapper, IAsyncDisposable, IDisposable
 {
     private readonly Uri _connectionString;
 
@@ -32,10 +32,32 @@ public sealed class EventStoreConnectionWrapper : IEventStoreConnectionWrapper, 
 
     public void Dispose()
     {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsyncCore().ConfigureAwait(false);
+
+        Dispose(false);
+
+        #pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
+        GC.SuppressFinalize(this);
+        #pragma warning restore CA1816 // Dispose methods should call SuppressFinalize
+    }
+
+    private void Dispose(bool disposing)
+    {
+        // Cleanup unmanaged resources
+    }
+
+    private async ValueTask DisposeAsyncCore()
+    {
         if (!_lazyConnection.IsValueCreated)
             return;
 
-        _lazyConnection.Value.Result.Dispose();
+        (await _lazyConnection.Value.ConfigureAwait(false)).Dispose();
     }
 
     #endregion
