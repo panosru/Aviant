@@ -73,23 +73,5 @@ public abstract class Entity<TKey> : IEntity<TKey>
     public override int GetHashCode() =>
         HashCode.Combine(GetType(), Id);
 
-    /// <summary>
-    ///     Override equal operator
-    /// </summary>
-    /// <param name="left">The entity object of the left side</param>
-    /// <param name="right">The entity object of the right side</param>
-    /// <returns>boolean</returns>
-    public static bool operator ==(Entity<TKey> left, Entity<TKey> right) =>
-        EqualityComparer<Entity<TKey>>.Default.Equals(left, right);
-
-    /// <summary>
-    ///     Override not equal operator
-    /// </summary>
-    /// <param name="left">The entity object of the left side</param>
-    /// <param name="right">The entity object of the right side</param>
-    /// <returns>boolean</returns>
-    public static bool operator !=(Entity<TKey> left, Entity<TKey> right) =>
-        !(left == right);
-
     #endregion
 }
