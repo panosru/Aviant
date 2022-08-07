@@ -5,7 +5,7 @@ using Core.EventSourcing.Aggregates;
 
 internal sealed class KeyDeserializerFactory
 {
-    public IDeserializer<TAggregateId> Create<TDeserializer, TAggregateId>()
+    public static IDeserializer<TAggregateId> Create<TDeserializer, TAggregateId>()
         where TAggregateId : class, IAggregateId
         where TDeserializer : class, IDeserializer<TAggregateId>, new() => new TDeserializer();
 }

@@ -44,9 +44,8 @@ public sealed class EventConsumer<TAggregate, TAggregateId, TDeserializer>
             BrokerAddressFamily = BrokerAddressFamily.V4
         };
 
-        ConsumerBuilder<TAggregateId, string> consumerBuilder        = new(consumerConfig);
-        KeyDeserializerFactory                keyDeserializerFactory = new();
-        consumerBuilder.SetKeyDeserializer(keyDeserializerFactory.Create<TDeserializer, TAggregateId>());
+        ConsumerBuilder<TAggregateId, string> consumerBuilder = new(consumerConfig);
+        consumerBuilder.SetKeyDeserializer(KeyDeserializerFactory.Create<TDeserializer, TAggregateId>());
 
         _eventConsumer = consumerBuilder.Build();
 
