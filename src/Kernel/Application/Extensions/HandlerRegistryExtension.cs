@@ -1,9 +1,9 @@
-namespace Aviant.Application.EventSourcing.EventBus;
+namespace Aviant.Application.Extensions;
 
 using Processors;
 using Scrutor;
 
-public static class HandlerExtensionRegistry
+public static class HandlerRegistryExtension
 {
     private static readonly HashSet<Type> Decorators = new()
     {
