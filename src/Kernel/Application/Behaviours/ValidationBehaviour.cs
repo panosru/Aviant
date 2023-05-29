@@ -31,13 +31,13 @@ public sealed class ValidationBehaviour<TRequest, TResponse>
     ///     Handles the validation behaviour
     /// </summary>
     /// <param name="request">The request object</param>
-    /// <param name="cancellationToken">The cancellation token</param>
     /// <param name="next">The next request handler delegate</param>
+    /// <param name="cancellationToken">The cancellation token</param>
     /// <returns></returns>
     public async Task<TResponse> Handle(
-        TRequest                          request,
-        CancellationToken                 cancellationToken,
-        RequestHandlerDelegate<TResponse> next)
+        TRequest          request,
+        RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
     {
         if (!_validators.Any())
             return await next().ConfigureAwait(false);

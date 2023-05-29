@@ -16,9 +16,9 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
     #region IPipelineBehavior<TRequest,TResponse> Members
 
     public async Task<TResponse> Handle(
-        TRequest                          request,
-        CancellationToken                 cancellationToken,
-        RequestHandlerDelegate<TResponse> next)
+        TRequest          request,
+        RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
     {
         Timer.Start();
         var response = await next().ConfigureAwait(false);
