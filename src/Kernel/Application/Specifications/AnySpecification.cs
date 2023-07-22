@@ -19,5 +19,5 @@ public sealed class AnySpecification<T> : Specification<T>
     /// </summary>
     /// <returns>The LINQ expression.</returns>
     public override Expression<Func<T, bool>> ToExpression() => candidate =>
-        _specifications.Any(specification => specification.IsSatisfiedBy(candidate));
+        _specifications.ToList().Exists(specification => specification.IsSatisfiedBy(candidate));
 }

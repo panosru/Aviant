@@ -1,5 +1,6 @@
 namespace Aviant.Core.Persistence;
 
+using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using Entities;
 
@@ -48,30 +49,30 @@ public interface IRepositoryRead<TEntity, in TPrimaryKey> : IDisposable
     /// <summary>
     ///     Used to get all entities.
     /// </summary>
-    /// <returns>List of all entities</returns>
-    public List<TEntity> GetAllList();
+    /// <returns>Collection of all entities</returns>
+    public Collection<TEntity> GetAllList();
 
     /// <summary>
     ///     Used to get all entities based on given <paramref name="predicate" />.
     /// </summary>
     /// <param name="predicate">A condition to filter entities</param>
-    /// <returns>List of all entities</returns>
-    public List<TEntity> GetAllList(Expression<Func<TEntity, bool>> predicate);
+    /// <returns>Collection of all entities</returns>
+    public Collection<TEntity> GetAllList(Expression<Func<TEntity, bool>> predicate);
 
     /// <summary>
     ///     Used to get all entities.
     /// </summary>
     /// <param name="cancellationToken"></param>
-    /// <returns>List of all entities</returns>
-    public ValueTask<List<TEntity>> GetAllListAsync(CancellationToken cancellationToken = default);
+    /// <returns>Collection of all entities</returns>
+    public ValueTask<Collection<TEntity>> GetAllListAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Used to get all entities based on given <paramref name="predicate" />.
     /// </summary>
     /// <param name="predicate">A condition to filter entities</param>
     /// <param name="cancellationToken"></param>
-    /// <returns>List of all entities</returns>
-    public ValueTask<List<TEntity>> GetAllListAsync(
+    /// <returns>Collection of all entities</returns>
+    public ValueTask<Collection<TEntity>> GetAllListAsync(
         Expression<Func<TEntity, bool>> predicate,
         CancellationToken               cancellationToken = default);
 

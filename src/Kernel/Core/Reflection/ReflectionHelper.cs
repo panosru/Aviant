@@ -21,7 +21,8 @@ internal static class ReflectionHelper
             return true;
 
         if (givenType.GetInterfaces()
-           .Any(
+           .ToList()
+           .Exists(
                 interfaceType => interfaceType.GetTypeInfo().IsGenericType
                               && interfaceType.GetGenericTypeDefinition() == genericType))
             return true;
@@ -253,7 +254,7 @@ internal static class ReflectionHelper
 
         if (properties.Length == 1)
         {
-            property = objectType.GetProperty(properties.First());
+            property = objectType.GetProperty(properties[0]);
             property?.SetValue(obj, value);
             return;
         }
@@ -265,7 +266,7 @@ internal static class ReflectionHelper
             currentType = property?.PropertyType;
         }
 
-        property = currentType?.GetProperty(properties.Last());
+        property = currentType?.GetProperty(properties[^1]);
         property?.SetValue(obj, value);
     }
 

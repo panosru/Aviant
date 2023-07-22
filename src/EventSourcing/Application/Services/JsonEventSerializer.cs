@@ -43,8 +43,8 @@ public sealed class JsonEventSerializer
     {
         var eventType = _cache.GetOrAdd(
             type,
-            _ => _assemblies.Select(
-                         a => a.GetType(type, false))
+            t => _assemblies.Select(
+                         a => a.GetType(t, false))
                     .FirstOrDefault(
                          t => t is not null)
               ?? Type.GetType(type));

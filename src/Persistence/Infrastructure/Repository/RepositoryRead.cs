@@ -1,5 +1,6 @@
 namespace Aviant.Infrastructure.Persistence.Repository;
 
+using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using Contexts;
 using Core.Entities;
@@ -70,16 +71,16 @@ public abstract class RepositoryReadBase<TDbContext, TEntity, TPrimaryKey>
         params Expression<Func<TEntity, object>>[] propertySelectors) =>
         GetAllIncluding(propertySelectors).Where(predicate);
 
-    public virtual List<TEntity> GetAllList() =>
-        GetAll().ToList();
+    public virtual Collection<TEntity> GetAllList() =>
+        new(GetAll().ToList());
 
-    public virtual List<TEntity> GetAllList(Expression<Func<TEntity, bool>> predicate) =>
-        FindBy(predicate).ToList();
+    public virtual Collection<TEntity> GetAllList(Expression<Func<TEntity, bool>> predicate) =>
+        new(FindBy(predicate).ToList());
 
-    public virtual ValueTask<List<TEntity>> GetAllListAsync(CancellationToken cancellationToken = default) =>
+    public virtual ValueTask<Collection<TEntity>> GetAllListAsync(CancellationToken cancellationToken = default) =>
         new(GetAllList());
 
-    public virtual ValueTask<List<TEntity>> GetAllListAsync(
+    public virtual ValueTask<Collection<TEntity>> GetAllListAsync(
         Expression<Func<TEntity, bool>> predicate,
         CancellationToken               cancellationToken = default) =>
         new(GetAllList(predicate));

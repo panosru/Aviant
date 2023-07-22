@@ -16,7 +16,8 @@ public sealed class MappingProfile : Profile
            .GetExportedTypes()
            .Where(
                 t => t.GetInterfaces()
-                   .Any(
+                   .ToList()
+                   .Exists(
                         i =>
                             i.IsGenericType
                          && (i.GetGenericTypeDefinition() == typeof(IMapFrom<>)
@@ -30,7 +31,8 @@ public sealed class MappingProfile : Profile
             var methodInfo = type
                                 .GetMethod("Mapping", BindingFlags.Instance | BindingFlags.NonPublic)
                           ?? (type.GetInterfaces()
-                                .Any(
+                                .ToList()
+                                .Exists(
                                      i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>))
                                  ? type.GetInterface("IMapFrom`1")?.GetMethod("Mapping")
                                  : type.GetInterface("IMapTo`1")?.GetMethod("Mapping"));

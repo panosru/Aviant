@@ -134,7 +134,7 @@ public static class ServicesExtensions
         // Get all the registered interceptors
         var selectedInterceptors = provider.GetServices<IAsyncInterceptor>()
             // Select only the interceptors that implement the IAsyncInterceptor interface
-           .Where(i => interceptors.Any(o => o.IsInstanceOfType(i)))
+           .Where(i => interceptors.ToList().Exists(o => o.IsInstanceOfType(i)))
             // Order the interceptors by the order they are registered
            .ToArray();
 

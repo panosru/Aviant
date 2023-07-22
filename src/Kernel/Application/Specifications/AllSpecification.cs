@@ -20,5 +20,5 @@ public sealed class AllSpecification<T> : Specification<T>
     /// </summary>
     /// <returns>The LINQ expression.</returns>
     public override Expression<Func<T, bool>> ToExpression() => candidate =>
-        _specifications.All(specification => specification.IsSatisfiedBy(candidate));
+        _specifications.ToList().TrueForAll(specification => specification.IsSatisfiedBy(candidate));
 }
