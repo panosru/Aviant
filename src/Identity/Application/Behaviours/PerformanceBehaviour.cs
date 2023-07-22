@@ -20,8 +20,8 @@ public class PerformanceBehaviour<TRequest, TResponse>
 
     public new async Task<TResponse> Handle(
         TRequest                          request,
-        CancellationToken                 cancellationToken,
-        RequestHandlerDelegate<TResponse> next)
+        RequestHandlerDelegate<TResponse> next,
+        CancellationToken                 cancellationToken)
     {
         Timer.Start();
         var response = await next().ConfigureAwait(false);
