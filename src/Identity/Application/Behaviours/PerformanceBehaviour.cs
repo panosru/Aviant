@@ -29,6 +29,7 @@ public class PerformanceBehaviour<TRequest, TResponse>
 
         var elapsedMilliseconds = Timer.ElapsedMilliseconds;
 
+        //TODO: Ability to configure the threshold
         if (500 >= elapsedMilliseconds)
             return response;
 

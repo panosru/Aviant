@@ -26,6 +26,7 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
 
         var elapsedMilliseconds = Timer.ElapsedMilliseconds;
 
+        //TODO: Add a configuration option to change the threshold
         if (500 >= elapsedMilliseconds)
             return response;
 
