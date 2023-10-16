@@ -3,7 +3,7 @@
     <PropertyGroup>
         <RootNamespace>Aviant.Core.Persistence</RootNamespace>
         <AssemblyName>Aviant.Core.Persistence</AssemblyName>
-        <Version>1.0.0-preview.7</Version>
+        <Version>1.0.0-rc.1</Version>
     </PropertyGroup>
 
     <ItemGroup>
