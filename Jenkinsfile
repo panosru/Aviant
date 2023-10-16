@@ -2,11 +2,12 @@ pipeline {
   agent any
   
   environment {
+    // Define the home directory for SonarScanner
     MSBuildScannerHome = tool 'SonarScanner for MSBuild v5'
   }
   
   stages {
-    
+    // Begin SonarQube analysis
     stage('Begin SonarQube Analysis') {
       steps {
         scmSkip(deleteBuild: true, skipPattern:'.*\\[CI-SKIP\\].*')
@@ -18,6 +19,7 @@ pipeline {
       }
     }
     
+    // Build the project
     stage('Building') {
       steps {
         scmSkip(deleteBuild: true, skipPattern:'.*\\[CI-SKIP\\].*')
@@ -26,6 +28,7 @@ pipeline {
       }
     }
     
+    // Complete SonarQube analysis
     stage('Complete SonarQube Analysis') {
       steps {
         scmSkip(deleteBuild: true, skipPattern:'.*\\[CI-SKIP\\].*')
@@ -37,6 +40,7 @@ pipeline {
       }
     }
     
+    // Check the quality gate status
     stage('Quality Gate') {
       steps {
         scmSkip(deleteBuild: true, skipPattern:'.*\\[CI-SKIP\\].*')
