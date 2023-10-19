@@ -1,12 +1,17 @@
 # This Makefile is silent by default, use `make -s` to override
 .SILENT:
 
-# Phony target for sonar to avoid file name conflict
-.PHONY: sonar
+# Phony targets to avoid file name conflict
+.PHONY: help sonar
 
 # Include environment variables from .env file
 include .env
 export $(shell sed 's/=.*//' .env)
+
+# Display help information about this Makefile.
+help:
+	@echo "Available targets:"
+	@echo "  sonar: Run SonarQube analysis"
 
 # Target for running SonarQube analysis
 sonar:
@@ -24,3 +29,4 @@ sonar:
 	# End SonarQube analysis
 	# If this command fails, the make command will stop
 	dotnet sonarscanner end /d:sonar.login="${SONAR_LOGIN}" || exit 1
+
