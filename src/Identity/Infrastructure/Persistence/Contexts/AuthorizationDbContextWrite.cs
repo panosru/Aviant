@@ -4,13 +4,11 @@ using System.Reflection;
 using Application.Identity;
 using Application.Persistence;
 using Core.Entities;
-using Duende.IdentityServer.EntityFramework.Options;
 using Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 public abstract class AuthorizationDbContextWrite<TDbContext, TApplicationUser, TApplicationRole>
-    : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>,
+    : AuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>,
       IDbContextWrite,
       IAuditableImplementation<TDbContext>,
       IDbContextWriteImplementation<TDbContext>
@@ -24,9 +22,8 @@ public abstract class AuthorizationDbContextWrite<TDbContext, TApplicationUser, 
     private readonly IDbContextWriteImplementation<TDbContext> _writeImplementation;
 
     protected AuthorizationDbContextWrite(
-        DbContextOptions                  options,
-        IOptions<OperationalStoreOptions> operationalStoreOptions)
-        : base(options, operationalStoreOptions)
+        DbContextOptions                  options)
+        : base(options)
     {
         // trait
         _writeImplementation = this;

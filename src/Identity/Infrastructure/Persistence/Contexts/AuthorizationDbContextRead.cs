@@ -2,13 +2,11 @@ namespace Aviant.Infrastructure.Identity.Persistence.Contexts;
 
 using Application.Identity;
 using Application.Persistence;
-using Duende.IdentityServer.EntityFramework.Options;
 using Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 public abstract class AuthorizationDbContextRead<TApplicationUser, TApplicationRole>
-    : ApiAuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>,
+    : AuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>,
       IDbContextRead,
       IDbContextReadImplementation
     where TApplicationUser : ApplicationUser
@@ -17,9 +15,8 @@ public abstract class AuthorizationDbContextRead<TApplicationUser, TApplicationR
     private readonly IDbContextReadImplementation _readImplementation;
 
     protected AuthorizationDbContextRead(
-        DbContextOptions                  options,
-        IOptions<OperationalStoreOptions> operationalStoreOptions)
-        : base(options, operationalStoreOptions)
+        DbContextOptions                  options)
+        : base(options)
     {
         // trait
         _readImplementation = this;
