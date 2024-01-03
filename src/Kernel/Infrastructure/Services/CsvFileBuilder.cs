@@ -1,9 +1,9 @@
-namespace Aviant.Infrastructure.Services;
-
 using System.Globalization;
-using Application.Services;
+using Aviant.Application.Services;
 using CsvHelper;
 using CsvHelper.Configuration;
+
+namespace Aviant.Infrastructure.Services;
 
 public sealed class CsvFileBuilder<TRecord, TMap> : ICsvFileBuilder<TRecord>
     where TRecord : class

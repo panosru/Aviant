@@ -1,7 +1,7 @@
-namespace Aviant.Application.Exceptions;
-
 using System.Runtime.Serialization;
-using Core.Exceptions;
+using Aviant.Core.Exceptions;
+
+namespace Aviant.Application.Exceptions;
 
 [Serializable]
 public class ApplicationException : CoreException

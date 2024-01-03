@@ -1,6 +1,6 @@
-namespace Aviant.Core.DDD.ValueObjects;
-
 using System.Reflection;
+
+namespace Aviant.Core.DDD.ValueObjects;
 
 // Learn more: https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
 // source: https://github.com/jhewlett/ValueObject

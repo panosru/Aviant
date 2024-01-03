@@ -1,9 +1,8 @@
-namespace Aviant.Core.Extensions;
-
-using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Reflection;
+
+namespace Aviant.Core.Extensions;
 
 // Credits: https://gist.github.com/cocowalla
 
@@ -13,7 +12,7 @@ public static class EnumExtensions
     private static readonly
         ConcurrentDictionary<string, string> DisplayNameCache = new();
 
-    public static string DisplayName(this Enum value)
+    public static string DisplayName(this System.Enum value)
     {
         var key = $"{value.GetType().FullName}.{value}";
 

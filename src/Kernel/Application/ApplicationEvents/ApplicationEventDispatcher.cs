@@ -1,8 +1,8 @@
-namespace Aviant.Application.ApplicationEvents;
-
 using System.Collections.ObjectModel;
-using Core.Timing;
+using Aviant.Core.Timing;
 using MediatR;
+
+namespace Aviant.Application.ApplicationEvents;
 
 public sealed class ApplicationEventDispatcher : IApplicationEventDispatcher
 {

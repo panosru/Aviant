@@ -1,14 +1,14 @@
-namespace Aviant.Application.EventSourcing.Services;
-
 using System.Collections.Concurrent;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using Aviant.Application.Services;
-using Core.EventSourcing.Aggregates;
-using Core.EventSourcing.DomainEvents;
-using Core.EventSourcing.Services;
+using Aviant.Core.EventSourcing.Aggregates;
+using Aviant.Core.EventSourcing.DomainEvents;
+using Aviant.Core.EventSourcing.Services;
 using Newtonsoft.Json;
+
+namespace Aviant.Application.EventSourcing.Services;
 
 public sealed class JsonEventSerializer
     : IEventSerializer

@@ -1,6 +1,6 @@
-namespace Aviant.Core.Services;
-
 using Microsoft.Extensions.DependencyInjection;
+
+namespace Aviant.Core.Services;
 
 public static class ServiceLocator
 {

@@ -1,7 +1,7 @@
-namespace Aviant.Application.Interceptors;
-
 using System.Collections.Concurrent;
 using Castle.DynamicProxy;
+
+namespace Aviant.Application.Interceptors;
 
 public abstract class InterceptorBase<TInterceptor> : IAsyncInterceptor
     where TInterceptor : class, IAsyncInterceptor

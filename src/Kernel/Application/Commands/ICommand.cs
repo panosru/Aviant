@@ -1,6 +1,6 @@
-namespace Aviant.Application.Commands;
-
 using MediatR;
+
+namespace Aviant.Application.Commands;
 
 public interface ICommand<out TResponse> : IRequest<TResponse>
 { }

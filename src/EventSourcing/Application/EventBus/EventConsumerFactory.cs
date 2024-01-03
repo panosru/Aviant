@@ -1,10 +1,10 @@
-namespace Aviant.Application.EventSourcing.EventBus;
-
-using Core.EventSourcing.Aggregates;
-using Core.EventSourcing.DomainEvents;
-using Core.EventSourcing.EventBus;
+using Aviant.Core.EventSourcing.Aggregates;
+using Aviant.Core.EventSourcing.DomainEvents;
+using Aviant.Core.EventSourcing.EventBus;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+
+namespace Aviant.Application.EventSourcing.EventBus;
 
 public sealed class EventConsumerFactory : IEventConsumerFactory
 {

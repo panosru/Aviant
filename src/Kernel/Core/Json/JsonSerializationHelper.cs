@@ -1,7 +1,7 @@
-namespace Aviant.Core.Json;
-
 using System.Data;
 using Newtonsoft.Json;
+
+namespace Aviant.Core.Json;
 
 /// <summary>
 ///     Defines helper methods to work with JSON.

@@ -1,6 +1,6 @@
-namespace Aviant.Application.Jobs;
-
 using Hangfire.States;
+
+namespace Aviant.Application.Jobs;
 
 public interface IJobRunner
 {

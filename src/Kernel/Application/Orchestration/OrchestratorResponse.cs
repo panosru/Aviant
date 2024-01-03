@@ -1,7 +1,7 @@
-namespace Aviant.Application.Orchestration;
-
 using System.Collections.ObjectModel;
 using Ardalis.GuardClauses;
+
+namespace Aviant.Application.Orchestration;
 
 public sealed class OrchestratorResponse
 {

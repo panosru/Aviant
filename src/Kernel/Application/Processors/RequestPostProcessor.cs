@@ -1,6 +1,6 @@
-namespace Aviant.Application.Processors;
-
 using MediatR;
+
+namespace Aviant.Application.Processors;
 
 public abstract class RequestPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
     where TRequest : IRequest<TResponse>

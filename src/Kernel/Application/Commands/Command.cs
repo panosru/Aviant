@@ -1,6 +1,6 @@
-namespace Aviant.Application.Commands;
-
 using MediatR;
+
+namespace Aviant.Application.Commands;
 
 public abstract record Command<TResponse> : ICommand<TResponse>;
 

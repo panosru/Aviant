@@ -1,9 +1,9 @@
-namespace Aviant.Application.EventSourcing.Orchestration;
-
+using Aviant.Application.EventSourcing.Commands;
 using Aviant.Application.Orchestration;
-using Queries;
-using Commands;
-using Core.EventSourcing.Aggregates;
+using Aviant.Application.Queries;
+using Aviant.Core.EventSourcing.Aggregates;
+
+namespace Aviant.Application.EventSourcing.Orchestration;
 
 public interface IOrchestrator<in TAggregate, out TAggregateId>
     where TAggregate : class, IAggregate<TAggregateId>

@@ -1,6 +1,6 @@
-namespace Aviant.Application.Mappings;
-
 using AutoMapper;
+
+namespace Aviant.Application.Mappings;
 
 public interface IMapFrom<T>
 {

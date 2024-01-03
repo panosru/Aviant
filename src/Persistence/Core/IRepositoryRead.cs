@@ -1,8 +1,8 @@
-namespace Aviant.Core.Persistence;
-
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
-using Entities;
+using Aviant.Core.Entities;
+
+namespace Aviant.Core.Persistence;
 
 /// <inheritdoc />
 /// <summary>

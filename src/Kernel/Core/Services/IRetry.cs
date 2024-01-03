@@ -1,6 +1,6 @@
-namespace Aviant.Core.Services;
-
 using Polly;
+
+namespace Aviant.Core.Services;
 
 public interface IRetry
 {

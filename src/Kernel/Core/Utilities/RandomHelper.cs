@@ -1,6 +1,6 @@
-namespace Aviant.Core.Utilities;
+using Aviant.Core.Collections.Extensions;
 
-using Collections.Extensions;
+namespace Aviant.Core.Utilities;
 
 /// <summary>
 ///     A shortcut to use <see cref="Random" /> class.

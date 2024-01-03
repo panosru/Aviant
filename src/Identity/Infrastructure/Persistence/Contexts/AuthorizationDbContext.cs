@@ -1,8 +1,8 @@
-namespace Aviant.Infrastructure.Identity.Persistence.Contexts;
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+
+namespace Aviant.Infrastructure.Identity.Persistence.Contexts;
 
 /// <inheritdoc cref="Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext{TUser, TRole, TKey}" />
 /// <summary>

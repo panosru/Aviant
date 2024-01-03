@@ -1,10 +1,10 @@
-namespace Aviant.Infrastructure.Identity.Persistence.Contexts;
-
-using Application.Identity;
-using Application.Persistence;
-using Core.Identity.Entities;
-using Core.Services;
+using Aviant.Application.Identity;
+using Aviant.Application.Persistence;
+using Aviant.Core.Identity.Entities;
+using Aviant.Core.Services;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+
+namespace Aviant.Infrastructure.Identity.Persistence.Contexts;
 
 public interface IAuditableImplementation<TDbContext>
     : Infrastructure.Persistence.Contexts.IAuditableImplementation<TDbContext>

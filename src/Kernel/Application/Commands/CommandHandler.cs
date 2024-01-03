@@ -1,7 +1,7 @@
-namespace Aviant.Application.Commands;
-
 using MediatR;
 using Polly;
+
+namespace Aviant.Application.Commands;
 
 public abstract class CommandHandler<TCommand, TResponse> : ICommandHandler<TCommand, TResponse>
     where TCommand : ICommand<TResponse>

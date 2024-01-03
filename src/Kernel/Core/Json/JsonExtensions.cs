@@ -1,7 +1,7 @@
-namespace Aviant.Core.Json;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+
+namespace Aviant.Core.Json;
 
 public static class JsonExtensions
 {

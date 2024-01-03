@@ -1,6 +1,6 @@
-namespace Aviant.Infrastructure.EventSourcing.Transport.Kafka;
-
 using Confluent.Kafka;
+
+namespace Aviant.Infrastructure.EventSourcing.Transport.Kafka;
 
 internal sealed class KeyDeserializer : IDeserializer<Guid>
 {

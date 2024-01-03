@@ -1,6 +1,6 @@
-namespace Aviant.Core.DDD.TransferObjects;
-
 using Newtonsoft.Json;
+
+namespace Aviant.Core.DDD.TransferObjects;
 
 internal interface ITransferObject
 {

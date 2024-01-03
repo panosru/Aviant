@@ -1,7 +1,7 @@
-namespace Aviant.Core.Persistence;
-
 using System.Linq.Expressions;
-using Entities;
+using Aviant.Core.Entities;
+
+namespace Aviant.Core.Persistence;
 
 /// <inheritdoc />
 /// <summary>

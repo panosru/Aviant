@@ -1,6 +1,6 @@
-namespace Aviant.Core.Identity.Entities;
+using Aviant.Core.Entities;
 
-using Core.Entities;
+namespace Aviant.Core.Identity.Entities;
 
 /// <inheritdoc />
 /// <summary>

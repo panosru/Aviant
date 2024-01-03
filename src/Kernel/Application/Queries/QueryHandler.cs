@@ -1,6 +1,6 @@
-namespace Aviant.Application.Queries;
-
 using Polly;
+
+namespace Aviant.Application.Queries;
 
 public abstract class QueryHandler<TQuery, TResponse> : IQueryHandler<TQuery, TResponse>
     where TQuery : IQuery<TResponse>

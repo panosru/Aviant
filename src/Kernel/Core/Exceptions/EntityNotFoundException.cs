@@ -1,6 +1,6 @@
-namespace Aviant.Core.Exceptions;
-
 using System.Runtime.Serialization;
+
+namespace Aviant.Core.Exceptions;
 
 /// <summary>
 ///     This exception is thrown if an entity excepted to be found but not found.

@@ -1,8 +1,8 @@
-namespace Aviant.Application.Interceptors;
-
 using Castle.DynamicProxy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+
+namespace Aviant.Application.Interceptors;
 
 public static class ServicesExtensions
 {

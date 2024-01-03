@@ -1,6 +1,6 @@
-namespace Aviant.Core.Reflection.Extensions;
-
 using System.Reflection;
+
+namespace Aviant.Core.Reflection.Extensions;
 
 /// <summary>
 ///     Extensions to <see cref="MemberInfo" />.

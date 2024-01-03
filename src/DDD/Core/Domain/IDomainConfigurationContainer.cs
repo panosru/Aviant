@@ -1,6 +1,6 @@
-namespace Aviant.Core.DDD.Domain;
-
 using Microsoft.Extensions.Configuration;
+
+namespace Aviant.Core.DDD.Domain;
 
 public interface IDomainConfigurationContainer
 {

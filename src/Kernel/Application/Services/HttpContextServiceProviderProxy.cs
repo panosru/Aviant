@@ -1,8 +1,8 @@
-namespace Aviant.Application.Services;
-
-using Core.Services;
+using Aviant.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+
+namespace Aviant.Application.Services;
 
 public sealed class HttpContextServiceProviderProxy : IServiceContainer
 {

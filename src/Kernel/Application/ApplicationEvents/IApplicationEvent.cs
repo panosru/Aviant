@@ -1,6 +1,6 @@
-namespace Aviant.Application.ApplicationEvents;
-
 using MediatR;
+
+namespace Aviant.Application.ApplicationEvents;
 
 /// <inheritdoc />
 /// <summary>

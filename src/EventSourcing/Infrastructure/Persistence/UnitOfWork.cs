@@ -1,8 +1,8 @@
-namespace Aviant.Infrastructure.EventSourcing.Persistence;
+using Aviant.Application.EventSourcing.Persistence;
+using Aviant.Core.EventSourcing.Aggregates;
+using Aviant.Core.EventSourcing.Services;
 
-using Application.EventSourcing.Persistence;
-using Core.EventSourcing.Aggregates;
-using Core.EventSourcing.Services;
+namespace Aviant.Infrastructure.EventSourcing.Persistence;
 
 public sealed class UnitOfWork<TAggregate, TAggregateId>
     : IUnitOfWork<TAggregate, TAggregateId>

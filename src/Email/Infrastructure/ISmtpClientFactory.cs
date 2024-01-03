@@ -1,6 +1,6 @@
-namespace Aviant.Infrastructure.Email;
-
 using MailKit.Net.Smtp;
+
+namespace Aviant.Infrastructure.Email;
 
 public interface ISmtpClientFactory
 {

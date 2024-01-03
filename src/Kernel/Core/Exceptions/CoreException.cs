@@ -1,7 +1,7 @@
-namespace Aviant.Core.Exceptions;
-
 using System.Runtime.Serialization;
-using Timing;
+using Aviant.Core.Timing;
+
+namespace Aviant.Core.Exceptions;
 
 [Serializable]
 public class CoreException : Exception

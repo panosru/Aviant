@@ -1,8 +1,7 @@
-namespace Aviant.Core.Extensions;
-
-using System;
 using System.ComponentModel;
 using System.Globalization;
+
+namespace Aviant.Core.Extensions;
 
 /// <summary>
 ///     Extension methods for all objects.
@@ -38,8 +37,8 @@ public static class ObjectExtensions
         if (!typeof(T).IsEnum)
             return (T)Convert.ChangeType(obj, typeof(T), CultureInfo.InvariantCulture);
 
-        if (Enum.IsDefined(typeof(T), obj))
-            return (T)Enum.Parse(
+        if (System.Enum.IsDefined(typeof(T), obj))
+            return (T)System.Enum.Parse(
                 typeof(T),
                 obj.ToString()
              ?? throw new NullReferenceException(nameof(obj)));

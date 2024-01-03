@@ -1,8 +1,8 @@
-namespace Aviant.Core.Json;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Timing;
+using Aviant.Core.Timing;
+
+namespace Aviant.Core.Json;
 
 public sealed class DateTimeConverter : IsoDateTimeConverter
 {

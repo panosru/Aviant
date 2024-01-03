@@ -1,7 +1,7 @@
-namespace Aviant.Infrastructure.Persistence.Contexts;
-
-using Application.Persistence;
+using Aviant.Application.Persistence;
 using Microsoft.EntityFrameworkCore;
+
+namespace Aviant.Infrastructure.Persistence.Contexts;
 
 public abstract class DbContextRead
     : DbContext,

@@ -1,8 +1,8 @@
-namespace Aviant.Application.Services;
-
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+
+namespace Aviant.Application.Services;
 
 /// <inheritdoc />
 /// <summary>

@@ -1,6 +1,6 @@
-namespace Aviant.Core.Reflection;
-
 using System.Reflection;
+
+namespace Aviant.Core.Reflection;
 
 /// <summary>
 ///     Defines helper methods for reflection.

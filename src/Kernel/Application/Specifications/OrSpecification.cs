@@ -1,6 +1,6 @@
-namespace Aviant.Application.Specifications;
-
 using System.Linq.Expressions;
+
+namespace Aviant.Application.Specifications;
 
 /// <inheritdoc />
 /// <summary>

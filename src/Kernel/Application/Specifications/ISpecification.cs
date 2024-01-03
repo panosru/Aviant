@@ -1,6 +1,6 @@
-namespace Aviant.Application.Specifications;
-
 using System.Linq.Expressions;
+
+namespace Aviant.Application.Specifications;
 
 /// <summary>
 /// Represents that the implemented classes are specifications. For more

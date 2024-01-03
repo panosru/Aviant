@@ -1,6 +1,6 @@
-namespace Aviant.Application.Exceptions;
-
 using System.Runtime.Serialization;
+
+namespace Aviant.Application.Exceptions;
 
 [Serializable]
 public sealed class NotFoundException : ApplicationException

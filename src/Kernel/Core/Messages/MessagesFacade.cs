@@ -1,7 +1,7 @@
-namespace Aviant.Core.Messages;
+using Aviant.Core.Exceptions;
+using Aviant.Core.Services;
 
-using Exceptions;
-using Services;
+namespace Aviant.Core.Messages;
 
 internal static class MessagesFacade
 {

@@ -1,7 +1,7 @@
-namespace Aviant.Infrastructure.Persistence.Repository;
-
 using System.Linq.Expressions;
-using Core.Entities;
+using Aviant.Core.Entities;
+
+namespace Aviant.Infrastructure.Persistence.Repository;
 
 internal interface IRepositoryImplementation<TEntity, in TPrimaryKey> : IDisposable
     where TEntity : Entity<TPrimaryKey>

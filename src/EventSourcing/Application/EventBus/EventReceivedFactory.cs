@@ -1,6 +1,6 @@
-namespace Aviant.Application.EventSourcing.EventBus;
+using Aviant.Core.EventSourcing.EventBus;
 
-using Core.EventSourcing.EventBus;
+namespace Aviant.Application.EventSourcing.EventBus;
 
 internal static class EventReceivedFactory
 {

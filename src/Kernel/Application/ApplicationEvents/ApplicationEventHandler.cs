@@ -1,6 +1,6 @@
-namespace Aviant.Application.ApplicationEvents;
-
 using Polly;
+
+namespace Aviant.Application.ApplicationEvents;
 
 public abstract class ApplicationEventHandler<TApplicationEvent>
     : IApplicationEventHandler<TApplicationEvent>

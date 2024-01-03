@@ -1,7 +1,7 @@
-namespace Aviant.Application.Orchestration;
+using Aviant.Application.Commands;
+using Aviant.Application.Queries;
 
-using Commands;
-using Queries;
+namespace Aviant.Application.Orchestration;
 
 public interface IOrchestrator
 {

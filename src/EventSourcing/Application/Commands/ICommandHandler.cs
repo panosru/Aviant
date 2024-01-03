@@ -1,8 +1,8 @@
-namespace Aviant.Application.EventSourcing.Commands;
-
+using Aviant.Core.EventSourcing.Aggregates;
 using Aviant.Core.Services;
-using Core.EventSourcing.Aggregates;
 using MediatR;
+
+namespace Aviant.Application.EventSourcing.Commands;
 
 internal interface ICommandHandler<in TCommand, TAggregate, TAggregateId>
     : IRequestHandler<TCommand, TAggregate>,

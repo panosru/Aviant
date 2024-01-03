@@ -1,6 +1,6 @@
-namespace Aviant.Core.EventSourcing.EventBus;
+using Aviant.Core.EventSourcing.Aggregates;
 
-using Aggregates;
+namespace Aviant.Core.EventSourcing.EventBus;
 
 public interface IEventConsumerFactory
 {

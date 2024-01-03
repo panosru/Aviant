@@ -1,7 +1,5 @@
 namespace Aviant.Application.Identity.Behaviours;
 
-using Identity;
-
 public class LoggerBehaviour<TRequest> : Aviant.Application.Behaviours.LoggerBehaviour<TRequest>
     where TRequest : notnull
 {

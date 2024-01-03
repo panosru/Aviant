@@ -1,6 +1,6 @@
-namespace Aviant.Infrastructure.Persistence;
+using Aviant.Application.Persistence;
 
-using Application.Persistence;
+namespace Aviant.Infrastructure.Persistence;
 
 public sealed class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext>, IDisposable
     where TDbContext : IDbContextWrite

@@ -1,7 +1,7 @@
-namespace Aviant.Application.Behaviours;
-
 using MediatR;
 using Serilog;
+
+namespace Aviant.Application.Behaviours;
 
 public sealed class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>

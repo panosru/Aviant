@@ -1,12 +1,11 @@
-namespace Aviant.Core.Extensions;
-
-using System;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using Collections.Extensions;
+using Aviant.Core.Collections.Extensions;
 using JetBrains.Annotations;
+
+namespace Aviant.Core.Extensions;
 
 /// <summary>
 ///     Extension methods for String class.
@@ -304,7 +303,7 @@ public static partial class StringExtensions
         if (value is null)
             throw new ArgumentNullException(nameof(value));
 
-        return (T)Enum.Parse(typeof(T), value);
+        return (T)System.Enum.Parse(typeof(T), value);
     }
 
     /// <summary>
@@ -320,7 +319,7 @@ public static partial class StringExtensions
         if (value is null)
             throw new ArgumentNullException(nameof(value));
 
-        return (T)Enum.Parse(typeof(T), value, ignoreCase);
+        return (T)System.Enum.Parse(typeof(T), value, ignoreCase);
     }
 
     public static string ToMd5(this string str)

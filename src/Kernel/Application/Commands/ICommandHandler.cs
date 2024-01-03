@@ -1,7 +1,7 @@
-namespace Aviant.Application.Commands;
-
-using Core.Services;
+using Aviant.Core.Services;
 using MediatR;
+
+namespace Aviant.Application.Commands;
 
 internal interface ICommandHandler<in TCommand, TResponse>
     : IRequestHandler<TCommand, TResponse>,

@@ -1,6 +1,6 @@
-namespace Aviant.Application.ApplicationEvents;
-
 using System.Collections.ObjectModel;
+
+namespace Aviant.Application.ApplicationEvents;
 
 public interface IApplicationEventDispatcher
 {

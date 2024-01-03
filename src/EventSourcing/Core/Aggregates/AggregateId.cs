@@ -1,7 +1,7 @@
-namespace Aviant.Core.EventSourcing.Aggregates;
-
 using System.Globalization;
 using System.Text;
+
+namespace Aviant.Core.EventSourcing.Aggregates;
 
 /// <inheritdoc />
 /// <summary>

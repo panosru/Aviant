@@ -1,6 +1,6 @@
-namespace Aviant.Application.Identity;
-
 using Microsoft.AspNetCore.Identity;
+
+namespace Aviant.Application.Identity;
 
 public abstract class ApplicationUser : IdentityUser<Guid>
 {

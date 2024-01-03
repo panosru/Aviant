@@ -1,9 +1,9 @@
-namespace Aviant.Core.Utilities;
-
 using System.Diagnostics;
-using Collections.Extensions;
-using Extensions;
+using Aviant.Core.Collections.Extensions;
+using Aviant.Core.Extensions;
 using JetBrains.Annotations;
+
+namespace Aviant.Core.Utilities;
 
 [DebuggerStepThrough]
 public static class Check

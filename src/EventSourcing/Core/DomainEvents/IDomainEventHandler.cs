@@ -1,8 +1,8 @@
-namespace Aviant.Core.EventSourcing.DomainEvents;
-
+using Aviant.Core.EventSourcing.EventBus;
 using Aviant.Core.Services;
-using EventBus;
 using MediatR;
+
+namespace Aviant.Core.EventSourcing.DomainEvents;
 
 internal interface IDomainEventHandler<TDomainEvent>
     : INotificationHandler<EventReceived<TDomainEvent>>,

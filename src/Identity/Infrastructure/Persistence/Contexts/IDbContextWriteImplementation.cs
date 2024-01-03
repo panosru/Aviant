@@ -1,9 +1,9 @@
-namespace Aviant.Infrastructure.Identity.Persistence.Contexts;
-
-using Application.Persistence;
-using Core.Entities;
+using Aviant.Application.Persistence;
+using Aviant.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+
+namespace Aviant.Infrastructure.Identity.Persistence.Contexts;
 
 public interface IDbContextWriteImplementation<TDbContext>
     : Infrastructure.Persistence.Contexts.IDbContextWriteImplementation<TDbContext>

@@ -1,6 +1,6 @@
-namespace Aviant.Core.EventSourcing.Persistence;
+using Aviant.Core.EventSourcing.Aggregates;
 
-using Aggregates;
+namespace Aviant.Core.EventSourcing.Persistence;
 
 public interface IEventsRepository<TAggregate, in TAggregateId>
     where TAggregate : class?, IAggregate<TAggregateId>?

@@ -1,7 +1,7 @@
-namespace Aviant.Core.EventSourcing.Services;
+using Aviant.Core.EventSourcing.Aggregates;
+using Aviant.Core.EventSourcing.DomainEvents;
 
-using Aggregates;
-using DomainEvents;
+namespace Aviant.Core.EventSourcing.Services;
 
 public interface IEventSerializer
 {

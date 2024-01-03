@@ -1,13 +1,13 @@
-namespace Aviant.Infrastructure.Persistence.Contexts;
-
 using System.Linq.Expressions;
 using System.Reflection;
-using Application.Persistence;
-using Core.Entities;
-using Core.Timing;
+using Aviant.Application.Persistence;
+using Aviant.Core.Entities;
+using Aviant.Core.Timing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
+
+namespace Aviant.Infrastructure.Persistence.Contexts;
 
 public interface IAuditableImplementation<TDbContext>
     where TDbContext : class, IDbContextWrite

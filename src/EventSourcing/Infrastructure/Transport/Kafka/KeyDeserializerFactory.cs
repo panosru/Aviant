@@ -1,7 +1,7 @@
-namespace Aviant.Infrastructure.EventSourcing.Transport.Kafka;
-
 using Confluent.Kafka;
-using Core.EventSourcing.Aggregates;
+using Aviant.Core.EventSourcing.Aggregates;
+
+namespace Aviant.Infrastructure.EventSourcing.Transport.Kafka;
 
 internal sealed class KeyDeserializerFactory
 {

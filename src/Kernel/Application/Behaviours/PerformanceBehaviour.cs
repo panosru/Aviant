@@ -1,8 +1,8 @@
-namespace Aviant.Application.Behaviours;
-
 using System.Diagnostics;
 using MediatR;
 using Serilog;
+
+namespace Aviant.Application.Behaviours;
 
 public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>

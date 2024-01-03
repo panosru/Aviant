@@ -1,6 +1,6 @@
-namespace Aviant.Application.Identity.Behaviours;
-
 using MediatR;
+
+namespace Aviant.Application.Identity.Behaviours;
 
 public class PerformanceBehaviour<TRequest, TResponse>
     : Application.Behaviours.PerformanceBehaviour<TRequest, TResponse>

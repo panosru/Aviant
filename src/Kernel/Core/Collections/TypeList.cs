@@ -1,7 +1,7 @@
-namespace Aviant.Core.Collections;
-
 using System.Collections;
 using System.Reflection;
+
+namespace Aviant.Core.Collections;
 
 /// <inheritdoc cref="Aviant.Core.Collections.ITypeList" />
 /// <summary>

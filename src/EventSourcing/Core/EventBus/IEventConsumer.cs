@@ -1,8 +1,8 @@
-namespace Aviant.Core.EventSourcing.EventBus;
-
 using System.Diagnostics.CodeAnalysis;
-using Aggregates;
-using DomainEvents;
+using Aviant.Core.EventSourcing.Aggregates;
+using Aviant.Core.EventSourcing.DomainEvents;
+
+namespace Aviant.Core.EventSourcing.EventBus;
 
 public interface IEventConsumer
 {

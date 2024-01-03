@@ -1,7 +1,7 @@
-namespace Aviant.Infrastructure.Exceptions;
-
 using System.Runtime.Serialization;
-using Core.Exceptions;
+using Aviant.Core.Exceptions;
+
+namespace Aviant.Infrastructure.Exceptions;
 
 [Serializable]
 public class InfrastructureException : CoreException

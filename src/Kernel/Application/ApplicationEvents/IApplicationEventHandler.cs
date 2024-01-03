@@ -1,7 +1,7 @@
-namespace Aviant.Application.ApplicationEvents;
-
-using Core.Services;
+using Aviant.Core.Services;
 using MediatR;
+
+namespace Aviant.Application.ApplicationEvents;
 
 internal interface IApplicationEventHandler<in TApplicationEvent>
     : INotificationHandler<TApplicationEvent>,

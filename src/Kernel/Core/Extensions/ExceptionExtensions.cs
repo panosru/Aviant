@@ -1,7 +1,7 @@
-namespace Aviant.Core.Extensions;
-
 using System.Runtime.ExceptionServices;
 using System.Text.RegularExpressions;
+
+namespace Aviant.Core.Extensions;
 
 /// <summary>
 ///     Extension methods for <see cref="Exception" /> class.

@@ -1,7 +1,7 @@
-namespace Aviant.Application.Mappings;
-
 using System.Reflection;
 using AutoMapper;
+
+namespace Aviant.Application.Mappings;
 
 public sealed class MappingProfile : Profile
 {

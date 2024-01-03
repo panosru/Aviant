@@ -1,7 +1,7 @@
-namespace Aviant.Application.Extensions;
-
-using Processors;
+using Aviant.Application.Processors;
 using Scrutor;
+
+namespace Aviant.Application.Extensions;
 
 public static class HandlerRegistryExtension
 {

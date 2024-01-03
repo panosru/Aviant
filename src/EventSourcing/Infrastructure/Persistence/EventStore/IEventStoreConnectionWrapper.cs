@@ -1,6 +1,6 @@
-namespace Aviant.Infrastructure.EventSourcing.Persistence.EventStore;
+using EventStore.ClientAPI;
 
-using global::EventStore.ClientAPI;
+namespace Aviant.Infrastructure.EventSourcing.Persistence.EventStore;
 
 public interface IEventStoreConnectionWrapper
 {

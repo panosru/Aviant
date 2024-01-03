@@ -1,11 +1,11 @@
-namespace Aviant.Infrastructure.Identity.Persistence.Contexts;
-
 using System.Reflection;
-using Application.Identity;
-using Application.Persistence;
-using Core.Entities;
-using Infrastructure.Persistence.Configurations;
+using Aviant.Application.Identity;
+using Aviant.Application.Persistence;
+using Aviant.Core.Entities;
+using Aviant.Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
+
+namespace Aviant.Infrastructure.Identity.Persistence.Contexts;
 
 public abstract class AuthorizationDbContextWrite<TDbContext, TApplicationUser, TApplicationRole>
     : AuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>,

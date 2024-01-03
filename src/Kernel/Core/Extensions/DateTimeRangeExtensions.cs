@@ -1,6 +1,6 @@
-namespace Aviant.Core.Extensions;
+using Aviant.Core.Timing;
 
-using Timing;
+namespace Aviant.Core.Extensions;
 
 /// <summary>
 ///     Extension methods for <see cref="IDateTimeRange" />.

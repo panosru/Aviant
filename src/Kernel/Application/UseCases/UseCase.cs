@@ -1,12 +1,12 @@
 // ReSharper disable MemberCanBePrivate.Global
 
+using Aviant.Application.Behaviours;
+using Aviant.Core.Services;
+using FluentValidation;
+using Aviant.Application.Orchestration;
+
 #pragma warning disable 8618
 namespace Aviant.Application.UseCases;
-
-using Behaviours;
-using Core.Services;
-using FluentValidation;
-using Orchestration;
 
 /// <summary>
 ///     The Use Case Abstract Base class

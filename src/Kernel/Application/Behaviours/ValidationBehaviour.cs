@@ -1,9 +1,9 @@
-namespace Aviant.Application.Behaviours;
-
 using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
-using ValidationException = Exceptions.ValidationException;
+using ValidationException = Aviant.Application.Exceptions.ValidationException;
+
+namespace Aviant.Application.Behaviours;
 
 /// <inheritdoc />
 /// <summary>

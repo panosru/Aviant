@@ -1,7 +1,7 @@
-namespace Aviant.Application.Exceptions;
-
 using System.Runtime.Serialization;
 using FluentValidation.Results;
+
+namespace Aviant.Application.Exceptions;
 
 [Serializable]
 public sealed class ValidationException : ApplicationException

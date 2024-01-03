@@ -1,6 +1,6 @@
-namespace Aviant.Core.Reflection.Extensions;
-
 using System.Reflection;
+
+namespace Aviant.Core.Reflection.Extensions;
 
 public static class TypeExtensions
 {

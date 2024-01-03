@@ -1,6 +1,6 @@
-namespace Aviant.Application.ApplicationEvents;
+using Aviant.Core.Timing;
 
-using Core.Timing;
+namespace Aviant.Application.ApplicationEvents;
 
 public abstract record ApplicationEvent : IApplicationEvent
 {

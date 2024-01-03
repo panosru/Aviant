@@ -1,6 +1,6 @@
-namespace Aviant.Application.Interceptors;
-
 using Castle.DynamicProxy;
+
+namespace Aviant.Application.Interceptors;
 
 public abstract class InterceptorBaseAttribute : Attribute
 { }

@@ -1,10 +1,10 @@
-namespace Aviant.Application.Orchestration;
-
-using ApplicationEvents;
-using Commands;
-using Core.Messages;
+using Aviant.Application.ApplicationEvents;
+using Aviant.Application.Commands;
+using Aviant.Application.Queries;
+using Aviant.Core.Messages;
 using MediatR;
-using Queries;
+
+namespace Aviant.Application.Orchestration;
 
 public abstract class OrchestratorBase
 {

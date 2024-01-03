@@ -1,7 +1,7 @@
-namespace Aviant.Infrastructure.DDD.CrossCutting;
-
-using Core.DDD.Domain;
+using Aviant.Core.DDD.Domain;
 using Microsoft.Extensions.Configuration;
+
+namespace Aviant.Infrastructure.DDD.CrossCutting;
 
 public class DomainConfigurationContainer : IDomainConfigurationContainer
 {

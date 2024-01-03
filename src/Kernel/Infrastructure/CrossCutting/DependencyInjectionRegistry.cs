@@ -1,12 +1,12 @@
-namespace Aviant.Infrastructure.CrossCutting;
-
 using System.Globalization;
 using System.Reflection;
-using Core.Services;
+using Aviant.Core.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 using NetEscapades.Configuration.Yaml;
+
+namespace Aviant.Infrastructure.CrossCutting;
 
 public static class DependencyInjectionRegistry
 {

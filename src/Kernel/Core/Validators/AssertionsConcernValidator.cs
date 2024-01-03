@@ -1,6 +1,6 @@
-namespace Aviant.Core.Validators;
+using Aviant.Core.Messages;
 
-using Messages;
+namespace Aviant.Core.Validators;
 
 public static class AssertionsConcernValidator
 {

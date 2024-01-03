@@ -1,6 +1,6 @@
-namespace Aviant.Core.Reflection;
-
 using Castle.DynamicProxy;
+
+namespace Aviant.Core.Reflection;
 
 public static class ProxyHelper
 {

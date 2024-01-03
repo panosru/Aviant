@@ -1,6 +1,6 @@
-namespace Aviant.Application.Commands;
-
 using FluentValidation;
+
+namespace Aviant.Application.Commands;
 
 public abstract class CommandValidator<TCommand> : AbstractValidator<TCommand>
 {

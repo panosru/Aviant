@@ -1,9 +1,9 @@
-namespace Aviant.Infrastructure.Email;
-
-using Application.Email;
+using Aviant.Application.Email;
 using MailKit.Net.Smtp;
 using MimeKit;
 using MimeKit.Text;
+
+namespace Aviant.Infrastructure.Email;
 
 public class EmailService : IEmailService, IDisposable
 {

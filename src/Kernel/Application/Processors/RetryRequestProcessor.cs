@@ -1,8 +1,8 @@
-namespace Aviant.Application.Processors;
-
-using Core.Services;
+using Aviant.Core.Services;
 using MediatR;
 using Polly;
+
+namespace Aviant.Application.Processors;
 
 public sealed class RetryRequestProcessor<TRequest, TResponse>
     : IRequestHandler<TRequest, TResponse>

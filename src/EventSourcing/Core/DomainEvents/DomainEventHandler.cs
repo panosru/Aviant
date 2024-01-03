@@ -1,7 +1,7 @@
-namespace Aviant.Core.EventSourcing.DomainEvents;
-
-using EventBus;
+using Aviant.Core.EventSourcing.EventBus;
 using Polly;
+
+namespace Aviant.Core.EventSourcing.DomainEvents;
 
 /// <inheritdoc />
 public abstract class DomainEventHandler<TDomainEvent> : IDomainEventHandler<TDomainEvent>

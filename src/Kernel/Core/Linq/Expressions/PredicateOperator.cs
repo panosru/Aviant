@@ -1,7 +1,7 @@
-namespace Aviant.Core.Linq.Expressions;
-
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
+
+namespace Aviant.Core.Linq.Expressions;
 
 // The code below is taken from https://github.com/scottksmith95/LINQKit project.
 

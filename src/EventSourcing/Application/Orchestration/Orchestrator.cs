@@ -1,12 +1,12 @@
-namespace Aviant.Application.EventSourcing.Orchestration;
-
-using ApplicationEvents;
+using Aviant.Application.ApplicationEvents;
+using Aviant.Application.EventSourcing.Commands;
+using Aviant.Application.EventSourcing.Persistence;
 using Aviant.Application.Orchestration;
-using Core.Messages;
-using Commands;
-using Core.EventSourcing.Aggregates;
+using Aviant.Core.EventSourcing.Aggregates;
+using Aviant.Core.Messages;
 using MediatR;
-using Persistence;
+
+namespace Aviant.Application.EventSourcing.Orchestration;
 
 public sealed class Orchestrator<TAggregate, TAggregateId>
     : OrchestratorBase,

@@ -1,7 +1,7 @@
-namespace Aviant.Infrastructure.EventSourcing.Persistence.EventStore;
-
 using global::EventStore.ClientAPI;
 using Serilog;
+
+namespace Aviant.Infrastructure.EventSourcing.Persistence.EventStore;
 
 public sealed class EventStoreConnectionWrapper : IEventStoreConnectionWrapper, IAsyncDisposable, IDisposable
 {

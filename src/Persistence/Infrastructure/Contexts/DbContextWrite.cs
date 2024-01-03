@@ -1,10 +1,10 @@
-namespace Aviant.Infrastructure.Persistence.Contexts;
-
 using System.Reflection;
-using Application.Persistence;
-using Configurations;
-using Core.Entities;
+using Aviant.Application.Persistence;
+using Aviant.Infrastructure.Persistence.Configurations;
+using Aviant.Core.Entities;
 using Microsoft.EntityFrameworkCore;
+
+namespace Aviant.Infrastructure.Persistence.Contexts;
 
 public abstract class DbContextWrite<TDbContext>
     : DbContext,

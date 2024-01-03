@@ -1,7 +1,7 @@
-namespace Aviant.Core.Linq.Expressions;
-
 using System.Linq.Expressions;
 using Ardalis.GuardClauses;
+
+namespace Aviant.Core.Linq.Expressions;
 
 internal static class ExpressionCombiner
 {

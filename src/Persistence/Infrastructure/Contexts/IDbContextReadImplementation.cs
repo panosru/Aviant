@@ -1,8 +1,8 @@
-namespace Aviant.Infrastructure.Persistence.Contexts;
-
-using Exceptions;
+using Aviant.Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+
+namespace Aviant.Infrastructure.Persistence.Contexts;
 
 public interface IDbContextReadImplementation
 {

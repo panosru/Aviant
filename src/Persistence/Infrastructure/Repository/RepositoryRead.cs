@@ -1,12 +1,12 @@
-namespace Aviant.Infrastructure.Persistence.Repository;
-
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
-using Contexts;
-using Core.Entities;
-using Core.Exceptions;
-using Core.Persistence;
+using Aviant.Infrastructure.Persistence.Contexts;
+using Aviant.Core.Entities;
+using Aviant.Core.Exceptions;
+using Aviant.Core.Persistence;
 using Microsoft.EntityFrameworkCore;
+
+namespace Aviant.Infrastructure.Persistence.Repository;
 
 /// <inheritdoc cref="Aviant.Core.Persistence.IRepositoryRead{TEntity,TPrimaryKey}" />
 public abstract class RepositoryReadBase<TDbContext, TEntity, TPrimaryKey>

@@ -1,6 +1,6 @@
-namespace Aviant.Application.EventSourcing.Persistence;
+using Aviant.Core.EventSourcing.Aggregates;
 
-using Core.EventSourcing.Aggregates;
+namespace Aviant.Application.EventSourcing.Persistence;
 
 public interface IUnitOfWork<in TAggregate, TAggregateId>
     where TAggregate : class, IAggregate<TAggregateId>

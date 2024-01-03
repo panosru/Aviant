@@ -1,11 +1,11 @@
-namespace Aviant.Infrastructure.Persistence.Repository;
-
 using System.Linq.Expressions;
-using Contexts;
-using Core.Entities;
-using Core.Exceptions;
-using Core.Persistence;
+using Aviant.Infrastructure.Persistence.Contexts;
+using Aviant.Core.Entities;
+using Aviant.Core.Exceptions;
+using Aviant.Core.Persistence;
 using Microsoft.EntityFrameworkCore;
+
+namespace Aviant.Infrastructure.Persistence.Repository;
 
 /// <inheritdoc cref="Aviant.Core.Persistence.IRepositoryWrite{TEntity,TPrimaryKey}" />
 public abstract class RepositoryWriteBase<TDbContext, TEntity, TPrimaryKey>

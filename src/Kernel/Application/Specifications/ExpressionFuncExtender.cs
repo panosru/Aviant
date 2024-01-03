@@ -1,6 +1,6 @@
-namespace Aviant.Application.Specifications;
-
 using System.Linq.Expressions;
+
+namespace Aviant.Application.Specifications;
 
 /// <summary>
 /// Represents the extender for Expression[Func[T, bool]] type.

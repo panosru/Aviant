@@ -1,8 +1,8 @@
-namespace Aviant.Core.Reflection;
-
 using System.Reflection;
 using Castle.Core.Logging;
-using Collections.Extensions;
+using Aviant.Core.Collections.Extensions;
+
+namespace Aviant.Core.Reflection;
 
 public class TypeFinder : ITypeFinder
 {

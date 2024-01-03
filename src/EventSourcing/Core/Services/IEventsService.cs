@@ -1,6 +1,6 @@
-namespace Aviant.Core.EventSourcing.Services;
+using Aviant.Core.EventSourcing.Aggregates;
 
-using Aggregates;
+namespace Aviant.Core.EventSourcing.Services;
 
 public interface IEventsService<TAggregate, in TAggregateId>
     where TAggregate : class, IAggregate<TAggregateId>

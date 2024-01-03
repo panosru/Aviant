@@ -1,9 +1,9 @@
-namespace Aviant.Infrastructure.Identity.Persistence.Contexts;
-
-using Application.Identity;
-using Application.Persistence;
-using Infrastructure.Persistence.Contexts;
+using Aviant.Application.Identity;
+using Aviant.Application.Persistence;
+using Aviant.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
+
+namespace Aviant.Infrastructure.Identity.Persistence.Contexts;
 
 public abstract class AuthorizationDbContextRead<TApplicationUser, TApplicationRole>
     : AuthorizationDbContext<TApplicationUser, TApplicationRole, Guid>,

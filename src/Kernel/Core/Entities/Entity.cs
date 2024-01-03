@@ -1,6 +1,6 @@
-namespace Aviant.Core.Entities;
-
 using System.Globalization;
+
+namespace Aviant.Core.Entities;
 
 /// <inheritdoc />
 public abstract class Entity<TKey> : IEntity<TKey>

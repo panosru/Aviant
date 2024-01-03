@@ -1,9 +1,8 @@
-namespace Aviant.Application.Persistence.Orchestration;
+using Aviant.Application.Orchestration;
+using Aviant.Application.Commands;
+using Aviant.Application.Queries;
 
-using Application.Orchestration;
-using Commands;
-using Persistence;
-using Queries;
+namespace Aviant.Application.Persistence.Orchestration;
 
 // ReSharper disable once UnusedTypeParameter
 public interface IOrchestrator<TDbContext>

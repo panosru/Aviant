@@ -1,6 +1,6 @@
-namespace Aviant.Core.Reflection;
-
 using System.Reflection;
+
+namespace Aviant.Core.Reflection;
 
 internal static class AssemblyHelper
 {

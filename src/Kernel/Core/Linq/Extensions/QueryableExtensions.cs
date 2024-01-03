@@ -1,6 +1,6 @@
-namespace Aviant.Core.Linq.Extensions;
-
 using System.Linq.Expressions;
+
+namespace Aviant.Core.Linq.Extensions;
 
 /// <summary>
 ///     Some useful extension methods for <see cref="IQueryable" />.

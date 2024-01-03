@@ -1,7 +1,7 @@
-namespace Aviant.Application.Behaviours;
-
-using Processors;
+using Aviant.Application.Processors;
 using Serilog;
+
+namespace Aviant.Application.Behaviours;
 
 public class LoggerBehaviour<TRequest> : RequestPreProcessor<TRequest>
     where TRequest : notnull
