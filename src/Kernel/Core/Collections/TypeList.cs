@@ -7,8 +7,7 @@ namespace Aviant.Core.Collections;
 /// <summary>
 /// A shortcut for <see cref="T:Aviant.Core.Collections.TypeList`1" /> to use object as base type.
 /// </summary>
-public class TypeList : TypeList<object>, ITypeList
-{ }
+public class TypeList : TypeList<object>, ITypeList;
 
 /// <inheritdoc />
 /// <summary>

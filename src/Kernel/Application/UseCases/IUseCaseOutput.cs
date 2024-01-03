@@ -1,4 +1,3 @@
 namespace Aviant.Application.UseCases;
 
-public interface IUseCaseOutput
-{ }
+public interface IUseCaseOutput;

@@ -1,4 +1,3 @@
 namespace Aviant.Application.Persistence;
 
-public interface IDbContextRead : IDisposable
-{ }
+public interface IDbContextRead : IDisposable;

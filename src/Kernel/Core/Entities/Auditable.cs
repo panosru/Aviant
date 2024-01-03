@@ -3,8 +3,7 @@ namespace Aviant.Core.Entities;
 /// <summary>
 ///     Enables the auditability for the entity (db record)
 /// </summary>
-public interface IAuditedEntity
-{ }
+public interface IAuditedEntity;
 
 /// <inheritdoc />
 /// <summary>
@@ -47,5 +46,4 @@ public interface IHasDeletionTime : IAuditedEntity
 /// <summary>
 ///     Prohibits the entity from being edited
 /// </summary>
-public interface IReadOnly : IAuditedEntity
-{ }
+public interface IReadOnly : IAuditedEntity;

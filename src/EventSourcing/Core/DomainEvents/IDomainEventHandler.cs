@@ -6,5 +6,4 @@ namespace Aviant.Core.EventSourcing.DomainEvents;
 
 internal interface IDomainEventHandler<TDomainEvent>
     : INotificationHandler<EventReceived<TDomainEvent>>,
-      IRetry
-{ }
+        IRetry;
