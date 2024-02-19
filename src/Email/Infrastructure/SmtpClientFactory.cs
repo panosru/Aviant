@@ -5,24 +5,24 @@ namespace Aviant.Infrastructure.Email;
 
 public class SmtpClientFactory : ISmtpClientFactory
 {
-    private readonly string _address;
-
-    private readonly string _password;
+    private readonly string _smtpHost;
 
     private readonly int _port;
-
-    private readonly string _username;
-
+    
     private readonly bool _useSsl;
 
+    private readonly string _username;
+    
+    private readonly string _password;
+
     public SmtpClientFactory(
-        string address,
+        string smtpHost,
         int    port,
         bool   useSsl,
         string username,
         string password)
     {
-        _address  = address;
+        _smtpHost  = smtpHost;
         _port     = port;
         _useSsl   = useSsl;
         _username = username;
@@ -36,7 +36,7 @@ public class SmtpClientFactory : ISmtpClientFactory
         SmtpClient client = new();
 
         client.Connect(
-            _address,
+            _smtpHost,
             _port,
             _useSsl
                 ? SecureSocketOptions.SslOnConnect
