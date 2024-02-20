@@ -5,12 +5,12 @@ public class LoggerBehaviour<TRequest> : Aviant.Application.Behaviours.LoggerBeh
 {
     private readonly ICurrentUserService _currentUserService;
 
-    private readonly IIdentityService _identityIdentityService;
+    private readonly IIdentityService _identityService;
 
-    public LoggerBehaviour(ICurrentUserService currentUserService, IIdentityService identityIdentityService)
+    public LoggerBehaviour(ICurrentUserService currentUserService, IIdentityService identityService)
     {
         _currentUserService      = currentUserService;
-        _identityIdentityService = identityIdentityService;
+        _identityService = identityService;
     }
 
     #region IRequestPreProcessor<TRequest> Members
@@ -22,7 +22,7 @@ public class LoggerBehaviour<TRequest> : Aviant.Application.Behaviours.LoggerBeh
         var username    = string.Empty;
 
         if (Guid.Empty != userId)
-            username = await _identityIdentityService.GetUserNameAsync(userId, cancellationToken)
+            username = await _identityService.GetUserNameAsync(userId, cancellationToken)
                .ConfigureAwait(false);
 
         Logger.Information(

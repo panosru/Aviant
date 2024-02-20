@@ -8,12 +8,12 @@ public class PerformanceBehaviour<TRequest, TResponse>
 {
     private readonly ICurrentUserService _currentUserService;
 
-    private readonly IIdentityService _identityIdentityService;
+    private readonly IIdentityService _identityService;
 
-    public PerformanceBehaviour(ICurrentUserService currentUserService, IIdentityService identityIdentityService)
+    public PerformanceBehaviour(ICurrentUserService currentUserService, IIdentityService identityService)
     {
         _currentUserService      = currentUserService;
-        _identityIdentityService = identityIdentityService;
+        _identityService = identityService;
     }
 
     #region IPipelineBehavior<TRequest,TResponse> Members
@@ -38,7 +38,7 @@ public class PerformanceBehaviour<TRequest, TResponse>
         var username    = string.Empty;
 
         if (Guid.Empty != userId)
-            username = await _identityIdentityService.GetUserNameAsync(userId, cancellationToken)
+            username = await _identityService.GetUserNameAsync(userId, cancellationToken)
                .ConfigureAwait(false);
 
         Logger.Warning(
