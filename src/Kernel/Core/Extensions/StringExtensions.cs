@@ -12,7 +12,7 @@ namespace Aviant.Core.Extensions;
 /// </summary>
 public static partial class StringExtensions
 {
-    [GeneratedRegex("[a-z][A-Z]")]
+    [GeneratedRegex("[a-z][A-Z]", RegexOptions.CultureInvariant, matchTimeoutMilliseconds: 1000)]
     private static partial Regex GetAZiRegex();
     
     /// <summary>
