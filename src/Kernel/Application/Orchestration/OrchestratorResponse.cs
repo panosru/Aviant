@@ -25,7 +25,7 @@ public sealed class OrchestratorResponse
         Succeeded = false;
     }
 
-    public bool Succeeded { get; }
+    public bool Succeeded { get; private  set; }
 
     public Collection<string> Messages { get; } = new();
 
@@ -36,7 +36,15 @@ public sealed class OrchestratorResponse
 
     public T Payload<T>()
     {
-        Guard.Against.Null(_payload, nameof(_payload));
+        try
+        {
+            Guard.Against.Null(_payload, nameof(_payload));
+        }
+        catch (Exception ex)
+        {
+            Succeeded = false;
+            throw;
+        }
 
         if (_payload is not T payload)
             throw new NotSupportedException(
